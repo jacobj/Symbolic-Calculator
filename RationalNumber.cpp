@@ -12,7 +12,7 @@
 
 #include "RationalNumber.h"
 
-RationalNumber::RationalNumber(Number *numerator, Number *denominator) {
+RationalNumber::RationalNumber(Number* numerator, Number* denominator) {
   this->numerator = numerator;
   this->denominator = denominator
 }
@@ -25,7 +25,7 @@ RationalNumber::~RationalNumber() {
 // Simplify helper method.
 void RationalNumber::simplify() {
   // Simplify coefficients first
-  int gcd = simplify(denominator.getCoefficient(), numerator.getCoefficient());
+  int gcd = findGCD(denominator.getCoefficient(), numerator.getCoefficient());
   denominator.setCoefficient(denominator.getCoefficient() / gcd);
   numerator.setCoefficient(numerator.getCoefficient() / gcd);
   /*
@@ -35,12 +35,13 @@ void RationalNumber::simplify() {
   if (typeid(denominator) == TranscendentalNumber && 
       typeid(numerator) == TranscendentalNumber) {
     if (denominator.getValue() == numerator.getValue()) {
-      // Then thise values cancel
+      // Then these values cancel
       denominator = new Integer(denominator.getCoefficient());
       numerator = new Integer(numerator.getCoefficient());
       return;
+    } else{
+      return;
     }
-    return;
   }
   if (typeid(denominator) == nthRootIrrational && 
       typeid(numerator) == nthRootIrrational) {
@@ -52,8 +53,9 @@ void RationalNumber::simplify() {
         && denominator.getNthRoot() == numerator.getNthRoot()) {
       denominator = new Integer(denominator.getCoefficient());
       numerator = new Integer(numerator.getCoefficient());
+    } else {
+      return;
     }
-    return;
   }
   if (typeid(denominator) == Logarithm && typeid(numerator) == Logarithm) {
     /*
@@ -64,16 +66,19 @@ void RationalNumber::simplify() {
         && denominator.getBase() == numerator.getBase()) {
       denominator = new Integer(denominator.getCoefficient());
       numerator = new Integer(numerator.getCoefficient());
+    } else {
+      return;
     }
+  } else {
     return;
   }
-  return;
 }
 
 // Use euclid's algorithm
-int RationalNumber::simplify(int a, int b) {
-  if (b == 0)
+int RationalNumber::findGCD(int a, int b) {
+  if (b == 0) {
     return a;
-  else 
+  } else {
     return gcd(b, a % b);
+  }
 }

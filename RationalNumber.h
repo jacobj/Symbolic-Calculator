@@ -17,13 +17,13 @@ class RationalNumber : public Number {
 
 public:
   RationalNumber(Number numerator, Number denominator);
+  ~RationalNumber();
   void simplify();
-  int simplify(int a, int b);
+  int findGCD(int a, int b);
   
 private:
-  // These will probably need to be pointers.
-  Number numerator;
-  Number denominator;
+  Number* numerator;
+  Number* denominator;
 };
 
 #endif	/* RATIONALNUMBER_H */

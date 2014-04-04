@@ -19,5 +19,5 @@ Integer:: Integer(int coefficient) {
 
 // Simplify method
 void Integer:: simplify() {
-
+        // Exists to satisfy Number Parent class.
 }

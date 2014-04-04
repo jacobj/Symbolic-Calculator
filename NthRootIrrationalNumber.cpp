@@ -35,14 +35,14 @@ vector<int> nthRootIrrational::findPrimeFactors(int number, int i, vector<int> p
     return primeFactors;
   } else if (number % i == 0) {
     primeFactors.push_back(i);
-    return simplify(number / i, 2, primeFactors);
+    return findPrimeFactors(number / i, 2, primeFactors);
   } else {
-    return simplify(number, i++, primeFactors);
+    return findPrimeFactors(number, i++, primeFactors);
   }
 }
 
 // Reduce value and multiply coefficients. Helper Method.
-void nthRoot::reduceInsideRoot(vector<int> primeFactors) {
+void nthRootIrrational::reduceInsideRoot(vector<int> primeFactors) {
   int counter = 1;
   int current = primeFactors[0];
   for (int i = 0; i < primeFactors.size(); i++) {

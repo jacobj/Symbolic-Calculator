@@ -16,12 +16,12 @@
 class Integer : public Number {
     
 public:
-	Integer(int value);
+	Integer(int coefficient);
 	void simplify();
 	string display();
     
 private:
-	int value;
+	int coefficient;
     
 };
 

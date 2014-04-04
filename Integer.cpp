@@ -13,7 +13,7 @@
 #include "Integer.h"
 
 // Constructor
-Integer:: Integer(int value) {
+Integer:: Integer(int coefficient) {
 	this->value = value;
 }
 

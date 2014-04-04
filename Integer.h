@@ -13,7 +13,17 @@
 #ifndef INTEGER_H
 #define	INTEGER_H
 
-
+class Integer : public Number {
+    
+public:
+	Integer(int value);
+	void simplify();
+	string display();
+    
+private:
+	int value;
+    
+};
 
 #endif	/* INTEGER_H */
 

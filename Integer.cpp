@@ -14,7 +14,7 @@
 
 // Constructor
 Integer:: Integer(int coefficient) {
-	this->value = value;
+	this->coefficient = coefficient;
 }
 
 // Simplify method

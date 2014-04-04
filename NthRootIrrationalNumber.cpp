@@ -12,6 +12,8 @@
 
 #include "nthRootIrrational.h"
 
+using namespace std;
+
 nthRootIrrational::nthRootIrrational(int value, int base, int coefficient) {
   this->value = value;
   this->base = base;

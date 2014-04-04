@@ -2,6 +2,10 @@
 
 using namespace std;
 
+/*
+ * TODO: Write a little bit about what this class does in relation to Expression
+ */
+
 Logarithm::Logarithm(int coefficient, vector<int> values, Number base) {
   this->coefficient = coefficient;
   this->values = values;

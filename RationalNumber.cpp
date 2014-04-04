@@ -39,7 +39,7 @@ void RationalNumber::simplify() {
       denominator = new Integer(denominator.getCoefficient());
       numerator = new Integer(numerator.getCoefficient());
       return;
-    } else{
+    } else {
       return;
     }
   }

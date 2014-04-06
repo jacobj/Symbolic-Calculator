@@ -20,6 +20,30 @@ nthRootIrrational::nthRootIrrational(int value, int base, int coefficient) {
   this->coefficient = coefficient;
 }
 
+int nthRootIrrational::getValue() {
+  return value;
+}
+
+int nthRootIrrational::getBase() {
+  return base;
+}
+
+int nthRootIrrational::getCoefficient() {
+  return coefficient;
+}
+
+void nthRootIrrational::setValue(int value) {
+  this->value = value;
+}
+
+void nthRootIrrational::setBase(int base) {
+  this->base = base;
+}
+
+void nthRootIrrational::setCoefficient(int coefficient) {
+  this->coefficient = coefficient;
+}
+  
 // Simplify method.
 void nthRootIrrational::simplify() {
   vector<int> primes; 
@@ -28,8 +52,6 @@ void nthRootIrrational::simplify() {
   sort(primes.begin(), primes.end());
   reduceInsideRoot(primes);
 }
-
-// TODO: Possibly rename methods below.
 
 // Find the primes. Helper method.
 vector<int> nthRootIrrational::findPrimeFactors(int number, int i, vector<int> primeFactors) {

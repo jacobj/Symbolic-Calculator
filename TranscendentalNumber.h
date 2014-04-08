@@ -18,6 +18,12 @@ public:
 	TranscendentalNumber(enum value, int coefficient);
 	simplify();
 
+	void getValue();
+	void getCoefficient();
+	enum setValue(enum value);
+	int setCoefficient(int coefficient);
+
+
 private:
 	enum value;
 	int coefficient;

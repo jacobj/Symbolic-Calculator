@@ -6,13 +6,13 @@ using namespace std;
  * TODO: Write a little bit about what this class does in relation to Expression
  */
 
-Logarithm::Logarithm(Number coefficient, vector<int> values, Number base) {
+Logarithm::Logarithm(Number coefficient, vector<Number> values, Number base) {
   this->coefficient = coefficient;
   this->values = values;
   this->base = base;
 }
 
-Logarithm::Logarithm(Number coefficient, int value, Number base) {
+Logarithm::Logarithm(Number coefficient, Number value, Number base) {
   this->coefficient = coefficient;
   // Not sure if this is a proper initialization. We will find out when we build
   this->values.push_back(value);
@@ -23,10 +23,7 @@ Logarithm::Logarithm(Number coefficient, int value, Number base) {
 Number Logarithm::getCoefficient() {
     return coefficient;
 }
-int Logarithm::getLastValue() {
-    return values[values.size-1];
-}
-vector<int> Logarithm::getValues() {
+vector<Number> Logarithm::getValues() {
     return values;
 }
 Number Logarithm::getBase() {
@@ -37,11 +34,11 @@ Number Logarithm::getBase() {
 void Logarithm::setCoefficient(Number coefficient) {
     this->coefficient = coefficient;
 }
-void Logarithm::setValue(int value) {
+void Logarithm::setValue(Number value) {
     // not sure if this is the correct way to write this particular set method... seems okay
-	this->values.push_back(value)
+    this->values.push_back(value);
 }
-void Logarithm::setValues(vector<int> values) {
+void Logarithm::setValues(vector<Number> values) {
     this->values = values;
 }
 void Logarithm::setBase(Number base) {

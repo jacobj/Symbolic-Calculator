@@ -20,6 +20,10 @@ class Integer : public Number {
   string display();
   int getValue();
   void setValue(int value);
+  Integer operator+(const Integer& integer);
+  Integer operator-(const Integer& integer);
+  Integer operator*(const Integer& integer);
+  Integer operator/(const Integer& integer);
   
  private:
   int value;

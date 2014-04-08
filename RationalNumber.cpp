@@ -22,6 +22,21 @@ RationalNumber::~RationalNumber() {
   delete denominator;
 }
 
+//Get and set methods.
+int RationalNumber::getNumerator() {
+  return numerator;
+}
+int RationalNumber::getDenominator() {
+  return denominator;
+}
+void RationalNumber::setNumerator(Number* numerator) {
+  this->numerator = numerator;
+}
+void RationalNumber::setDenominator(Number* denominator) {
+  this->denominator = denominator;
+}
+
+
 // Simplify helper method.
 void RationalNumber::simplify() {
   // Simplify coefficients first

@@ -26,6 +26,10 @@ public:
   void setValue(int value);
   void setBase(int base);
   void setCoefficient(int Coefficient);
+  nthRootIrrational operator+(const nthRootIrrational& nthRoot);
+  nthRootIrrational operator-(const nthRootIrrational& nthRoot);
+  nthRootIrrational operator*(const nthRootIrrational& nthRoot);
+  nthRootIrrational operator/(const nthRootIrrational& nthRoot);
 
 private:
   int value;

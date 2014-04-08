@@ -34,4 +34,5 @@ private:
 	vector<char> operators;
 };
 
+#endif	/* EXPRESSION_H */
 

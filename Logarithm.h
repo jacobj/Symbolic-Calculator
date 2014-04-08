@@ -20,8 +20,7 @@ class Logarithm: public Number
         void simplify();
         void display();
     
-        int getCoefficient();
-        int getLastValue();
+        Number getCoefficient();
         vector<int> getValues();
         Number getBase();
         void setCoefficient(int coefficient);

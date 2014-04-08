@@ -28,6 +28,10 @@ public:
 	void setOperators(vector<char> operators);
 	string display();
 	void simplify();
+	Expression operator+(const Expression& expression);
+	Expression operator-(const Expression& expression);
+	Expression operator*(const Expression& expression);
+	Expression operator/(const Expression& expression);
 
 private:
 	vector<Number> numbers;

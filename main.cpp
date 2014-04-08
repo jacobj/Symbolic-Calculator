@@ -60,25 +60,25 @@ int main()
                     switch(menuChoice) 
                     {
                         case '1':
-                            cout << "<Explain entering an expression here>\n" << endl;
+                            cout << "To enter your expression, type in your first value followed by an operator, and then your second value. \n Ex: 4*5 \t (3 + 5) / 2 \nApproved Operators: +, -, *, /, ^ \nTranscedental Numbers: PI/pi, e \n" << endl;
                             break;
                         case '2':
-                            cout << "<Explain exponents here>\n" << endl;
+                            cout << "To write out an exponent, use the ^ key and the following format: a^x \nThis will be read as 'a raised to the power of x', where a and x are replaced by your chosen coefficients. \n" << endl;
                             break;
                         case '3':
-                            cout << "<Explain square roots and nth roots here>\n" << endl;
+                            cout << "To write out a square root or nth root, use the following format: sqrt:x or nrt:x \nThis will read as 'the square root of x' or 'the nth root of x', where x is the coefficient \nyou wish to take the root of. \n" << endl;
                             break;
                         case '4':
-                            cout << "<Explain logarithms here>\n" << endl;
+                            cout << "To write out a logarithm, use the following format: log_b:x \nThis will read as 'log base b of x', where b and x are replaced by your chosen coefficients. \n" << endl;
                             break;
                         case '5':
-                            cout << "<Explain fractions here>\n" << endl;
+                            cout << "To write out a fraction, use the following formats: a/b \nWhere a and b are replaced by your chosen coeffiecients. If you wish to write expressions for the numerator, \ndenominator, or both, then use the following format: (a+b)/(c*d) \nWhere a, b, c, and d are your given coefficients and you can use any of the approved operators in your expressions. \nRemember to enclose your expressions before and after the / in () ! \n" << endl;
                             break;
                         case '6':
                             cout << "Returning back to the main menu..." << endl;
                             break;
                         default:
-                            cout << "Invalid selection! Choose 1, 2, 3, or 4!\n" << endl;
+                            cout << "Invalid selection! Choose 1, 2, 3, 4, 5, or 6!\n" << endl;
                     }
                 }while(menuChoice != '6');
                 

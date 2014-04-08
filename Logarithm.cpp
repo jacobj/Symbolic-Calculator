@@ -47,6 +47,7 @@ void Logarithm::setBase(Number base) {
 
 // Make more general, in case other logs are added.
 void Logarithm::simplify() {
+  if 
   vector<int> primes;
   vector<int> primes = findPrimeFactors(values.[0], 2, primes);
   splitLog(primes);

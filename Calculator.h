@@ -13,6 +13,17 @@
 #ifndef CALCULATOR_H
 #define	CALCULATOR_H
 
+#include <vector>
+
+class Calculator {
+public:
+	Calculator();
+	void calculate();
+
+private:
+	vector<Number> previousAnswers;
+	vector<Number> previousInputs;
+};
 
 
 #endif	/* CALCULATOR_H */

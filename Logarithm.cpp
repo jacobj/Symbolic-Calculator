@@ -19,6 +19,36 @@ Logarithm::Logarithm(int coefficient, int value, Number base) {
   this->base = base;
 }
 
+// Get Methods
+int Logarithm:: getCoefficient() {
+    return coefficient;
+}
+int Logarithm:: getValue() {
+    return value;
+}
+vector<int> Logarithm:: getValues() {
+    return values;
+}
+Number Logarithm:: getBase() {
+    return base;
+}
+
+// Set Methods
+void Logarithm:: setCoefficient(int coefficient) {
+    this->coefficient = coefficient;
+}
+void Logarithm:: setValue(int value) {
+    // not sure if this is the correct way to write this particular set method
+    // is it supposed to be this? :   this->values.push_back(value);
+    this->value = value;
+}
+void Logarithm:: setValues(vector<int> values) {
+    this->values = values;
+}
+void Logarithm:: setBase(Number base) {
+    return base;
+}
+
 // Make more general, in case other logs are added.
 void Logarithm::simplify() {
   vector<int> primes;

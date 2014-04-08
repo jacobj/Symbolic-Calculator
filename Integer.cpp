@@ -18,10 +18,10 @@ Integer:: Integer(int coefficient) {
 }
 
 // Get-Set methods
-public int getCoefficient() {
+int Integer:: getCoefficient() {
     return coefficient;
 }
-public void setCoefficient(int coefficient) {
+void Integer:: setCoefficient(int coefficient) {
     this->coefficient = coefficient;
 }
 

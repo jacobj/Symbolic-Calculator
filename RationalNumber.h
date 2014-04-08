@@ -25,6 +25,11 @@ public:
   int getDenominator();
   void setNumerator(Number* numerator);
   void setDenominator(Number* denominator);
+    
+  RationalNumber operator+(const RationalNumber& ratnum);
+  RationalNumber operator-(const RationalNumber& ratnum);
+  RationalNumber operator*(const RationalNumber& ratnum);
+  RationalNumber operator/(const RationalNumber& ratnum);
 
 private:
   Number* numerator;

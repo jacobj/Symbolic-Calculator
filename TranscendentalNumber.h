@@ -22,7 +22,11 @@ public:
 	void getCoefficient();
 	enum setValue(enum value);
 	int setCoefficient(int coefficient);
-
+    
+    TranscendentalNumber operator+(const TranscendentalNumber& value);
+    TranscendentalNumber operator-(const TranscendentalNumber& value);
+    TranscendentalNumber operator*(const TranscendentalNumber& value);
+    TranscendentalNumber operator/(const TranscendentalNumber& value);
 
 private:
 	enum value;

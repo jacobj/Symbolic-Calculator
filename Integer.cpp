@@ -13,19 +13,20 @@
 #include "Integer.h"
 
 // Constructor
-Integer:: Integer(int coefficient) {
-	this->coefficient = coefficient;
+Integer::Integer(int value) {
+  this->value = value;
 }
 
 // Get-Set methods
-int Integer:: getCoefficient() {
-    return coefficient;
+int Integer::getValue() {
+  return value;
 }
-void Integer:: setCoefficient(int coefficient) {
-    this->coefficient = coefficient;
+
+void Integer::setValue(int value) {
+  this->value = value;
 }
 
 // Simplify method
-void Integer:: simplify() {
-        // Exists to satisfy Number Parent class.
+void Integer::simplify() {
+  // Exists to satisfy Number Parent class.
 }

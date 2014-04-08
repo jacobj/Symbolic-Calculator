@@ -14,7 +14,7 @@
 
 using namespace std;
 
-nthRootIrrational::nthRootIrrational(int value, int base, int coefficient) {
+nthRootIrrational::nthRootIrrational(int value, int base, Number coefficient) {
   this->value = value;
   this->base = base;
   this->coefficient = coefficient;
@@ -28,7 +28,7 @@ int nthRootIrrational::getBase() {
   return base;
 }
 
-int nthRootIrrational::getCoefficient() {
+Number nthRootIrrational::getCoefficient() {
   return coefficient;
 }
 
@@ -40,7 +40,7 @@ void nthRootIrrational::setBase(int base) {
   this->base = base;
 }
 
-void nthRootIrrational::setCoefficient(int coefficient) {
+void nthRootIrrational::setCoefficient(Number coefficient) {
   this->coefficient = coefficient;
 }
   

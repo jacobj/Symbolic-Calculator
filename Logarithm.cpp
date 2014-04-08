@@ -6,51 +6,48 @@ using namespace std;
  * TODO: Write a little bit about what this class does in relation to Expression
  */
 
-Logarithm::Logarithm(int coefficient, vector<int> values, Number base) {
+Logarithm::Logarithm(Number coefficient, vector<Number> values, Number base) {
   this->coefficient = coefficient;
   this->values = values;
   this->base = base;
 }
 
-Logarithm::Logarithm(int coefficient, int value, Number base) {
+Logarithm::Logarithm(Number coefficient, Number value, Number base) {
   this->coefficient = coefficient;
-  // Not sure if this is a propper initialization. We will find out when we build
+  // Not sure if this is a proper initialization. We will find out when we build
   this->values.push_back(value);
   this->base = base;
 }
 
 // Get Methods
-int Logarithm:: getCoefficient() {
+Number Logarithm::getCoefficient() {
     return coefficient;
 }
-int Logarithm:: getValue() {
-    return value;
-}
-vector<int> Logarithm:: getValues() {
+vector<Number> Logarithm::getValues() {
     return values;
 }
-Number Logarithm:: getBase() {
+Number Logarithm::getBase() {
     return base;
 }
 
 // Set Methods
-void Logarithm:: setCoefficient(int coefficient) {
+void Logarithm::setCoefficient(Number coefficient) {
     this->coefficient = coefficient;
 }
-void Logarithm:: setValue(int value) {
-    // not sure if this is the correct way to write this particular set method
-    // is it supposed to be this? :   this->values.push_back(value);
-    this->value = value;
+void Logarithm::setValue(Number value) {
+    // not sure if this is the correct way to write this particular set method... seems okay
+    this->values.push_back(value);
 }
-void Logarithm:: setValues(vector<int> values) {
+void Logarithm::setValues(vector<Number> values) {
     this->values = values;
 }
-void Logarithm:: setBase(Number base) {
+void Logarithm::setBase(Number base) {
     return base;
 }
 
 // Make more general, in case other logs are added.
 void Logarithm::simplify() {
+  if 
   vector<int> primes;
   vector<int> primes = findPrimeFactors(values.[0], 2, primes);
   splitLog(primes);

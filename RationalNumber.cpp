@@ -42,14 +42,18 @@ void RationalNumber::setDenominator(Number* denominator) {
 
 // Simplify helper method.
 void RationalNumber::simplify() {
-  // Simplify coefficients first
-  int gcd = findGCD(denominator.getCoefficient(), numerator.getCoefficient());
-  denominator.setCoefficient(denominator.getCoefficient() / gcd);
-  numerator.setCoefficient(numerator.getCoefficient() / gcd);
-  /*
-   * If both the denominator and numerator are transcendental numbers and both
-   * contain the same value, then cancel them out.
-   */
+  // Simplify coefficients first if they are Integers
+  if (typeid(denominator.getCoefficient()) == Integer && 
+      typeid(numerator.getCoefficient()) == Integer) {
+    int gcd = findGCD(denominator.getCoefficient().getValue(), 
+                      numerator.getCoefficient().getValue());
+    denominator.getCoefficient().setValue(denominator.getCoefficient().getValue() / gcd);
+    numerator.getCoefficient().setValue(numerator.getCoefficient().getValue() / gcd);
+    /*
+     * If both the denominator and numerator are transcendental numbers and both
+     * contain the same value, then cancel them out.
+     */
+  }
   if (typeid(denominator) == TranscendentalNumber && 
       typeid(numerator) == TranscendentalNumber) {
     if (denominator.getValue() == numerator.getValue()) {

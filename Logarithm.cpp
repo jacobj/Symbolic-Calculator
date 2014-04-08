@@ -6,13 +6,13 @@ using namespace std;
  * TODO: Write a little bit about what this class does in relation to Expression
  */
 
-Logarithm::Logarithm(int coefficient, vector<int> values, Number base) {
+Logarithm::Logarithm(Number coefficient, vector<int> values, Number base) {
   this->coefficient = coefficient;
   this->values = values;
   this->base = base;
 }
 
-Logarithm::Logarithm(int coefficient, int value, Number base) {
+Logarithm::Logarithm(Number coefficient, int value, Number base) {
   this->coefficient = coefficient;
   // Not sure if this is a proper initialization. We will find out when we build
   this->values.push_back(value);

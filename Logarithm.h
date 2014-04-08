@@ -16,22 +16,23 @@
 
 class Logarithm: public Number
 {
-    protected:
-        Number base;
-        Number argument;
-        
     public:
         void simplify();
         void display();
     
         int getCoefficient();
-        int getValue();
+        int getLastValue();
         vector<int> getValues();
         Number getBase();
         void setCoefficient(int coefficient);
         void setValue(int value);
         void setValues(vector<int> values);
         void setBase(Number base);
+
+    private:
+        Number coefficient;
+        vector<int> values;
+        Number base;
 };
 
 

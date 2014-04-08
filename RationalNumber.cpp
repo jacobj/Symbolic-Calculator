@@ -12,6 +12,9 @@
 
 #include "RationalNumber.h"
 
+//HERE YOU GO: coefficient is now a number
+
+
 RationalNumber::RationalNumber(Number* numerator, Number* denominator) {
   this->numerator = numerator;
   this->denominator = denominator

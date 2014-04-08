@@ -14,7 +14,7 @@
 
 using namespace std;
 
-TranscendentalNumber::TranscendentalNumber(enum value, int coefficient) {
+TranscendentalNumber::TranscendentalNumber(enum value, Number coefficient) {
   this->value;
   this->coefficient = coefficient;
 }
@@ -29,6 +29,6 @@ int TranscendentalNumber::getCoefficient() {
 void TranscendentalNumber::setNumerator(enum value) {
   this->value = value;
 }
-void TranscendentalNumber::setDenominator(int coefficient) {
+void TranscendentalNumber::setDenominator(Number coefficient) {
   this->coefficient = coefficient;
 }

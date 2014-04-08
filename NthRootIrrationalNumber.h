@@ -30,7 +30,7 @@ public:
 private:
   int value;
   int base;
-  int coefficient;
+  Number coefficient;
 }
 
 #endif	/* NTHROOTIRRATIONALNUMBER_H */

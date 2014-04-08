@@ -21,6 +21,11 @@ public:
   void simplify();
   int findGCD(int a, int b);
   
+  int getNumerator();
+  int getDenominator();
+  void setNumerator(Number* numerator);
+  void setDenominator(Number* denominator);
+
 private:
   Number* numerator;
   Number* denominator;

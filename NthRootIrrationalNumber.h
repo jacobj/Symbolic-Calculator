@@ -19,6 +19,14 @@ public:
   simplify();
   findPrimeFactors(int number, int i, vector<int> primeFactors);
   reduceInsideRoot(vector<int> primeFactors);
+
+  int getValue();
+  int getBase();
+  int getCoefficient();
+  void setValue(int value);
+  void setBase(int base);
+  void setCoefficient(int Coefficient);
+
 private:
   int value;
   int base;

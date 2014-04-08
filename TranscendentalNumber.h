@@ -27,7 +27,7 @@ public:
 private:
 	enum value;
 	Number coefficient;
-}
+};
 
 #endif	/* TRANSCENDENTALNUMBER_H */
 

@@ -27,6 +27,10 @@ class Logarithm: public Number
         void setValue(int value);
         void setValues(vector<int> values);
         void setBase(Number base);
+		Logarithm operator+(const Logarithm& log);
+		Logarithm operator-(const Logarithm& log);
+		Logarithm operator*(const Logarithm& log);
+		Logarithm operator/(const Logarithm& log);
 
     private:
         Number coefficient;

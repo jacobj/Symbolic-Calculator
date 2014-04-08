@@ -19,6 +19,8 @@ public:
 	Integer(int coefficient);
 	void simplify();
 	string display();
+    int getCoefficient();
+    void setCoefficient(int coefficient);
     
 private:
 	int coefficient;

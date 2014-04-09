@@ -13,29 +13,43 @@
 #ifndef EXPRESSION_H
 #define	EXPRESSION_H
 
-#include <vector>
+#include <iostream>
+#include <stack>
+#include <list>
 #include <string>
+#include <vector>
 
 class Expression : public Number {
 public:
 	//constructor
-	Expression(vector<Number> numbers, vector<char> operators);
-	void addNumber(Number number);
-	void addOperator(char operand);
-	vector<Numbers> getNumbers();
-	vector<char> getOperators();
-	void setNumbers(vector<Number> numbers);
-	void setOperators(vector<char> operators);
+        Expression(string expr)
+        {
+                getTokensHelper(expr);
+        }
+	Expression(vector<Number> numbers, vector<char> operators); //may not be needed
+        
+        //function prototypes
+        vector<string> getExpressionTokens(string&);
+        void getTokensHelper(string);
+        bool infixToRPN(vector<string>&, vector<string>&);
+        bool isOperator(string);
+        bool isParentheses(string);
+        int comparePrecedence(string, string);
+        
+        
+	void addNumber(Number number); //may not be needed
+	void addOperator(char operand); //may not be needed
+	vector<Numbers> getNumbers(); //may not be needed
+	vector<char> getOperators(); //may not be needed
+	void setNumbers(vector<Number> numbers); //may not be needed
+	void setOperators(vector<char> operators); //may not be needed
 	string display();
-	void simplify();
-	Expression operator+(const Expression& expression);
-	Expression operator-(const Expression& expression);
-	Expression operator*(const Expression& expression);
-	Expression operator/(const Expression& expression);
+	void simplify(); //may not be needed
 
 private:
-	vector<Number> numbers;
-	vector<char> operators;
+        vector<string> expression;
+	vector<Number> numbers; //may not be needed
+	vector<char> operators; //may not be needed
 };
 
 #endif	/* EXPRESSION_H */

@@ -29,16 +29,18 @@ RationalNumber::~RationalNumber() {
 int RationalNumber::getNumerator() {
   return numerator;
 }
+
 int RationalNumber::getDenominator() {
   return denominator;
 }
+
 void RationalNumber::setNumerator(Number* numerator) {
   this->numerator = numerator;
 }
+
 void RationalNumber::setDenominator(Number* denominator) {
   this->denominator = denominator;
 }
-
 
 // Simplify helper method.
 void RationalNumber::simplify() {
@@ -47,8 +49,8 @@ void RationalNumber::simplify() {
       typeid(numerator.getCoefficient()) == Integer) {
     int gcd = findGCD(denominator.getCoefficient().getValue(), 
                       numerator.getCoefficient().getValue());
-    denominator.getCoefficient().setValue(denominator.getCoefficient().getValue() / gcd);
-    numerator.getCoefficient().setValue(numerator.getCoefficient().getValue() / gcd);
+    denominator.getCoefficient().set(denominator.getCoefficient().getValue() / gcd);
+    numerator.getCoefficient(numerator.getCoefficient().getValue() / gcd);
     /*
      * If both the denominator and numerator are transcendental numbers and both
      * contain the same value, then cancel them out.

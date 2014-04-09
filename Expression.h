@@ -13,19 +13,17 @@
 #ifndef EXPRESSION_H
 #define	EXPRESSION_H
 
+#include "Number.h"
 #include <iostream>
 #include <stack>
 #include <list>
 #include <string>
 #include <vector>
 
-class Expression : public Number {
+class Expression{// : public Number {
 public:
 	//constructor
-        Expression(string expr)
-        {
-                getTokensHelper(expr);
-        }
+        Expression(string expr);
 	Expression(vector<Number> numbers, vector<char> operators); //may not be needed
         
         //function prototypes

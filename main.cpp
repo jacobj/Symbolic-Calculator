@@ -18,9 +18,9 @@ using namespace std;
 
 int main()
 {
-
+    Expression *expression;
     char menuChoice;
-    string expression;
+    string expr;
     
     cout << "*** Welcome to the Calculator Program! ***\n" << endl;
     
@@ -86,7 +86,8 @@ int main()
                 break;
             case '2':
                 cout << "Enter your expression: ";
-                cin >> expression;
+                cin >> expr;
+                expression = new Expression(expr);
                 break;
             case '3':
                 cout << "Here are the previous inputs: " << endl;

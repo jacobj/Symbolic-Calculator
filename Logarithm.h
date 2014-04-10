@@ -22,13 +22,14 @@ class Logarithm: public Number
 	    ~Logarithm();
 
         void simplify();
+        void splitLog(vector<int> primes)
         void display();
     
         Number getCoefficient();
         vector<Number> getValues();
         Number getBase();
-        void setCoefficient(int coefficient);
-        void setValue(int value);
+        void setCoefficient(Number coefficient);
+        void setValue(Number value);
         void setValues(vector<Number> values);
         void setBase(Number base);
 		Logarithm operator+(const Logarithm& log);

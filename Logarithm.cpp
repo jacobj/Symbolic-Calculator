@@ -57,6 +57,9 @@ void Logarithm::simplify() {
     vector<int> primes = findPrimeFactors(values.[0].getValue(), 2, primes);
     splitLog(primes);
 }
+void Logarithm::display() {
+    // Exists to satisfy Number Parent class. May be needed in the future.
+}
 
 void Logarithm::splitLog(vector<int> primes) {
     // Not the best way to do this, will be overhauled later.

@@ -1,5 +1,5 @@
 /* 
- * File:        TranscendentalNumber.cpp
+ * File:        Calculator.cpp
  * 
  * Authors:     Brent Lewis
  *              Jacob Jenkins

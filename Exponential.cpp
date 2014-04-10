@@ -47,7 +47,12 @@ void Exponential::setExponet(int base) {
 }
 
 void Exponential::setCoefficient(Number coefficient) {
-    this->coefficient = cotypeid(exponet) == RationalNumber) {
+    this->coefficient = coefficient;
+}
+  
+// Simplify method.
+void Exponential::simplify() {
+    if (typeid(value) == Integer && typeid(exponet) == RationalNumber) {
         value->setValue((long)pow(value->getValue(), exponet->getNumerator->getValue()));
         exponet->getNumerator()->setValue(1);
         vector<int> primes; 

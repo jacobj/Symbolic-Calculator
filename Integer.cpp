@@ -10,7 +10,6 @@
  *
  */
 
-#include <stdexcept>
 #include "Integer.h"
 
 // Constructor

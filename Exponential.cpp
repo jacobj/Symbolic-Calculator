@@ -59,20 +59,52 @@ void Exponential::simplify() {
         primes = findPrimeFactors(value->getValue(), 2, primes);
         // Sort results in descending order. rend().
         sort(primes.begin(), primes.end());
+        int value = value->getValue();
+        int coefficient = coefficient->getValue();
         reduceInsideRoot(primes);
+        value.setValue(value);
+        coefficient.setValue(value);
     }
     // Add functionality to simplify Rationals.
     if (typeid(value) == RationalNumber) {
-        if (typeid(exponet) == Integer && 
-            typeid(value->getDenominator()) == Integer
-            typeid(value->getNumerator()) == Integer) {
+        if (typeid(exponet) == Integer) {
             // Square both denominator and numerator
-            value.getDenominator().setValue((long)pow(value->getDenominator()->getValue(), exponet.getValue()));
-            value.getDenominator().setValue((long)pow(value->getDenominator()->getValue(), exponet.getValue()));
+            if (typeid(value->getDenominator()) == Integer) {
+                value->getDenominator()->setValue((long)pow(value->getDenominator()->getValue(), exponet.getValue()));
+            }
+            else if {
+                // Convert Denominator to it's own exponential.
+            }
+            if (typeid(value->getNumerator()) == Integer) {
+                value->getNumerator()->setValue((long)pow(value->getNumerator()->getValue(), exponet.getValue()));
+            }
+            else if {
+                // Convert Numerator to it's own exponential.
+            }
             // Possibly simplify?
+            value->simplify();
         }
         // Edit reduceInsideRoot to be more abstract.
-        if (typeid(exponet) == RationalNumber) {}
+        if (typeid(exponet) == RationalNumber) {
+            if (typeid(value->getDenominator()) == Integer) {
+                value->getDenominator->setValue((long)pow(value->getDenominator->getValue(), exponet->getNumerator->getValue()));
+                vector<int> primes1;
+                primes1 = findPrimeFactors(value->getDenominator->getValue(), 2, primes);
+            }
+            else if {
+                // Convert Denominator to it's own exponential.
+            }
+            if (typeid(value->getNumerator()) == Integer) {
+                value->getNumerator->setValue((long)pow(value->getNumerator->getValue(), exponet->getNumerator->getValue()));
+                vector<int> primes2;
+                primes2 = findPrimeFactors(value->getNumerator->getValue(), 2, primes);
+            }
+            else if {
+                // Convert Numerator to it's own exponential.
+            }
+            exponet->getNumerator()->setValue(1);
+            value->simplify();
+        }
     }
 }
 
@@ -89,7 +121,7 @@ vector<int> Exponential::findPrimeFactors(int number, int i, vector<int> primeFa
 }
 
 // Reduce value and multiply coefficients. Helper Method.
-void Exponential::reduceInsideRoot(vector<int> primeFactors) {
+void Exponential::reduceInsideRoot(int &value, int &coefficient, vector<int> primeFactors) {
     int counter = 1;
     int current = primeFactors[0];
     for (int i = 0; i < primeFactors.size(); i++) {
@@ -100,9 +132,9 @@ void Exponential::reduceInsideRoot(vector<int> primeFactors) {
             counter = 1;
         }
         if (counter == nthRoot) {
-            coefficient.setValue(coefficient.getValue() * primeFactors[i]);
+            coefficient *= primeFactors[i];
             for (int j = 0; j < nthRoot; j++) {
-                value.setValue(value.getValue() / primeFactors[i]);
+                value /= primeFactors[i];
             }
             counter = 0;
         }

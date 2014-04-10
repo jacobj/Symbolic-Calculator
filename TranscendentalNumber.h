@@ -29,7 +29,7 @@ public:
     TranscendentalNumber operator/(const TranscendentalNumber& value);
 
 private:
-	enum value;
+	String value;
 	Number coefficient;
 };
 

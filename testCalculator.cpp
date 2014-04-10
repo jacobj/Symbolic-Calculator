@@ -6,7 +6,7 @@
 
 int main()
 {
-	
-	
+	Calculator calculator("1+2");
+	cout << endl;
 	return 0;
 }

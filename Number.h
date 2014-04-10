@@ -32,10 +32,6 @@ public:
     Number getCoefficient();
     Number getNumerator();
     Number getDenominator();
-	// virtual Number& operator+(const Number& number) = 0;
-	// virtual Number& operator-(const Number& number) = 0;
-	// virtual Number& operator*(const Number& number) = 0;
-	// virtual Number& operator/(const Number& number) = 0;
 };
 
 #endif	/* NUMBER_H */

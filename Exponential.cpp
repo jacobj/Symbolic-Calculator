@@ -30,29 +30,29 @@ Number Exponential::getValue() {
     return value;
 }
 
-Number Exponential::getExponet() {
-    return base;
+Number Exponential::getExponent() {
+    return exponent;
 }
 
 Number Exponential::getCoefficient() {
     return coefficient;
 }
 
-void Exponential::setValue(Number value) {
+void Exponential::setValue(Number* value) {
     this->value = value;
 }
 
-void Exponential::setExponet(int base) {
-    this->base = base;
+void Exponential::setExponet(Number* exponent) {
+    this->exponent = exponent;
 }
 
-void Exponential::setCoefficient(Number coefficient) {
+void Exponential::setCoefficient(Number* coefficient) {
     this->coefficient = coefficient;
 }
   
 // Simplify method.
 void Exponential::simplify() {
-    if (typeid(value) == Integer && typeid(exponet) == RationalNumber) {
+    if (typeid(value) == Integer && typeid(exponent) == RationalNumber) {
         value->setValue((long)pow(value->getValue(), exponet->getNumerator->getValue()));
         exponet->getNumerator()->setValue(1);
         vector<int> primes; 
@@ -67,16 +67,16 @@ void Exponential::simplify() {
     }
     // Add functionality to simplify Rationals.
     if (typeid(value) == RationalNumber) {
-        if (typeid(exponet) == Integer) {
+        if (typeid(exponent) == Integer) {
             // Square both denominator and numerator
             if (typeid(value->getDenominator()) == Integer) {
-                value->getDenominator()->setValue((long)pow(value->getDenominator()->getValue(), exponet.getValue()));
+                value->getDenominator()->setValue((long)pow(value->getDenominator()->getValue(), exponent.getValue()));
             }
             else if {
                 // Convert Denominator to it's own exponential.
             }
             if (typeid(value->getNumerator()) == Integer) {
-                value->getNumerator()->setValue((long)pow(value->getNumerator()->getValue(), exponet.getValue()));
+                value->getNumerator()->setValue((long)pow(value->getNumerator()->getValue(), exponent.getValue()));
             }
             else if {
                 // Convert Numerator to it's own exponential.
@@ -85,9 +85,9 @@ void Exponential::simplify() {
             value->simplify();
         }
         // Edit reduceInsideRoot to be more abstract.
-        if (typeid(exponet) == RationalNumber) {
+        if (typeid(exponent) == RationalNumber) {
             if (typeid(value->getDenominator()) == Integer) {
-                value->getDenominator->setValue((long)pow(value->getDenominator->getValue(), exponet->getNumerator->getValue()));
+                value->getDenominator->setValue((long)pow(value->getDenominator->getValue(), exponent->getNumerator->getValue()));
                 vector<int> primes1;
                 primes1 = findPrimeFactors(value->getDenominator->getValue(), 2, primes);
             }
@@ -95,14 +95,14 @@ void Exponential::simplify() {
                 // Convert Denominator to it's own exponential.
             }
             if (typeid(value->getNumerator()) == Integer) {
-                value->getNumerator->setValue((long)pow(value->getNumerator->getValue(), exponet->getNumerator->getValue()));
+                value->getNumerator->setValue((long)pow(value->getNumerator->getValue(), exponent->getNumerator->getValue()));
                 vector<int> primes2;
                 primes2 = findPrimeFactors(value->getNumerator->getValue(), 2, primes);
             }
             else if {
                 // Convert Numerator to it's own exponential.
             }
-            exponet->getNumerator()->setValue(1);
+            exponent->getNumerator()->setValue(1);
             value->simplify();
         }
     }

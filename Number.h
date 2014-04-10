@@ -16,6 +16,9 @@
 #include <fstream>
 #include <cmath>
 #include <stdexcept>
+#include <vector>
+
+using namespace std;
 
 class Number
 {

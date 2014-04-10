@@ -18,6 +18,10 @@ Integer::Integer(long value) {
     this->value = value;
 }
 
+Integer::Integer() {
+    this->value = 0;
+}
+
 // Get-Set methods
 long Integer::getValue() {
     return value;
@@ -56,7 +60,7 @@ Integer Integer:: operator/(const Integer &integer) {
         if (integer.value == 0) {
             throw invalid_argument("Cannot divide by 0!");
         }
-        catch (invalid_argument & ex) {
+        catch (invalid_argument &ex) {
             cerr << ex.what() << endl;
         }
         temp.value = value / integer.value;

@@ -35,6 +35,10 @@ void Integer::simplify() {
     // Exists to satisfy Number Parent class.
 }
 
+void Integer::display() {
+    // Exists to display Number Parent class.
+}
+
 Integer Integer:: operator+(const Integer &integer) {
     Integer temp;
     temp.value = value + integer.value;

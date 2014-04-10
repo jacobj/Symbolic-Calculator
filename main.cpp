@@ -18,10 +18,12 @@ using namespace std;
 
 int main()
 {
-    Calculator *calculator;
+    Calculator calculator;
+    vector<string> previousExpressions;
     char mainMenu, reviewMenu, helpMenu;
     bool keepGoing, proceed;
     string expr;
+    string ans;
     string previous, choice;
     
     cout << "*** Welcome to the Calculator Program! ***\n" << endl;
@@ -53,108 +55,86 @@ int main()
                 		keepGoing = false;
                 	else
                 	{
-                		calculator = new Calculator(expr);
+                		calculator.addInput(expr);
                 		cout << "\nAnswer: " << endl;
                 	}
                 }
                 break;
             case '2':
-				//this do-while loop is for the user to access previous answers and expressions 
-				do
-				{
-					cout << "\nWould you like to view previous expressions or answers?\n" << endl;
-
-					cout << "(1) View previous expressions." << endl;
-					cout << "(2) View previous answers." << endl;
-					cout << "(3) Convert a previous answer to a decimal." << endl;
-					cout << "(4) Store a previous answer into the 'an's variable."
-					cout << "(5) Return to Main Menu" << endl;
-					cout << "\nEnter your choice: ";
-
-					cin >> reviewMenu;
-					cin.ignore();
-					cout << endl;
-
-					switch (reviewMenu)
+            	previousExpressions = calculator.getPreviousInputs();
+            	
+            	if(previousExpressions.size() == 0)
+            		cout << "There are no previous expressions!" << endl;
+            	
+            	else{
+					//this do-while loop is for the user to access previous answers and expressions 
+					do
 					{
-					case '1':
-						cout << "\nHere are the previous expressions: " << endl;
-						break;
-					case '2':
-						cout << "\nHere are the previous answers: " << endl;
-						break;
-					case '3':
-						do
-						{
-							cout << "\nIndicate the answer you wish to convert (Enter ""1"" for the first answer, etc.): " ;
-							cin >> previous;
-							
-							cout << "\nHere is the floating point form: " << endl;
-							cout << "\nContinue? (Y/N) ";
-							cin >> choice;
-							
-							if(choice == "Y" || choice == "y")
-							{
-								proceed = true;
-							}
-							else if(choice == "N" || choice == "n")
-							{
-								proceed = false;
-							}
-							/*cout << "(1) View in simplified form" << endl;
-							cout << "(2) View in floating point form" << endl;
-							cout << "(3) Return to previous menu" << endl;
-							cout << "\nEnter your choice: ";
+						cout << "\nWould you like to view previous expressions or answers?\n" << endl;
 
-							cin >> menuChoice;
-							cin.ignore();
-							cout << endl;
+						cout << "(1) View previous expressions." << endl;
+						cout << "(2) View previous answers." << endl;
+						cout << "(3) Convert a previous answer to a decimal." << endl;
+						cout << "(4) Store a previous answer into the 'ans' variable." << endl;
+						cout << "(5) Return to Main Menu" << endl;
+						cout << "\nEnter your choice: ";
 
-							switch (menuChoice)
-							{
-							case '1':
-								cout << "Here is 'ans': " << endl;
-								break;
-							case '2':
-								cout << "Here is the floating point form: " << endl;
-								break;
-							case '3':
-								cout << "Returning back to the main menu..." << endl;
-								break;
-							case '4':
-								cout << "Returning to previous menu..." << endl;
-								break;
-							default:
-								cout << "Invalid selection! Please choose 1, 2 or 3.\n" << endl;
-							}*/
-						} while (proceed); //end while
-						break;
-					case '4':
-						do
+						cin >> reviewMenu;
+						cin.ignore();
+						cout << endl;
+
+						switch (reviewMenu)
 						{
-							cout << "\nIndicate the answer you wish to store in the 'ans' variable "
-							     << "(Enter ""1"" for the first answer, etc.): " ;
-							cin >> previous;
+						case '1':
+							cout << "\nHere are the previous expressions: \n" << endl;
+							for(int i = 0;i<previousExpressions.size();i++)
+							{
+								cout << "Expression " << (i+1) << ": "
+							    	 << previousExpressions[i] << "\n" 
+							     	<< endl;;
+							}
+							break;
+						case '2':
+							cout << "\nHere are the previous answers: " << endl;
+							break;
+						case '3':
+							do
+							{
+								cout << "\nIndicate the answer you wish to convert (Enter ""1"" for the first answer, etc.): " ;
+								cin >> previous;
 							
-							cout << "\nans = " << endl;
-							cout << "\nContinue? (Y/N) ";
-							cin >> choice;
+								cout << "\nHere is the floating point form: " << endl;
+								cout << "\nContinue? (Y/N) ";
+								cin >> choice;
 							
-							if(choice == "Y" || choice == "y")					
-								proceed = true;
-							
-							else if(choice == "N" || choice == "n")							
-								proceed = false;			
-												
-						} while (proceed); //end while
-						break;
-					case '5':
-						cout << "Returning back to the main menu..." << endl;
-						break;
-					default:
-						cout << " Invalid selection! Please choose 1, 2, 3 or 4.\n" << endl;
-					}
-				} while(reviewMenu != '4'); //end while
+								if(choice == "Y" || choice == "y")
+								{
+									proceed = true;
+								}
+								else if(choice == "N" || choice == "n")
+								{
+									proceed = false;
+								}
+							}while (proceed); //end while
+							break;
+						case '4':
+								cout << "\nIndicate the answer you wish to store in the 'ans' variable "
+							    	 << "(Enter ""1"" for the first answer, etc.): " ;
+								cin >> previous;
+								
+								//update this
+								ans = "";
+								
+								cout << "\nans = " << endl;
+							break;
+						case '5':
+							cout << "Returning back to the main menu..." << endl;
+							break;
+						default:
+							cout << " Invalid selection! Please choose 1, 2, 3 or 4.\n" << endl;
+						}
+					}while(reviewMenu != '5'); //end while
+				}
 				break;
             case '3':
                 //this do-while loop represents the help menu

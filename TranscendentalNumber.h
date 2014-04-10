@@ -20,7 +20,7 @@ public:
 
 	void getValue();
 	void getCoefficient();
-	enum setValue(enum value);
+	String setValue(String value);
 	int setCoefficient(int coefficient);
     
     TranscendentalNumber operator+(const TranscendentalNumber& value);

@@ -26,21 +26,25 @@ class Calculator {
 
 private:
 	//vector<Number> previousAnswers;
-	//vector<Number> previousInputs;
-        vector<string> expression;
+	vector<string> previousInputs;
+    vector<string> expression;
 public:
-	//constructor
-        Calculator(string);
+	//constructors
+	Calculator();
+    Calculator(string);
         
     //function prototypes
-    vector<string> getExpressionTokens(string&);
-    void getTokensHelper(string);
+    
+    vector<string> getPreviousInputs();
+    vector<string> setExpressionTokens(string&);
+    
+    bool addInput(string);
     bool infixToRPN(vector<string>&, vector<string>&);
     bool isOperator(string);
     bool isParentheses(string);
+    
 	int comparePrecedence(string, string);
-        
-	Calculator();
+	
 	void calculate();
 
 };

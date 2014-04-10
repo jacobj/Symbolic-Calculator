@@ -13,11 +13,14 @@
 #include "Calculator.h"
 
 //Constructor
-Calculator::Calculator(string expr){
-                getTokensHelper(expr);
-}
+Calculator::Calculator() {}
 
-Calculator::Calculator() {
+Calculator::Calculator(string expr){
+	
+	if( addInput(expr) )
+	{
+		previousInputs.push_back( expr );
+	}
 }
 
 //function definitions
@@ -41,7 +44,11 @@ int Calculator::comparePrecedence(string op1, string op2)
         return -1;
 }
 
-vector<string> Calculator::getExpressionTokens(string& expression)
+vector<string> Calculator::getPreviousInputs(){
+	return previousInputs;
+}
+
+vector<string> Calculator::setExpressionTokens(string& expression)
 {
     vector<string> tokens;
     string str = "";
@@ -189,17 +196,26 @@ bool Calculator::isParentheses(string token)
         return false;
 }
 
-void Calculator::getTokensHelper(string exp)
+bool Calculator::addInput(string exp)
 {
-    vector<string> temp = getExpressionTokens(exp);
-    if(infixToRPN( temp, expression))
+	bool success = true;
+	
+    vector<string> temp = setExpressionTokens(exp);
+    
+    if( infixToRPN(temp, expression) )
     {
-        for(int i = 0; i < expression.size(); i++)
-            cout << expression[i];
+    	
+    	return success;
+        //for(int i = 0; i < expression.size(); i++)
+            //cout << expression[i];
     }
     else
-        cout << "mismatching parentheses" << endl;
-    cout << endl;
+    {
+        cout << "mismatching parentheses\n" << endl;
+        success = false;
+        return success;
+    }
+    //cout << endl;
 }
 
 void calculate(){

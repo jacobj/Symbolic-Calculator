@@ -15,20 +15,20 @@
 using namespace std;
 
 TranscendentalNumber::TranscendentalNumber(enum value, Number coefficient) {
-  this->value;
-  this->coefficient = coefficient;
+    this->value;
+    this->coefficient = coefficient;
 }
 
 //Get and set methods
-enum TranscendentalNumber::getValue() {
-  return value;
+enum NAME TranscendentalNumber::getValue() {
+    return value;
 }
 int TranscendentalNumber::getCoefficient() {
-  return coefficient;
+    return coefficient;
 }
 void TranscendentalNumber::setNumerator(enum value) {
-  this->value = value;
+    this->value = value;
 }
 void TranscendentalNumber::setDenominator(Number coefficient) {
-  this->coefficient = coefficient;
+    this->coefficient = coefficient;
 }

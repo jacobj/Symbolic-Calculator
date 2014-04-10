@@ -14,19 +14,19 @@
 
 // Constructor
 Integer::Integer(int value) {
-  this->value = value;
+    this->value = value;
 }
 
 // Get-Set methods
 int Integer::getValue() {
-  return value;
+    return value;
 }
 
 void Integer::setValue(int value) {
-  this->value = value;
+    this->value = value;
 }
 
 // Simplify method
 void Integer::simplify() {
-  // Exists to satisfy Number Parent class.
+    // Exists to satisfy Number Parent class.
 }

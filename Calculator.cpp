@@ -18,5 +18,5 @@ Calculator::Calculator() {
 }
 
 void calculate(){
-  //stuff will go here
+    //stuff will go here
 }

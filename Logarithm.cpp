@@ -7,16 +7,16 @@ using namespace std;
  */
 
 Logarithm::Logarithm(Number coefficient, vector<Number> values, Number base) {
-  this->coefficient = coefficient;
-  this->values = values;
-  this->base = base;
+    this->coefficient = coefficient;
+    this->values = values;
+    this->base = base;
 }
 
 Logarithm::Logarithm(Number coefficient, Number value, Number base) {
-  this->coefficient = coefficient;
-  // Not sure if this is a proper initialization. We will find out when we build
-  this->values.push_back(value);
-  this->base = base;
+    this->coefficient = coefficient;
+    // Not sure if this is a proper initialization. We will find out when we build
+    this->values.push_back(value);
+    this->base = base;
 }
 
 // Get Methods
@@ -47,27 +47,26 @@ void Logarithm::setBase(Number base) {
 
 // Make more general, in case other logs are added.
 void Logarithm::simplify() {
-  if 
-  vector<int> primes;
-  vector<int> primes = findPrimeFactors(values.[0], 2, primes);
-  splitLog(primes);
+    vector<int> primes;
+    vector<int> primes = findPrimeFactors(values.[0].getValue(), 2, primes);
+    splitLog(primes);
 }
 
 void Logarithm::splitLog(vector<int> primes) {
-  // Not the best way to do this, will be overhauled later.
-  values.clear()
-  for (int i = 0; i < primes.size(); i++) {
-    values.push_back(primes[i])
-  }
+    // Not the best way to do this, will be overhauled later.
+    values.clear();
+    for (int i = 0; i < primes.size(); i++) {
+        values.push_back(primes[i]);
+    }
 }
 
 vector<int> Logarithm::findPrimeFactors(int number, int i, vector<int> primeFactors) {
-  if (number < i) {
-    return primeFactors;
-  } else if (number % i == 0) {
-    primeFactors.push_back(i);
-    return findPrimeFactors(number / i, 2, primeFactors);
-  } else {
-    return findPrimeFactors(number, i++, primeFactors);
-  }
+    if (number < i) {
+        return primeFactors;
+    } else if (number % i == 0) {
+        primeFactors.push_back(i);
+        return findPrimeFactors(number / i, 2, primeFactors);
+    } else {
+        return findPrimeFactors(number, i++, primeFactors);
+    }
 }

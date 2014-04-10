@@ -34,27 +34,27 @@ Number Exponential::getExponet() {
     return base;
 }
 
-Number nthRootIrrational::getCoefficient() {
+Number Exponential::getCoefficient() {
     return coefficient;
 }
 
-void nthRootIrrational::setValue(Number value) {
+void Exponential::setValue(Number value) {
     this->value = value;
 }
 
-void nthRootIrrational::setExponet(int base) {
+void Exponential::setExponet(int base) {
     this->base = base;
 }
 
-void nthRootIrrational::setCoefficient(Number coefficient) {
+void Exponential::setCoefficient(Number coefficient) {
     this->coefficient = coefficient;
 }
   
 // Simplify method.
-void nthRootIrrational::simplify() {
+void Exponential::simplify() {
     if (typeid(value) == Integer && typeid(exponet) == RationalNumber) {
-        value.setValue((long)pow(value.getValue(), exponet.getNumerator()));
-        exponet.setValue(1);
+        value->setValue((long)pow(value->getValue(), exponet->getNumerator->getValue()));
+        exponet->getNumerator()->setValue(1);
         vector<int> primes; 
         primes = findPrimeFactors(value->getValue(), 2, primes);
         // Sort results in descending order. rend().
@@ -62,10 +62,22 @@ void nthRootIrrational::simplify() {
         reduceInsideRoot(primes);
     }
     // Add functionality to simplify Rationals.
+    if (typeid(value) == RationalNumber) {
+        if (typeid(exponet) == Integer && 
+            typeid(value->getDenominator()) == Integer
+            typeid(value->getNumerator()) == Integer) {
+            // Square both denominator and numerator
+            value.getDenominator().setValue((long)pow(value->getDenominator()->getValue(), exponet.getValue()));
+            value.getDenominator().setValue((long)pow(value->getDenominator()->getValue(), exponet.getValue()));
+            // Possibly simplify?
+        }
+        // Edit reduceInsideRoot to be more abstract.
+        if (typeid(exponet) == RationalNumber) {}
+    }
 }
 
 // Find the primes. Helper method.
-vector<int> nthRootIrrational::findPrimeFactors(int number, int i, vector<int> primeFactors) {
+vector<int> Exponential::findPrimeFactors(int number, int i, vector<int> primeFactors) {
     if (number < i) {
         return primeFactors;
     } else if (number % i == 0) {
@@ -77,7 +89,7 @@ vector<int> nthRootIrrational::findPrimeFactors(int number, int i, vector<int> p
 }
 
 // Reduce value and multiply coefficients. Helper Method.
-void nthRootIrrational::reduceInsideRoot(vector<int> primeFactors) {
+void Exponential::reduceInsideRoot(vector<int> primeFactors) {
     int counter = 1;
     int current = primeFactors[0];
     for (int i = 0; i < primeFactors.size(); i++) {

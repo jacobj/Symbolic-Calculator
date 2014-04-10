@@ -10,7 +10,7 @@
  */
 
 #ifndef NUMBER_H
-#define NUMBER_H
+#define	NUMBER_H
 
 #include <iostream>
 #include <fstream>
@@ -25,10 +25,17 @@ class Number
 public:
     virtual void simplify() = 0;
     virtual void display() = 0;
-    // virtual Number& operator+(const Number& number) = 0;
-    // virtual Number& operator-(const Number& number) = 0;
-    // virtual Number& operator*(const Number& number) = 0;
-    // virtual Number& operator/(const Number& number) = 0;
+    // Get/Set methods
+    Number getValue();
+    Number getExponent();
+    Number getCoefficient();
+    Number getNumerator();
+    Number getDenominator();
+	// virtual Number& operator+(const Number& number) = 0;
+	// virtual Number& operator-(const Number& number) = 0;
+	// virtual Number& operator*(const Number& number) = 0;
+	// virtual Number& operator/(const Number& number) = 0;
 };
 
-#endif  /* NUMBER_H */
+#endif	/* NUMBER_H */
+

@@ -12,6 +12,7 @@
 
 #include "Exponential.h"
 
+
 using namespace std;
 
 Exponential::Exponential(Number* value, Number* exponent, Number* coefficient) {
@@ -71,14 +72,12 @@ void Exponential::simplify() {
             // Square both denominator and numerator
             if (typeid(value->getDenominator()) == Integer) {
                 value->getDenominator()->setValue((long)pow(value->getDenominator()->getValue(), exponent.getValue()));
-            }
-            else if {
+            } else {
                 // Convert Denominator to it's own exponential.
             }
             if (typeid(value->getNumerator()) == Integer) {
                 value->getNumerator()->setValue((long)pow(value->getNumerator()->getValue(), exponent.getValue()));
-            }
-            else if {
+            } else {
                 // Convert Numerator to it's own exponential.
             }
             // Possibly simplify?
@@ -90,16 +89,14 @@ void Exponential::simplify() {
                 value->getDenominator->setValue((long)pow(value->getDenominator->getValue(), exponent->getNumerator->getValue()));
                 vector<int> primes1;
                 primes1 = findPrimeFactors(value->getDenominator->getValue(), 2, primes);
-            }
-            else if {
+            } else {
                 // Convert Denominator to it's own exponential.
             }
             if (typeid(value->getNumerator()) == Integer) {
                 value->getNumerator->setValue((long)pow(value->getNumerator->getValue(), exponent->getNumerator->getValue()));
                 vector<int> primes2;
                 primes2 = findPrimeFactors(value->getNumerator->getValue(), 2, primes);
-            }
-            else if {
+            } else {
                 // Convert Numerator to it's own exponential.
             }
             exponent->getNumerator()->setValue(1);

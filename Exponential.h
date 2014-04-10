@@ -25,7 +25,7 @@ class Exponential : public Number {
 	~Exponential();
     void simplify();
     vector<int> findPrimeFactors(int number, int i, vector<int> primeFactors);
-    void reduceInsideRoot(vector<int> primeFactors);
+    void reduceInsideRoot(int &value, int &coefficient, vector<int> primeFactors);
     
     Number getValue();
     Number getExponent();

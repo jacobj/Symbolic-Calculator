@@ -66,8 +66,9 @@ int main()
 
 					cout << "(1) View previous expressions." << endl;
 					cout << "(2) View previous answers." << endl;
-					cout << "(3) Convert an answer to a decimal." << endl;
-					cout << "(4) Return to Main Menu" << endl;
+					cout << "(3) Convert a previous answer to a decimal." << endl;
+					cout << "(4) Store a previous answer into the 'an's variable."
+					cout << "(5) Return to Main Menu" << endl;
 					cout << "\nEnter your choice: ";
 
 					cin >> reviewMenu;
@@ -129,6 +130,25 @@ int main()
 						} while (proceed); //end while
 						break;
 					case '4':
+						do
+						{
+							cout << "\nIndicate the answer you wish to store in the 'ans' variable "
+							     << "(Enter ""1"" for the first answer, etc.): " ;
+							cin >> previous;
+							
+							cout << "\nans = " << endl;
+							cout << "\nContinue? (Y/N) ";
+							cin >> choice;
+							
+							if(choice == "Y" || choice == "y")					
+								proceed = true;
+							
+							else if(choice == "N" || choice == "n")							
+								proceed = false;			
+												
+						} while (proceed); //end while
+						break;
+					case '5':
 						cout << "Returning back to the main menu..." << endl;
 						break;
 					default:

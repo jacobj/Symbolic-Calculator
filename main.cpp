@@ -55,8 +55,66 @@ int main()
                 }
                 break;
             case '2':
-                cout << "Here are the previous inputs: " << endl;
-                break;
+				//this do-while loop is for the user to access previous answers and expressions 
+				do
+				{
+					cout << "Would you like to view previous inputs or answers?" << endl;
+
+					cout << "(1) View previous inputs" << endl;
+					cout << "(2) View previous answers" << endl;
+					cout << "(3) Return to Main Menu" << endl;
+					cout << "\nEnter your choice: ";
+
+					cin >> menuChoice;
+					cin.ignore();
+					cout << end;
+
+					switch (menuChoice)
+					{
+					case '1':
+						cout << "Here are the previous inputs:" << endl;
+						/*for (int i = 0; i < calculator->previousExpressions.size(); i++)
+						{
+						//cout << "(" + i + ") " + calculator->previousExpressions.get(i) << endl;
+						}*/
+						break;
+					case '2':
+						do
+						{
+							cout << "You have chosen to view previous answers. Would you like simplified or floating point form?" << endl;
+							cout << "(1) View in simplified form" << endl;
+							cout << "(2) View in floating point form" << endl;
+							cout << "(3) Return to previous menu" << endl;
+							cout << "\nEnter your choice: ";
+
+							cin >> menuChoice;
+							cin.ignore();
+							cout << endl;
+
+							switch (menuChoice)
+							{
+							case '1':
+								cout << "Here is 'ans': " << endl;
+								break;
+							case '2':
+								cout << "Here is the floating point form: " << endl;
+								break;
+							case '3':
+								cout << "Returning to previous menu..." << endl;
+								break;
+							default:
+								cout << "Invalid selection! Please choose 1, 2 or 3.\n" << endl;
+							}
+						} while (menuChoice != '3');
+						break;
+					case '3':
+						cout << "Returning back to the main menu..." << endl;
+						break;
+					default:
+						cout << " Invalid selection! Please choose 1, 2 or 3.\n" << endl;
+					}
+				} while(menuChoice != '3');
+				break;
             case '3':
                 //this do-while loop represents the help menu
                 do

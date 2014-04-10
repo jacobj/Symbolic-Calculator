@@ -1,0 +1,41 @@
+/*
+ * File:        Integer.h
+ *
+ * Authors:     Brent Lewis
+ *              Jacob Jenkins
+ *              Shreya Nirmalan
+ *              Nicola Frachesen
+ *              Elaine Del Rosario
+ *
+ *
+ */
+
+#ifndef INTEGER_H
+#define	INTEGER_H
+
+#include <string>
+#include <stdexcept>
+
+using namespace std;
+
+class Integer{// : public Number {
+private:
+    long value;
+    
+public:
+    Integer(long value);
+    Integer();
+    
+    void simplify();
+    string display();
+    long getValue();
+    void setValue(long value);
+    Integer operator+(const Integer& integer);
+    Integer operator-(const Integer& integer);
+    Integer operator*(const Integer& integer);
+    Integer operator/(const Integer& integer);
+    
+};
+
+#endif	/* INTEGER_H */
+

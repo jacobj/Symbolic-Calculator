@@ -54,14 +54,24 @@ Integer Integer:: operator*(const Integer &integer) {
 }
 
 Integer Integer:: operator/(const Integer &integer) {
-    try {
-        Integer temp;
-        if (integer.value == 0) {
-            throw invalid_argument("Cannot divide by 0!");
-        }
-        catch (invalid_argument &ex) {
-            cerr << ex.what() << endl;
-        }
-        temp.value = value / integer.value;
-        return temp;
-    }
+	Integer temp;
+    if (integer.value == 0) {
+    	cout << "Cannot divide by 0" << endl;
+    	temp.value = 0;
+    	return temp;
+       	 	}
+     temp.value = value / integer.value;
+     return temp;
+   }
+  
+   /* try {
+        	Integer temp;
+        	if (integer.value == 0) {
+            	throw invalid_argument("Cannot divide by 0!");
+            	cout << "Cannot divide by 0" << endl;
+       	 	}
+       	 }
+    catch (invalid_argument &ex) {
+            	cerr << ex.what() << endl;
+        }*/
+ 

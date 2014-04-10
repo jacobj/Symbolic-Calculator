@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <cmath>
 
 class Number
 {

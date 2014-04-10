@@ -14,23 +14,23 @@
 
 using namespace std;
 
-nthRootIrrational::nthRootIrrational(Number* value, Number* base, Number* coefficient) {
+Exponential::Exponential(Number* value, Number* exponet, Number* coefficient) {
     this->value = value;
-    this->base = base;
+    this->exponet = exponet;
     this->coefficient = coefficient;
 }
 
-nthRootIrrational::~nthRootIrrational() {
+Exponential::~Exponential() {
     delete value;
-    delete base;
+    delete exponet;
     delete coefficient;
 }
 
-int nthRootIrrational::getValue() {
+Number Exponential::getValue() {
     return value;
 }
 
-int nthRootIrrational::getBase() {
+Number Exponential::getExponet() {
     return base;
 }
 
@@ -38,11 +38,11 @@ Number nthRootIrrational::getCoefficient() {
     return coefficient;
 }
 
-void nthRootIrrational::setValue(int value) {
+void nthRootIrrational::setValue(Number value) {
     this->value = value;
 }
 
-void nthRootIrrational::setBase(int base) {
+void nthRootIrrational::setExponet(int base) {
     this->base = base;
 }
 
@@ -52,7 +52,9 @@ void nthRootIrrational::setCoefficient(Number coefficient) {
   
 // Simplify method.
 void nthRootIrrational::simplify() {
-    if (typeid(value) == Integer) {
+    if (typeid(value) == Integer && typeid(exponet) == RationalNumber) {
+        value.setValue((long)pow(value.getValue(), exponet.getNumerator()));
+        exponet.setValue(1);
         vector<int> primes; 
         primes = findPrimeFactors(value->getValue(), 2, primes);
         // Sort results in descending order. rend().

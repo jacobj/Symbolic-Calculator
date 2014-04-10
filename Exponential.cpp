@@ -10,7 +10,7 @@
  * 
  */
 
-#include "nthRootIrrational.h"
+#include "Exponential.h"
 
 using namespace std;
 

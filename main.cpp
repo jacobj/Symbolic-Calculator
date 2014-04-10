@@ -19,9 +19,10 @@ using namespace std;
 int main()
 {
     Calculator *calculator;
-    char menuChoice;
-    bool keepGoing;
+    char mainMenu, reviewMenu, helpMenu;
+    bool keepGoing, proceed;
     string expr;
+    string previous, choice;
     
     cout << "*** Welcome to the Calculator Program! ***\n" << endl;
     
@@ -36,53 +37,70 @@ int main()
         cout << "(4) Quit." << endl;
         cout << "\nEnter your choice: ";
         
-        cin >> menuChoice;
+        cin >> mainMenu;
         cin.ignore();
         cout << endl;
         
-        switch(menuChoice)
+        switch(mainMenu)
         {
         	case '1':
         		keepGoing = true;
         		while(keepGoing)
         		{
-                	cout << "Enter your expression: ";
+                	cout << "\nEnter your expression: ";
                 	getline(cin, expr);
                 	if(expr == "back" || expr == "quit")
                 		keepGoing = false;
                 	else
+                	{
                 		calculator = new Calculator(expr);
+                		cout << "\nAnswer: " << endl;
+                	}
                 }
                 break;
             case '2':
 				//this do-while loop is for the user to access previous answers and expressions 
 				do
 				{
-					cout << "Would you like to view previous inputs or answers?" << endl;
+					cout << "\nWould you like to view previous expressions or answers?\n" << endl;
 
-					cout << "(1) View previous inputs" << endl;
-					cout << "(2) View previous answers" << endl;
-					cout << "(3) Return to Main Menu" << endl;
+					cout << "(1) View previous expressions." << endl;
+					cout << "(2) View previous answers." << endl;
+					cout << "(3) Convert an answer to a decimal." << endl;
+					cout << "(4) Return to Main Menu" << endl;
 					cout << "\nEnter your choice: ";
 
-					cin >> menuChoice;
+					cin >> reviewMenu;
 					cin.ignore();
-					cout << end;
+					cout << endl;
 
-					switch (menuChoice)
+					switch (reviewMenu)
 					{
 					case '1':
-						cout << "Here are the previous inputs:" << endl;
-						/*for (int i = 0; i < calculator->previousExpressions.size(); i++)
-						{
-						//cout << "(" + i + ") " + calculator->previousExpressions.get(i) << endl;
-						}*/
+						cout << "\nHere are the previous expressions: " << endl;
 						break;
 					case '2':
+						cout << "\nHere are the previous answers: " << endl;
+						break;
+					case '3':
 						do
 						{
-							cout << "You have chosen to view previous answers. Would you like simplified or floating point form?" << endl;
-							cout << "(1) View in simplified form" << endl;
+							cout << "\nIndicate the answer you wish to convert (Enter ""1"" for the first answer, etc.): " ;
+							cin >> previous;
+							
+							cout << "\nHere is the floating point form: " << endl;
+							cout << "\nContinue? (Y/N) ";
+							cin >> choice;
+							
+							if(choice == "Y" || choice == "y")
+							{
+								proceed = true;
+							}
+							else if(choice == "N" || choice == "n")
+							{
+								proceed = false;
+							}
+							/*cout << "(1) View in simplified form" << endl;
 							cout << "(2) View in floating point form" << endl;
 							cout << "(3) Return to previous menu" << endl;
 							cout << "\nEnter your choice: ";
@@ -100,20 +118,23 @@ int main()
 								cout << "Here is the floating point form: " << endl;
 								break;
 							case '3':
+								cout << "Returning back to the main menu..." << endl;
+								break;
+							case '4':
 								cout << "Returning to previous menu..." << endl;
 								break;
 							default:
 								cout << "Invalid selection! Please choose 1, 2 or 3.\n" << endl;
-							}
-						} while (menuChoice != '3');
+							}*/
+						} while (proceed); //end while
 						break;
-					case '3':
+					case '4':
 						cout << "Returning back to the main menu..." << endl;
 						break;
 					default:
-						cout << " Invalid selection! Please choose 1, 2 or 3.\n" << endl;
+						cout << " Invalid selection! Please choose 1, 2, 3 or 4.\n" << endl;
 					}
-				} while(menuChoice != '3');
+				} while(reviewMenu != '4'); //end while
 				break;
             case '3':
                 //this do-while loop represents the help menu
@@ -130,11 +151,11 @@ int main()
                     cout << "(7) Return to main menu" << endl;
                     cout << "\nEnter your choice: ";
                     
-                    cin >> menuChoice;
+                    cin >> helpMenu;
                     cin.ignore();
                     cout << endl;
 
-                    switch(menuChoice) 
+                    switch(helpMenu) 
                     {
                         case '1':
                             cout << "To enter your expression, type in your first value followed by an operator, and then your second value. \n Ex: 4*5 \t (3 + 5) / 2 \nApproved Operators: +, -, *, /, ^ \nTranscedental Numbers: PI/pi, e \n" << endl;
@@ -160,9 +181,7 @@ int main()
                         default:
                             cout << "Invalid selection! Choose 1, 2, 3, 4, 5, 6, or 7.\n" << endl;
                     }
-                }while(menuChoice != '7');
-                
-                menuChoice = 1;
+                }while(helpMenu != '7');
                 break;
             case '4':
                 break;
@@ -170,7 +189,7 @@ int main()
                 cout << "Invalid selection! Choose 1, 2, 3, or 4!\n" << endl;
         }
         
-    }while(menuChoice != '4' && expr != "quit");
+    }while(mainMenu != '4' && expr != "quit");
     
     return 0;
 }

@@ -25,6 +25,7 @@ class Number
 public:
     virtual void simplify() = 0;
     virtual void display() = 0;
+    virtual double toDouble = 0;
     // Get/Set methods
     Number getValue();
     Number getExponent();

@@ -15,12 +15,9 @@
 //Constructor
 Calculator::Calculator() {}
 
-Calculator::Calculator(string expr){
-	
-	if( addInput(expr) )
-	{
-		previousInputs.push_back( expr );
-	}
+Calculator::Calculator( string expr )
+{
+	addInput(expr);
 }
 
 //function definitions
@@ -196,26 +193,15 @@ bool Calculator::isParentheses(string token)
         return false;
 }
 
-bool Calculator::addInput(string exp)
-{
-	bool success = true;
-	
+void Calculator::addInput(string exp)
+{	
     vector<string> temp = setExpressionTokens(exp);
     
     if( infixToRPN(temp, expression) )
-    {
+    	previousInputs.push_back( exp );
     	
-    	return success;
-        //for(int i = 0; i < expression.size(); i++)
-            //cout << expression[i];
-    }
     else
-    {
         cout << "mismatching parentheses\n" << endl;
-        success = false;
-        return success;
-    }
-    //cout << endl;
 }
 
 void calculate(){

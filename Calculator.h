@@ -38,7 +38,7 @@ public:
     vector<string> getPreviousInputs();
     vector<string> setExpressionTokens(string&);
     
-    bool addInput(string);
+    void addInput(string);
     bool infixToRPN(vector<string>&, vector<string>&);
     bool isOperator(string);
     bool isParentheses(string);

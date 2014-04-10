@@ -17,10 +17,10 @@ Expression::Expression(string expr){
                 getTokensHelper(expr);
 }
 
-Expression::Expression(vector<Number> numbers, vector<char> operators) {
+/*Expression::Expression(vector<Number> numbers, vector<char> operators) {
 	this->numbers = numbers;
 	this->operators = operators;
-}
+}*/
 
 //function definitions
 
@@ -42,6 +42,7 @@ int Expression::comparePrecedence(string op1, string op2)
     else
         return -1;
 }
+
 vector<string> Expression::getExpressionTokens(string& expression)
 {
     vector<string> tokens;
@@ -204,7 +205,7 @@ void Expression::getTokensHelper(string exp)
 }
 
 //Adds a number object to the numbers vector
-void Expression::addNumber(Number number) {
+/*void Expression::addNumber(Number number) {
 	numbers.push_back(number);
 }
 //Adds an operator to the operators vector
@@ -234,4 +235,4 @@ string Expression::display() {
 //Simplifies the expression by combining like terms
 void Expression::simplify() {
 	//Exists to satisfy the Number Parent Class
-}
+}*/

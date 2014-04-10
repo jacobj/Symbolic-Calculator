@@ -17,15 +17,19 @@
 class Logarithm: public Number
 {
     public:
+	    Logarithm(Number coefficient, vector<Number> values, Number base);
+	    Logarithm(Number coefficient, Number value, Number base);
+	    ~Logarithm();
+
         void simplify();
         void display();
     
         Number getCoefficient();
-        vector<int> getValues();
+        vector<Number> getValues();
         Number getBase();
         void setCoefficient(int coefficient);
         void setValue(int value);
-        void setValues(vector<int> values);
+        void setValues(vector<Number> values);
         void setBase(Number base);
 		Logarithm operator+(const Logarithm& log);
 		Logarithm operator-(const Logarithm& log);
@@ -34,7 +38,7 @@ class Logarithm: public Number
 
     private:
         Number coefficient;
-        vector<int> values;
+        vector<Number> values;
         Number base;
 };
 

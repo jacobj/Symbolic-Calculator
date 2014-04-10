@@ -15,8 +15,11 @@
 using namespace std;
 
 TranscendentalNumber::TranscendentalNumber(String value, Number coefficient) {
-    this->value;
+    this->value = value;
     this->coefficient = coefficient;
+}
+TranscendentalNumber::~TranscendentalNumber() {
+    delete coefficient;
 }
 
 //Get and set methods

@@ -19,6 +19,12 @@ Logarithm::Logarithm(Number coefficient, Number value, Number base) {
     this->base = base;
 }
 
+Logarithm::~Logarithm() {
+    delete coefficient;
+    delete values;
+    delete base;
+}
+
 // Get Methods
 Number Logarithm::getCoefficient() {
     return coefficient;

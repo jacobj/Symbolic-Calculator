@@ -1,32 +1,32 @@
-/* 
+/*
  * File:        Integer.h
- * 
+ *
  * Authors:     Brent Lewis
  *              Jacob Jenkins
  *              Shreya Nirmalan
  *              Nicola Frachesen
  *              Elaine Del Rosario
- * 
- * 
+ *
+ *
  */
 
 #ifndef INTEGER_H
 #define	INTEGER_H
 
-class Integer : public Number {  
+class Integer : public Number {
 public:
-    Integer(int value);
+    Integer(long value);
     void simplify();
     string display();
-    int getValue();
-    void setValue(int value);
+    long getValue();
+    void setValue(long value);
     Integer operator+(const Integer& integer);
     Integer operator-(const Integer& integer);
     Integer operator*(const Integer& integer);
     Integer operator/(const Integer& integer);
     
 private:
-    int value;
+    long value;
 };
 
 #endif	/* INTEGER_H */

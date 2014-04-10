@@ -15,12 +15,12 @@
 
 class TranscendentalNumber :: public Number{
 public:
-	TranscendentalNumber(enum value, int coefficient);
+	TranscendentalNumber(String value, int coefficient);
 	simplify();
 
 	void getValue();
 	void getCoefficient();
-	enum setValue(enum value);
+	String setValue(String value);
 	int setCoefficient(int coefficient);
     
     TranscendentalNumber operator+(const TranscendentalNumber& value);
@@ -29,7 +29,7 @@ public:
     TranscendentalNumber operator/(const TranscendentalNumber& value);
 
 private:
-	enum value;
+	String value;
 	Number coefficient;
 };
 

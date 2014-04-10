@@ -21,7 +21,7 @@ using namespace std;
 
 class Exponential : public Number {  
  public:
-	Exponential(Number* value, Number* exponet, Number* coefficient);
+	Exponential(Number* value, Number* exponent, Number* coefficient);
 	~Exponential();
     void simplify();
     vector<int> findPrimeFactors(int number, int i, vector<int> primeFactors);

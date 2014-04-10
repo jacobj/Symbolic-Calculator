@@ -14,15 +14,15 @@
 
 using namespace std;
 
-Exponential::Exponential(Number* value, Number* exponet, Number* coefficient) {
+Exponential::Exponential(Number* value, Number* exponent, Number* coefficient) {
     this->value = value;
-    this->exponet = exponet;
+    this->exponent = exponent;
     this->coefficient = coefficient;
 }
 
 Exponential::~Exponential() {
     delete value;
-    delete exponet;
+    delete exponent;
     delete coefficient;
 }
 
@@ -42,7 +42,7 @@ void Exponential::setValue(Number* value) {
     this->value = value;
 }
 
-void Exponential::setExponet(Number* exponent) {
+void Exponential::setExponent(Number* exponent) {
     this->exponent = exponent;
 }
 
@@ -53,8 +53,8 @@ void Exponential::setCoefficient(Number* coefficient) {
 // Simplify method.
 void Exponential::simplify() {
     if (typeid(value) == Integer && typeid(exponent) == RationalNumber) {
-        value->setValue((long)pow(value->getValue(), exponet->getNumerator->getValue()));
-        exponet->getNumerator()->setValue(1);
+        value->setValue((long)pow(value->getValue(), exponent->getNumerator->getValue()));
+        exponent->getNumerator()->setValue(1);
         vector<int> primes; 
         primes = findPrimeFactors(value->getValue(), 2, primes);
         // Sort results in descending order. rend().

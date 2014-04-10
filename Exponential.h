@@ -1,5 +1,5 @@
 /* 
- * File:        NthRootIrrationalNumber.h
+ * File:        Exponential.h
  * 
  * Authors:     Brent Lewis
  *              Jacob Jenkins
@@ -10,33 +10,34 @@
  * 
  */
 
-#ifndef NTHROOTIRRATIONALNUMBER_H
-#define	NTHROOTIRRATIONALNUMBER_H
+#ifndef EXPONENTIAL_H
+#define	EXPONENTIAL_H
 
 class nthRootIrrational :: public Number {  
 public:
-    nthRootIrrational(int value, int base, int coefficient);
+	Exponential(Number* value, Number* exponet, Number* coefficient);
+	~Exponential();
     simplify();
     findPrimeFactors(int number, int i, vector<int> primeFactors);
     reduceInsideRoot(vector<int> primeFactors);
     
-    int getValue();
-    int getBase();
-    int getCoefficient();
-    void setValue(int value);
-    void setBase(int base);
-    void setCoefficient(int Coefficient);
-    nthRootIrrational operator+(const nthRootIrrational& nthRoot);
-    nthRootIrrational operator-(const nthRootIrrational& nthRoot);
-    nthRootIrrational operator*(const nthRootIrrational& nthRoot);
-    nthRootIrrational operator/(const nthRootIrrational& nthRoot);
+    Number getValue();
+    Number getBase();
+    Number getCoefficient();
+    void setValue(Number value);
+    void setExponent(Number exponent);
+    void setCoefficient(Number Coefficient);
+    Exponential operator+(const nthRootIrrational& nthRoot);
+    Exponential operator-(const nthRootIrrational& nthRoot);
+    Exponential operator*(const nthRootIrrational& nthRoot);
+    Exponential operator/(const nthRootIrrational& nthRoot);
     
 private:
-    int value;
-    int base;
+    Number value;
+    Number exponent;
     Number coefficient;
 }
     
-#endif	/* NTHROOTIRRATIONALNUMBER_H */
+#endif	/* EXPONENTIAL_H */
     
     

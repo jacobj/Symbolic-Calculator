@@ -15,7 +15,7 @@
 
 class TranscendentalNumber :: public Number{
 public:
-	TranscendentalNumber(enum value, int coefficient);
+	TranscendentalNumber(String value, int coefficient);
 	simplify();
 
 	void getValue();

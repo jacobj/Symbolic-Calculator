@@ -26,7 +26,7 @@ String TranscendentalNumber::getValue() {
 int TranscendentalNumber::getCoefficient() {
     return coefficient;
 }
-void TranscendentalNumber::setValue(enum value) {
+void TranscendentalNumber::setValue(String value) {
     this->value = value;
 }
 void TranscendentalNumber::setCoefficient(Number coefficient) {

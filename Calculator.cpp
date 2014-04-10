@@ -192,7 +192,6 @@ bool Calculator::isParentheses(string token)
 void Calculator::getTokensHelper(string exp)
 {
     vector<string> temp = getExpressionTokens(exp);
-    
     if(infixToRPN( temp, expression))
     {
         for(int i = 0; i < expression.size(); i++)
@@ -200,6 +199,7 @@ void Calculator::getTokensHelper(string exp)
     }
     else
         cout << "mismatching parentheses" << endl;
+    cout << endl;
 }
 
 void calculate(){

@@ -9,7 +9,7 @@
  * 
  * 
  */
-
+#include "Calculator.h"
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -18,8 +18,9 @@ using namespace std;
 
 int main()
 {
-    Expression *expression;
+    Calculator *calculator;
     char menuChoice;
+    bool keepGoing;
     string expr;
     
     cout << "*** Welcome to the Calculator Program! ***\n" << endl;
@@ -29,18 +30,34 @@ int main()
     {
         cout << "\nWhat do you want to do?\n" << endl;
         
-        cout << "(1) Help" << endl;
-        cout << "(2) Compute a new expression" << endl;
-        cout << "(3) Review previous expressions" << endl;
-        cout << "(4) Quit" << endl;
+        cout << "(1) Compute a new expression." << endl;
+        cout << "(2) Review previous expressions and answers." << endl;
+        cout << "(3) Help." << endl;
+        cout << "(4) Quit." << endl;
         cout << "\nEnter your choice: ";
         
         cin >> menuChoice;
+        cin.ignore();
         cout << endl;
         
         switch(menuChoice)
         {
-            case '1':
+        	case '1':
+        		keepGoing = true;
+        		while(keepGoing)
+        		{
+                	cout << "Enter your expression: ";
+                	getline(cin, expr);
+                	if(expr == "back" || expr == "quit")
+                		keepGoing = false;
+                	else
+                		calculator = new Calculator(expr);
+                }
+                break;
+            case '2':
+                cout << "Here are the previous inputs: " << endl;
+                break;
+            case '3':
                 //this do-while loop represents the help menu
                 do
                 {
@@ -56,6 +73,7 @@ int main()
                     cout << "\nEnter your choice: ";
                     
                     cin >> menuChoice;
+                    cin.ignore();
                     cout << endl;
 
                     switch(menuChoice) 
@@ -88,22 +106,13 @@ int main()
                 
                 menuChoice = 1;
                 break;
-            case '2':
-                cout << "Enter your expression: ";
-                cin >> expr;
-                expression = new Expression(expr);
-                break;
-            case '3':
-                cout << "Here are the previous inputs: " << endl;
-                break;
             case '4':
-                cout << "You chose to quit! Goodbye!" << endl;
                 break;
             default:
                 cout << "Invalid selection! Choose 1, 2, 3, or 4!\n" << endl;
         }
         
-    }while(menuChoice != '4');
+    }while(menuChoice != '4' && expr != "quit");
     
     return 0;
 }

@@ -55,36 +55,41 @@ void RationalNumber::simplify() {
         // Else, if the numerator is an Exponential,
         else if (Exponential* numeratorptr = dynamic_cast<Exponential*>(numerator)) {
             // If the numerator's coefficient is an Integer,
-            if (Integer* coeffientptr = dynamic_cast<Integer*>(numeratorptr->getCoefficient())) {
+            if (Integer* coefficientptr = dynamic_cast<Integer*>(numeratorptr->getCoefficient())) {
                 int gcd = findGCD(denominatorptr->getValue(),
-                                  coeffientptr->getValue());
-                denominator->setValue(denominatorptr->getValue() / gcd);
-                coefficientptr->setValue(coeffientptr->getValue() /gcd);
+                                  coefficientptr->getValue());
+                denominatorptr->setValue(denominatorptr->getValue() / gcd);
+                coefficientptr->setValue(coefficientptr->getValue() / gcd);
             }
         }
         // Else, if the numerator is an Transcendental,
-        else if (Transcendental* numeratorptr = dynamic_cast<Transcendental*>(numerator)) {
+        // TranscendentalNumber is not yet compilable...
+        /*
+        else if (TranscendentalNumber* numeratorptr = dynamic_cast<TranscendentalNumber*>(numerator)) {
             // If the numerator's coefficient is an Integer,
-            if (Integer* coeffientptr = dynamic_cast<Integer*>(numeratorptr->getCoefficient())) {
+            if (Integer* coefficientptr = dynamic_cast<Integer*>(numeratorptr->getCoefficient())) {
                 int gcd = findGCD(denominatorptr->getValue(),
-                                  coeffientptr->getValue());
+                                  coefficientptr->getValue());
                 denominator->setValue(denominatorptr->getValue() / gcd);
-                coefficientptr->setValue(coeffientptr->getValue() /gcd);
+                coefficientptr->setValue(coefficientptr->getValue() /gcd);
             }
         }
+        // Neither is Logarithm
         // Else, if the numerator is a Logarithm,        
         else if (Logarithm* numeratorptr = dynamic_cast<Logarithm*>(numerator)) {
             // If the numerator's coefficient is an Integer,
-            if (Integer* coeffientptr = dynamic_cast<Integer*>(numeratorptr->getCoefficient())) {
+            if (Integer* coefficientptr = dynamic_cast<Integer*>(numeratorptr->getCoefficient())) {
                 int gcd = findGCD(denominatorptr->getValue(),
-                                  coeffientptr->getValue());
+                                  coefficientptr->getValue());
                 denominator->setValue(denominatorptr->getValue() / gcd);
-                coefficientptr->setValue(coeffientptr->getValue() /gcd);
+                coefficientptr->setValue(coefficientptr->getValue() /gcd);
             }
         }
+        */
     }
-    // ALL CODE BELOW IS WIP.
+    // ALL CODE BELOW IS OLD AND MUST BE REFACTORED.
     // Cases for Logs, Exponentials, Transcendentals
+    /*
     else if (typeid) {
         if (typeid(numerator->getCoefficient()) == Integer) {
         int gcd = findGCD(denominator->getCoefficient()->getValue(), 
@@ -105,10 +110,8 @@ void RationalNumber::simplify() {
     }
     if (typeid(denominator) == nthRootIrrational && 
         typeid(numerator) == nthRootIrrational) {
-        /*
-         * If both the denominator and numerator are logarithms and both
-         * contain the same value and nthRoot, then cancel them out.
-         */
+        // If both the denominator and numerator are logarithms and both
+        // contain the same value and nthRoot, then cancel them out.
         if (denominator->getValue() == numerator->getValue() 
             && denominator->getNthRoot() == numerator->getNthRoot()) {
             denominator = new Integer(denominator->getCoefficient());
@@ -118,10 +121,10 @@ void RationalNumber::simplify() {
         }
     }
     if (typeid(denominator) == Logarithm && typeid(numerator) == Logarithm) {
-        /*
-         * If both the denominator and numerator are logarithms and both
-         * contain the same value and base, then cancel them out.
-         */
+        
+        // If both the denominator and numerator are logarithms and both
+        // contain the same value and base, then cancel them out.
+        
         if (denominator->getValue() == numerator->getValue() 
             && denominator->getBase() == numerator->getBase()) {
             denominator = new Integer(denominator->getCoefficient());
@@ -129,9 +132,7 @@ void RationalNumber::simplify() {
         } else {
             return;
         }
-    } else {
-        return;
-    }
+    */
 }
 
 // Use euclid's algorithm
@@ -139,6 +140,6 @@ int RationalNumber::findGCD(int a, int b) {
     if (b == 0) {
         return a;
     } else {
-        return gcd(b, a % b);
+        return findGCD(b, a % b);
     }
 }

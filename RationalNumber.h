@@ -13,6 +13,12 @@
 #ifndef RATIONALNUMBER_H
 #define	RATIONALNUMBER_H
 
+#include "Number.h"
+#include "Integer.h"
+// #include "Logarithm.h"
+#include "Exponential.h"
+// #include "TranscendentalNumber.h"
+
 class RationalNumber : public Number {
  public:
     RationalNumber(Number* numerator, Number* denominator);

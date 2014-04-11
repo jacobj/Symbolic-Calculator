@@ -13,6 +13,8 @@
 #include "TranscendentalNumber.h"
 
 using namespace std;
+#include <iostream>
+#include <string>
 
 TranscendentalNumber::TranscendentalNumber(String value, Number coefficient) {
     this->value = value;
@@ -26,7 +28,7 @@ TranscendentalNumber::~TranscendentalNumber() {
 String TranscendentalNumber::getValue() {
     return value;
 }
-int TranscendentalNumber::getCoefficient() {
+Number TranscendentalNumber::getCoefficient() {
     return coefficient;
 }
 void TranscendentalNumber::setValue(String value) {
@@ -34,4 +36,27 @@ void TranscendentalNumber::setValue(String value) {
 }
 void TranscendentalNumber::setCoefficient(Number coefficient) {
     this->coefficient = coefficient;
+}
+
+void TranscendentalNumber::simplify() {
+    // Exists to satisfy Number Parent class.
+}
+
+void TranscendentalNumber::display() {
+    // Exists to display Number Parent class.
+	//Please call getValue() to return pi or e.
+}
+double TranscendentalNumber::toDouble(){
+	//Coefficient is currently a number, so I am weary of its implmentation here,
+	//as it requires very good operator overloading.
+	//If we run out of time, consider changing back to int for simplicity.
+	if (!value.compare("pi") || !value.compare("PI")){
+		return /*coefficient*/3.14;
+	}
+	else if(!value.compare("e")){
+		return /*coefficient*/2.72;
+	}
+	else{
+	    return 0;
+	}
 }

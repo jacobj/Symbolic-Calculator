@@ -60,6 +60,9 @@ void Logarithm::simplify() {
 void Logarithm::display() {
     // Exists to satisfy Number Parent class. May be needed in the future.
 }
+double Logarithm::toDouble(){
+	//DON'T FORGET return stuff here
+}
 
 void Logarithm::splitLog(vector<int> primes) {
     // Not the best way to do this, will be overhauled later.

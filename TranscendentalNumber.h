@@ -13,16 +13,18 @@
 #ifndef TRANSCENDENTALNUMBER_H
 #define	TRANSCENDENTALNUMBER_H
 
-class TranscendentalNumber :: public Number{
+class TranscendentalNumber : public Number{
 public:
 	TranscendentalNumber(String value, int coefficient);
 	~TranscendentalNumber();
-	simplify();
+	void simplify();
+	void display();
+	double toDouble();
 
-	void getValue();
-	void getCoefficient();
-	String setValue(String value);
-	int setCoefficient(int coefficient);
+	String getValue();
+	Number getCoefficient();
+	void setValue(String value);
+	void setCoefficient(Number coefficient);
     
     TranscendentalNumber operator+(const TranscendentalNumber& value);
     TranscendentalNumber operator-(const TranscendentalNumber& value);

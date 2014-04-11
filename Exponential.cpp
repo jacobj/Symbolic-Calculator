@@ -1,5 +1,5 @@
 /* 
- * File:        nthRootIrrational.cpp
+ * File:        Exponential.cpp
  * 
  * Authors:     Brent Lewis
  *              Jacob Jenkins
@@ -49,6 +49,10 @@ void Exponential::setExponent(Number* exponent) {
 
 void Exponential::setCoefficient(Number* coefficient) {
     this->coefficient = coefficient;
+}
+
+double Exponential::toDouble(){
+	//DON'T FORGET return stuff here
 }
   
 // Simplify method.

@@ -33,6 +33,7 @@ class Exponential : public Number {
     void setValue(Number* value);
     void setExponent(Number* exponent);
     void setCoefficient(Number* coefficient);
+    double toDouble();
     // Exponential operator+(const nthRootIrrational& nthRoot);
     // Exponential operator-(const nthRootIrrational& nthRoot);
     // Exponential operator*(const nthRootIrrational& nthRoot);

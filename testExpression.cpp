@@ -1,4 +1,7 @@
 /*
+
+	NO LONGER IN USE!!
+
 	This file tests the Expression class
 */
 
@@ -7,7 +10,7 @@
 int main()
 {
 	Expression expression("1+2");
-	Expression expression2;
+	//Expression expression2;
 	
 	
 	return 0;

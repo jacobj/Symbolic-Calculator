@@ -25,11 +25,13 @@ class Number
 public:
     virtual void simplify() = 0;
     virtual void display() = 0;
+    virtual double toDouble() = 0;
     // Get/Set methods
-	// virtual Number& operator+(const Number& number) = 0;
-	// virtual Number& operator-(const Number& number) = 0;
-	// virtual Number& operator*(const Number& number) = 0;
-	// virtual Number& operator/(const Number& number) = 0;
+    /*virtual Number& getValue() = 0;
+    virtual Number& getExponent() = 0;
+    virtual Number& getCoefficient() = 0;
+    virtual Number& getNumerator() = 0;
+    virtual Number& getDenominator() = 0;*/
 };
 
 #endif	/* NUMBER_H */

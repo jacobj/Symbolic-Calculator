@@ -68,7 +68,7 @@ void RationalNumber::simplify() {
             if (Integer* coefficientptr = dynamic_cast<Integer*>(numeratorptr->getCoefficient())) {
                 int gcd = findGCD(denominatorptr->getValue(),
                                   coefficientptr->getValue());
-                denominator->setValue(denominatorptr->getValue() / gcd);
+                denominatorptr->setValue(denominatorptr->getValue() / gcd);
                 coefficientptr->setValue(coefficientptr->getValue() /gcd);
             }
         }

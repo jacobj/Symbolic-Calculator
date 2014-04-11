@@ -53,26 +53,32 @@ void Exponential::setCoefficient(Number* coefficient) {
   
 // Simplify method.
 void Exponential::simplify() {
-    if (Integer* valueptr = dynamic_cast<Integer*>(value)) { 
+    // If the value is an Integer,
+    if (Integer* valueptr = dynamic_cast<Integer*>(value)) {
+        // If the exponent is a RationalNumber,
         if (RationalNumber* exponentptr = dynamic_cast<RationalNumber*>(exponent)) {
+            // If the exponent's numerator is an Integer,
             if (Integer* numeratorptr = dynamic_cast<Integer*>(exponentptr->getNumerator())) {
+                // Raise the value to nth power and set the exponent to 1.
+                valueptr->setValue((long)pow(valueptr->getValue(), numeratorptr->getValue()));
+                // Set the numerator of the exponent to 1, as it has already been raised appropriately.
+                numeratorptr->setValue(1);
+                // If the exponent's denominator is an Integer,
                 if (Integer* denominatorptr = dynamic_cast<Integer*>(exponentptr->getDenominator())) {
-                    // Raise the value to nth power and set the exponent to 1.
-                    valueptr->setValue((long)pow(valueptr->getValue(), numeratorptr->getValue()));
-                    numeratorptr->setValue(1);
                     // Break up value into it's prime factors.
                     vector<int> primes; 
                     primes = findPrimeFactors(valueptr->getValue(), 2, primes);
                     // Sort results in descending order. rend().
                     sort(primes.begin(), primes.end());
-                    
-                    /*
-                      int value = value->getValue();
-                      int coefficient = coefficient->getValue();
-                      reduceInsideRoot(primes);
-                      this->value->setValue(value);
-                      this->coefficient->setValue(coefficient);
-                    */
+                    int value = valueptr->getValue();
+                    // If the coefficient is an Integer.
+                    if (Integer* coefficientptr = dynamic_cast<Integer*>(coefficient)) {
+                        int coefficient = coefficientptr->getValue();
+                        reduceInsideRoot(value, coefficient, denominatorptr.getValue(), primes);
+                        // Set value and coeffient to the returned values from reduceInsideRoot.
+                        valueptr->setValue(value);
+                        coefficientptr->setValue(coefficient);
+                    }
                 }
             }
         }

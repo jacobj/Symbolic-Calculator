@@ -40,7 +40,8 @@ void Integer::display() {
 }
 
 double Integer::toDouble(){
-	return 1.2;
+	//get method can also be used here if double value not needed
+	return (double) value;
 }
 Integer Integer:: operator+(const Integer &integer) {
     Integer temp;

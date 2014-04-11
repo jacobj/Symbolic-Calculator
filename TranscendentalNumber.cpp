@@ -13,10 +13,8 @@
 #include "TranscendentalNumber.h"
 
 using namespace std;
-#include <iostream>
-#include <string>
 
-TranscendentalNumber::TranscendentalNumber(String value, Number coefficient) {
+TranscendentalNumber::TranscendentalNumber(string value, Number* coefficient) {
     this->value = value;
     this->coefficient = coefficient;
 }
@@ -25,16 +23,16 @@ TranscendentalNumber::~TranscendentalNumber() {
 }
 
 //Get and set methods
-String TranscendentalNumber::getValue() {
+string TranscendentalNumber::getValue() {
     return value;
 }
-Number TranscendentalNumber::getCoefficient() {
+Number * TranscendentalNumber::getCoefficient() {
     return coefficient;
 }
-void TranscendentalNumber::setValue(String value) {
+void TranscendentalNumber::setValue(string value) {
     this->value = value;
 }
-void TranscendentalNumber::setCoefficient(Number coefficient) {
+void TranscendentalNumber::setCoefficient(Number* coefficient) {
     this->coefficient = coefficient;
 }
 

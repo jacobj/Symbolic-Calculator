@@ -17,7 +17,7 @@
 #include "Integer.h"
 // #include "Logarithm.h"
 #include "Exponential.h"
-// #include "TranscendentalNumber.h"
+#include "TranscendentalNumber.h"
 
 class RationalNumber : public Number {
  public:

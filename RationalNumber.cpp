@@ -62,9 +62,7 @@ void RationalNumber::simplify() {
                 coefficientptr->setValue(coefficientptr->getValue() / gcd);
             }
         }
-        // Else, if the numerator is an Transcendental,
-        // TranscendentalNumber is not yet compilable...
-        /*
+        // Else, if the numerator is an Transcendental
         else if (TranscendentalNumber* numeratorptr = dynamic_cast<TranscendentalNumber*>(numerator)) {
             // If the numerator's coefficient is an Integer,
             if (Integer* coefficientptr = dynamic_cast<Integer*>(numeratorptr->getCoefficient())) {
@@ -74,7 +72,8 @@ void RationalNumber::simplify() {
                 coefficientptr->setValue(coefficientptr->getValue() /gcd);
             }
         }
-        // Neither is Logarithm
+        // Logarithm is not yet compilable
+        /*
         // Else, if the numerator is a Logarithm,        
         else if (Logarithm* numeratorptr = dynamic_cast<Logarithm*>(numerator)) {
             // If the numerator's coefficient is an Integer,

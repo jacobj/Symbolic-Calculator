@@ -17,6 +17,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <vector>
+#include <string>
 
 using namespace std;
 

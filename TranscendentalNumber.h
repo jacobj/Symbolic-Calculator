@@ -13,18 +13,20 @@
 #ifndef TRANSCENDENTALNUMBER_H
 #define	TRANSCENDENTALNUMBER_H
 
-class TranscendentalNumber : public Number{
+#include "Number.h"
+
+class TranscendentalNumber : public Number {
 public:
-	TranscendentalNumber(String value, int coefficient);
+	TranscendentalNumber(string value, Number* coefficient);
 	~TranscendentalNumber();
 	void simplify();
 	void display();
 	double toDouble();
 
-	String getValue();
-	Number getCoefficient();
-	void setValue(String value);
-	void setCoefficient(Number coefficient);
+	string getValue();
+	Number * getCoefficient();
+	void setValue(string value);
+	void setCoefficient(Number* coefficient);
     
     TranscendentalNumber operator+(const TranscendentalNumber& value);
     TranscendentalNumber operator-(const TranscendentalNumber& value);
@@ -32,8 +34,8 @@ public:
     TranscendentalNumber operator/(const TranscendentalNumber& value);
 
 private:
-	String value;
-	Number coefficient;
+	string value;
+	Number* coefficient;
 };
 
 #endif	/* TRANSCENDENTALNUMBER_H */

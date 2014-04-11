@@ -39,6 +39,9 @@ void Integer::display() {
     // Exists to display Number Parent class.
 }
 
+double Integer::toDouble(){
+	return 1.2;
+}
 Integer Integer:: operator+(const Integer &integer) {
     Integer temp;
     temp.value = value + integer.value;

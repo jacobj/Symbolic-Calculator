@@ -25,13 +25,13 @@ class Number
 public:
     virtual void simplify() = 0;
     virtual void display() = 0;
-    virtual double toDouble = 0;
+    virtual double toDouble() = 0;
     // Get/Set methods
-    Number getValue();
-    Number getExponent();
-    Number getCoefficient();
-    Number getNumerator();
-    Number getDenominator();
+    /*virtual Number& getValue() = 0;
+    virtual Number& getExponent() = 0;
+    virtual Number& getCoefficient() = 0;
+    virtual Number& getNumerator() = 0;
+    virtual Number& getDenominator() = 0;*/
 };
 
 #endif	/* NUMBER_H */

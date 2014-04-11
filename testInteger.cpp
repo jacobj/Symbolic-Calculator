@@ -11,9 +11,9 @@ int main()
 	long first, second;
     
 	// Create Integer objects
-	Integer* coeff1;
-	Integer* coeff2;
-	Integer* coeff3 = new Integer();
+	Integer coeff1;
+	Integer coeff2;
+	Integer coeff3;
     
 	// obtain user inputed values
 	cout << "Enter first value: " ;
@@ -24,11 +24,11 @@ int main()
 	cout << endl;
     
 	// store user input values
-	coeff1->setValue(first);
-	coeff2->setValue(second);
+	coeff1.setValue(first);
+	coeff2.setValue(second);
     
     long testSize = 8;
-    Integer* testCase[testSize];
+    Integer testCase[testSize];
     
     testCase[0] = coeff1 + coeff2;
     testCase[1] = coeff1 + coeff3;
@@ -40,7 +40,7 @@ int main()
     testCase[7] = coeff2 / coeff3;
     
     for(int i = 0; i < testSize; i++) {
-    	cout << testCase[i] << endl;
+    	cout << testCase[i].getValue() << endl;
     }
     
 	return 0;

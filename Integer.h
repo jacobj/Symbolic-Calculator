@@ -32,6 +32,7 @@ public:
     void display();
     long getValue();
     void setValue(long value);
+	double toDouble();
     Integer operator+(const Integer& integer);
     Integer operator-(const Integer& integer);
     Integer operator*(const Integer& integer);

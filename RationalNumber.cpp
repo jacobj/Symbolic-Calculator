@@ -23,11 +23,11 @@ RationalNumber::~RationalNumber() {
 }
 
 //Get and set methods.
-int RationalNumber::getNumerator() {
+Number * RationalNumber::getNumerator() {
     return numerator;
 }
 
-int RationalNumber::getDenominator() {
+Number * RationalNumber::getDenominator() {
     return denominator;
 }
 

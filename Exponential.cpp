@@ -27,15 +27,15 @@ Exponential::~Exponential() {
     delete coefficient;
 }
 
-Number Exponential::getValue() {
+Number * Exponential::getValue() {
     return value;
 }
 
-Number Exponential::getExponent() {
+Number * Exponential::getExponent() {
     return exponent;
 }
 
-Number Exponential::getCoefficient() {
+Number * Exponential::getCoefficient() {
     return coefficient;
 }
 
@@ -53,7 +53,7 @@ void Exponential::setCoefficient(Number* coefficient) {
   
 // Simplify method.
 void Exponential::simplify() {
-    if (typeid(value) == Integer && typeid(exponent) == RationalNumber) {
+    if (typeid(*value) == typeid(Integer) && typeid(*exponent) == typeid(RationalNumber)) {
         value->setValue((long)pow(value->getValue(), exponent->getNumerator->getValue()));
         exponent->getNumerator()->setValue(1);
         vector<int> primes; 
@@ -67,16 +67,18 @@ void Exponential::simplify() {
         coefficient.setValue(value);
     }
     // Add functionality to simplify Rationals.
-    if (typeid(value) == RationalNumber) {
-        if (typeid(exponent) == Integer) {
+    if (typeid(*value) == typeid(RationalNumber)) {
+        if (typeid(*exponent) == typeid(Integer)) {
             // Square both denominator and numerator
-            if (typeid(value->getDenominator()) == Integer) {
-                value->getDenominator()->setValue((long)pow(value->getDenominator()->getValue(), exponent.getValue()));
+            if (typeid(*(value->getDenominator())) == typeid(Integer)) {
+                value->getDenominator()->setValue((long)pow(value->getDenominator()->getValue(),
+                                                            exponent.getValue()));
             } else {
                 // Convert Denominator to it's own exponential.
             }
-            if (typeid(value->getNumerator()) == Integer) {
-                value->getNumerator()->setValue((long)pow(value->getNumerator()->getValue(), exponent.getValue()));
+            if (typeid(*(value->getNumerator())) == typeid(Integer)) {
+                value->getNumerator()->setValue((long)pow(value->getNumerator()->getValue(),
+                                                          exponent.getValue()));
             } else {
                 // Convert Numerator to it's own exponential.
             }
@@ -84,18 +86,20 @@ void Exponential::simplify() {
             value->simplify();
         }
         // Edit reduceInsideRoot to be more abstract.
-        if (typeid(exponent) == RationalNumber) {
-            if (typeid(value->getDenominator()) == Integer) {
-                value->getDenominator->setValue((long)pow(value->getDenominator->getValue(), exponent->getNumerator->getValue()));
+        if (typeid(*exponent) == typeid(RationalNumber)) {
+            if (typeid(value->getDenominator()) == typeid(Integer)) {
+                value->getDenominator()->setValue((long)pow(value->getDenominator()->getValue(),
+                                                            exponent->getNumerator()->getValue()));
                 vector<int> primes1;
-                primes1 = findPrimeFactors(value->getDenominator->getValue(), 2, primes);
+                primes1 = findPrimeFactors(value->getDenominator()->getValue(), 2, primes);
             } else {
                 // Convert Denominator to it's own exponential.
             }
-            if (typeid(value->getNumerator()) == Integer) {
-                value->getNumerator->setValue((long)pow(value->getNumerator->getValue(), exponent->getNumerator->getValue()));
+            if (typeid(value->getNumerator()) == typeid(Integer)) {
+                value->getNumerator->setValue((long)pow(value->getNumerator()->getValue(),
+                                                        exponent->getNumerator()->getValue()));
                 vector<int> primes2;
-                primes2 = findPrimeFactors(value->getNumerator->getValue(), 2, primes);
+                primes2 = findPrimeFactors(value->getNumerator()->getValue(), 2, primes);
             } else {
                 // Convert Numerator to it's own exponential.
             }

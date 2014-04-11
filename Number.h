@@ -26,11 +26,6 @@ public:
     virtual void simplify() = 0;
     virtual void display() = 0;
     // Get/Set methods
-    Number getValue();
-    Number getExponent();
-    Number getCoefficient();
-    Number getNumerator();
-    Number getDenominator();
 	// virtual Number& operator+(const Number& number) = 0;
 	// virtual Number& operator-(const Number& number) = 0;
 	// virtual Number& operator*(const Number& number) = 0;

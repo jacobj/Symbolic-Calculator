@@ -27,12 +27,12 @@ class Exponential : public Number {
     vector<int> findPrimeFactors(int number, int i, vector<int> primeFactors);
     void reduceInsideRoot(int &value, int &coefficient, vector<int> primeFactors);
     
-    Number getValue();
-    Number getExponent();
-    Number getCoefficient();
+    Number * getValue();
+    Number * getExponent();
+    Number * getCoefficient();
     void setValue(Number* value);
     void setExponent(Number* exponent);
-    void setCoefficient(Number* Coefficient);
+    void setCoefficient(Number* coefficient);
     // Exponential operator+(const nthRootIrrational& nthRoot);
     // Exponential operator-(const nthRootIrrational& nthRoot);
     // Exponential operator*(const nthRootIrrational& nthRoot);

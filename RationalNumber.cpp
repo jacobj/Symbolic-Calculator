@@ -14,8 +14,8 @@
 
 RationalNumber::RationalNumber(Number* numerator, Number* denominator) {
     this->numerator = numerator;
-    this->denominator = denominator
-        }
+    this->denominator = denominator;
+}
 
 RationalNumber::~RationalNumber() {
     delete numerator;
@@ -41,15 +41,52 @@ void RationalNumber::setDenominator(Number* denominator) {
 
 // Simplify helper method.
 void RationalNumber::simplify() {
-    // Simplify coefficients first if they are Integers
-    if (typeid(denominator) == Integer && typeid(numerator) == Integer) {
-        int gcd = findGCD(denominator->getValue(), 
-                          numerator->getValue());
-        denominator->setValue(denominator->getValue() / gcd);
-        numerator->setValue(numerator->getValue() / gcd);
+    // If the denominator is an Integer,
+    if (Integer* denominatorptr = dynamic_cast<Integer*>(denominator)) {
+        // If the numerator is an Integer (easiest case),
+        if (Integer* numeratorptr = dynamic_cast<Integer*>(numerator)) {
+            // Find the the common factor via Euclid's method.
+            int gcd = findGCD(denominatorptr->getValue(), 
+                              numeratorptr->getValue());
+            // Divide the values by that factor to simplify.
+            denominatorptr->setValue(denominatorptr->getValue() / gcd);
+            numeratorptr->setValue(numeratorptr->getValue() / gcd);
+        }
+        // Else, if the numerator is an Exponential,
+        else if (Exponential* numeratorptr = dynamic_cast<Exponential*>(numerator)) {
+            // If the numerator's coefficient is an Integer,
+            if (Integer* coeffientptr = dynamic_cast<Integer*>(numeratorptr->getCoefficient())) {
+                int gcd = findGCD(denominatorptr->getValue(),
+                                  coeffientptr->getValue());
+                denominator->setValue(denominatorptr->getValue() / gcd);
+                coefficientptr->setValue(coeffientptr->getValue() /gcd);
+            }
+        }
+        // Else, if the numerator is an Transcendental,
+        else if (Transcendental* numeratorptr = dynamic_cast<Transcendental*>(numerator)) {
+            // If the numerator's coefficient is an Integer,
+            if (Integer* coeffientptr = dynamic_cast<Integer*>(numeratorptr->getCoefficient())) {
+                int gcd = findGCD(denominatorptr->getValue(),
+                                  coeffientptr->getValue());
+                denominator->setValue(denominatorptr->getValue() / gcd);
+                coefficientptr->setValue(coeffientptr->getValue() /gcd);
+            }
+        }
+        // Else, if the numerator is a Logarithm,        
+        else if (Logarithm* numeratorptr = dynamic_cast<Logarithm*>(numerator)) {
+            // If the numerator's coefficient is an Integer,
+            if (Integer* coeffientptr = dynamic_cast<Integer*>(numeratorptr->getCoefficient())) {
+                int gcd = findGCD(denominatorptr->getValue(),
+                                  coeffientptr->getValue());
+                denominator->setValue(denominatorptr->getValue() / gcd);
+                coefficientptr->setValue(coeffientptr->getValue() /gcd);
+            }
+        }
     }
-    if (typeid(denominator->getCoefficient()) == Integer && 
-        typeid(numerator->getCoefficient()) == Integer) {
+    // ALL CODE BELOW IS WIP.
+    // Cases for Logs, Exponentials, Transcendentals
+    else if (typeid) {
+        if (typeid(numerator->getCoefficient()) == Integer) {
         int gcd = findGCD(denominator->getCoefficient()->getValue(), 
                           numerator->getCoefficient()->getValue());
         denominator->getCoefficient->setValue(denominator->getCoefficient()->getValue() / gcd);

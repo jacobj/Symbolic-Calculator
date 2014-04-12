@@ -58,3 +58,7 @@ double TranscendentalNumber::toDouble(){
 	    return 0;
 	}
 }
+string TranscendentalNumber::toString(){
+	//Yea... hm... how to deal with this coefficient...
+	return /*coefficient*/value
+}

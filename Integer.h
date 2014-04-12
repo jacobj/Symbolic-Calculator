@@ -13,10 +13,11 @@
 #ifndef INTEGER_H
 #define	INTEGER_H
 
-#include "Number.h"
+//#include "Number.h"
 #include <string>
 #include <stdexcept>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ public:
     void setValue(long value);
     void display();
     double toDouble();
+    string toString();
 
     // Implemented to satisfy Number.h
     unordered_map<string, Number*> getValues();

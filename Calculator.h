@@ -19,13 +19,14 @@
 #include <list>
 #include <string>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
 class Calculator {
 
 private:
-	//vector<Number> previousAnswers;
+	vector<string> previousAnswers;
 	vector<string> previousInputs;
     vector<string> expression;
 public:
@@ -36,16 +37,22 @@ public:
     //function prototypes
     
     vector<string> getPreviousInputs();
+    vector<string> getPreviousAnswers();
+    vector<string> getExpression();
     vector<string> setExpressionTokens(string&);
     
     void addInput(string);
+    
+    //double RPNtoDouble( vector<string> tokens );
+    void calculate();
+    
     bool infixToRPN(vector<string>&, vector<string>&);
     bool isOperator(string);
     bool isParentheses(string);
     
 	int comparePrecedence(string, string);
 	
-	void calculate();
+	
 
 };
 

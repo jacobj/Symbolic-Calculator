@@ -20,6 +20,7 @@ int main()
 {
     Calculator calculator;
     vector<string> previousExpressions;
+    vector<string> previousAnswers;
     char mainMenu, reviewMenu, helpMenu;
     bool keepGoing, proceed;
     string expr;
@@ -56,6 +57,7 @@ int main()
                             else
                                 {
                                     calculator.addInput(expr);
+                                    calculator.calculate();
                                     cout << "\nAnswer: " << endl;
                                 }
                         }

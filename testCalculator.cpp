@@ -6,16 +6,54 @@
 
 int main()
 {
-	Calculator calculator("1+2");
-	vector<string> expressions;
+	Calculator calculator;//("1+2");
+	vector<string> inputs, answers;
 	
+	//addition test cases
+	calculator.addInput("1+2");
+	calculator.calculate();
+	
+	/*calculator.addInput("(1+2)");
+	calculator.calculate();*/
+	
+	/*calculator.addInput("1+2+3"); //does not work
+	calculator.calculate();
+	
+	calculator.addInput("(1+2)+3");
+	calculator.calculate();*/
+
+	calculator.addInput("(1+2+3)");
+	calculator.calculate();
+	
+	/*calculator.addInput("1+(2+3)");
+	calculator.calculate();
+	
+	/*calculator.addInput("-1+2"); //does not work
+	calculator.calculate();*/
+	
+	/*calculator.addInput("1+(-2)"); 
+	calculator.calculate();*/
+	
+	/*//subtraction test cases
 	calculator.addInput("(3 * 5)");
-	expressions = calculator.getPreviousInputs();
+	calculator.calculate();
 	
-	for(int i = 0; i < expressions.size();i++)
+	//multiplication test cases
+	calculator.addInput("(3 * 5)");
+	calculator.calculate();
+	
+	//division test cases
+	calculator.addInput("(3 * 5)");
+	calculator.calculate();*/
+	
+	
+	inputs = calculator.getPreviousInputs();
+	answers = calculator.getPreviousAnswers();
+	for(int i = 0; i < inputs.size();i++)
 	{
-		cout << expressions[i];
+		cout << "Expression: " << inputs[i] << endl;
 		cout << endl;
+		cout << "Answer: " << answers[i] << endl;
 	}
 	return 0;
 }

@@ -41,10 +41,15 @@ int Calculator::comparePrecedence(string op1, string op2)
         return -1;
 }
 
-vector<string> Calculator::getPreviousInputs(){
+vector<string> Calculator::getPreviousInputs()
+{
 	return previousInputs;
 }
 
+vector<string> Calculator::getPreviousAnswers()
+{
+	return previousAnswers;
+}
 vector<string> Calculator::setExpressionTokens(string& expression)
 {
     vector<string> tokens;
@@ -175,6 +180,61 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
     return success;
 }
 
+//double Calculator::RPNtoDouble( vector<string> tokens )      
+void Calculator::calculate()      
+{          
+    stack<string> st;         
+  
+    // For each token          
+    for ( int i = 0; i < (int) expression.size(); ++i )          
+    {         
+        const string token = expression[ i ];        
+  
+        // If the token is a value push it onto the stack          
+        if ( !isOperator(token) )          
+        {          
+            st.push(token);          
+        }          
+        else          
+        {    
+            double result =  0.0;    
+  
+            // Token is an operator: pop top two entries          
+            const string val2 = st.top();        
+            st.pop();        
+            const double d2 = strtod( val2.c_str(), NULL );          
+  
+            if ( !st.empty() )    
+            {    
+                const string val1 = st.top();        
+                st.pop();        
+                const double d1 = strtod( val1.c_str(), NULL );       
+  
+                //Get the result          
+                result = token == "+" ? d1 + d2 :          
+                         token == "-" ? d1 - d2 :          
+                         token == "*" ? d1 * d2 :          
+                                        d1 / d2;          
+            }    
+            else    
+            {    
+                if ( token == "-" )    
+                    result = d2 * -1;    
+                else     
+                    result = d2;    
+            }    
+  
+  
+            // Push result onto stack         
+            ostringstream s;        
+            s << result;        
+            st.push( s.str() );
+            previousAnswers.push_back(s.str()); 
+        }          
+    }                  
+  
+   // return strtod( st.top().c_str(), NULL );        
+} 
 bool Calculator::isOperator(string token)
 {
     if( token == "+" || token == "-" ||
@@ -193,6 +253,10 @@ bool Calculator::isParentheses(string token)
         return false;
 }
 
+vector<string> Calculator::getExpression()
+{
+	return expression;
+}
 void Calculator::addInput(string exp)
 {	
     vector<string> temp = setExpressionTokens(exp);
@@ -204,6 +268,3 @@ void Calculator::addInput(string exp)
         cout << "mismatching parentheses\n" << endl;
 }
 
-void calculate(){
-    //stuff will go here
-}

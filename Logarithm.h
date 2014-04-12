@@ -27,7 +27,7 @@ class Logarithm: public Number
         double toDouble();
     
         Number getCoefficient();
-        vector<Number> getValues();
+        vector<Number*> getValues();
         Number getBase();
         void setCoefficient(Number coefficient);
         void setValue(Number value);

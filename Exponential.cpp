@@ -17,7 +17,7 @@ using namespace std;
 Exponential::Exponential(Number* value, Number* exponent, Number* coefficient) {
     this->values["value"] = value;
     this->values["exponent"] = exponent;
-    this->values["coefficient"] = coefficien;
+    this->values["coefficient"] = coefficient;
 }
 
 Exponential::~Exponential() {

@@ -22,6 +22,7 @@ public:
 	void simplify();
 	void display();
 	double toDouble();
+	string toString();
 
 	string getValue();
 	Number * getCoefficient();

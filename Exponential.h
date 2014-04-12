@@ -29,6 +29,7 @@ public:
     void simplify();
     void display();
     double toDouble();
+    string toString();
     unordered_map<string, Number*> getValues();
     void setValues(string key, Number* val);
 

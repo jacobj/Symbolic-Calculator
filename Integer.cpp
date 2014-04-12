@@ -38,6 +38,13 @@ double Integer::toDouble(){
 	// get method can also be used here if double value not needed
 	return (double) value;
 }
+string Integer::toString(){
+	stringstream valueStream;
+	valueStream << value;
+	string str = valueStream.str();
+	return str;
+}
+
 Integer Integer:: operator+(const Integer &integer) {
     Integer temp;
     temp.value = value + integer.value;

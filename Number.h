@@ -32,6 +32,7 @@ public:
     virtual void simplify() = 0;
     virtual void display() = 0;
     virtual double toDouble() = 0;
+    virtual string toString() = 0;
     
     // Used only for Integers
     virtual long getValue() = 0;

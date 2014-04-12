@@ -42,7 +42,8 @@ int main()
     for(int i = 0; i < testSize; i++) {
     	cout << testCase[i].getValue() << endl;
     }
-    cout<<coeff1.toDouble();
+    cout<<coeff1.toDouble()<<endl;
+    cout<<coeff1.toString()<<endl;
     
 	return 0;
 }

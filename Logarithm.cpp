@@ -63,6 +63,9 @@ void Logarithm::display() {
 double Logarithm::toDouble(){
 	//DON'T FORGET return stuff here
 }
+string Logarithm::toString(){
+	//DON'T FORGET THIS, EITHER
+}
 
 void Logarithm::splitLog(vector<int> primes) {
     // Not the best way to do this, will be overhauled later.

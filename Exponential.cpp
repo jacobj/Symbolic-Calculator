@@ -41,9 +41,6 @@ double Exponential::toDouble(){
 string Exponential::toString(){
   //DON'T FORGET THIS, EITHER
 }
-string Exponential::toString(){
-  //DON'T FORGET THIS, EITHER
-}
   
 // Simplify method.
 void Exponential::simplify() {

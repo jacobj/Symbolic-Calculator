@@ -30,11 +30,6 @@ void Integer::setValue(long value) {
     this->value = value;
 }
 
-// Simplify method
-void Integer::simplify() {
-    // Exists to satisfy Number Parent class.
-}
-
 void Integer::display() {
     // Exists to display Number Parent class.
 }
@@ -67,10 +62,10 @@ Integer Integer:: operator/(const Integer &integer) {
     	cout << "Cannot divide by 0" << endl;
     	temp.value = 0;
     	return temp;
-       	 	}
-     temp.value = value / integer.value;
-     return temp;
-   }
+    }
+    temp.value = value / integer.value;
+    return temp;
+}
   
    /* try {
         	Integer temp;
@@ -83,3 +78,23 @@ Integer Integer:: operator/(const Integer &integer) {
             	cerr << ex.what() << endl;
         }*/
  
+// The methods below exist only to satisfy Number.h.
+unordered_map<string, Number*>* Integer::getValues() {
+    return NULL;
+}
+
+vector<Number*>* getLogValues() {
+    return NULL;
+}
+
+string Integer::getTranscendentalValue() {
+    return "";
+}
+
+void Integer::setTranscendentalValue(string value) {
+    return;
+}
+
+void Integer::simplify() {
+    return;
+}

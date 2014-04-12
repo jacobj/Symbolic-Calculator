@@ -39,7 +39,10 @@ double Exponential::toDouble(){
 }
 
 string Exponential::toString(){
-  //DON'T FORGET THIS, EITHER
+	stringstream valueStream;
+    valueStream << values["coefficient"]->toString() << values["value"]-toString()<< "^" << values["exponent"]->toString();
+	string str = valueStream.str();
+	return str;
 }
   
 // Simplify method.

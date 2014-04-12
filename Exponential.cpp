@@ -123,7 +123,6 @@ void Exponential::simplify() {
         }
     }
 }
-*/
 
 // Find the primes. Helper method.
 vector<int> Exponential::findPrimeFactors(int number, int i, vector<int> primeFactors) {

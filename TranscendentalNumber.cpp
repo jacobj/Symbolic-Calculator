@@ -16,24 +16,27 @@ using namespace std;
 
 TranscendentalNumber::TranscendentalNumber(string value, Number* coefficient) {
     this->value = value;
-    this->coefficient = coefficient;
+    this->values["coefficient"] = cefficient;
 }
+
 TranscendentalNumber::~TranscendentalNumber() {
-    delete coefficient;
+    delete values["coefficient"];
 }
 
 //Get and set methods
-string TranscendentalNumber::getValue() {
+map<string, Number*> TranscendentalNumber::getValues() {
+    return values;
+}
+
+void TranscendentalNumber::setValues(string key, Number* val) {
+    values[key] = val;
+}
+string TranscendentalNumber::getTranscendentalValue() {
     return value;
 }
-Number * TranscendentalNumber::getCoefficient() {
-    return coefficient;
-}
-void TranscendentalNumber::setValue(string value) {
+
+void RationalNumber::setTranscendentalValue(string value) {
     this->value = value;
-}
-void TranscendentalNumber::setCoefficient(Number* coefficient) {
-    this->coefficient = coefficient;
 }
 
 void TranscendentalNumber::simplify() {
@@ -49,16 +52,26 @@ double TranscendentalNumber::toDouble(){
 	//as it requires very good operator overloading.
 	//If we run out of time, consider changing back to int for simplicity.
 	if (!value.compare("pi") || !value.compare("PI")){
-		return /*coefficient*/3.14;
+		return values["coefficient"]->toDouble()*3.14;
 	}
 	else if(!value.compare("e")){
-		return /*coefficient*/2.72;
+		return values["coefficient"]->toDouble()*2.72;
 	}
 	else{
 	    return 0;
 	}
 }
 string TranscendentalNumber::toString(){
-	//Yea... hm... how to deal with this coefficient...
-	return /*coefficient*/value
+	stringstream valueStream;
+	valueStream << values["coefficient"]->toString() << value;
+	string str = valueStream.str();
+	return str;
+}
+
+//For number's satisfaction
+vector<Number*> RationalNumber::getLogValues() {
+    return NULL;
+}
+void RationalNumber::setLogValues(int index, Number* val) {
+    return;
 }

@@ -24,9 +24,11 @@ public:
 	double toDouble();
 	string toString();
 
-	string getValue();
+	map<string, Number*> getValues();
+	void setValues(string key, Number* val);
+	string getTranscendentalValue();
+	void setTranscendentalValue(string value);
 	Number * getCoefficient();
-	void setValue(string value);
 	void setCoefficient(Number* coefficient);
     
     TranscendentalNumber operator+(const TranscendentalNumber& value);
@@ -34,9 +36,17 @@ public:
     TranscendentalNumber operator*(const TranscendentalNumber& value);
     TranscendentalNumber operator/(const TranscendentalNumber& value);
 
-private:
+    // Used to satisfy Number.h
+    long getValue();
+    void setValue(long value);
+    string getTranscendentalValue();
+    void setTranscendentalValue(string value);
+    vector<Number*> getLogValues();
+    void setLogValues(int index, Number* val);
+
+/*private:
 	string value;
-	Number* coefficient;
+	Number* coefficient;*/
 };
 
 #endif	/* TRANSCENDENTALNUMBER_H */

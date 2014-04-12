@@ -35,7 +35,11 @@ void Exponential::setValues(string key, Number* val) {
 }
 
 double Exponential::toDouble(){
-	//DON'T FORGET return stuff here
+	return values["coefficient"]->toDouble() * pow(values["value"]->toDouble(), values["exponent"]->toDouble());
+}
+
+string Exponential::toString(){
+  //DON'T FORGET THIS, EITHER
 }
   
 // Simplify method.

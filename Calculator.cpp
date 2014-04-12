@@ -22,8 +22,21 @@ Calculator::Calculator( string expr )
 
 //function definitions
 
+/*
+ * returns 1 if op1 is of greater precedence than op2
+ * Ex: op1 = * and op2 = +, return 1
+ *
+ * returns 0 if op1 is of the same precedence as op2
+ * Ex: op1 = * and op2 = /, return 0
+ *
+ * returns -1 if op1 is of lesser precedence than op2
+ * Ex: op1 = + and op2 = *, return -1
+ *
+ */
 int Calculator::comparePrecedence(string op1, string op2)
 {
+	//if both operators are the same
+	//return 0 for equal precedence
     if(op1.compare(op2) == 0)
         return 0;
     
@@ -50,14 +63,14 @@ vector<string> Calculator::getPreviousAnswers()
 {
 	return previousAnswers;
 }
-vector<string> Calculator::setExpressionTokens(string& expression)
+vector<string> Calculator::setExpressionTokens(string& expr)
 {
     vector<string> tokens;
     string str = "";
     
-    for(int i = 0; i < (int) expression.length();i++)
+    for(int i = 0; i < (int) expr.length();i++)
     {
-        string token(1,expression[i]);
+        string token(1,expr[i]);
         
         if(isOperator(token) || isParentheses(token))
         {
@@ -183,7 +196,6 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
     return success;
 }
 
-//double Calculator::RPNtoDouble( vector<string> tokens )
 void Calculator::calculate()      
 {
     stack<string> st;
@@ -216,8 +228,9 @@ void Calculator::calculate()
                 //Get the result          
                 result = token == "+" ? d1 + d2 :          
                          token == "-" ? d1 - d2 :          
-                         token == "*" ? d1 * d2 :          
-                                        d1 / d2;          
+                         token == "*" ? d1 * d2 :
+                         token == "/" ? d1 / d2 :
+                                        pow(d1, d2);
             }    
             else    
             {    
@@ -235,7 +248,7 @@ void Calculator::calculate()
 
         }          
     }
-    if(st.top().c_str() != " ")
+    if(!st.empty() && st.top().c_str() != " ")
     {
     	previousAnswers.push_back(st.top().c_str());
     	expression.clear();
@@ -271,7 +284,6 @@ void Calculator::addInput(string exp)
     if( infixToRPN(temp, expression) )
 
     	previousInputs.push_back( exp );
-
     	
     else
 

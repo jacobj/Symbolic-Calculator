@@ -22,7 +22,7 @@ RationalNumber::~RationalNumber() {
     delete values["denominator"];
 }
 
-unordered_map<string, Number*> RationalNumber::getValues() {
+map<string, Number*> RationalNumber::getValues() {
     return values;
 }
 

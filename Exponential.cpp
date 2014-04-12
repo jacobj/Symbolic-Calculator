@@ -41,11 +41,11 @@ double Exponential::toDouble(){
 // Simplify method.
 void Exponential::simplify() {
     // If the value is an Integer,
-    if (typeid(values["value"]) == typeid(Integer)) {
+    if (typeid(*values["value"]) == typeid(Integer)) {
         // If the exponent is a RationalNumber,
-        if (typeid(values["exponent"]) == typeid(RationalNumber)) {
+        if (typeid(*values["exponent"]) == typeid(RationalNumber)) {
             // If the exponent's numerator is an Integer,
-            if (typeid(values["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
+            if (typeid(*values["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
                 // Raise the value to nth power and set the exponent to 1.
                 values["value"]->setValue(((long)pow(values["value"]->getValue(), 
                                                      values["exponent"]->getValues()["numerator"]->getValue())));
@@ -53,7 +53,7 @@ void Exponential::simplify() {
                 values["exponent"]->getValues()["numerator"]->setValue(1);
                 // If the exponent's denominator is an Integer,
             }
-            if (typeid(values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {
+            if (typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {
                 // Break up value into it's prime factors.
                 vector<int> primes; 
                 primes = findPrimeFactors(values["value"]->getValue(), 
@@ -74,41 +74,44 @@ void Exponential::simplify() {
             // What if the denominator is not an Integer? For now let's just leave it alone.
         }
     }
-}
-/*
+    
     // Else, if the value is a rational
-    else if (RationalNumber* valueptr = dynamic_cast<RationalNumber*>(value)) {
-        // And the value's numerator of the value is an Integer,
-        if (Integer* numeratorptr = dynamic_cast<Integer*>(valueptr->getNumerator())) {
+    else if (typeid(*values["value"]) == typeid(RationalNumber)) {
+        // And the numerator of the value is an Integer,
+        if (typeid(*values["value"]->getValues()["numerator"]) == typeid(Integer)) {
             // And the value's denominator is an Integer,
-            if (Integer* denominatorptr = dynamic_cast<Integer*>(valueptr->getDenominator())) {
+            if (typeid(*values["value"]->getValue()["denominator"]) == typeid(Integer)) {
                 // And the exponent is an Integer,
-                if (Integer* exponentptr = dynamic_cast<Integer*>(exponent)) {
+                if (typeid(*values["exponent"]) == typeid(Integer)) {
                     // Square both denominator and numerator.
-                    denominatorptr->setValue((long)pow(denominatorptr->getValue(),
-                                                       exponentptr->getValue()));
-                    numeratorptr->setValue((long)pow(numeratorptr->getValue(),
-                                                     exponentptr->getValue()));
+                    values["value"]->getValues()["denominator"]->setValue((long)pow(values["value"]->getValues()["denominator"]->getValue(),
+                                                                                    values["exponent"]->getValue()));
+                    values["value"]->getValues()["numerator"]->setValue((long)pow(values["value"]->getValues()["numerator"]->getValue(),
+                                                                                    values["exponent"]->getValue()));
                     // Simplify the value using the RationalNumber simplify method.
-                    value->simplify();
+                    values["value"]->simplify();
+                    values["exponenet"]->setValue(1); 
                 }
                 // Raise a rational to a rational
                 // If the exponent is a rational.
-                else if (RationalNumber* exponentptr = dynamic_cast<RationalNumber*>(exponent)) {
+                else if (typeid(*values["exponent"]) == typeid(RationalNumber)) {
                     // If the exponent's numerator is an integer.
-                    if (Integer* exponentNumeratorptr = dynamic_cast<Integer*>(exponentptr->getNumerator())) { 
-                        // If the exponents's denominator is an Integer.
-                        denominatorptr->setValue((long)pow(denominatorptr->getValue(),
-                                                           exponentNumeratorptr->getValue()));
-                        numeratorptr->setValue((long)pow(numeratorptr->getValue(),
-                                                             exponentNumeratorptr->getValue()));
-                        exponentNumeratorptr->setValue(1);
+                    if (typeid(*values["exponent"]->getValues()["numerator"]) == typeid(Integer)) { 
+                        values["value"]->getValues()["denominator"]->setValue((long)pow(values["value"]->getValues()["denominator"]->getValue(),
+                                                                                        values["exponent"]->getValues()["numerator"]->getValue()));
+                        values["value"]->getValues()["numerator"]->setValue((long)pow(values["value"]->getValues()["numerator"]->getValue(),
+                                                                                      values["exponent"]->getValues()["numerator"]->getValue()));
+                        values["exponent"]->getValues()["numerator"]->setValue(1);
                         value->simplify();
-                        if (Integer* exponentDenominatorptr = dynamic_cast<Integer*>(exponentptr->getDenominator())) {                    
+                        // If the exponents's denominator is an Integer.
+                        if (typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {                    
+                            // This needs to root both the numerator and denominator value.
+                            /*
                             vector<int> primes1;
                             primes1 = findPrimeFactors(denominatorptr->getValue(), 2, primes1); 
                             vector<int> primes2;
                             primes2 = findPrimeFactors(numeratorptr->getValue(), 2, primes2);
+                            */
                         }
                     } 
                 }      

@@ -20,31 +20,35 @@
 using namespace std;
 
 class Exponential : public Number {  
- public:
+private:
+    unordered_map<string, Number*> values;
+
+public:
 	Exponential(Number* value, Number* exponent, Number* coefficient);
 	~Exponential();
     void simplify();
+    void display();
+    double toDouble();
+    unordered_map<string, Number*> getValues();
+    void setValues(string key, Number* val);
+
+    // Only used in exponent
     vector<int> findPrimeFactors(int number, int i, vector<int> primeFactors);
     void reduceInsideRoot(int &value, int &coefficient, int root, vector<int> primeFactors);
     
-    Number * getValue();
-    Number * getExponent();
-    Number * getCoefficient();
-    void setValue(Number* value);
-    void setExponent(Number* exponent);
-    void setCoefficient(Number* coefficient);
-    double toDouble();
+    // Used to satisfy Number.h
+    long getValue();
+    void setValue(long value);
+    string getTranscendentalValue();
+    void setTranscendentalValue(string value); 
+    vector<Number*> getLogValues();
+    void setLogValues(int index, Number* val);
+
     // Exponential operator+(const nthRootIrrational& nthRoot);
     // Exponential operator-(const nthRootIrrational& nthRoot);
     // Exponential operator*(const nthRootIrrational& nthRoot);
     // Exponential operator/(const nthRootIrrational& nthRoot);
-    
- private:
-    Number* value;
-    Number* exponent;
-    Number* coefficient;
 };
     
 #endif	/* EXPONENTIAL_H */
-    
     

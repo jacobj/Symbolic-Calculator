@@ -10,7 +10,7 @@ int main()
 	vector<string> inputs, answers;
 	
 	//addition test cases
-	calculator.addInput("1+2");
+	/*calculator.addInput("1+2");
 	calculator.calculate();
 	
 	calculator.addInput("(1+2)");
@@ -34,17 +34,56 @@ int main()
 	calculator.addInput("1+(-2)");
 	calculator.calculate();
 	
-	/*//subtraction test cases
-	calculator.addInput("(3 * 5)");
+	calculator.addInput("(1+(-2))");
+	calculator.calculate();
+
+	calculator.addInput("1+(2)");
+	calculator.calculate();
+
+	calculator.addInput("(1+2)-(1 + 2)");
+	calculator.calculate();*/
+
+	//subtraction test cases
+	/*calculator.addInput("2-1");
+	calculator.calculate();
+
+	calculator.addInput("(2-1)");
+	calculator.calculate();*/
+
+	calculator.addInput("2-(1)");
+	calculator.calculate();
+
+	calculator.addInput("((2)-(1))");
+	calculator.calculate();
+
+	calculator.addInput("-2-1");
+	calculator.calculate();
+
+	/*calculator.addInput("1-2");
+	calculator.calculate();
+
+	calculator.addInput("2-1-1");
+	calculator.calculate();
+
+	calculator.addInput("2-(1-1)");
 	calculator.calculate();
 	
 	//multiplication test cases
-	calculator.addInput("(3 * 5)");
+	calculator.addInput("1 * 2");
+	calculator.calculate();
+
+	calculator.addInput("2 * 3");
 	calculator.calculate();
 	
-	//division test cases
-	calculator.addInput("(3 * 5)");
+	calculator.addInput("2 * 3 * 7");
 	calculator.calculate();*/
+
+	//division test cases
+	calculator.addInput("2 / 0");
+	calculator.calculate();
+
+	calculator.addInput("3 / 3");
+	calculator.calculate();
 	
 	
 	inputs = calculator.getPreviousInputs();
@@ -57,3 +96,4 @@ int main()
 	}
 	return 0;
 }
+

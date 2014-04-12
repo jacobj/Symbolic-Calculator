@@ -23,8 +23,8 @@
 
 using namespace std;
 
-class Calculator {
-
+class Calculator
+{
 private:
 	vector<string> previousAnswers;
 	vector<string> previousInputs;
@@ -58,3 +58,5 @@ public:
 
 
 #endif	/* CALCULATOR_H */
+
+

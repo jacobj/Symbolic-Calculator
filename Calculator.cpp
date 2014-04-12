@@ -178,20 +178,20 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
         stack.pop();        
     }          
   
-    rpn.assign( out.begin(), out.end() );    
+    rpn.assign( out.begin(), out.end() );
   
     return success;
 }
 
-//double Calculator::RPNtoDouble( vector<string> tokens )      
+//double Calculator::RPNtoDouble( vector<string> tokens )
 void Calculator::calculate()      
-{          
-    stack<string> st;         
-  
+{
+    stack<string> st;
+
     // For each token          
-    for ( int i = 0; i < (int) expression.size(); ++i )          
+    for ( int i = 0; i < (int) expression.size(); ++i )
     {         
-        const string token = expression[ i ];        
+        const string token = expression[ i ];
   
         // If the token is a value push it onto the stack          
         if ( !isOperator(token) )          
@@ -234,9 +234,12 @@ void Calculator::calculate()
             st.push( s.str() );
 
         }          
-    }                  
-    previousAnswers.push_back(st.top().c_str());
-   // return strtod( st.top().c_str(), NULL );        
+    }
+    if(st.top().c_str() != " ")
+    {
+    	previousAnswers.push_back(st.top().c_str());
+    	expression.clear();
+    }
 } 
 bool Calculator::isOperator(string token)
 {
@@ -260,13 +263,19 @@ vector<string> Calculator::getExpression()
 {
 	return expression;
 }
+
 void Calculator::addInput(string exp)
 {	
     vector<string> temp = setExpressionTokens(exp);
     
     if( infixToRPN(temp, expression) )
+
     	previousInputs.push_back( exp );
+
     	
     else
+
         cout << "mismatching parentheses\n" << endl;
+
 }
+

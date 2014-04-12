@@ -24,6 +24,7 @@ using namespace std;
 class Number
 {
 public:
+    virtual unordered_map<string, Number*> getValue() = 0;
     virtual void simplify() = 0;
     virtual void display() = 0;
     virtual double toDouble() = 0;

@@ -88,14 +88,38 @@ void RationalNumber::simplify() {
     }
     // ALL CODE BELOW IS OLD AND MUST BE REFACTORED.
     // Cases for Logs, Exponentials, Transcendentals
-    /*
-    else if (typeid) {
-        if (typeid(numerator->getCoefficient()) == Integer) {
-        int gcd = findGCD(denominator->getCoefficient()->getValue(), 
-                          numerator->getCoefficient()->getValue());
-        denominator->getCoefficient->setValue(denominator->getCoefficient()->getValue() / gcd);
-        numerator->getCoefficient->setValue(numerator->getCoefficient()->getValue() / gcd);
+    else if (Exponential* denominatorptr = dynamic_cast<Exponential*>(denominator)) {
+        if (Exponential* numeratorptr = dynamic_cast<Exponential*>(numerator)) {
+            // Need to test if this works.
+            if (*(numeratorptr->getValue()) == *(denominatorptr->getValue()) &&
+                *(numeratorptr->getExponent()) == *(denominatorptr->getExponent())) {
+                /*
+                if (Integer* denominatorCoefficientptr = dynamic_cast<*Integer>(denominator->getCoefficient())) {
+                    denominator = new Integer(denominatorCoefficientptr->getValue());
+                } else if (Exponential* denominatorCoefficientptr = dynamic_cast<*Exponential>(denominator->getCoefficient())) {
+                    // Make the denominator only consist of the coefficient.
+                    denominator = new Exponential(denominatorCoefficientptr->getValue(), 
+                                                  denominatorCoefficientptr->getExponent(),
+                                                  denominatorCoefficientptr->getCoefficient());
+                }
+                if (Integer* numeratorCoefficientptr = dynamic_cast<*Integer>(denominator->getCoefficient())) {
+                    numerator = new Integer(numeratorCoefficientptr->getValue());
+                } else if (Exponential* numeratorCoefficientptr = dynamic_cast<*Exponential>(numerator->getCoefficient())) {
+                    // Make the denominator only consist of the coefficient.
+                    denominator = new Exponential(numeratorCoefficientptr->getValue(), 
+                                                  numeratorCoefficientptr->getExponent(),
+                                                  numeratorCoefficientptr->getCoefficient());
+                }
+                */
+                // Instead, let's preserve the number as is, this saves many lines of code.
+                denominatorptr->setValue(new Integer(1));
+                denominatorptr->setExponent(new Integer(1));
+                numeratorptr->setValue(new Integer(1));
+                numeratorptr->setValue(new Integer(1));
+            }
+        }
     }
+    /* 
     if (typeid(denominator) == TranscendentalNumber && 
         typeid(numerator) == TranscendentalNumber) {
         if (denominator->getValue() == numerator->getValue()) {

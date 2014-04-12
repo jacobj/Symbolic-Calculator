@@ -42,32 +42,60 @@ string RationalNumber::toString(){
 
 // Simplify helper method.
 void RationalNumber::simplify() {
-    // If the denominator is an Integer,
-    if (typeid(*values["denominator"]) == typeid(Integer)) {
-        // If the numerator is an Integer (easiest case),
-        if (typeid(*values["numerator"]) == typeid(Integer)) {
-            // Find the the common factor via Euclid's method.
-            int gcd = findGCD(values["denominator"]->getValue(), 
-                              values["numerator"]->getValue());
-            // Divide the values by that factor to simplify.
+    // If the denominator is an Integer and the numerator is an Integer.
+    if (typeid(*values["denominator"]) == typeid(Integer) &&
+        typeid(*values["numerator"]) == typeid(Integer)) {
+        // Find the the common factor via Euclid's method.
+        int gcd = findGCD(values["denominator"]->getValue(), 
+                          values["numerator"]->getValue());
+        // Divide the values by that factor to simplify.
+        values["denominator"]->setValue(values["denominator"]->getValue() / gcd);
+        values["numerator"]->setValue(values["numerator"]->getValue() / gcd);
+    }
+    // If the denominator is an Integer and the numerator is not.
+    else if (typeid(*values["denominator"]) == typeid(Integer) &&
+             typeid(*values["numerator"]) != typeid(Integer)) {
+        if (typeid(*values["numerator"]->getValues()["coefficient"]) == typeid(Integer)) {
+            int gcd = findGCD(values["denominator"]->getValue(),
+                              values["numerator"]->getValues()["coefficient"]->getValue());
             values["denominator"]->setValue(values["denominator"]->getValue() / gcd);
-            values["numerator"]->setValue(values["numerator"]->getValue() / gcd);
-        }
-        // Else, if the numerator is something else,
-        else if (typeid(*values["numerator"]) != typeid(Integer)) {
-            // If the numerator's coefficient is an Integer,
-            if (typeid(*values["numerator"]->getValues()["coefficient"]) == typeid(Integer)) {
-                int gcd = findGCD(values["denominator"]->getValue(),
-                                  values["numerator"]->getValues()["coefficient"]->getValue());
-                values["denominator"]->setValue(values["denominator"]->getValue() / gcd);
-                values["numerator"]->getValues()["coefficient"]->setValue(values["numerator"]->getValues()["coefficient"]->getValue() / gcd);
-            }
+            values["numerator"]->getValues()["coefficient"]->setValue(values["numerator"]->getValues()["coefficient"]->getValue() / gcd);
         }
     }
+    // If the denominator is not and Integer and the numerator is.
+    else if (typeid(*values["denominator"]) != typeid(Integer) &&
+             typeid(*values["numerator"]) == typeid(Integer)) {
+        if (typeid(*values["denominator"]->getValues()["coefficient"]) == typeid(Integer)) {
+            int gcd = findGCD(values["numerator"]->getValue(),
+                              values["denominator"]->getValues()["coefficient"]->getValue());
+            values["numerator"]->setValue(values["numerator"]->getValue() / gcd);
+            values["denominator"]->getValues()["coefficient"]->setValue(values["denominator"]->getValues()["coefficient"]->getValue() / gcd);
+        }
+    }
+    // If the numerator and denominator are both not Integers.
+    else if (typeid(*values["denominator"]) != typeid(Integer) &&
+             typeid(*values["numerator"]) != typeid(Integer)) {
+        if (typeid(*values["denominator"]->getValues()["coefficient"]) == typeid(Integer) &&
+            typeid(*values["numerator"]->getValues()["coefficient"]) == typeid(Integer)) {
+            int gcd = findGCD(values["denominator"]->getValues()["coefficient"]->getValue(),
+                              values["numerator"]->getValues()["coefficient"]->getValue());
+            values["denominator"]->getValues()["coefficient"]->setValue(values["denominator"]->getValues()["coefficient"]->getValue() / gcd)
+            values["numerator"]->getValues()["coefficient"]->setValue(values["numerator"]->getValues()["coefficient"]->getValue() / gcd);
+        }
+    }
+    else if (typeid(*values["denominator"]) == typeid(Exponential)) {  
+        // Multiply the numerator and denominator by the denominator.
+        // values["denominator"] * values["denominator"];
+        // values["numerator"] * values ["denominator"];
+    }
+    else if (typeid(*values["numerator"]) == typeid(Integer)) {
+        
+    }
+    
     // ALL CODE BELOW IS OLD AND MUST BE REFACTORED.
     // Cases for Logs, Exponentials, Transcendentals
     /*
-    else if (Exponential* denominatorptr = dynamic_cast<Exponential*>(denominator)) {
+          else if (Exponential* denominatorptr = dynamic_cast<Exponential*>(denominator)) {
         if (Exponential* numeratorptr = dynamic_cast<Exponential*>(numerator)) {
             // Need to test if this works.
             if (*(numeratorptr->getValue()) == *(denominatorptr->getValue()) &&

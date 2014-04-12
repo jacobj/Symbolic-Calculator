@@ -52,7 +52,7 @@ void Exponential::simplify() {
     // If the value is an Integer,
     if (typeid(*values["value"]) == typeid(Integer)) {
         // If the exponent is a RationalNumber,
-        if (typeid(*values["exponent"]) == typeid(RationalNumber)) {
+        if (typeid(*values["exponent"]) == typeid(RationalNumber)) {     
             // If the exponent's numerator is an Integer,
             if (typeid(*values["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
                 // Raise the value to nth power and set the exponent to 1.
@@ -83,7 +83,6 @@ void Exponential::simplify() {
             // What if the denominator is not an Integer? For now let's just leave it alone.
         }
     }
-    
     // Else, if the value is a rational
     else if (typeid(*values["value"]) == typeid(RationalNumber)) {
         // And the numerator of the value is an Integer,

@@ -79,7 +79,7 @@ Integer Integer:: operator/(const Integer &integer) {
         }*/
  
 // The methods below exist only to satisfy Number.h.
-unordered_map<string, Number*>* Integer::getValues() {
+unordered_map<string, Number*> Integer::getValues() {
     return NULL;
 }
 
@@ -89,6 +89,10 @@ void setValues(string key, Number* val) {
 
 vector<Number*> getLogValues() {
     return NULL;
+}
+
+void setLogValues(int index, Number* val) {
+    return;
 }
 
 string Integer::getTranscendentalValue() {

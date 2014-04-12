@@ -28,7 +28,7 @@ class Number
 public:
     // Returns a map of Number pointer properties
     virtual unordered_map<string, Number*> getValues() = 0;
-    virtual unordered_map<string, Number*> setValues(string key, Number* val);
+    virtual void setValues(string key, Number* val) = 0;
     virtual void simplify() = 0;
     virtual void display() = 0;
     virtual double toDouble() = 0;

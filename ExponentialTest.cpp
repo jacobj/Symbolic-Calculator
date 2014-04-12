@@ -1,5 +1,5 @@
 /* 
- * File:        Exponential.cpp
+ * File:        nthRootIrrational.cpp
  * 
  * Authors:     Brent Lewis
  *              Jacob Jenkins
@@ -12,70 +12,78 @@
 
 #include "Exponential.h"
 
+
 using namespace std;
 
 Exponential::Exponential(Number* value, Number* exponent, Number* coefficient) {
-    this->values["value"] = value;
-    this->values["exponent"] = exponent;
-    this->values["coefficient"] = coefficien;
+    this->value = value;
+    this->exponent = exponent;
+    this->coefficient = coefficient;
 }
 
 Exponential::~Exponential() {
-    delete values["value"];
-    delete values["exponent"];
-    delete values["coefficient"];
+    delete value;
+    delete exponent;
+    delete coefficient;
 }
 
-unordered_map<string, Number*> Exponential::getValues() {
-    return values;
+Number * Exponential::getValue() {
+    return value;
 }
 
-void Exponential::setValues(string key, Number* val) {
-    values[key] = val;
+Number * Exponential::getExponent() {
+    return exponent;
 }
 
-double Exponential::toDouble(){
-	//DON'T FORGET return stuff here
+Number * Exponential::getCoefficient() {
+    return coefficient;
+}
+
+void Exponential::setValue(Number* value) {
+    this->value = value;
+}
+
+void Exponential::setExponent(Number* exponent) {
+    this->exponent = exponent;
+}
+
+void Exponential::setCoefficient(Number* coefficient) {
+    this->coefficient = coefficient;
 }
   
 // Simplify method.
 void Exponential::simplify() {
     // If the value is an Integer,
-    if (typeid(values["value"]) == typeid(Integer)) {
+    if (Integer* valueptr = dynamic_cast<Integer*>(value)) {
         // If the exponent is a RationalNumber,
-        if (typeid(values["exponent"]) == typeid(RationalNumber)) {
+        if (RationalNumber* exponentptr = dynamic_cast<RationalNumber*>(exponent)) {
             // If the exponent's numerator is an Integer,
-            if (typeid(values["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
+            if (Integer* numeratorptr = dynamic_cast<Integer*>(exponentptr->getNumerator())) {
                 // Raise the value to nth power and set the exponent to 1.
-                values["value"]->setValue(((long)pow(values["value"]->getValue(), 
-                                                     values["exponent"]->getValues()["numerator"]->getValue())));
+                valueptr->setValue((long)pow(valueptr->getValue(), numeratorptr->getValue()));
                 // Set the numerator of the exponent to 1, as it has already been raised appropriately.
-                values["exponent"]->getValues()["numerator"]->setValue(1);
+                numeratorptr->setValue(1);
                 // If the exponent's denominator is an Integer,
+                if (Integer* denominatorptr = dynamic_cast<Integer*>(exponentptr->getDenominator())) {
+                    // Break up value into it's prime factors.
+                    vector<int> primes; 
+                    primes = findPrimeFactors(valueptr->getValue(), 2, primes);
+                    // Sort results in descending order.
+                    sort(primes.begin(), primes.end());
+                    int value = valueptr->getValue();
+                    // If the coefficient is an Integer.
+                    if (Integer* coefficientptr = dynamic_cast<Integer*>(coefficient)) {
+                        int coefficient = coefficientptr->getValue();
+                        reduceInsideRoot(value, coefficient, denominatorptr->getValue(), primes);
+                        // Set value and coeffient to the returned values from reduceInsideRoot.
+                        valueptr->setValue(value);
+                        coefficientptr->setValue(coefficient);
+                    }       
+                }
+                // What if the denominator is not an Integer? For now let's just leave it alone.
             }
-            if (typeid(values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {
-                // Break up value into it's prime factors.
-                vector<int> primes; 
-                primes = findPrimeFactors(values["value"]->getValue(), 
-                                          2, primes);
-                // Sort results in descending order.
-                sort(primes.begin(), primes.end());
-                int value = values["value"]->getValue();
-                // If the coefficient is an Integer.
-                if (typeid(values["coefficient"]) == typeid(Integer)) {
-                    int coefficient = values["coefficient"]->getValue();
-                    reduceInsideRoot(value, coefficient, 
-                                     values["exponent"]->getValues()["denominator"]->getValue(), primes);
-                    // Set value and coeffient to the returned values from reduceInsideRoot.
-                    values["value"]->setValue(value);
-                    values["coefficient"]->setValue(coefficient);
-                }       
-            }
-            // What if the denominator is not an Integer? For now let's just leave it alone.
         }
     }
-}
-/*
     // Else, if the value is a rational
     else if (RationalNumber* valueptr = dynamic_cast<RationalNumber*>(value)) {
         // And the value's numerator of the value is an Integer,
@@ -116,7 +124,6 @@ void Exponential::simplify() {
         }
     }
 }
-*/
 
 // Find the primes. Helper method.
 vector<int> Exponential::findPrimeFactors(int number, int i, vector<int> primeFactors) {
@@ -149,20 +156,4 @@ void Exponential::reduceInsideRoot(int &value, int &coefficient, int root, vecto
             counter = 0;
         }
     }
-}
-
-vector<Number*> getLogValues() {
-    return 0;
-}
-
-void setLogValues(int index, Number* val) {
-    return;
-}
-
-string Integer::getTranscendentalValue() {
-    return "";
-}
-
-void Integer::setTranscendentalValue(string value) {
-    return;
 }

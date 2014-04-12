@@ -24,8 +24,8 @@ class Logarithm: public Number
         void simplify();
         void splitLog(vector<int> primes)
         void display();
-        double toDouble();
-        string toString();
+        double toDouble(int location);
+        string toString(int location);
     
         Number getCoefficient();
         vector<Number*> getValues();

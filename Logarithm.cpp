@@ -60,11 +60,19 @@ void Logarithm::simplify() {
 void Logarithm::display() {
     // Exists to satisfy Number Parent class. May be needed in the future.
 }
-double Logarithm::toDouble(){
-	//DON'T FORGET return stuff here
+
+//toDouble and toString currently give you the log at the position in the vector
+//you want. This certainly needs tweaking, along with better interaction with
+//how log splitting will work. Just getting the basic implementation done.
+double Logarithm::toDouble(int location){
+	//Uses log() from cmath which gives the natural logarithm.
+	return log(values[location]->toDouble())/log(base->toDouble);
 }
-string Logarithm::toString(){
-	//DON'T FORGET THIS, EITHER
+string Logarithm::toString(int location){
+	stringstream valueStream;
+	valueStream << "log_" << base << ":" << values[location]->toString();
+	string str = valueStream.str();
+	return str;
 }
 
 void Logarithm::splitLog(vector<int> primes) {

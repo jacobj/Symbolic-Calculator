@@ -22,15 +22,15 @@ RationalNumber::~RationalNumber() {
     delete values["denominator"];
 }
 
-unordered_map<string, Number*> Exponential::getValues() {
+unordered_map<string, Number*> RationalNumber::getValues() {
     return values;
 }
 
-void Exponential::setValues(string key, Number* val) {
+void RationalNumber::setValues(string key, Number* val) {
     values[key] = val;
 }
 
-double Exponential::toDouble(){
+double RationalNumber::toDouble(){
     return values["numerator"]->toDouble() / values["denominator"]->toDouble();
 }
 string RationalNumber::toString(){
@@ -146,18 +146,18 @@ int RationalNumber::findGCD(int a, int b) {
     }
 }
 
-vector<Number*> Exponential::getLogValues() {
+vector<Number*> RationalNumber::getLogValues() {
     return NULL;
 }
 
-void Exponential::setLogValues(int index, Number* val) {
+void RationalNumber::setLogValues(int index, Number* val) {
     return;
 }
 
-string Exponential::getTranscendentalValue() {
+string RationalNumber::getTranscendentalValue() {
     return "";
 }
 
-void Exponential::setTranscendentalValue(string value) {
+void RationalNumber::setTranscendentalValue(string value) {
     return;
 }

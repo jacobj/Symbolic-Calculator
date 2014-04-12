@@ -58,4 +58,3 @@ public:
 
 
 #endif	/* CALCULATOR_H */
-

@@ -6,33 +6,33 @@
 
 int main()
 {
-	Calculator calculator;//("1+2");
+	Calculator calculator;
 	vector<string> inputs, answers;
 	
 	//addition test cases
 	calculator.addInput("1+2");
 	calculator.calculate();
 	
-	/*calculator.addInput("(1+2)");
-	calculator.calculate();*/
+	calculator.addInput("(1+2)");
+	calculator.calculate();
 	
-	/*calculator.addInput("1+2+3"); //does not work
+	calculator.addInput("1+2+3");
 	calculator.calculate();
 	
 	calculator.addInput("(1+2)+3");
-	calculator.calculate();*/
+	calculator.calculate();
 
 	calculator.addInput("(1+2+3)");
 	calculator.calculate();
 	
-	/*calculator.addInput("1+(2+3)");
+	calculator.addInput("1+(2+3)");
 	calculator.calculate();
 	
-	/*calculator.addInput("-1+2"); //does not work
-	calculator.calculate();*/
+	calculator.addInput("-1+2");
+	calculator.calculate();
 	
-	/*calculator.addInput("1+(-2)"); 
-	calculator.calculate();*/
+	calculator.addInput("1+(-2)");
+	calculator.calculate();
 	
 	/*//subtraction test cases
 	calculator.addInput("(3 * 5)");

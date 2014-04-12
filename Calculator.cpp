@@ -154,8 +154,11 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
                 return false;      
             }                                            
         }
-        else         
-            out.push_back( token );             
+        else
+        {
+        	if(token != "")
+        		out.push_back( token );
+        }
     }
     
     while ( !stack.empty() )          
@@ -229,10 +232,10 @@ void Calculator::calculate()
             ostringstream s;        
             s << result;        
             st.push( s.str() );
-            previousAnswers.push_back(s.str()); 
+
         }          
     }                  
-  
+    previousAnswers.push_back(st.top().c_str());
    // return strtod( st.top().c_str(), NULL );        
 } 
 bool Calculator::isOperator(string token)
@@ -267,4 +270,3 @@ void Calculator::addInput(string exp)
     else
         cout << "mismatching parentheses\n" << endl;
 }
-

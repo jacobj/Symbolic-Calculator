@@ -88,7 +88,7 @@ void Exponential::simplify() {
     else if (typeid(*values["value"]) == typeid(RationalNumber)) {
         // And the numerator of the value is an Integer,
         if (typeid(*values["value"]->getValues()["numerator"]) == typeid(Integer) && 
-            typeid(*values["value"]->getValue()["denominator"]) == typeid(Integer)) {
+            typeid(*values["value"]->getValues()["denominator"]) == typeid(Integer)) {
                 // And the exponent is an Integer,
             if (typeid(*values["exponent"]) == typeid(Integer)) {
                 // Square both denominator and numerator.

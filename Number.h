@@ -27,7 +27,8 @@ class Number
 {
 public:
     // Returns a map of Number pointer properties
-    virtual unordered_map<string, Number*>* getValues() = 0;
+    virtual unordered_map<string, Number*> getValues() = 0;
+    virtual unordered_map<string, Number*> setValues(string key, Number* val);
     virtual void simplify() = 0;
     virtual void display() = 0;
     virtual double toDouble() = 0;
@@ -41,7 +42,8 @@ public:
     virtual void setTranscendentalValue(string value) = 0;
     
     // Used to return vector Log uses to store split logs.
-    virtual vector<Number*>* getLogValues() = 0;
+    virtual vector<Number*> getLogValues() = 0;
+    virtual void setLogValues(int index, Number* val) = 0;
 };
 
 #endif	/* NUMBER_H */

@@ -31,11 +31,11 @@ void Integer::setValue(long value) {
 }
 
 void Integer::display() {
-    // Exists to display Number Parent class.
+    // Implement this.
 }
 
 double Integer::toDouble(){
-	//get method can also be used here if double value not needed
+	// get method can also be used here if double value not needed
 	return (double) value;
 }
 Integer Integer:: operator+(const Integer &integer) {
@@ -83,7 +83,11 @@ unordered_map<string, Number*>* Integer::getValues() {
     return NULL;
 }
 
-vector<Number*>* getLogValues() {
+void setValues(string key, Number* val) {
+    return;
+}
+
+vector<Number*> getLogValues() {
     return NULL;
 }
 

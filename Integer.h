@@ -34,10 +34,12 @@ public:
     double toDouble();
 
     // Implemented to satisfy Number.h
-    unordered_map<string, Number*>* getValues();
+    unordered_map<string, Number*> getValues();
+    void setValues(string key, Number* val);
     string getTranscendentalValue();
     void setTranscendentalValue(string value); 
-    vector<Number*>* getLogValues();
+    vector<Number*> getLogValues();
+    void setLogValues(int index, Number* val);
     void simplify();
     
     // Overloaded operators

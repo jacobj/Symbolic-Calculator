@@ -18,13 +18,21 @@
 #include <stdexcept>
 #include <vector>
 #include <string>
+#include <map>
+#include <unordered_map>
 
 using namespace std;
 
 class Number
 {
 public:
-    virtual unordered_map<string, Number*> getValue() = 0;
+    virtual unordered_map<string, Number*> getValues() = 0;
+    // Used only to return long values of Integers
+    virtual long getValue() = 0;
+    virtual void setValue(long value) = 0;
+    // Used to return String value of Transcendental
+    virtual string getTranscendentalValue() = 0;
+    virtual void setTranscendentalValue(string value) = 0;
     virtual void simplify() = 0;
     virtual void display() = 0;
     virtual double toDouble() = 0;

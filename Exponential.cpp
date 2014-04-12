@@ -16,39 +16,15 @@
 using namespace std;
 
 Exponential::Exponential(Number* value, Number* exponent, Number* coefficient) {
-    this->value = value;
-    this->exponent = exponent;
-    this->coefficient = coefficient;
+    this->values["value"] = value;
+    this->values["exponent"] = exponent;
+    this->values["coefficient"] = coeffient;
 }
 
 Exponential::~Exponential() {
-    delete value;
-    delete exponent;
-    delete coefficient;
-}
-
-Number * Exponential::getValue() {
-    return value;
-}
-
-Number * Exponential::getExponent() {
-    return exponent;
-}
-
-Number * Exponential::getCoefficient() {
-    return coefficient;
-}
-
-void Exponential::setValue(Number* value) {
-    this->value = value;
-}
-
-void Exponential::setExponent(Number* exponent) {
-    this->exponent = exponent;
-}
-
-void Exponential::setCoefficient(Number* coefficient) {
-    this->coefficient = coefficient;
+    delete values["value"];
+    delete values["exponent"];
+    delete values["coefficient"];
 }
 
 double Exponential::toDouble(){
@@ -58,34 +34,37 @@ double Exponential::toDouble(){
 // Simplify method.
 void Exponential::simplify() {
     // If the value is an Integer,
-    if (Integer* valueptr = dynamic_cast<Integer*>(value)) {
+    if (typeid(values["value"]) == typeid(Integer)) {
         // If the exponent is a RationalNumber,
-        if (RationalNumber* exponentptr = dynamic_cast<RationalNumber*>(exponent)) {
+        if (typeid(values["exponent"]) == typeid(RationalNumber)) {
             // If the exponent's numerator is an Integer,
-            if (Integer* numeratorptr = dynamic_cast<Integer*>(exponentptr->getNumerator())) {
+            if (typeid(values["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
                 // Raise the value to nth power and set the exponent to 1.
-                valueptr->setValue((long)pow(valueptr->getValue(), numeratorptr->getValue()));
+                values["value"]->setValue(((long)pow(values["value"]->getValue(), 
+                                                     values["exponent"]->getValues()["numerator"]->getValue())));
                 // Set the numerator of the exponent to 1, as it has already been raised appropriately.
-                numeratorptr->setValue(1);
+                values["exponent"]->getValues()["numerator"]->setValue(1);
                 // If the exponent's denominator is an Integer,
-                if (Integer* denominatorptr = dynamic_cast<Integer*>(exponentptr->getDenominator())) {
-                    // Break up value into it's prime factors.
-                    vector<int> primes; 
-                    primes = findPrimeFactors(valueptr->getValue(), 2, primes);
-                    // Sort results in descending order.
-                    sort(primes.begin(), primes.end());
-                    int value = valueptr->getValue();
-                    // If the coefficient is an Integer.
-                    if (Integer* coefficientptr = dynamic_cast<Integer*>(coefficient)) {
-                        int coefficient = coefficientptr->getValue();
-                        reduceInsideRoot(value, coefficient, denominatorptr->getValue(), primes);
-                        // Set value and coeffient to the returned values from reduceInsideRoot.
-                        valueptr->setValue(value);
-                        coefficientptr->setValue(coefficient);
-                    }       
-                }
-                // What if the denominator is not an Integer? For now let's just leave it alone.
             }
+            if (typeid(values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {
+                // Break up value into it's prime factors.
+                vector<int> primes; 
+                primes = findPrimeFactors(values["value"]->getValue(), 
+                                          2, primes);
+                // Sort results in descending order.
+                sort(primes.begin(), primes.end());
+                int value = values["value"]->getValue();
+                // If the coefficient is an Integer.
+                if (typeid(values["coefficient"]) == typeid(Integer)) {
+                    int coefficient = values["coefficient"]->getValue();
+                    reduceInsideRoot(value, coefficient, 
+                                     values["exponent"]->getValues()["denominator"]->getValue(), primes);
+                    // Set value and coeffient to the returned values from reduceInsideRoot.
+                    values["value"]->setValue(value);
+                    values["coefficient"]->setValue(coefficient);
+                }       
+            }
+            // What if the denominator is not an Integer? For now let's just leave it alone.
         }
     }
     // Else, if the value is a rational

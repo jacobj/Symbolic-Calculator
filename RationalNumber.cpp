@@ -33,6 +33,12 @@ void Exponential::setValues(string key, Number* val) {
 double Exponential::toDouble(){
     return values["numerator"]->toDouble() / values["denominator"]->toDouble();
 }
+string RationalNumber::toString(){
+	stringstream valueStream;
+	valueStream << values["numerator"]->toString() << "/" << values["denominator"]->toString();
+	string str = valueStream.str();
+	return str;
+}
 
 // Simplify helper method.
 void RationalNumber::simplify() {

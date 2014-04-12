@@ -86,7 +86,7 @@ Integer Integer:: operator/(const Integer &integer) {
         }*/
  
 // The methods below exist only to satisfy Number.h.
-unordered_map<string, Number*> Integer::getValues() {
+map<string, Number*> Integer::getValues() {
     return NULL;
 }
 

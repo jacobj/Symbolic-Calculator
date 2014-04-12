@@ -28,7 +28,7 @@ Exponential::~Exponential() {
     delete values["coefficient"];
 }
 
-unordered_map<string, Number*> Exponential::getValues() {
+map<string, Number*> Exponential::getValues() {
     return values;
 }
 

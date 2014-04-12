@@ -21,7 +21,7 @@
 
 class RationalNumber : public Number {
 private:
-    unordered_map<string, Number*> values;
+    map<string, Number*> values;
 
 public:
     RationalNumber(Number* numerator, Number* denominator);
@@ -30,7 +30,7 @@ public:
     void display();
     double toDouble();
     string toString();
-    unordered_map<string, Number*> getValues();
+    map<string, Number*> getValues();
     void setValues(string key, Number* val);
     
     // Only used in RationalNumber

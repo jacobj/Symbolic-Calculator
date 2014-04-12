@@ -22,11 +22,11 @@ private:
     long value;
 
 public:
-    Integer(long value);
+    Integer(long);
     Integer();
     
     long getValue();
-    void setValue(long value);
+    void setValue(long);
     void display();
     double toDouble();
     string toString();

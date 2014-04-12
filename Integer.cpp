@@ -73,43 +73,28 @@ Integer Integer:: operator/(const Integer &integer) {
     temp.value = value / integer.value;
     return temp;
 }
-  
-   /* try {
-        	Integer temp;
-        	if (integer.value == 0) {
-            	throw invalid_argument("Cannot divide by 0!");
-            	cout << "Cannot divide by 0" << endl;
-       	 	}
-       	 }
-    catch (invalid_argument &ex) {
-            	cerr << ex.what() << endl;
-        }*/
  
 // The methods below exist only to satisfy Number.h.
 map<string, Number*> Integer::getValues() {
-    return NULL;
+    //return NULL;
 }
 
 void Integer::setValues(string key, Number* val) {
-    return;
 }
 
 vector<Number*> Integer::getLogValues() {
-    return NULL;
+   // return NULL;
 }
 
 void Integer::setLogValues(int index, Number* val) {
-    return;
 }
 
 string Integer::getTranscendentalValue() {
-    return "";
+    //return "";
 }
 
 void Integer::setTranscendentalValue(string value) {
-    return;
 }
 
 void Integer::simplify() {
-    return;
 }

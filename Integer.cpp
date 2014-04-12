@@ -83,15 +83,15 @@ unordered_map<string, Number*> Integer::getValues() {
     return NULL;
 }
 
-void setValues(string key, Number* val) {
+void Integer::setValues(string key, Number* val) {
     return;
 }
 
-vector<Number*> getLogValues() {
+vector<Number*> Integer::getLogValues() {
     return NULL;
 }
 
-void setLogValues(int index, Number* val) {
+void Integer::setLogValues(int index, Number* val) {
     return;
 }
 

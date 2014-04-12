@@ -154,18 +154,18 @@ void Exponential::reduceInsideRoot(int &value, int &coefficient, int root, vecto
     }
 }
 
-vector<Number*> getLogValues() {
-    return 0;
+vector<Number*> Exponential::getLogValues() {
+    return NULL;
 }
 
-void setLogValues(int index, Number* val) {
+void Exponential::setLogValues(int index, Number* val) {
     return;
 }
 
-string Integer::getTranscendentalValue() {
+string Exponential::getTranscendentalValue() {
     return "";
 }
 
-void Integer::setTranscendentalValue(string value) {
+void Exponential::setTranscendentalValue(string value) {
     return;
 }

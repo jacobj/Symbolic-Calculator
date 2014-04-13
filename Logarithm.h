@@ -16,33 +16,35 @@
 
 class Logarithm: public Number
 {
+	private:
+	map<string, Number*> values;
+    vector<Number> values;
+    char smoothOperator;
     public:
-	    Logarithm(Number coefficient, vector<Number> values, Number base);
-	    Logarithm(Number coefficient, Number value, Number base);
+	    Logarithm(Number* coefficient, vector<Number*> LogValues, Number* base);
 	    ~Logarithm();
 
         void simplify();
         void splitLog(vector<int> primes)
         void display();
-        double toDouble(int location);
-        string toString(int location);
+        double toDouble();
+        string toString();
     
-        Number getCoefficient();
-        vector<Number*> getValues();
-        Number getBase();
-        void setCoefficient(Number coefficient);
-        void setValue(Number value);
-        void setValues(vector<Number> values);
-        void setBase(Number base);
-		Logarithm operator+(const Logarithm& log);
+        map<string, Number*> getValues();
+        void setValues(string key, Number* val);
+        vector<Number*> getLogValues();
+        void setLogValues(int index, vector<Number*> values);
+
+		/*Logarithm operator+(const Logarithm& log);
 		Logarithm operator-(const Logarithm& log);
 		Logarithm operator*(const Logarithm& log);
-		Logarithm operator/(const Logarithm& log);
+		Logarithm operator/(const Logarithm& log);*/
 
-    private:
-        Number coefficient;
-        vector<Number> values;
-        Number base;
+		// Used to satisfy Number.h
+		long getValue();
+		void setValue(long value);
+        string getTranscendentalValue();
+	    void setTranscendentalValue(string value);
 };
 
 

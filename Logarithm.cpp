@@ -6,56 +6,48 @@ using namespace std;
  * TODO: Write a little bit about what this class does in relation to Expression
  */
 
-Logarithm::Logarithm(Number coefficient, vector<Number> values, Number base) {
-    this->coefficient = coefficient;
-    this->values = values;
-    this->base = base;
-}
-
-Logarithm::Logarithm(Number coefficient, Number value, Number base) {
-    this->coefficient = coefficient;
-    // Not sure if this is a proper initialization. We will find out when we build
-    this->values.push_back(value);
-    this->base = base;
+Logarithm::Logarithm(Number coefficient, vector<Number*> LogValues, Number base) {
+	this->values["coefficient"] = coefficient;
+	this->LogValues = LogValues;
+	this->values["base"] = base;
 }
 
 Logarithm::~Logarithm() {
-    delete coefficient;
+    delete values["coefficient"];
     delete values;
-    delete base;
+    delete values["base"];
 }
 
-// Get Methods
-Number Logarithm::getCoefficient() {
-    return coefficient;
-}
-vector<Number> Logarithm::getValues() {
+// Get and Set Methods
+map<string, Number*> Logarithm::getValues() {
     return values;
 }
-Number Logarithm::getBase() {
-    return base;
-}
 
-// Set Methods
-void Logarithm::setCoefficient(Number coefficient) {
-    this->coefficient = coefficient;
+void Logarithm::setValues(string key, Number* val) {
+    values[key] = val;
 }
-void Logarithm::setValue(Number value) {
-    // not sure if this is the correct way to write this particular set method... seems okay
-    this->values.push_back(value);
+vector<Number*> Logarithm::getLogValues() {
+    return values;
 }
-void Logarithm::setValues(vector<Number> values) {
-    this->values = values;
-}
-void Logarithm::setBase(Number base) {
-    return base;
+void Logarithm::setLogValues(vector<Number*> LogValues) {
+    this->LogValues = LogValues;
 }
 
 // Make more general, in case other logs are added.
 void Logarithm::simplify() {
     vector<int> primes;
-    vector<int> primes = findPrimeFactors(values.[0].getValue(), 2, primes);
-    splitLog(primes);
+    if (typeid(LogValues[0]) == typeid(Integer)){
+    	vector<int> primes = findPrimeFactors(LogValues[0].getValue(), 2, primes);
+    	splitLog(primes);
+    }
+    if (typeid(LogValues[0]) == typeid(RationalNumber)){
+    	//Splits a log of a RationalNumber into a log of its numerator and denominator
+    	//separated by a minus.
+    	RationalNumber temp = LogValues[0];
+        LogValues[0] = temp.getValues()["numerator"];
+        LogValues.push_back(temp.getValues()["denominator"]);
+        smoothOperator = '-';
+    }
 }
 void Logarithm::display() {
     // Exists to satisfy Number Parent class. May be needed in the future.
@@ -64,22 +56,44 @@ void Logarithm::display() {
 //toDouble and toString currently give you the log at the position in the vector
 //you want. This certainly needs tweaking, along with better interaction with
 //how log splitting will work. Just getting the basic implementation done.
-double Logarithm::toDouble(int location){
+double Logarithm::toDouble(){
 	//Uses log() from cmath which gives the natural logarithm.
-	return log(values[location]->toDouble())/log(base->toDouble);
+	//Either subtracts or adds, depending on smoothOperator.
+	double tempSum;
+	for (i = 0; i >= LogValues.size(), i++){
+		if (smoothOperator = '+'){
+			tempSum += values["coefficient"]->toDouble()*(log(LogValues[i]->toDouble())/log(values["base"]->toDouble));
+		}
+		else {
+			tempSum -= values["coefficient"]->toDouble()*(log(LogValues[i]->toDouble())/log(values["base"]->toDouble));
+		}
+	}
+	return tempSum;
 }
-string Logarithm::toString(int location){
+string Logarithm::toString(){
 	stringstream valueStream;
-	valueStream << "log_" << base << ":" << values[location]->toString();
+	valueStream << values["coefficient"]->toString()
+	for (i = 0; i >= LogValues.size(), i++){
+		if (i = LogValues.size()-1){
+			valueStream << "log_" << values["base"]->toString() << ":" << LogValues[i]->toString();
+		}
+		else if (smoothOperator = '+'){
+			valueStream << "log_" << values["base"]->toString() << ":" << LogValues[i]->toString() << "+";
+		}
+		else{
+			valueStream << "log_" << values["base"]->toString() << ":" << LogValues[i]->toString() << "-";
+		}
+	}
 	string str = valueStream.str();
 	return str;
 }
 
 void Logarithm::splitLog(vector<int> primes) {
-    // Not the best way to do this, will be overhauled later.
-    values.clear();
+    // Not the best way to do this, will be overhauled later. -- Well, seems good.
+    LogValues.clear();
     for (int i = 0; i < primes.size(); i++) {
-        values.push_back(primes[i]);
+        LogValues.push_back(primes[i]);
+        smoothOperator = '+';
     }
 }
 
@@ -92,4 +106,19 @@ vector<int> Logarithm::findPrimeFactors(int number, int i, vector<int> primeFact
     } else {
         return findPrimeFactors(number, i++, primeFactors);
     }
+}
+
+//Satisfying our love of maps
+string Logarithm::getTranscendentalValue() {
+    return "";
+}
+
+void Logarithm::setTranscendentalValue(string value) {
+    return;
+}
+long Logarithm::getValue() {
+    return 1;
+}
+void Logarithm::setValue(long value){
+	return;
 }

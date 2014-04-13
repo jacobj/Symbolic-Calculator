@@ -22,14 +22,18 @@
 #include <sstream>
 #include <cmath>
 
+#include "Integer.h"
+
 using namespace std;
 
 class Calculator
 {
 private:
 	vector<string> previousAnswers;
+	vector<Number*> previousA;
 	vector<string> previousInputs;
     vector<string> expression;
+    vector<Number*> expressionB;
 public:
 	//constructors
 	Calculator();
@@ -37,15 +41,19 @@ public:
         
     //function prototypes
     
+
     vector<string> getPreviousInputs();
     vector<string> getPreviousAnswers();
     vector<string> getExpression();
     vector<string> setExpressionTokens(string&);
     
-    void addInput(string);
+    Number* assignToClass(string&);//, vector<Number*>);
+    bool isNumeric(string);
+    bool addInput(string);
     
     //double RPNtoDouble( vector<string> tokens );
     void calculate();
+    string getLatestAnswer();
     
     bool infixToRPN(vector<string>&, vector<string>&);
     bool isOperator(string);

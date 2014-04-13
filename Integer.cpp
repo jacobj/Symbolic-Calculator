@@ -13,10 +13,15 @@
 #include "Integer.h"
 
 // Constructor
-Integer::Integer(long value) {
+Integer::Integer(long val) {
     this->value = value;
 }
 
+Integer::Integer(string val){
+	const long d2 = strtol( val.c_str(), NULL ,0);
+	this->value = d2;
+
+}
 Integer::Integer() {
     this->value = 0;
 }
@@ -26,8 +31,8 @@ long Integer::getValue() {
     return value;
 }
 
-void Integer::setValue(long value) {
-    this->value = value;
+void Integer::setValue(long val) {
+    this->value = val;
 }
 
 void Integer::display() {
@@ -98,3 +103,4 @@ void Integer::setTranscendentalValue(string value) {
 
 void Integer::simplify() {
 }
+

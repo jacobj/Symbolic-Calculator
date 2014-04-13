@@ -47,6 +47,12 @@ public:
     // Used to return vector Log uses to store split logs.
     virtual vector<Number*> getLogValues() = 0;
     virtual void setLogValues(int index, Number* val) = 0;
+    
+    // Abstract operation methods
+    virtual Number* add(Number*) = 0;
+    virtual Number* subtract(Number*) = 0;
+    virtual Number* multiply(Number*) = 0;
+    virtual Number* divide(Number*) = 0;
 };
 
 #endif	/* NUMBER_H */

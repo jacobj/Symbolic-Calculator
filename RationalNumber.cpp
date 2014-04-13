@@ -55,6 +55,7 @@ void RationalNumber::simplify() {
     // If the denominator is an Integer and the numerator is not.
     else if (typeid(*values["denominator"]) == typeid(Integer) &&
              typeid(*values["numerator"]) != typeid(Integer)) {
+        // And the numerator's coefficient is an Integer
         if (typeid(*values["numerator"]->getValues()["coefficient"]) == typeid(Integer)) {
             int gcd = findGCD(values["denominator"]->getValue(),
                               values["numerator"]->getValues()["coefficient"]->getValue());
@@ -65,6 +66,7 @@ void RationalNumber::simplify() {
     // If the denominator is not and Integer and the numerator is.
     else if (typeid(*values["denominator"]) != typeid(Integer) &&
              typeid(*values["numerator"]) == typeid(Integer)) {
+        // And the denominator's coefficient is an Integer.
         if (typeid(*values["denominator"]->getValues()["coefficient"]) == typeid(Integer)) {
             int gcd = findGCD(values["numerator"]->getValue(),
                               values["denominator"]->getValues()["coefficient"]->getValue());
@@ -75,6 +77,7 @@ void RationalNumber::simplify() {
     // If the numerator and denominator are both not Integers.
     else if (typeid(*values["denominator"]) != typeid(Integer) &&
              typeid(*values["numerator"]) != typeid(Integer)) {
+        // And both coeffcients are are Integers.
         if (typeid(*values["denominator"]->getValues()["coefficient"]) == typeid(Integer) &&
             typeid(*values["numerator"]->getValues()["coefficient"]) == typeid(Integer)) {
             int gcd = findGCD(values["denominator"]->getValues()["coefficient"]->getValue(),
@@ -83,6 +86,31 @@ void RationalNumber::simplify() {
             values["numerator"]->getValues()["coefficient"]->setValue(values["numerator"]->getValues()["coefficient"]->getValue() / gcd);
         }
     }
+    if (typeid(*values["denominator"]) == typeid(TranscendentalNumber) &&
+        typeid(*values["numerator"]) == typeid(TranscendentalNumber)) {
+        if (values["denominator"]->getTranscendentalValue() == 
+            values["numerator"]->getTranscendentalValue()) {
+            values["numerator"] = value["coefficient"];
+            values["denominator"] = value["coefficient"];
+        }
+    }
+    else if (typeid(*values["denominator"]) == typeid(Exponential) &&
+             typeid(*values["numerator"]) == typeid(Exponential)) {
+        // If the values are Integers
+        if (typeid(*values["denominator"]->getValues["value"]) == typeid(Integer) &&
+            typeid(*values["numerator"]->getValues["value"]) == typeid(Integer)) {
+            if (values["denominator"]->getValues["value"]->getValue() == 
+                values["numerator"]->getValues["value"]->getValue()) {
+                if (typeid(*values["denominator"]->getValues["exponent"]) == typeid(RationalNumber) &&
+                    typeid(*values["numerator"]->getValues["exponent"]) == typeid(RationalNumber)) {
+                    if (values["denominator"]->getValues["exponent"]->getValue() ==
+                        values["numerator"]->getValues["exponent"]->getValue()) {
+                    }
+                }
+            }
+        }
+    }
+            
     else if (typeid(*values["denominator"]) == typeid(Exponential)) {  
         // Multiply the numerator and denominator by the denominator.
         // values["denominator"] * values["denominator"];

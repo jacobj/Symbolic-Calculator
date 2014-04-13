@@ -16,7 +16,7 @@ using namespace std;
 
 TranscendentalNumber::TranscendentalNumber(string value, Number* coefficient) {
     this->value = value;
-    this->values["coefficient"] = cefficient;
+    this->values["coefficient"] = coefficient;
 }
 
 TranscendentalNumber::~TranscendentalNumber() {

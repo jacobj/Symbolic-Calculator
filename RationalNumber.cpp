@@ -257,3 +257,7 @@ void RationalNumber::setTranscendentalValue(string value) {
 long RationalNumber::getValue() {
     return 1;
 }
+
+void RationalNumber::setValue(long value) {
+    return; 
+}

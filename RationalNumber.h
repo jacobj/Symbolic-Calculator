@@ -18,6 +18,7 @@
 // #include "Logarithm.h"
 #include "Exponential.h"
 #include "TranscendentalNumber.h"
+#include "Logarithm.h"
 
 class RationalNumber : public Number {
 private:

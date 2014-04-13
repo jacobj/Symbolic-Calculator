@@ -44,6 +44,13 @@ public:
     void setTranscendentalValue(string value); 
     vector<Number*> getLogValues();
     void setLogValues(int index, Number* val);
+    
+    // Operation methods
+    Number* add(Number*);
+    Number* subtract(Number*);
+    Number* multiply(Number*);
+    Number* divide(Number*);
+    Number* exponentiate(Number*);
 
     // Exponential operator+(const nthRootIrrational& nthRoot);
     // Exponential operator-(const nthRootIrrational& nthRoot);

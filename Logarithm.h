@@ -38,6 +38,13 @@ class Logarithm: public Number
         void setLogValues(vector<Number*> LogValues);
         vector<long> findPrimeFactors(long number, long i, vector<long> primeFactors);
 
+        // Operation methods
+        Number* add(Number*);
+        Number* subtract(Number*);
+        Number* multiply(Number*);
+        Number* divide(Number*);
+        Number* exponentiate(Number);
+    
 		/*Logarithm operator+(const Logarithm& log);
 		Logarithm operator-(const Logarithm& log);
 		Logarithm operator*(const Logarithm& log);

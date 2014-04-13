@@ -42,6 +42,13 @@ public:
     void simplify();
     Number* add(Integer*);
     
+    //Operation method
+    Number* add(Number*);
+    Number* subtract(Number*);
+    Number* multiply(Number*);
+    Number* divide(Number*);
+    Number* exponentiate(Number*);
+    
     // Overloaded operators
     // Number* operator+(const Integer* integer);
     // Integer operator-(const Integer& integer);

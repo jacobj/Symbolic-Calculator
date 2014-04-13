@@ -13,6 +13,8 @@
 #ifndef LOGARITHM_H
 #define	LOGARITHM_H
 #include "Number.h"
+#include "RationalNumber.h"
+#include "Integer.h"
 
 class Logarithm: public Number
 {
@@ -34,6 +36,7 @@ class Logarithm: public Number
         void setValues(string key, Number* val);
         vector<Number*> getLogValues();
         void setLogValues(vector<Number*> LogValues);
+        vector<int> findPrimeFactors(int number, int i, vector<int> primeFactors);
 
 		/*Logarithm operator+(const Logarithm& log);
 		Logarithm operator-(const Logarithm& log);

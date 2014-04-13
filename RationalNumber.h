@@ -15,7 +15,6 @@
 
 #include "Number.h"
 #include "Integer.h"
-// #include "Logarithm.h"
 #include "Exponential.h"
 #include "TranscendentalNumber.h"
 #include "Logarithm.h"
@@ -26,6 +25,7 @@ private:
 
 public:
     RationalNumber(Number* numerator, Number* denominator);
+	RationalNumber(string expression)
     ~RationalNumber();
     void simplify();
     void display();

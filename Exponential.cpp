@@ -182,3 +182,20 @@ string Exponential::getTranscendentalValue() {
 void Exponential::setTranscendentalValue(string value) {
     return;
 }
+
+//Operation methods
+Number* Exponential::add(Number*) {
+	return;
+}
+Number* Exponential::subtract(Number*) {
+	return;
+}
+Number* Exponential::multiply(Number*) {
+	return;
+}
+Number* Exponential::divide(Number*) {
+	return;
+}
+Number* Exponential::exponentiate(Number*) {
+	return;
+}

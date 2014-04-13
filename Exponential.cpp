@@ -207,7 +207,7 @@ Number* Exponential::add(Number* value) {
 
 	}
 }
-Number* Exponential::subtract(Number*) {
+Number* Exponential::subtract(Number* value) {
 	if (typeid(*value) == typeid(Integer)) {
 
 	}
@@ -230,7 +230,7 @@ Number* Exponential::subtract(Number*) {
 
 	}
 }
-Number* Exponential::multiply(Number*) {
+Number* Exponential::multiply(Number* value) {
 	if (typeid(*value) == typeid(Integer)) {
 
 	}
@@ -253,7 +253,7 @@ Number* Exponential::multiply(Number*) {
 
 	}
 }
-Number* Exponential::divide(Number*) {
+Number* Exponential::divide(Number* value) {
 	if (typeid(*value) == typeid(Integer)) {
 
 	}
@@ -276,7 +276,7 @@ Number* Exponential::divide(Number*) {
 
 	}
 }
-Number* Exponential::exponentiate(Number*) {
+Number* Exponential::exponentiate(Number* value) {
 	if (typeid(*value) == typeid(Integer)) {
 
 	}

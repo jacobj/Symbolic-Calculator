@@ -63,6 +63,16 @@ vector<string> Calculator::getPreviousAnswers()
 {
 	return previousAnswers;
 }
+vector<string> Calculator::getExpression()
+{
+	return expression;
+}
+
+string Calculator::getLatestAnswer()
+{
+	return previousAnswers.back();
+}
+
 vector<string> Calculator::setExpressionTokens(string& expr)
 {
     vector<string> tokens;
@@ -81,24 +91,27 @@ vector<string> Calculator::setExpressionTokens(string& expr)
             str = "";
             tokens.push_back(token);
         }
+        else if(isNumeric(token))
+        {
+                str.append(token);
+        }
         else
         {
-            if(!token.empty() && token != " ")
-            {
-                str.append(token);
-            }
-            else
-            {
-                if(str != "")
-                {
-                    tokens.push_back(str);
-                    str = "";
-                }
-            }
+        	if(str != "")
+        	{
+        		tokens.push_back(str);
+        		str = "";
+        	 }
         }
+
     }
-    tokens.push_back(str);
-    return tokens;
+    if(tokens.empty())
+    	return tokens;
+    else
+    {
+    	tokens.push_back(str);
+    	return tokens;
+    }
 }
 
 bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
@@ -167,10 +180,14 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
                 return false;      
             }                                            
         }
+        else if(isNumeric(token))
+        {
+        	out.push_back( token );
+        }
+        //TODO will handle pi, e, log, etc.
         else
         {
-        	if(token != "")
-        		out.push_back( token );
+
         }
     }
     
@@ -188,49 +205,88 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
   
         // Pop the operator onto the output queue./      
         out.push_back( stackToken );                        
-        stack.pop();        
+        stack.pop();
     }          
-  
+
     rpn.assign( out.begin(), out.end() );
   
     return success;
 }
 
+Number* Calculator::assignToClass(string& token)//, vector<Number*> tokens)
+{
+	Number *temp;
+	//vector<Number*> tempVec;
+	if(isNumeric(token))
+	{
+		temp = new Integer(token);
+	}
+	//tempVec.push_back(temp);
+	return temp;
+
+}
+
 void Calculator::calculate()      
 {
     stack<string> st;
+    stack<Number*> st2;
 
     // For each token          
     for ( int i = 0; i < (int) expression.size(); ++i )
     {         
-        const string token = expression[ i ];
-  
+    	const string token = expression[ i ];
+
         // If the token is a value push it onto the stack          
         if ( !isOperator(token) )          
         {          
-            st.push(token);          
+        	Number *token2 = assignToClass(expression[i]);
+            st.push(token);
+            st2.push(token2);
         }          
-        else          
+        else
         {    
+
             double result =  0.0;    
   
             // Token is an operator: pop top two entries          
-            const string val2 = st.top();        
-            st.pop();        
-            const double d2 = strtod( val2.c_str(), NULL );          
-  
-            if ( !st.empty() )    
+            const string val2 = st.top();
+            const Number* val2b = st2.top();
+            st.pop();
+            st2.pop();
+            const double d2 = strtod( val2.c_str(), NULL );
+
+            if ( !st.empty() )
+            {
+            	const string val1 = st.top();
+            	st.pop();
+            	const double d1 = strtod( val1.c_str(), NULL );
+
+            	//Get the result
+            	result = token == "+" ? d1 + d2 :
+            			 token == "-" ? d1 - d2 :
+            		     token == "*" ? d1 * d2 :
+                         token == "/" ? d1 / d2 :
+                                    pow(d1, d2);
+             }
+             else
+             {
+            	 if ( token == "-" )
+            		 result = d2 * -1;
+            	 else
+            		 result = d2;
+             }
+            if ( !st2.empty() )
             {    
-                const string val1 = st.top();        
-                st.pop();        
-                const double d1 = strtod( val1.c_str(), NULL );       
+                const Number* val1 = st2.top();
+                st2.pop();
+                //const double d1 = strtod( val1.c_str(), NULL );
   
                 //Get the result          
-                result = token == "+" ? d1 + d2 :          
+                /*result = token == "+" ? d1 + d2 :
                          token == "-" ? d1 - d2 :          
                          token == "*" ? d1 * d2 :
                          token == "/" ? d1 / d2 :
-                                        pow(d1, d2);
+                                        pow(d1, d2);*/
             }    
             else    
             {    
@@ -254,6 +310,7 @@ void Calculator::calculate()
     	expression.clear();
     }
 } 
+
 bool Calculator::isOperator(string token)
 {
     if( token == "+" || token == "-" ||
@@ -264,6 +321,17 @@ bool Calculator::isOperator(string token)
         return false;   
 }
 
+bool Calculator::isNumeric(string token)
+{
+	if(token == "1" || token == "2" ||
+	   token == "3" || token == "4" ||
+	   token == "5" || token == "6" ||
+	   token == "7" || token == "8" ||
+	   token == "9" || token == "0")
+		return true;
+	else
+		return false;
+}
 bool Calculator::isParentheses(string token)
 {  
     if(token == "(" || token == ")")
@@ -272,22 +340,34 @@ bool Calculator::isParentheses(string token)
         return false;
 }
 
-vector<string> Calculator::getExpression()
-{
-	return expression;
-}
-
-void Calculator::addInput(string exp)
+bool Calculator::addInput(string exp)
 {	
+	bool success = true;
     vector<string> temp = setExpressionTokens(exp);
     
-    if( infixToRPN(temp, expression) )
+    if(temp.empty())
+    {
+    	cout << "Enter an actual expression!" << endl;
+    	success = false;
+    	return success;
+    }
 
+    if( infixToRPN(temp, expression) )
+    {
     	previousInputs.push_back( exp );
+    	return success;
+    }
     	
     else
+    {
+        cout << "\nMismatching parentheses!\n" << endl;
+        success = false;
+        return success;
+    }
 
-        cout << "mismatching parentheses\n" << endl;
 
 }
+
+
+
 

@@ -23,6 +23,7 @@ private:
 
 public:
     Integer(long);
+    Integer(string);
     Integer();
     
     long getValue();
@@ -48,4 +49,5 @@ public:
 };
 
 #endif	/* INTEGER_H */
+
 

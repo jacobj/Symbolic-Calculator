@@ -42,7 +42,7 @@ string RationalNumber::toString(){
 }
 
 //Operation Methods
-Number* RationalNumber::add(Number*){
+Number* RationalNumber::add(Number* value){
 	if (typeid(*value) == typeid(Integer)) {
 
 	}
@@ -66,7 +66,7 @@ Number* RationalNumber::add(Number*){
 	}
 
 }
-Number* RationalNumber::subtract(Number*){
+Number* RationalNumber::subtract(Number* value){
 	if (typeid(*value) == typeid(Integer)) {
 
 	}
@@ -89,7 +89,7 @@ Number* RationalNumber::subtract(Number*){
 
 	}
 }
-Number* RationalNumber::multiply(Number*){
+Number* RationalNumber::multiply(Number* value){
 	if (typeid(*value) == typeid(Integer)) {
 
 	}
@@ -112,7 +112,7 @@ Number* RationalNumber::multiply(Number*){
 
 	}
 }
-Number* RationalNumber::divide(Number*){
+Number* RationalNumber::divide(Number* value){
 	if (typeid(*value) == typeid(Integer)) {
 
 	}
@@ -135,7 +135,7 @@ Number* RationalNumber::divide(Number*){
 
 	}
 }
-Number* RationalNumber::exponentiate(Number*){
+Number* RationalNumber::exponentiate(Number* value){
 	if (typeid(*value) == typeid(Integer)) {
 
 	}

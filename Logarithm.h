@@ -18,14 +18,14 @@ class Logarithm: public Number
 {
 	private:
 	map<string, Number*> values;
-    vector<Number> values;
+    vector<Number> LogValues;
     char smoothOperator;
     public:
 	    Logarithm(Number* coefficient, vector<Number*> LogValues, Number* base);
 	    ~Logarithm();
 
         void simplify();
-        void splitLog(vector<int> primes)
+        void splitLog(vector<int> primes);
         void display();
         double toDouble();
         string toString();
@@ -33,7 +33,7 @@ class Logarithm: public Number
         map<string, Number*> getValues();
         void setValues(string key, Number* val);
         vector<Number*> getLogValues();
-        void setLogValues(int index, vector<Number*> values);
+        void setLogValues(int index, vector<Number*> LogValues);
 
 		/*Logarithm operator+(const Logarithm& log);
 		Logarithm operator-(const Logarithm& log);

@@ -53,6 +53,7 @@ public:
     virtual Number* subtract(Number*) = 0;
     virtual Number* multiply(Number*) = 0;
     virtual Number* divide(Number*) = 0;
+    virtual Number* exponentiate(Number*) = 0;
 };
 
 #endif	/* NUMBER_H */

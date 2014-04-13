@@ -274,80 +274,8 @@ void RationalNumber::simplify() {
     else if (typeid(*values["numerator"]) == typeid(Integer)) {
         
     }
-    
-    // ALL CODE BELOW IS OLD AND MUST BE REFACTORED.
-    // Cases for Logs, Exponentials, Transcendentals
-    /*
-          else if (Exponential* denominatorptr = dynamic_cast<Exponential*>(denominator)) {
-        if (Exponential* numeratorptr = dynamic_cast<Exponential*>(numerator)) {
-            // Need to test if this works.
-            if (*(numeratorptr->getValue()) == *(denominatorptr->getValue()) &&
-                *(numeratorptr->getExponent()) == *(denominatorptr->getExponent())) {
-                
-                if (Integer* denominatorCoefficientptr = dynamic_cast<*Integer>(denominator->getCoefficient())) {
-                    denominator = new Integer(denominatorCoefficientptr->getValue());
-                } else if (Exponential* denominatorCoefficientptr = dynamic_cast<*Exponential>(denominator->getCoefficient())) {
-                    // Make the denominator only consist of the coefficient.
-                    denominator = new Exponential(denominatorCoefficientptr->getValue(), 
-                                                  denominatorCoefficientptr->getExponent(),
-                                                  denominatorCoefficientptr->getCoefficient());
-                }
-                if (Integer* numeratorCoefficientptr = dynamic_cast<*Integer>(denominator->getCoefficient())) {
-                    numerator = new Integer(numeratorCoefficientptr->getValue());
-                } else if (Exponential* numeratorCoefficientptr = dynamic_cast<*Exponential>(numerator->getCoefficient())) {
-                    // Make the denominator only consist of the coefficient.
-                    denominator = new Exponential(numeratorCoefficientptr->getValue(), 
-                                                  numeratorCoefficientptr->getExponent(),
-                                                  numeratorCoefficientptr->getCoefficient());
-                }
-                
-                // Instead, let's preserve the number as is, this saves many lines of code.
-                denominatorptr->setValue(new Integer(1));
-                denominatorptr->setExponent(new Integer(1));
-                numeratorptr->setValue(new Integer(1));
-                numeratorptr->setValue(new Integer(1));
-            }
-        }
-    }
-     
-    if (typeid(denominator) == TranscendentalNumber && 
-        typeid(numerator) == TranscendentalNumber) {
-        if (denominator->getValue() == numerator->getValue()) {
-            // Then these values cancel
-            denominator = new Integer(denominator->getCoefficient());
-            numerator = new Integer(numerator->getCoefficient());
-            return;
-        } else {
-            return;
-        }
-    }
-    if (typeid(denominator) == nthRootIrrational && 
-        typeid(numerator) == nthRootIrrational) {
-        // If both the denominator and numerator are logarithms and both
-        // contain the same value and nthRoot, then cancel them out.
-        if (denominator->getValue() == numerator->getValue() 
-            && denominator->getNthRoot() == numerator->getNthRoot()) {
-            denominator = new Integer(denominator->getCoefficient());
-            numerator = new Integer(numerator->getCoefficient());
-        } else {
-            return;
-        }
-    }
-    if (typeid(denominator) == Logarithm && typeid(numerator) == Logarithm) {
-        
-        // If both the denominator and numerator are logarithms and both
-        // contain the same value and base, then cancel them out.
-        
-        if (denominator->getValue() == numerator->getValue() 
-            && denominator->getBase() == numerator->getBase()) {
-            denominator = new Integer(denominator->getCoefficient());
-            numerator = new Integer(numerator->getCoefficient());
-        } else {
-            return;
-        }
-    */
 }
-
+    
 // Use euclid's algorithm
 int RationalNumber::findGCD(int a, int b) {
     if (b == 0) {

@@ -75,9 +75,9 @@ vector<Number*> TranscendentalNumber::getLogValues() {
 void TranscendentalNumber::setLogValues(int index, Number* val) {
     return;
 }
-long getValue(){
+long TranscendentalNumber::getValue(){
   return 0;
 }
-void setValue(long value){
+void TranscendentalNumber::setValue(long value){
 	return;
 }

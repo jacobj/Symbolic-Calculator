@@ -108,8 +108,8 @@ void Exponential::simplify() {
                                                                                     values["exponent"]->getValues()["numerator"]->getValue()));
                     values["value"]->getValues()["numerator"]->setValue((long)pow(values["value"]->getValues()["numerator"]->getValue(),
                                                                                   values["exponent"]->getValues()["numerator"]->getValue()));
-                    values["exponent"]->getValues()["numerator"]->setValue(1);
-                    value->simplify();
+                    values["value"]->simplify();
+                    values["exponent"]->getValues()["numerator"]->setValue(1); 
                     // If the exponents's denominator is an Integer.
                     if (typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {                    
                         // This needs to root both the numerator and denominator value.
@@ -125,9 +125,9 @@ void Exponential::simplify() {
         }
         else {
             // Split into two seperate expoentials
-            values["value"]->getValues()["denominator"]->setValue(new Exponential(values["value"]->getValues()["denominator"], 
+            values["value"]->getValues()["denominator"] = new Exponential(values["value"]->getValues()["denominator"], 
                                                                                   values["exponent"], values["coefficient"]));
-            values["value"]->getValues()["numerator"]->setValue(new Exponential(values["value"]->getValues()["numerator"], 
+            values["value"]->getValues()["numerator"] = new Exponential(values["value"]->getValues()["numerator"], 
                                                                                 values["exponent"], values["coefficient"]));
         }
     }

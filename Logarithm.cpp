@@ -108,6 +108,27 @@ vector<long> Logarithm::findPrimeFactors(long number, long i, vector<long> prime
     }
 }
 
+// Operation methods -- not sure exactly what goes in these methods just yet
+Number* Logarithm:: add(Number*) {
+    return;
+}
+
+Number* Logarithm:: subtract(Number*) {
+    return;
+}
+
+Number* Logarithm:: multiply(Number*) {
+    return;
+}
+
+Number* Logarithm:: divide(Number*) {
+    return;
+}
+
+Number* Logarithm:: exponentiate(Number*) {
+    return;
+}
+
 //Satisfying our love of maps
 string Logarithm::getTranscendentalValue() {
     return "";

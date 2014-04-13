@@ -10,100 +10,13 @@ int main()
 	vector<string> inputs, answers;
 	string input;
 	
-	/*//addition test cases
-	calculator.addInput("1+2");
+	//Number *integer;
+	calculator.addInput("1 + 2");
 	calculator.calculate();
-	
-	calculator.addInput("(1+2"); //should produce "mismatch parentheses error"
+	/*//exponent test cases
+	calculator.addInput("-2 ^ 2");
 	calculator.calculate();
-	
-	calculator.addInput("1+2+3)"); //should produce "mismatch parentheses error"
-	calculator.calculate();
-	
-	calculator.addInput("(1+2)+3");
-	calculator.calculate();
-
-	calculator.addInput("(1+2+3)");
-	calculator.calculate();
-	
-	calculator.addInput("1+(2+3)");
-	calculator.calculate();
-	
-	calculator.addInput("-1+2");
-	calculator.calculate();
-	
-	calculator.addInput("1+(-2)");
-	calculator.calculate();
-	
-	calculator.addInput("(1+(-2))");
-	calculator.calculate();
-
-	calculator.addInput("1+(2)");
-	calculator.calculate();
-
-	calculator.addInput("(1+2)-(1 + 2)");
-	calculator.calculate();
-
-	//subtraction test cases
-	calculator.addInput("2-1");
-	calculator.calculate();
-
-	calculator.addInput("(2-1)");
-	calculator.calculate();
-
-	calculator.addInput("2-(1)");
-	calculator.calculate();
-
-	calculator.addInput("((2)-(1))");
-	calculator.calculate();
-
-	calculator.addInput("-2-1");
-	calculator.calculate();
-
-	calculator.addInput("1-2");
-	calculator.calculate();
-
-	calculator.addInput("2-1-1");
-	calculator.calculate();
-
-	calculator.addInput("2-(1-1)");
-	calculator.calculate();
-	
-	//multiplication test cases
-	calculator.addInput("1 * 2");
-	calculator.calculate();
-
-	calculator.addInput("2 * 3");
-	calculator.calculate();
-	
-	calculator.addInput("2 * 3 * 4");
-	calculator.calculate();
-
-	calculator.addInput("(2 * 3) * 7");
-	calculator.calculate();
-
-	calculator.addInput("2 * 3");
-	calculator.calculate();
-
-	//division test cases
-	calculator.addInput("2 / 1");
-	calculator.calculate();
-
-	calculator.addInput("0 / 2");
-	calculator.calculate();
-
-	calculator.addInput("2 / 0");
-	calculator.calculate();
-
-	calculator.addInput("(3 / 3)/3");
-	calculator.calculate();
-
-	calculator.addInput("2 / 1");
-	calculator.calculate();*/
-	
-	//exponent test cases
-	calculator.addInput("2 ^ 2");
-	calculator.calculate();
+	cout << calculator.getLatestAnswer() << endl;
 
 	calculator.addInput("2 ^ (2)");
 	calculator.calculate();
@@ -160,7 +73,7 @@ int main()
 	calculator.calculate();
 
 	calculator.addInput("0^2");
-	calculator.calculate();
+	calculator.calculate();*/
 
 	inputs = calculator.getPreviousInputs();
 	answers = calculator.getPreviousAnswers();

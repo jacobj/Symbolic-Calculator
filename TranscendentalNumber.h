@@ -24,6 +24,13 @@ public:
 	double toDouble();
 	string toString();
 
+    //Operation Methods
+    Number* add(Number*);
+    Number* subtract(Number*);
+    Number* multiply(Number*);
+    Number* divide(Number*);
+    Number* exponentiate(Number*);
+
 	map<string, Number*> getValues();
 	void setValues(string key, Number* val);
 	string getTranscendentalValue();

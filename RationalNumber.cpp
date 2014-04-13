@@ -41,6 +41,23 @@ string RationalNumber::toString(){
 	return str;
 }
 
+//Operation Methods
+Number* RationalNumber::add(Number*){
+
+}
+Number* RationalNumber::subtract(Number*){
+
+}
+Number* RationalNumber::multiply(Number*){
+
+}
+Number* RationalNumber::divide(Number*){
+
+}
+Number* RationalNumber::exponentiate(Number*){
+
+}
+
 // Simplify helper method.
 void RationalNumber::simplify() {
     // If the denominator is an Integer and the numerator is an Integer.

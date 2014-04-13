@@ -68,6 +68,23 @@ string TranscendentalNumber::toString(){
 	return str;
 }
 
+//Operation Methods
+Number* TranscendentalNumber::add(Number*){
+
+}
+Number* Transcendental::subtract(Number*){
+
+}
+Number* Transcendental::multiply(Number*){
+
+}
+Number* Transcendental::divide(Number*){
+
+}
+Number* Transcendental::exponentiate(Number*){
+
+}
+
 //For number's satisfaction
 vector<Number*> TranscendentalNumber::getLogValues() {
     //return NULL;

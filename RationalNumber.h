@@ -34,6 +34,13 @@ public:
     map<string, Number*> getValues();
     void setValues(string key, Number* val);
     
+    //Operation Methods
+    Number* add(Number*);
+    Number* subtract(Number*);
+    Number* multiply(Number*);
+    Number* divide(Number*);
+    Number* exponentiate(Number*);
+
     // Only used in RationalNumber
     int findGCD(int a, int b);
     

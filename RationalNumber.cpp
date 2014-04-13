@@ -123,6 +123,7 @@ void RationalNumber::simplify() {
                 // Or if the exponents of each are TranscendentalNumbers,
                 else if (typeid(*values["denominator"]->getValues()["exponent"]) == typeid(TranscendentalNumber) &&
                          typeid(*values["numerator"]->getValues()["exponent"]) == typeid(TranscendentalNumber)) {
+                    // And the exponents are equal.
                     if (values["denominator"]->getValues()["exponent"]->getTranscendentalValue() ==
                         values["numerator"]->getValues()["exponent"]->getTranscendentalValue()) {
                         // Set the denominator and numerator equal to only the coefficients.
@@ -133,11 +134,50 @@ void RationalNumber::simplify() {
                 // Or if the exponents
             }
         }
+        // The denominator's and numerator's values are both trascendental,
+        else if (typeid(*values["denominator"]->getValues()["value"]) == typeid(Integer) &&
+                 typeid(*values["numerator"]->getValues()["value"]) == typeid(Integer)) {
+            // The values of which are equal,
+            if (values["denominator"]->getValues()["value"]->getTranscendentalValue() == 
+                values["numerator"]->getValues()["value"]->getTranscendentalValue()) {
+                // And the exponents of each are both RationalNumbers,
+                if (typeid(*values["denominator"]->getValues()["exponent"]) == typeid(RationalNumber) &&
+                    typeid(*values["numerator"]->getValues()["exponent"]) == typeid(RationalNumber)) {
+                    // of which the denominator and numerator are Integers
+                    if (typeid(*values["denominator"]->getValues()["exponent"]->getValues()["denominator"]) == typeid(Integer) &&
+                        typeid(*values["denominator"]->getValues()["exponent"]->getValues()["numerator"]) == typeid(Integer) &&
+                        typeid(*values["numerator"]->getValues()["exponent"]->getValues()["demominator"]) == typeid(Integer) &&
+                        typeid(*values["numerator"]->getValues()["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
+                        // And the values of the denominator's of the exponents are equal,
+                        if (values["numerator"]->getValues()["exponent"]->getValues()["demominator"]->getValue() == 
+                            values["denominator"]->getValues()["exponent"]->getValues()["demominator"]->getValue()) {
+                            // Set the denominator and numerator equal to only the coefficients.
+                            values["numerator"] = values["numerator"]->getValues()["coefficient"];
+                            values["denominator"] = values["denominator"]->getValues()["coefficient"];
+                        }
+                    }
+                }
+                // Or if the exponents of each are TranscendentalNumbers,
+                else if (typeid(*values["denominator"]->getValues()["exponent"]) == typeid(TranscendentalNumber) &&
+                         typeid(*values["numerator"]->getValues()["exponent"]) == typeid(TranscendentalNumber)) {
+                    // And the exponents are equal.
+                    if (values["denominator"]->getValues()["exponent"]->getTranscendentalValue() ==
+                        values["numerator"]->getValues()["exponent"]->getTranscendentalValue()) {
+                        // Set the denominator and numerator equal to only the coefficients.
+                        values["numerator"] = values["numerator"]->getValues()["coefficient"];
+                        values["denominator"] = values["denominator"]->getValues()["coefficient"];
+                    }
+                }
+            }
+        }
     }
+    // If the denominator and numerator are Logarithms,
     else if (typeid(*values["denominator"]) == typeid(Logarithm) &&
              typeid(*values["numerator"]) == typeid(Logarithm)) {
+        // And the values inside the logs are Integers,
         if (typeid(*values["denominator"]->getValues()["value"]) == typeid(Integer) &&
             typeid(*values["numerator"]->getValues()["value"]) == typeid(Integer)) {
+            // And those values are equal
             if (values["denominator"]->getValues()["value"]->getValue() == 
                 values["numerator"]->getValues()["value"]->getValue()) {
                 if (typeid(*values["denominator"]->getValues()["base"]) == typeid(Integer) &&

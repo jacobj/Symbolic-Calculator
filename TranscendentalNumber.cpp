@@ -35,7 +35,7 @@ string TranscendentalNumber::getTranscendentalValue() {
     return value;
 }
 
-void RationalNumber::setTranscendentalValue(string value) {
+void TranscendentalNumber::setTranscendentalValue(string value) {
     this->value = value;
 }
 
@@ -69,9 +69,9 @@ string TranscendentalNumber::toString(){
 }
 
 //For number's satisfaction
-vector<Number*> RationalNumber::getLogValues() {
-    return NULL;
+vector<Number*> TranscendentalNumber::getLogValues() {
+    //return NULL;
 }
-void RationalNumber::setLogValues(int index, Number* val) {
+void TranscendentalNumber::setLogValues(int index, Number* val) {
     return;
 }

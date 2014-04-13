@@ -215,6 +215,55 @@ void RationalNumber::simplify() {
                 }
             }
         }
+        // If the values inside the logs are transcendental
+        else if (typeid(*values["denominator"]->getValues()["value"]) == typeid(TranscendentalNumber) &&
+                 typeid(*values["numerator"]->getValues()["value"]) == typeid(TranscendentalNumber)) {
+            // And those values are equal,
+            if (values["denominator"]->getValues()["value"]->getTranscendentalValue() == 
+                values["numerator"]->getValues()["value"]->getTranscendentalValue()) {
+                // and the coefficients of those transcendental numbers are integers
+                if (typeid(*values["denominator"]->getValues()["value"]->getValues()["coefficient"]) ==
+                    typeid(Integer) &&
+                    typeid(*values["numerator"]->getValues()["value"]->getValues()["coefficient"]) ==
+                    typeid(Integer)) {
+                    if (values["denominator"]->getValues()["value"]->getValues()["coefficient"]->getValue() ==
+                        values["denominator"]->getValues()["value"]->getValues()["coefficient"]->getValue()) {
+                        // And the bases are Integers,
+                        if (typeid(*values["denominator"]->getValues()["base"]) == typeid(Integer) &&
+                            typeid(*values["numerator"]->getValues()["base"]) == typeid(Integer)) {
+                            // And the bases are equal.
+                            if (values["denominator"]->getValues()["base"]->getValue() == 
+                                values["numerator"]->getValues()["base"]->getValue()) {
+                                // Set the denominator and numerator equal to only thise coefficients.
+                                values["numerator"] = values["numerator"]->getValues()["coefficient"];
+                                values["denominator"] = values["denominator"]->getValues()["coefficiet"];
+                            }
+                        }
+                        // If the bases are Transcendentals
+                        if (typeid(*values["denominator"]->getValues()["base"]) == typeid(Integer) &&
+                            typeid(*values["numerator"]->getValues()["base"]) == typeid(Integer)) {
+                            // And the bases are equal,
+                            if (values["denominator"]->getValues()["base"]->getTranscendentalValue() == 
+                                values["numerator"]->getValues()["base"]->getTranscendentalValue()) {
+                                // And the coefficients in front of them are both Integers,
+                                if (typeid(*values["denominator"]->getValues()["base"]->getValues()["coefficient"]) ==
+                                    typeid(Integer) &&
+                                    typeid(*values["numerator"]->getValues()["base"]->getValues()["coefficient"]) ==
+                                    typeid(Integer)) {
+                                    // That are equal,
+                                    if (values["denominator"]->getValues()["base"]->getValues()["coefficient"]->getValue() ==
+                                        values["denominator"]->getValues()["base"]->getValues()["coefficient"]->getValue()) {
+                                        // Set the denominator and numerator equal to only the coefficients.
+                                        values["numerator"] = values["numerator"]->getValues()["coefficient"];
+                                        values["denominator"] = values["denominator"]->getValues()["coefficiet"];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
             
     else if (typeid(*values["denominator"]) == typeid(Exponential)) {  

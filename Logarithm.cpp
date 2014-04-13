@@ -34,6 +34,7 @@ void Logarithm::setLogValues(vector<Number*> LogValues) {
 }
 
 // Make more general, in case other logs are added.
+//So, Josh decided he doesn't want this. CHANGE SIMPLIFY.
 void Logarithm::simplify() {
     vector<long> primes;
     if (typeid(LogValues[0]) == typeid(Integer)){
@@ -109,23 +110,23 @@ vector<long> Logarithm::findPrimeFactors(long number, long i, vector<long> prime
 }
 
 // Operation methods -- not sure exactly what goes in these methods just yet
-Number* Logarithm:: add(Number*) {
+Number* Logarithm::add(Number*) {
     return;
 }
 
-Number* Logarithm:: subtract(Number*) {
+Number* Logarithm::subtract(Number*) {
     return;
 }
 
-Number* Logarithm:: multiply(Number*) {
+Number* Logarithm::multiply(Number*) {
     return;
 }
 
-Number* Logarithm:: divide(Number*) {
+Number* Logarithm::divide(Number*) {
     return;
 }
 
-Number* Logarithm:: exponentiate(Number*) {
+Number* Logarithm::exponentiate(Number*) {
     return;
 }
 

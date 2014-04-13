@@ -20,7 +20,7 @@ class Logarithm: public Number
 {
 	private:
 	map<string, Number*> values;
-    vector<Number> LogValues;
+    vector<Number*> LogValues;
     char smoothOperator;
     public:
 	    Logarithm(Number* coefficient, vector<Number*> LogValues, Number* base);

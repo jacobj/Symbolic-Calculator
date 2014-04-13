@@ -113,3 +113,19 @@ Number* Integer::add(Integer* val){
 	return new Integer(this->toString());
 }
 
+//Operator methods
+Number* Integer::add(Number*) {
+	return;
+}
+Number* Integer::subtract(Number*) {
+	return;
+}
+Number* Integer::multiply(Number*) {
+	return;
+}
+Number* Integer::divide(Number*) {
+	return;
+}
+Number* Integer::exponentiate(Number*) {
+	return;
+}

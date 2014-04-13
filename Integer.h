@@ -43,10 +43,10 @@ public:
     Number* add(Integer*);
     
     // Overloaded operators
-    Number* operator+(const Integer* integer);
-    Integer operator-(const Integer& integer);
-    Integer operator*(const Integer& integer);
-    Integer operator/(const Integer& integer);
+    // Number* operator+(const Integer* integer);
+    // Integer operator-(const Integer& integer);
+    // Integer operator*(const Integer& integer);
+    // Integer operator/(const Integer& integer);
 };
 
 #endif	/* INTEGER_H */

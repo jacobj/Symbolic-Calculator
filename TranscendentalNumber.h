@@ -31,10 +31,10 @@ public:
 	Number * getCoefficient();
 	void setCoefficient(Number* coefficient);
     
-    TranscendentalNumber operator+(const TranscendentalNumber& value);
+    /*TranscendentalNumber operator+(const TranscendentalNumber& value);
     TranscendentalNumber operator-(const TranscendentalNumber& value);
     TranscendentalNumber operator*(const TranscendentalNumber& value);
-    TranscendentalNumber operator/(const TranscendentalNumber& value);
+    TranscendentalNumber operator/(const TranscendentalNumber& value); */
 
     // Used to satisfy Number.h
     long getValue();

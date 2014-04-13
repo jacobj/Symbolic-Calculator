@@ -50,6 +50,7 @@ string Integer::toString(){
 	return str;
 }
 
+/*
 Number* Integer:: operator+(const Integer* integer) {
     Integer temp;
     temp.value = value + integer->value;
@@ -80,6 +81,7 @@ Integer Integer:: operator/(const Integer &integer) {
     temp.value = value / integer.value;
     return temp;
 }
+ */
  
 // The methods below exist only to satisfy Number.h.
 map<string, Number*> Integer::getValues() {

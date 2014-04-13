@@ -42,9 +42,9 @@ public:
     vector<Number*> getLogValues();
     void setLogValues(int index, Number* val);
 
-/*private:
+private:
 	string value;
-	Number* coefficient;*/
+	map<string, Number*> values;
 };
 
 #endif	/* TRANSCENDENTALNUMBER_H */

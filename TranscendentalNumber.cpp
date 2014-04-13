@@ -79,5 +79,5 @@ long getValue(){
   return 0;
 }
 void setValue(long value){
-	return 0;
+	return;
 }

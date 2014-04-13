@@ -184,18 +184,118 @@ void Exponential::setTranscendentalValue(string value) {
 }
 
 //Operation methods
-Number* Exponential::add(Number*) {
-	return;
+Number* Exponential::add(Number* value) {
+	if (typeid(*value) == typeid(Integer)) {
+
+	}
+	else if (typeid(*value) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*value) == typeid(Expression)) {
+
+	}
+	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
 }
 Number* Exponential::subtract(Number*) {
-	return;
+	if (typeid(*value) == typeid(Integer)) {
+
+	}
+	else if (typeid(*value) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*value) == typeid(Expression)) {
+
+	}
+	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
 }
 Number* Exponential::multiply(Number*) {
-	return;
+	if (typeid(*value) == typeid(Integer)) {
+
+	}
+	else if (typeid(*value) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*value) == typeid(Expression)) {
+
+	}
+	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
 }
 Number* Exponential::divide(Number*) {
-	return;
+	if (typeid(*value) == typeid(Integer)) {
+
+	}
+	else if (typeid(*value) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*value) == typeid(Expression)) {
+
+	}
+	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
 }
 Number* Exponential::exponentiate(Number*) {
-	return;
+	if (typeid(*value) == typeid(Integer)) {
+
+	}
+	else if (typeid(*value) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*value) == typeid(Expression)) {
+
+	}
+	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
 }

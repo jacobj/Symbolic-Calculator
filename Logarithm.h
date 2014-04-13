@@ -33,7 +33,7 @@ class Logarithm: public Number
         map<string, Number*> getValues();
         void setValues(string key, Number* val);
         vector<Number*> getLogValues();
-        void setLogValues(int index, vector<Number*> LogValues);
+        void setLogValues(vector<Number*> LogValues);
 
 		/*Logarithm operator+(const Logarithm& log);
 		Logarithm operator-(const Logarithm& log);

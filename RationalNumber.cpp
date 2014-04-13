@@ -94,19 +94,43 @@ void RationalNumber::simplify() {
             values["denominator"] = value["coefficient"];
         }
     }
+    // If both the denominator and numerator are exponentials,
     else if (typeid(*values["denominator"]) == typeid(Exponential) &&
              typeid(*values["numerator"]) == typeid(Exponential)) {
-        // If the values are Integers
+        // If the both the denominator's and numerator's exponential's contain a value that is in fact an integer,
         if (typeid(*values["denominator"]->getValues["value"]) == typeid(Integer) &&
             typeid(*values["numerator"]->getValues["value"]) == typeid(Integer)) {
+            // And the values are equal,
             if (values["denominator"]->getValues["value"]->getValue() == 
                 values["numerator"]->getValues["value"]->getValue()) {
+                // And the exponents of each are both RationalNumbers,
                 if (typeid(*values["denominator"]->getValues["exponent"]) == typeid(RationalNumber) &&
                     typeid(*values["numerator"]->getValues["exponent"]) == typeid(RationalNumber)) {
-                    if (values["denominator"]->getValues["exponent"]->getValue() ==
-                        values["numerator"]->getValues["exponent"]->getValue()) {
+                    // of which the denominator and numerator are Integers
+                    if (typeid(*values["denominator"]->getValues["exponent"]->getValues["denominator"]) == typeid(Integer) &&
+                        typeid(*values["denominator"]->getValues["exponent"]->getValues["numerator"]) == typeid(Integer) &&
+                        typeid(*values["numerator"]->getValues["exponent"]->getValues["demominator"]) == typeid(Integer) &&
+                        typeid(*values["numerator"]->getValues["exponent"]->getValues["numerator"]) == typeid(Integer)) {
+                        // And the values of the denominator's of the exponents are equal,
+                        if (values["numerator"]->getValues["exponent"]->getValues["demominator"]->getValue() == 
+                            values["denominator"]->getValues["exponent"]->getValues["demominator"]->getValue()) {
+                            // Set the denominator and numerator equal to only the coefficients.
+                            values["numerator"] = values["numerator"]->getValues["coefficient"];
+                            values["denominator"] = values["denominator"]->getValues["coefficient"];
+                        }
                     }
                 }
+                // Or if the exponents of each are TranscendentalNumbers,
+                else if (typeid(*values["denominator"]->getValues["exponent"]) == typeid(TranscendentalNumber) &&
+                         typeid(*values["numerator"]->getValues["exponent"]) == typeid(TranscendentalNumber)) {
+                    if (values["denominator"]->getValues["exponent"]->getTranscendentalValue() ==
+                        values["numerator"]->getValues["exponent"]->getTranscendentalValue()) {
+                        // Set the denominator and numerator equal to only the coefficients.
+                        values["numerator"] = values["numerator"]->getValues["coefficient"];
+                        values["denominator"] = values["denominator"]->getValues["coefficient"];
+                    }
+                }
+                // Or if the exponents
             }
         }
     }
@@ -203,7 +227,7 @@ int RationalNumber::findGCD(int a, int b) {
 }
 
 vector<Number*> RationalNumber::getLogValues() {
-    return NULL;
+    // return NULL;
 }
 
 void RationalNumber::setLogValues(int index, Number* val) {
@@ -216,4 +240,8 @@ string RationalNumber::getTranscendentalValue() {
 
 void RationalNumber::setTranscendentalValue(string value) {
     return;
+}
+
+long RationalNumber::getValue() {
+    return 1;
 }

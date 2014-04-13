@@ -33,6 +33,7 @@ void RationalNumber::setValues(string key, Number* val) {
 double RationalNumber::toDouble(){
     return values["numerator"]->toDouble() / values["denominator"]->toDouble();
 }
+
 string RationalNumber::toString(){
 	stringstream valueStream;
 	valueStream << values["numerator"]->toString() << "/" << values["denominator"]->toString();

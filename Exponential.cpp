@@ -42,7 +42,7 @@ double Exponential::toDouble(){
 
 string Exponential::toString(){
 	stringstream valueStream;
-    valueStream << values["coefficient"]->toString() << values["value"]-toString()<< "^" << values["exponent"]->toString();
+    valueStream << values["coefficient"]->toString() << values["value"]->toString()<< "^" << values["exponent"]->toString();
 	string str = valueStream.str();
 	return str;
 }
@@ -126,9 +126,9 @@ void Exponential::simplify() {
         else {
             // Split into two seperate expoentials
             values["value"]->getValues()["denominator"] = new Exponential(values["value"]->getValues()["denominator"], 
-                                                                                  values["exponent"], values["coefficient"]));
+                                                                                  values["exponent"], values["coefficient"]);
             values["value"]->getValues()["numerator"] = new Exponential(values["value"]->getValues()["numerator"], 
-                                                                                values["exponent"], values["coefficient"]));
+                                                                                values["exponent"], values["coefficient"]);
         }
     }
 }
@@ -166,8 +166,9 @@ void Exponential::reduceInsideRoot(int &value, int &coefficient, int root, vecto
     }
 }
 
+// Leave empty; will return nothing
 vector<Number*> Exponential::getLogValues() {
-    return NULL;
+//    return NULL;
 }
 
 void Exponential::setLogValues(int index, Number* val) {

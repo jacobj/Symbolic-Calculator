@@ -39,8 +39,6 @@ public:
     // Used to satisfy Number.h
     long getValue();
     void setValue(long value);
-    string getTranscendentalValue();
-    void setTranscendentalValue(string value);
     vector<Number*> getLogValues();
     void setLogValues(int index, Number* val);
 

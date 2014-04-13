@@ -43,19 +43,120 @@ string RationalNumber::toString(){
 
 //Operation Methods
 Number* RationalNumber::add(Number*){
+	if (typeid(*value) == typeid(Integer)) {
+
+	}
+	else if (typeid(*value) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*value) == typeid(Expression)) {
+
+	}
+	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
 
 }
 Number* RationalNumber::subtract(Number*){
+	if (typeid(*value) == typeid(Integer)) {
 
+	}
+	else if (typeid(*value) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*value) == typeid(Expression)) {
+
+	}
+	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
 }
 Number* RationalNumber::multiply(Number*){
+	if (typeid(*value) == typeid(Integer)) {
 
+	}
+	else if (typeid(*value) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*value) == typeid(Expression)) {
+
+	}
+	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
 }
 Number* RationalNumber::divide(Number*){
+	if (typeid(*value) == typeid(Integer)) {
 
+	}
+	else if (typeid(*value) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*value) == typeid(Expression)) {
+
+	}
+	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
 }
 Number* RationalNumber::exponentiate(Number*){
+	if (typeid(*value) == typeid(Integer)) {
 
+	}
+	else if (typeid(*value) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*value) == typeid(Expression)) {
+
+	}
+	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*value) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
 }
 
 // Simplify helper method.

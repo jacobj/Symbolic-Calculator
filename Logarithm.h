@@ -27,7 +27,7 @@ class Logarithm: public Number
 	    ~Logarithm();
 
         void simplify();
-        void splitLog(vector<int> primes);
+        void splitLog(vector<long> primes);
         void display();
         double toDouble();
         string toString();
@@ -36,7 +36,7 @@ class Logarithm: public Number
         void setValues(string key, Number* val);
         vector<Number*> getLogValues();
         void setLogValues(vector<Number*> LogValues);
-        vector<int> findPrimeFactors(int number, int i, vector<int> primeFactors);
+        vector<long> findPrimeFactors(long number, long i, vector<long> primeFactors);
 
 		/*Logarithm operator+(const Logarithm& log);
 		Logarithm operator-(const Logarithm& log);

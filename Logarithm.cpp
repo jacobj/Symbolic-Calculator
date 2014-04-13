@@ -35,7 +35,7 @@ void Logarithm::setLogValues(vector<Number*> LogValues) {
 
 // Make more general, in case other logs are added.
 void Logarithm::simplify() {
-    vector<int> primes;
+    vector<long> primes;
     if (typeid(LogValues[0]) == typeid(Integer)){
     	primes = findPrimeFactors(LogValues[0]->getValue(), 2, primes);
     	splitLog(primes);
@@ -88,7 +88,7 @@ string Logarithm::toString(){
 	return str;
 }
 
-void Logarithm::splitLog(vector<int> primes) {
+void Logarithm::splitLog(vector<long> primes) {
     // Not the best way to do this, will be overhauled later. -- Well, seems good.
     LogValues.clear();
     for (int i = 0; i < primes.size(); i++) {
@@ -97,7 +97,7 @@ void Logarithm::splitLog(vector<int> primes) {
     }
 }
 
-vector<int> Logarithm::findPrimeFactors(int number, int i, vector<int> primeFactors) {
+vector<long> Logarithm::findPrimeFactors(long number, long i, vector<long> primeFactors) {
     if (number < i) {
         return primeFactors;
     } else if (number % i == 0) {

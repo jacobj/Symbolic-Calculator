@@ -29,35 +29,35 @@ using namespace std;
 class Calculator
 {
 private:
-	vector<string> previousAnswers;
 	vector<Number*> previousA;
+	vector<Number*> expressionB;
+	vector<string> previousAnswers;
 	vector<string> previousInputs;
     vector<string> expression;
-    vector<Number*> expressionB;
 public:
 	//constructors
 	Calculator();
     Calculator(string);
         
     //function prototypes
-    
 
     vector<string> getPreviousInputs();
     vector<string> getPreviousAnswers();
     vector<string> getExpression();
     vector<string> setExpressionTokens(string&);
-    
-    Number* assignToClass(string&);//, vector<Number*>);
+
+    Number* calculate(Number*, Number*, string);
+    Number* assignToClass(string&);
+
     bool isNumeric(string);
     bool addInput(string);
-    
-    //double RPNtoDouble( vector<string> tokens );
-    void calculate();
-    string getLatestAnswer();
-    
     bool infixToRPN(vector<string>&, vector<string>&);
     bool isOperator(string);
     bool isParentheses(string);
+    
+    void calculate();
+
+    string getLatestAnswer();
     
 	int comparePrecedence(string, string);
 	

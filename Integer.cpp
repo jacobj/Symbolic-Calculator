@@ -50,10 +50,12 @@ string Integer::toString(){
 	return str;
 }
 
-Integer Integer:: operator+(const Integer &integer) {
+Number* Integer:: operator+(const Integer* integer) {
     Integer temp;
-    temp.value = value + integer.value;
-    return temp;
+    temp.value = value + integer->value;
+
+    Number *temp2 = new Integer(temp.toString());
+    return temp2;
 }
 
 Integer Integer:: operator-(const Integer &integer) {
@@ -102,5 +104,10 @@ void Integer::setTranscendentalValue(string value) {
 }
 
 void Integer::simplify() {
+}
+
+Number* Integer::add(Integer* val){
+	this->value += val->value;
+	return new Integer(this->toString());
 }
 

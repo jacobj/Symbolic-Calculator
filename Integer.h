@@ -40,9 +40,10 @@ public:
     vector<Number*> getLogValues();
     void setLogValues(int index, Number* val);
     void simplify();
+    Number* add(Integer*);
     
     // Overloaded operators
-    Integer operator+(const Integer& integer);
+    Number* operator+(const Integer* integer);
     Integer operator-(const Integer& integer);
     Integer operator*(const Integer& integer);
     Integer operator/(const Integer& integer);

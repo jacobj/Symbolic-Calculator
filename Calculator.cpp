@@ -7,12 +7,11 @@
  *              Nicola Frachesen
  *              Elaine Del Rosario
  * 
- * 
  */
 
 #include "Calculator.h"
 
-//Constructor
+//constructors
 Calculator::Calculator() {}
 
 Calculator::Calculator( string expr )
@@ -21,6 +20,43 @@ Calculator::Calculator( string expr )
 }
 
 //function definitions
+
+bool Calculator::addInput(string exp)
+{
+	bool success = true;
+    vector<string> temp = setExpressionTokens(exp);
+
+    if(temp.empty())
+    {
+    	cout << "Enter an actual expression!" << endl;
+    	success = false;
+    	return success;
+    }
+
+    if( infixToRPN(temp, expression) )
+    {
+    	previousInputs.push_back( exp );
+    	return success;
+    }
+
+    else
+    {
+        cout << "\nMismatching parentheses!\n" << endl;
+        success = false;
+        return success;
+    }
+}
+
+Number* Calculator::assignToClass(string& token)
+{
+	Number *temp;
+
+	if(isNumeric(token))
+	{
+		temp = new Integer(token);
+	}
+	return temp;
+}
 
 /*
  * returns 1 if op1 is of greater precedence than op2
@@ -33,6 +69,96 @@ Calculator::Calculator( string expr )
  * Ex: op1 = + and op2 = *, return -1
  *
  */
+void Calculator::calculate()
+{
+    stack<string> st;
+    stack<Number*> st2;
+    Number* val1;
+    Number* val2b;
+    Number* resultt;
+
+    // For each token
+    for ( int i = 0; i < (int) expression.size(); ++i )
+    {
+    	const string token = expression[ i ];
+
+        // If the token is a value push it onto the stack
+        if ( !isOperator(token) )
+        {
+        	Number *token2 = assignToClass(expression[i]);
+            st.push(token);
+            st2.push(token2);
+        }
+        else
+        {
+
+            double result =  0.0;
+
+            // Token is an operator: pop top two entries
+            string val2 = st.top();
+            val2b = st2.top();
+            st.pop();
+            st2.pop();
+            const double d2 = strtod( val2.c_str(), NULL );
+
+            if ( !st.empty() )
+            {
+            	const string val1 = st.top();
+            	st.pop();
+            	const double d1 = strtod( val1.c_str(), NULL );
+
+            	//Get the result
+            	result = token == "+" ? d1 + d2 :
+            			 token == "-" ? d1 - d2 :
+            		     token == "*" ? d1 * d2 :
+                         token == "/" ? d1 / d2 :
+                                    pow(d1, d2);
+            }
+            else
+            {
+            	if ( token == "-" )
+            		result = d2 * -1;
+            	else
+            		result = d2;
+            }
+            if ( !st2.empty() )
+            {
+                val1 = st2.top();
+                st2.pop();
+                //calculate(val1, val2, token);
+                resultt = calculate(val1, val2b, token);
+                //Number* result =
+                //const double d1 = strtod( val1.c_str(), NULL );
+
+                //Get the result
+                /*result = token == "+" ? d1 + d2 :
+                         token == "-" ? d1 - d2 :
+                         token == "*" ? d1 * d2 :
+                         token == "/" ? d1 / d2 :
+                                        pow(d1, d2);*/
+            }
+            else
+            {
+                if ( token == "-" )
+                    result = d2 * -1;
+                else
+                    result = d2;
+            }
+
+            // Push result onto stack
+            ostringstream s;
+            s << result;
+            st.push( s.str() );
+
+        }
+    }
+    if(!st.empty() && st.top().c_str() != " ")
+    {
+    	previousAnswers.push_back(st.top().c_str());
+    	expression.clear();
+    }
+}
+
 int Calculator::comparePrecedence(string op1, string op2)
 {
 	//if both operators are the same
@@ -213,104 +339,6 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
     return success;
 }
 
-Number* Calculator::assignToClass(string& token)//, vector<Number*> tokens)
-{
-	Number *temp;
-	//vector<Number*> tempVec;
-	if(isNumeric(token))
-	{
-		temp = new Integer(token);
-	}
-	//tempVec.push_back(temp);
-	return temp;
-
-}
-
-void Calculator::calculate()      
-{
-    stack<string> st;
-    stack<Number*> st2;
-
-    // For each token          
-    for ( int i = 0; i < (int) expression.size(); ++i )
-    {         
-    	const string token = expression[ i ];
-
-        // If the token is a value push it onto the stack          
-        if ( !isOperator(token) )          
-        {          
-        	Number *token2 = assignToClass(expression[i]);
-            st.push(token);
-            st2.push(token2);
-        }          
-        else
-        {    
-
-            double result =  0.0;    
-  
-            // Token is an operator: pop top two entries          
-            const string val2 = st.top();
-            const Number* val2b = st2.top();
-            st.pop();
-            st2.pop();
-            const double d2 = strtod( val2.c_str(), NULL );
-
-            if ( !st.empty() )
-            {
-            	const string val1 = st.top();
-            	st.pop();
-            	const double d1 = strtod( val1.c_str(), NULL );
-
-            	//Get the result
-            	result = token == "+" ? d1 + d2 :
-            			 token == "-" ? d1 - d2 :
-            		     token == "*" ? d1 * d2 :
-                         token == "/" ? d1 / d2 :
-                                    pow(d1, d2);
-             }
-             else
-             {
-            	 if ( token == "-" )
-            		 result = d2 * -1;
-            	 else
-            		 result = d2;
-             }
-            if ( !st2.empty() )
-            {    
-                const Number* val1 = st2.top();
-                st2.pop();
-                //const double d1 = strtod( val1.c_str(), NULL );
-  
-                //Get the result          
-                /*result = token == "+" ? d1 + d2 :
-                         token == "-" ? d1 - d2 :          
-                         token == "*" ? d1 * d2 :
-                         token == "/" ? d1 / d2 :
-                                        pow(d1, d2);*/
-            }    
-            else    
-            {    
-                if ( token == "-" )    
-                    result = d2 * -1;    
-                else     
-                    result = d2;    
-            }    
-  
-  
-            // Push result onto stack         
-            ostringstream s;        
-            s << result;        
-            st.push( s.str() );
-
-        }          
-    }
-    if(!st.empty() && st.top().c_str() != " ")
-    {
-    	previousAnswers.push_back(st.top().c_str());
-    	expression.clear();
-    }
-} 
-
 bool Calculator::isOperator(string token)
 {
     if( token == "+" || token == "-" ||
@@ -332,6 +360,7 @@ bool Calculator::isNumeric(string token)
 	else
 		return false;
 }
+
 bool Calculator::isParentheses(string token)
 {  
     if(token == "(" || token == ")")
@@ -340,34 +369,37 @@ bool Calculator::isParentheses(string token)
         return false;
 }
 
-bool Calculator::addInput(string exp)
-{	
-	bool success = true;
-    vector<string> temp = setExpressionTokens(exp);
-    
-    if(temp.empty())
-    {
-    	cout << "Enter an actual expression!" << endl;
-    	success = false;
-    	return success;
-    }
+Number* Calculator::calculate(Number* num1, Number* num2, string op)
+{
+	Number* result;
+	Integer *i1, *i2;
 
-    if( infixToRPN(temp, expression) )
-    {
-    	previousInputs.push_back( exp );
-    	return success;
-    }
-    	
-    else
-    {
-        cout << "\nMismatching parentheses!\n" << endl;
-        success = false;
-        return success;
-    }
+	/*RationalNumber *r1, *r2;
+	Exponential *e1, *e2;
+	Logarithm *l1, *l2;
+	TranscendentalNumber *t1, *t2;*/
 
+	//determine type of num1
+	if(typeid(*num1) == typeid(Integer))
+		i1 = new Integer(num1->toString());
+		//TODO work on additional class cases
+	/*else if(typeid(num1) == typeid(RationalNumber))
+	else if(typeid(num1) == typeid(Exponential))
+	else if(typeid(num1) == typeid(Logarithm))
+	else if(typeid(num1) == typeid(TranscendentalNumber))*/
 
+	//determine type of num2
+	if(typeid(*num2) == typeid(Integer))
+			i2 = new Integer(num2->toString());
+			//TODO work on additional class cases
+		/*else if(typeid(num2) == typeid(RationalNumber))
+		else if(typeid(num2) == typeid(Exponential))
+		else if(typeid(num2) == typeid(Logarithm))
+		else if(typeid(num2) == typeid(TranscendentalNumber))*/
+
+	if(typeid(*i1) == typeid(*i2))
+		result = i1->add(i2);
+
+	return result;
 }
-
-
-
 

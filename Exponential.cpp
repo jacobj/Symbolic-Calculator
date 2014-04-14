@@ -356,3 +356,17 @@ Number* Exponential::exponentiate(Number* val) {
 
 	}
 }
+
+void Exponential::display()
+{
+
+}
+
+long Exponential::getValue()
+{
+
+}
+void Exponential::setValue(long value)
+{
+
+}

@@ -13,6 +13,10 @@ Logarithm::Logarithm(Number* coefficient, Number* value, Number* base) {
     this->values["integer"] = 0;
 }
 
+Logarithm::Logarithm(string value) {
+
+}
+
 Logarithm::~Logarithm() {
     delete values["coefficient"];
     delete values["value"];

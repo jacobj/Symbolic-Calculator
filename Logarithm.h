@@ -24,6 +24,7 @@ private:
     // char smoothOperator;
 public:
     Logarithm(Number* coefficient, Number* value, Number* base);
+    Logarithm(string input);
     ~Logarithm();
 
     void simplify();

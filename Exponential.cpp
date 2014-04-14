@@ -18,7 +18,7 @@ Exponential::Exponential(Number* value, Number* exponent, Number* coefficient) {
     this->values["value"] = value;
     this->values["exponent"] = exponent;
     this->values["coefficient"] = coefficient;
-    // All classes should definetly run this after construction.
+    // All classes should definitly run this after construction.
     simplify();
 }
 
@@ -143,7 +143,7 @@ void Exponential::simplify() {
         }
         
         // Else, if the exponent is an Integer
-        else if (typeid(*values["exponent"]) == typeid(Integer)) ) {
+        else if (typeid(*values["exponent"]) == typeid(Integer)) {
             long num = (long) pow(values["value"]->getValue(), values["exponent"]->getValue());
             values["value"] = new Integer(num);
             values["exponent"] = new Integer(1);

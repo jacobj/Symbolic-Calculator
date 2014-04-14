@@ -189,8 +189,14 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 
 	if(op == "+")
 		result = n1->add(n2);
-	if(op == "-")
+	else if(op == "-")
 		result = n1->subtract(n2);
+	else if(op == "*")
+			result = n1->multiply(n2);
+	//else if(op == "/")
+			//result = n1->divide(n2);
+	else if(op == "^")
+				result = n1->exponentiate(n2);
 
 	return result;
 }

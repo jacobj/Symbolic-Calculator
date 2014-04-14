@@ -40,7 +40,6 @@ TranscendentalNumber::TranscendentalNumber(string expression){
     else {
         // currently, just row everything to the right in an Integer constructor
         values["coefficient"] = new Integer(expression.substr(0,pos));
-        this->value = expression;
     }
 }
 

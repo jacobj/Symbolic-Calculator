@@ -180,21 +180,51 @@ void Exponential::simplify() {
                     values["exponent"]->getValues()["numerator"]->setValue(1); 
                     // If the exponents's denominator is an Integer.
                     if (typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {                    
-                        // This needs to root both the numerator and denominator value.
+                        // make coef1 and coef2 = to 1,
+                        Number* coef1 = new Integer(1);
+                        Number* coef2 = new Integer(1);
+                        // Split into two seperate expoentials,
+                        values["value"]->getValues()["denominator"] = new Exponential(values["value"]->getValues()["denominator"], 
+                                                                                      values["exponent"], coef1);
+                        values["value"]->getValues()["numerator"] = new Exponential(values["value"]->getValues()["numerator"], 
+                                                                                    values["exponent"], coef2);
+                        // Make the outer exponent a 1.
+                        values["exponent"] = new Integer(1);
                         vector<int> primes1;
-                        primes1 = findPrimeFactors(values["denominator"]->getValue(), 2, primes1); 
+                        // Find the primes of the denominators value inside the exponent.
+                        primes1 = findPrimeFactors(values["denominator"]->getValues()["value"]->getValue(), 2, primes1);
+                        // Sort the returned primes.
+                        sort(primes1.begin(), primes1.end());
                         vector<int> primes2;
-                        primes2 = findPrimeFactors(values["numerator"]->getValue(), 2, primes2);
+                        // Find the primes of the denominators value inside the exponent.
+                        primes2 = findPrimeFactors(values["numerator"]->getValues()["value"]->getValue(), 2, primes2);
+                        sort(primes2.begin(), primes2.end());
+                        // Make values to pass into reduce inside root.
+                        int value1 = values["value"]->getValues()["numerator"]->getValues()["value"]->getValue();
+                        int value2 = values["value"]->getValues()["denominator"]->getValues()["value"]->getValue();
+                        int coefficient1 = values["value"]->getValues()["numerator"]->getValues()["coefficient"]->getValue();
+                        int coefficient2 = values["value"]->getValues()["denominator"]->getValues()["coefficient"]->getValue();
+                        reduceInsideRoot(value1, coefficient1, 
+                                         values["value"]->getValues()["numerator"]->getValues()["exponent"]->getValues()["denominator"]->getValue(), primes1);
+                        reduceInsideRoot(value2, coefficient2, 
+                                         values["value"]->getValues()["denominator"]->getValues()["exponent"]->getValues()["denominator"]->getValue(), primes2);
+                        values["value"]->getValues()["numerator"]->getValues()["value"]->setValue(value1);
+                        values["value"]->getValues()["numerator"]->getValues()["coefficient"]->setValue(coefficient1);
+                        values["value"]->getValues()["denominator"]->getValues()["value"]->setValue(value2);
+                        values["value"]->getValues()["denominator"]->getValues()["coefficient"]->setValue(coefficient2);
+                        // Finally simplify the inner and outer coefficients.
                     }
                 } 
             }      
         }
         else {
             // Split into two seperate expoentials
+            Number* coef1 = new Integer("1");
+            Number* coef2 = new Integer("1");
             values["value"]->getValues()["denominator"] = new Exponential(values["value"]->getValues()["denominator"], 
-                                                                          values["exponent"], values["coefficient"]);
+                                                                          values["exponent"], coef1);
             values["value"]->getValues()["numerator"] = new Exponential(values["value"]->getValues()["numerator"], 
-                                                                        values["exponent"], values["coefficient"]);
+                                                                        values["exponent"], coef2);
         }
     }
 }
@@ -231,16 +261,6 @@ void Exponential::reduceInsideRoot(int &value, int &coefficient, int root, vecto
         }
     }
 }
-
-/*
-vector<Number*> Exponential::getLogValues() {
-    return;
-}
-
-void Exponential::setLogValues(int index, Number* val) {
-    return;
-}
-*/
 
 string Exponential::getTranscendentalValue() {
     return "";

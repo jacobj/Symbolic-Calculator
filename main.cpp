@@ -20,12 +20,13 @@ int main()
 {
     Calculator calculator;
     vector<string> previousExpressions;
-    vector<string> previousAnswers;
+    vector<Number*> previousAnswers;
     char mainMenu, reviewMenu, helpMenu;
     bool keepGoing, proceed;
+    int previous;
     string expr;
     string ans;
-    string previous, choice;
+    string choice;
     
     cout << "*** Welcome to the Calculator Program! ***\n" << endl;
     
@@ -71,6 +72,7 @@ int main()
                         cout << "There are no previous expressions!" << endl;
             	
                     else{
+                    	previousAnswers = calculator.getPreviousA();
                         //this do-while loop is for the user to access previous answers and expressions 
                         do
                             {
@@ -99,7 +101,13 @@ int main()
                                             }
                                         break;
                                     case '2':
-                                        cout << "\nHere are the previous answers: " << endl;
+                                        cout << "\nHere are the previous answers: \n" << endl;
+                                        for(int i = 0;i<previousExpressions.size();i++)
+                                        {
+                                        	cout << "Answer " << (i+1) << ": "
+                                        		 << previousAnswers[i]->toString() << "\n"
+                                        	     << endl;;
+                                        }
                                         break;
                                     case '3':
                                         do
@@ -107,7 +115,12 @@ int main()
                                                 cout << "\nIndicate the answer you wish to convert (Enter ""1"" for the first answer, etc.): " ;
                                                 cin >> previous;
 							
-                                                cout << "\nHere is the floating point form: " << endl;
+                                                cout << "\nOriginal form: \n" << endl;
+                                                cout << previousAnswers[previous-1]->toString() << endl;
+
+                                                cout << "\nHere is the floating point form:\n " << endl;
+                                                cout << previousAnswers[previous-1]->toDouble() << endl;
+
                                                 cout << "\nContinue? (Y/N) ";
                                                 cin >> choice;
 							
@@ -162,7 +175,7 @@ int main()
                             switch(helpMenu) 
                                 {
                                 case '1':
-                                    cout << "To enter your expression, type in your first value followed by an operator, and then your second value. \n Ex: 4*5 \t (3 + 5) / 2 \nApproved Operators: +, -, *, /, ^ \nTranscedental Numbers: PI/pi, e \n" << endl;
+                                    cout << "To enter your expression, type in your first value followed by an operator, and then your second value. \n Ex: 4*5 \t (3 + 5) / 2 \nApproved Operators: +, -, *, /, ^ \nTranscedental Numbers: pi, e \n" << endl;
                                     break;
                                 case '2':
                                     cout << "To write out an exponent, use the ^ key and the following format: a^x \nThis will be read as 'a raised to the power of x', where a and x are replaced by your chosen coefficients. \n" << endl;

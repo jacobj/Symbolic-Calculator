@@ -18,43 +18,43 @@
 
 class Logarithm: public Number
 {
-	private:
+private:
 	map<string, Number*> values;
-    vector<Number*> LogValues;
-    char smoothOperator;
-    public:
-	    Logarithm(Number* coefficient, vector<Number*> LogValues, Number* base);
-	    ~Logarithm();
+    // vector<Number*> LogValues;
+    // char smoothOperator;
+public:
+    Logarithm(Number* coefficient, vector<Number*> LogValues, Number* base);
+    ~Logarithm();
 
-        void simplify();
-        void splitLog(vector<long> primes);
-        void display();
-        double toDouble();
-        string toString();
+    void simplify();
+    void splitLog(vector<long> primes);
+    void display();
+    double toDouble();
+    string toString();
     
-        map<string, Number*> getValues();
-        void setValues(string key, Number* val);
-        // vector<Number*> getLogValues();
-        // void setLogValues(vector<Number*> LogValues);
-        vector<long> findPrimeFactors(long number, long i, vector<long> primeFactors);
+    map<string, Number*> getValues();
+    void setValues(string key, Number* val);
+    // vector<Number*> getLogValues();
+    // void setLogValues(vector<Number*> LogValues);
+    vector<long> findPrimeFactors(long number, long i, vector<long> primeFactors);
 
-        // Operation methods
-        Number* add(Number*);
-        Number* subtract(Number*);
-        Number* multiply(Number*);
-        Number* divide(Number*);
-        Number* exponentiate(Number*);
+    // Operation methods
+    Number* add(Number*);
+    Number* subtract(Number*);
+    Number* multiply(Number*);
+    Number* divide(Number*);
+    Number* exponentiate(Number*);
     
-		/*Logarithm operator+(const Logarithm& log);
-		Logarithm operator-(const Logarithm& log);
-		Logarithm operator*(const Logarithm& log);
-		Logarithm operator/(const Logarithm& log);*/
+    /*Logarithm operator+(const Logarithm& log);
+      Logarithm operator-(const Logarithm& log);
+      Logarithm operator*(const Logarithm& log);
+      Logarithm operator/(const Logarithm& log);*/
 
-		// Used to satisfy Number.h
-		long getValue();
-		void setValue(long value);
-        string getTranscendentalValue();
-	    void setTranscendentalValue(string value);
+    // Used to satisfy Number.h
+    long getValue();
+    void setValue(long value);
+    string getTranscendentalValue();
+    void setTranscendentalValue(string value);
 };
 
 

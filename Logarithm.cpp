@@ -33,6 +33,7 @@ void Logarithm::setValues(string key, Number* val) {
 vector<Number*> Logarithm::getLogValues() {
     return LogValues;
 }
+
 void Logarithm::setLogValues(vector<Number*> LogValues) {
     this->LogValues = LogValues;
 }
@@ -40,24 +41,19 @@ void Logarithm::setLogValues(vector<Number*> LogValues) {
 
 double Logarithm::toDouble(){
 	//Uses log() from cmath which gives the natural logarithm.
-	//Either subtracts or adds, depending on smoothOperator.
-	double tempSum;
-	for (int i = 0; i >= LogValues.size(); i++){
-		if (smoothOperator == '+'){
-			tempSum += values["coefficient"]->toDouble()*(log(LogValues[i]->toDouble())/log(values["base"]->toDouble()));
-		}
-		else {
-			tempSum -= values["coefficient"]->toDouble()*(log(LogValues[i]->toDouble())/log(values["base"]->toDouble()));
-		}
-	}
-	return tempSum;
+    return values["coefficient"]->toDouble() * (log(values["value"]->toDouble()) / 
+                                                log(values["base"]->toDouble())) + values["integer"]->toDouble();
 }
 
 // Needs to be changed.
 string Logarithm::toString(){
 	stringstream valueStream;
-	valueStream << values["coefficient"]->toString();
-	for (int i = 0; i >= LogValues.size(); i++){
+	valueStream << values["coefficient"]->toString() << "log_" << values["base"]->toString() << ":" << values["value"]->toString();
+    if (values["integer"]->getValue() != 0) {
+        valueStream << "+" << values["integer"]->toString();
+    }
+	/* Not needed any longer...
+    for (int i = 0; i >= LogValues.size(); i++){
 		if (i == LogValues.size()-1){
 			valueStream << "log_" << values["base"]->toString() << ":" << LogValues[i]->toString();
 		}
@@ -68,6 +64,7 @@ string Logarithm::toString(){
 			valueStream << "log_" << values["base"]->toString() << ":" << LogValues[i]->toString() << "-";
 		}
 	}
+    */
 	string str = valueStream.str();
 	return str;
 }
@@ -158,7 +155,7 @@ Number* Logarithm::exponentiate(Number*) {
     return;
 }
 
-//Satisfying our love of maps
+// Satisfying our love of maps
 string Logarithm::getTranscendentalValue() {
     return "";
 }

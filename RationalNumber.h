@@ -16,6 +16,7 @@
 #include "Number.h"
 #include "Integer.h"
 #include "Exponential.h"
+#include "Expression.h"
 #include "TranscendentalNumber.h"
 #include "Logarithm.h"
 

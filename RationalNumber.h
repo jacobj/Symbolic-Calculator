@@ -25,7 +25,7 @@ private:
 
 public:
     RationalNumber(Number* numerator, Number* denominator);
-	RationalNumber(string expression)
+	RationalNumber(string expression);
     ~RationalNumber();
     void simplify();
     void display();

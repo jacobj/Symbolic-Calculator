@@ -70,7 +70,7 @@ Exponential:: Exponential(string expression) {
     else if(expo.find_first_of("/") != -1) {
         exponent = new RationalNumber(expo);
     }
-    else if(expo.find_first_of("log" != -1)) {
+    else if(expo.find_first_of("log") != -1) {
         exponent = new Logarithm(expo);
     }
     else {
@@ -254,12 +254,12 @@ void Exponential::setTranscendentalValue(string value) {
 Number* Exponential::add(Number* val) {
     if (typeid(*val) == typeid(Exponential)) {
         if (typeid(*val->getValues()["exponent"]) == typeid(Integer) &&
-            typeid(*values->getValues()["exponent"]) == typeid(Integer)) {
+            typeid(*values["exponent"]) == typeid(Integer)) {
             if (val->getValues()["exponent"]->getValue() == values["exponent"]->getValue()) {
                 if (typeid(*val->getValues()["value"]) == typeid(Integer) &&
                     typeid(*values["value"]) == typeid(Integer)) {
                     if (val->getValues()["value"]->getValue() == values["value"]->getValue()) {
-                        Number* result = new Exponential(values["value"], values["exponent"], values["coefficient"]add(val->getValues()["coefficient"]));
+                        Number* result = new Exponential(values["value"], values["exponent"], values["coefficient"]->add(val->getValues()["coefficient"]));
                         return result;
                     }
                 }

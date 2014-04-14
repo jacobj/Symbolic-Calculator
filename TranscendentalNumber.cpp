@@ -128,13 +128,16 @@ Number* TranscendentalNumber::subtract(Number* val){
 	if (typeid(*val) == typeid(TranscendentalNumber)) {
 		if (value.compare(val->getTranscendentalValue()) == 0){
 			Number* coeffs = values["coefficient"]->subtract(val->getValues()["coefficient"]);
-			if(coeffs->toString() != "0")
+			if(coeffs->toString() != "0"){
 				valStream << coeffs->toString() << value;
-			else
-				valStream << coeffs->toString();
-
-			string str = valStream.str();
-			return new TranscendentalNumber(str);
+				string str = valStream.str();
+				return new TranscendentalNumber(str);
+			}
+			else{
+				valStream << "0";
+				string str = valStream.str();
+				return new Integer(str);
+			}
 		}
 	}
 	else if(!values["coefficient"]->toString().compare("1")){
@@ -164,6 +167,7 @@ Number* TranscendentalNumber::multiply(Number* val){
 			}
 		}
 	}
+	//DO STUFF HERE
 	else if(!values["coefficient"]->toString().compare("1")){
 		valStream << value << "*" << val->toString();
 		string str = valStream.str();
@@ -176,7 +180,7 @@ Number* TranscendentalNumber::multiply(Number* val){
 	}
 }
 Number* TranscendentalNumber::divide(Number* val){
-	//return new RationalNumber(this, val);
+	return new RationalNumber(this, val);
 }
 Number* TranscendentalNumber::exponentiate(Number* val){
 	stringstream valStream;

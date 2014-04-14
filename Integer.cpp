@@ -13,7 +13,7 @@
 #include "Integer.h"
 
 // Constructor
-Integer::Integer(long val) {
+Integer::Integer(long value) {
     this->value = value;
 }
 

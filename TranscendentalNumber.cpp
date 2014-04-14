@@ -157,9 +157,12 @@ Number* TranscendentalNumber::multiply(Number* val){
 		if (value.compare(val->getTranscendentalValue()) == 0){
 			Number* coeffs = values["coefficient"]->multiply(val->getValues()["coefficient"]);
 			if(coeffs->toString() != "0"){
-				valStream << coeffs->toString() << value << "^" << "2";
+				/*valStream << coeffs->toString() << value << "^" << "2";
 				string str = valStream.str();
-				return new Exponential(str);
+				return new Exponential(str);*/
+				Number* exponentialValue = new TranscendentalNumber("e");
+				Number* exponentialExponent = new Integer("2");
+				return new Exponential(exponentialValue, exponentialExponent, coeffs);
 			}
 			else{
 				valStream << coeffs->toString();

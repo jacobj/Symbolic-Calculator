@@ -22,6 +22,55 @@ Exponential::Exponential(Number* value, Number* exponent, Number* coefficient) {
     simplify();
 }
 
+Exponential:: Exponential(string expression) {
+    /********************************************
+     Currently only evaluates simple expressions
+     containing only TNs or Ints
+     ********************************************/
+    
+    // searches for the position of the valid operator
+    int pos = expression.find_first_of("^");
+    
+    // checks if a valid operator was entered
+    if (pos == -1) {
+        string exception = "ERROR! Enter a valid operator! (+ - * / ^) \n";
+        throw exception;
+    }
+    // Obtains expression substrings -- one for value, one for exponent
+    string base = expression.substr(0, pos);
+    string expo = expression.substr(pos+1, expression.size());
+    Number* value;
+    Number* exponent;
+    // Number* coefficient;
+    
+    // Checks Number type for value/base
+    if(base == "e") {
+        value = new TranscendentalNumber(base);
+    }
+    else if (base == "pi" || base == "PI") {
+        value = new TranscendentalNumber(base);
+    }
+    else {
+        value = new Integer(base);
+    }
+    
+    // Checks Number type for exponent
+    if(expo == "e") {
+        exponent = new TranscendentalNumber(expo);
+    }
+    else if(expo == "pi" || expo == "PI") {
+        exponent = new TranscendentalNumber(expo);
+    }
+    else {
+        exponent = new Integer(expo);
+    }
+    
+    // Creates Exponential object
+    // this->values["coefficient"] = coefficient;
+    this->values["value"] = value;
+    this->values["exponent"] = exponent;
+}
+
 Exponential::~Exponential() {
     delete values["value"];
     delete values["exponent"];

@@ -25,6 +25,7 @@ private:
 
 public:
 	Exponential(Number* value, Number* exponent, Number* coefficient);
+    Exponential(string expression);
 	~Exponential();
     void simplify();
     void display();

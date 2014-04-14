@@ -93,23 +93,60 @@ string RationalNumber::toString(){
 }
 
 //Operation Methods
-Number* RationalNumber::add(Number* value){
-	if (typeid(*value) == typeid(Integer)) {
+Number* RationalNumber::add(Number* val){
+	Number* result;
+	if (typeid(*val) == typeid(Integer)) {
+		if (typeid(this->values["numerator"]) == typeid(Integer)) &&
+			(typeid(this->values["denominator"]) == typeid(Integer)))
+		{
+			Number* numerator, denominator, tempValNumerator;
+
+			tempValNumerator = val->multiply(this->values["denominator"]);
+			numerator = this->values["numerator"]->add(tempValNumerator);
+			denominator = this->values["denominator"];
+
+			result = new RationalNumber(numerator, denominator);
+			result->simplify();
+			return result;
+		}
 
 	}
-	else if (typeid(*value) == typeid(Exponential)) {
+	else if (typeid(*val) == typeid(Exponential)) {
 
 	}
-	else if (typeid(*value) == typeid(Expression)) {
+	else if (typeid(*val) == typeid(Expression)) {
 
 	}
-	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+	else if (typeid(*val) == typeid(TranscendentalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(RationalNumber)) {
+	else if (typeid(*val) == typeid(RationalNumber)) {
+		Number* numerator, denominator;
+
+		if ((typeid(this->values["numerator"]) == typeid(Integer)) &&
+			(typeid(this->values["denominator"]) == typeid(Integer)) &&
+			(typeid(*val->values["numerator"]) == typeid(Integer)) &&
+			(typeid(*val->values["denominator"]) == typeid(Integer)))
+		{
+			if (this->values["denominator"] == *val->values["denominator"])
+			{
+				 numerator = this->values["numerator"]->add(*val->values["numerator"]);
+				 denominator = this->values["denominator"];
+			}
+			else
+			{
+				Number* tempNumerator1 = this->values["numerator"]->multiply(*val->values["denominator"]);
+				Number* tempNumerator2 = this->values["denominator"]->multiply(*val->values["numerator"]);
+				numerator = tempNumerator1->add(tempNumerator2);
+				denominator = this->values["denominator"]->multiply(*val->values["numerator"]);
+			}
+			result = new RationalNumber(numerator, denominator);
+			result->simplify();
+			return result;
+		}
 
 	}
-	else if (typeid(*value) == typeid(Logarithm)) {
+	else if (typeid(*val) == typeid(Logarithm)) {
 
 	}
 	else {
@@ -117,92 +154,92 @@ Number* RationalNumber::add(Number* value){
 	}
 
 }
-Number* RationalNumber::subtract(Number* value){
-	if (typeid(*value) == typeid(Integer)) {
+Number* RationalNumber::subtract(Number* val){
+	if (typeid(*val) == typeid(Integer)) {
 
 	}
-	else if (typeid(*value) == typeid(Exponential)) {
+	else if (typeid(*val) == typeid(Exponential)) {
 
 	}
-	else if (typeid(*value) == typeid(Expression)) {
+	else if (typeid(*val) == typeid(Expression)) {
 
 	}
-	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+	else if (typeid(*val) == typeid(TranscendentalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(RationalNumber)) {
+	else if (typeid(*val) == typeid(RationalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(Logarithm)) {
-
-	}
-	else {
-
-	}
-}
-Number* RationalNumber::multiply(Number* value){
-	if (typeid(*value) == typeid(Integer)) {
-
-	}
-	else if (typeid(*value) == typeid(Exponential)) {
-
-	}
-	else if (typeid(*value) == typeid(Expression)) {
-
-	}
-	else if (typeid(*value) == typeid(TranscendentalNumber)) {
-
-	}
-	else if (typeid(*value) == typeid(RationalNumber)) {
-
-	}
-	else if (typeid(*value) == typeid(Logarithm)) {
+	else if (typeid(*val) == typeid(Logarithm)) {
 
 	}
 	else {
 
 	}
 }
-Number* RationalNumber::divide(Number* value){
-	if (typeid(*value) == typeid(Integer)) {
+Number* RationalNumber::multiply(Number* val){
+	if (typeid(*val) == typeid(Integer)) {
 
 	}
-	else if (typeid(*value) == typeid(Exponential)) {
+	else if (typeid(*val) == typeid(Exponential)) {
 
 	}
-	else if (typeid(*value) == typeid(Expression)) {
+	else if (typeid(*val) == typeid(Expression)) {
 
 	}
-	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+	else if (typeid(*val) == typeid(TranscendentalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(RationalNumber)) {
+	else if (typeid(*val) == typeid(RationalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(Logarithm)) {
+	else if (typeid(*val) == typeid(Logarithm)) {
 
 	}
 	else {
 
 	}
 }
-Number* RationalNumber::exponentiate(Number* value){
-	if (typeid(*value) == typeid(Integer)) {
+Number* RationalNumber::divide(Number* val){
+	if (typeid(*val) == typeid(Integer)) {
 
 	}
-	else if (typeid(*value) == typeid(Exponential)) {
+	else if (typeid(*val) == typeid(Exponential)) {
 
 	}
-	else if (typeid(*value) == typeid(Expression)) {
+	else if (typeid(*val) == typeid(Expression)) {
 
 	}
-	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+	else if (typeid(*val) == typeid(TranscendentalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(RationalNumber)) {
+	else if (typeid(*val) == typeid(RationalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(Logarithm)) {
+	else if (typeid(*val) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
+}
+Number* RationalNumber::exponentiate(Number* val){
+	if (typeid(*val) == typeid(Integer)) {
+
+	}
+	else if (typeid(*val) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*val) == typeid(Expression)) {
+
+	}
+	else if (typeid(*val) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*val) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*val) == typeid(Logarithm)) {
 
 	}
 	else {

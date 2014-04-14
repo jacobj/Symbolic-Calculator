@@ -166,6 +166,6 @@ void Logarithm::setTranscendentalValue(string value) {
 long Logarithm::getValue() {
     return 1;
 }
-void Logarithm::setValue(long value){
+void Logarithm::setValue(long value) {
 	return;
 }

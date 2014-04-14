@@ -113,9 +113,9 @@ void Exponential::simplify() {
                                                      
                 // Set the numerator of the exponent to 1, as it has already been raised appropriately.
                 values["exponent"]->getValues()["numerator"]->setValue(1);
-                // If the exponent's denominator is an Integer,
             }
-            
+           
+            // If the exponent's denominator is an Integer,
             if (typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {
             
                 // Break up value into it's prime factors.
@@ -125,8 +125,8 @@ void Exponential::simplify() {
                                           
                 // Sort results in descending order.
                 sort(primes.begin(), primes.end());
-                int value = values["value"]->getValue()
-                ;
+                int value = values["value"]->getValue();
+
                 // If the coefficient is an Integer.
                 if (typeid(values["coefficient"]) == typeid(Integer)) {
                 
@@ -143,8 +143,8 @@ void Exponential::simplify() {
         }
         
         // Else, if the exponent is an Integer
-        else if (typeid(*values["value"] == typeid(Integer)) ) {
-            long num = pow(values["value"]->getValue(), values["exponent"]->getValues());
+        else if (typeid(*values["exponent"]) == typeid(Integer)) ) {
+            long num = (long) pow(values["value"]->getValue(), values["exponent"]->getValue());
             values["value"] = new Integer(num);
             values["exponent"] = new Integer(1);
         }
@@ -157,12 +157,12 @@ void Exponential::simplify() {
         if (typeid(*values["value"]->getValues()["numerator"]) == typeid(Integer) && 
             typeid(*values["value"]->getValues()["denominator"]) == typeid(Integer)) {
             
-                // And the exponent is an Integer,
+            // And the exponent is an Integer,
             if (typeid(*values["exponent"]) == typeid(Integer)) {
             
                 // Square both denominator and numerator.
                 values["value"]->getValues()["denominator"]->setValue((long)pow(values["value"]->getValues()["denominator"]->getValue(),
-                                                                              values["exponent"]->getValue()));
+                                                                                values["exponent"]->getValue()));
                                                                               
                 values["value"]->getValues()["numerator"]->setValue((long)pow(values["value"]->getValues()["numerator"]->getValue(),
                                                                               values["exponent"]->getValue()));
@@ -202,9 +202,9 @@ void Exponential::simplify() {
         else {
             // Split into two seperate expoentials
             values["value"]->getValues()["denominator"] = new Exponential(values["value"]->getValues()["denominator"], 
-                                                                                  values["exponent"], values["coefficient"]);
+                                                                          values["exponent"], values["coefficient"]);
             values["value"]->getValues()["numerator"] = new Exponential(values["value"]->getValues()["numerator"], 
-                                                                                values["exponent"], values["coefficient"]);
+                                                                        values["exponent"], values["coefficient"]);
         }
     }
 }

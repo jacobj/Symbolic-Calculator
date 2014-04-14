@@ -23,25 +23,25 @@ Logarithm::Logarithm(string expression) {
 	}
     // First deal with the coefficient
     if(expression.substr(0, pos).find_first_of("pe") != -1) {
-        coefficient = new Transcendental(expression.substr(0, pos));
+        coefficient = new TranscendentalNumber(expression.substr(0, pos));
     }
     else {
         coefficient = new Integer(expression.substr(0, pos));
     }
-    int pos = expression.find_first_of("_");
-    int pos2 = expression.find_first_of(":");
+    pos = expression.find_first_of("_");
+    pos2 = expression.find_first_of(":");
     // Next deal with the base...
-    if(expression.substr(pos, pos2).find_first_of("pe") != -1) {
-        base = new Transcendental(expression.substr(0, pos));
+    if(expression.substr(pos + 1, pos2).find_first_of("pe") != -1) {
+        base = new TranscendentalNumber(expression.substr(0, pos));
     }
     else {
         base = new Integer(expression.substr(0, pos));
     }
     if(expression.substr(pos2).find_first_of("pe") != -1) {
-        value = new Transcendental(expression.substr(pos2));
+        value = new TranscendentalNumber(expression.substr(pos2, expression.size()));
     }
     else {
-        value = new Integer(expression.substr(pos2));
+        value = new Integer(expression.substr(pos2, expression.size()));
     }
     this->values["coefficient"] = coefficient;
     this->values["value"] = value;
@@ -325,8 +325,8 @@ Number* Logarithm::multiply(Number* val) {
 Number* Logarithm::divide(Number* val) {
     // We need to make sure we make a generic Number pointer to self.
     Number* numerator = this;
-    Number* val = new RationalNumber(numerator, val);
-    return val;
+    Number* result = new RationalNumber(numerator, val);
+    return result;
 }
 
 Number* Logarithm::exponentiate(Number* val) {

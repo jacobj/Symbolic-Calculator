@@ -15,6 +15,8 @@
 #include "Number.h"
 #include "RationalNumber.h"
 #include "Integer.h"
+#include "Exponential.h"
+#include "TranscendentalNumber.h"
 
 class Logarithm: public Number
 {

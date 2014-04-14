@@ -153,12 +153,15 @@ Number* TranscendentalNumber::multiply(Number* val){
 	if (typeid(*val) == typeid(TranscendentalNumber)) {
 		if (!value.compare(val->toString())){
 			Number* coeffs = values["coefficient"]->multiply(val->getValues()["coefficient"]);
-			if(coeffs->toString() != "0")
-				valStream << coeffs->toString() << value;
-			else
+			if(coeffs->toString() != "0"){
+				valStream << coeffs->toString() << value << "^" << "2";
+				string str = valStream.str();
+				return new Exponential(str);
+			}
+			else{
 				valStream << coeffs->toString();
-			string str = valStream.str();
-			return new TranscendentalNumber(str);
+				return new Integer("0");
+			}
 		}
 	}
 	else if(!values["coefficient"]->toString().compare("1")){

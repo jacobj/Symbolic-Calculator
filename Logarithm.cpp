@@ -66,16 +66,6 @@ void Logarithm::setValues(string key, Number* val) {
     values[key] = val;
 }
 
-/*
-vector<Number*> Logarithm::getLogValues() {
-    return LogValues;
-}
-
-void Logarithm::setLogValues(vector<Number*> LogValues) {
-    this->LogValues = LogValues;
-}
-*/
-
 double Logarithm::toDouble(){
 	// Uses log() from cmath which gives the natural logarithm.
     return values["coefficient"]->toDouble() * (log(values["value"]->toDouble()) / 
@@ -89,19 +79,6 @@ string Logarithm::toString(){
     if (values["integer"]->getValue() != 0) {
         valueStream << "+" << values["integer"]->toString();
     }
-	/* Not needed any longer...
-    for (int i = 0; i >= LogValues.size(); i++){
-		if (i == LogValues.size()-1){
-			valueStream << "log_" << values["base"]->toString() << ":" << LogValues[i]->toString();
-		}
-		else if (smoothOperator == '+'){
-			valueStream << "log_" << values["base"]->toString() << ":" << LogValues[i]->toString() << "+";
-		}
-		else{
-			valueStream << "log_" << values["base"]->toString() << ":" << LogValues[i]->toString() << "-";
-		}
-	}
-    */
 	string str = valueStream.str();
 	return str;
 }
@@ -136,19 +113,6 @@ void Logarithm::simplify() {
 //toDouble and toString currently give you the log at the position in the vector
 //you want. This certainly needs tweaking, along with better interaction with
 //how log splitting will work. Just getting the basic implementation done.
-
-
-
-/*
-void Logarithm::splitLog(vector<long> primes) {
-    // Not the best way to do this, will be overhauled later. -- Well, seems good.
-    LogValues.clear();
-    for (int i = 0; i < primes.size(); i++) {
-        LogValues.push_back(primes[i]);
-        smoothOperator = '+';
-    }
-}
-*/
 
 int Logarithm::logBaseN(int value, int n, int counter) {
     if (value % n != 0) {

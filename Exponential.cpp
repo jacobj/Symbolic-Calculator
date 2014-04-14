@@ -232,16 +232,6 @@ void Exponential::reduceInsideRoot(int &value, int &coefficient, int root, vecto
     }
 }
 
-/*
-vector<Number*> Exponential::getLogValues() {
-    return;
-}
-
-void Exponential::setLogValues(int index, Number* val) {
-    return;
-}
-*/
-
 string Exponential::getTranscendentalValue() {
     return "";
 }

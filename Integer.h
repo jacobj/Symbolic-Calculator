@@ -14,6 +14,7 @@
 #define	INTEGER_H
 
 #include "Number.h"
+#include "RationalNumber.h"
 
 using namespace std;
 
@@ -43,12 +44,12 @@ public:
     //TODO change to Number*
     Number* add(Integer*);
 
-        // Abstract operation methods
-        Number* add(Number*);
-        Number* subtract(Number*);
-        Number* multiply(Number*);
-        Number* divide(Number*);
-        Number* exponentiate(Number*);
+    // Abstract operation methods
+    Number* add(Number*);
+    Number* subtract(Number*);
+    Number* multiply(Number*);
+    Number* divide(Number*);
+    Number* exponentiate(Number*);
 };
 
 #endif	/* INTEGER_H */

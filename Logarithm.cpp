@@ -72,6 +72,7 @@ string Logarithm::toString(){
 	return str;
 }
 
+// Only simplifies Integers to integer bases with Integer coefficients ATM.
 void Logarithm::simplify() {
     // If the base is an Integer,
     if (typeid(*values["base"]) == typeid(Integer)) {

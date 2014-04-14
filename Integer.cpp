@@ -105,10 +105,10 @@ Number* Integer::multiply(Number* val)
         return result;
     }
     else if (typeid(*val) == typeid(TranscendentalNumber)) {
-        Number* coeffs = new Integer(multiply(val->getValues()["coefficient"]));
+        Number* coeffs = new Integer(multiply(val->getValues()["coefficient"])->toString());
     	stringstream valStream;
-        valstream << coeffs->toString() << val->getTranscendentalValue();
-        string str = valuestream.str();
+        valStream << coeffs->toString() << val->getTranscendentalValue();
+        string str = valStream.str();
         Number* result = new TranscendentalNumber(str);
         return result;
     }

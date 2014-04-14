@@ -15,6 +15,7 @@
 RationalNumber::RationalNumber(Number* numerator, Number* denominator) {
     this->values["numerator"] = numerator;
     this->values["denominator"] = denominator;
+    simplify();
 }
 
 RationalNumber::RationalNumber(string expression) {

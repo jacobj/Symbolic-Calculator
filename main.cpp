@@ -179,19 +179,19 @@ int main()
                             switch(helpMenu) 
                                 {
                                 case '1':
-                                    cout << "To enter your expression, type in your first value followed by an operator, and then your second value. \n Ex: 4*5 \t (3 + 5) / 2 \nApproved Operators: +, -, *, /, ^ \nTranscedental Numbers: pi, e \n" << endl;
+                                    cout << "To enter your expression: \n 1) Type in your first value \n 2) Type in your operator, \n 3) Type your second value \n \n Ex: 4*5 \t (3 + 5) / 2 \nApproved Operators: +, -, *, /, ^ \nTranscedental Numbers: pi, e \n" << endl;
                                     break;
                                 case '2':
-                                    cout << "To write out an exponent, use the ^ key and the following format: a^x \nThis will be read as 'a raised to the power of x', where a and x are replaced by your chosen coefficients. \n" << endl;
+                                    cout << "To write out an exponent, use the following format: \n a^x \n\nThis will be read as 'a raised to the power of x'.\n" << endl;
                                     break;
                                 case '3':
-                                    cout << "To write out a square root or nth root, use the following format: sqrt:x for a square root and x^(1/n) for an nth root. \nThis will read as 'the square root of x' or 'the nth root of x', where x is the coefficient \nyou wish to take the root of. \n" << endl;
+                                    cout << "To write out a square root or nth root, use the following format: \n x^(1/n) \n \nThis will read as 'the square root of x' or 'the nth root of x'. \n" << endl;
                                     break;
                                 case '4':
-                                    cout << "To write out a logarithm, use the following format: log_b:x \nThis will read as 'log base b of x', where b and x are replaced by your chosen coefficients. \n" << endl;
+                                    cout << "To write out a logarithm, use the following format: \n log_b:x \n \nThis will read as 'log base b of x'. \n" << endl;
                                     break;
                                 case '5':
-                                    cout << "To write out a fraction, use the following formats: a/b \nWhere a and b are replaced by your chosen coeffiecients. If you wish to write expressions for the numerator, \ndenominator, or both, then use the following format: (a+b)/(c*d) \nWhere a, b, c, and d are your given coefficients and you can use any of the approved operators in your expressions. \nRemember to enclose your expressions before and after the / in () ! \n" << endl;
+                                    cout << "To write out a fraction or rational number, use the following format: a/b \n \n This will read as 'a over b'." << endl;
                                     break;
                                 case '6':
                                     cout << "Please keep in mind that your answers will be returned in their simplest forms as \nintegers (i.e. 2 + 2 = 4), fractions (i.e. 2/6 = 1/3), logarithms (i.e. log_10:6 = log_10:2 + log_10:3), \n or expressions (i.e. 2 + 2 + pi^2 = 4 + pi^2). /nIf you wish to receive decimal answers, please go to the main menu and press 2 to review previous answers. \nFrom here, you can also set previous answers to the ans keyword. \n" << endl;

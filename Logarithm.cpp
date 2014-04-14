@@ -100,7 +100,11 @@ void Logarithm::simplify() {
                     // Set the value of the Integer to the coefficient times the multiplier.
                     values["integer"]->setValue(multiplier * values["coefficient"]->getValue());
                     // Set the value equal to the result of the value divided by the base^multiplier,
-                    values["value"]->setValue(values["value"]->getValue() / ((long long)pow((double long)values["base"]->getValue(), (double long)multiplier)));
+                    long valueBuilder = 1;
+                    for (long i = 0; i < multiplier; i++) {
+                        valueBuilder *= values["base"]->getValue();
+                    }
+                    values["value"]->setValue(values["value"]->getValue() / valueBuilder);
                     // Get all the twos out.
                     long coefficientMultiplier = logBaseN(values["value"]->getValue(), 2, 0);
                     if (coefficientMultiplier != 0) {
@@ -121,11 +125,11 @@ void Logarithm::simplify() {
 //you want. This certainly needs tweaking, along with better interaction with
 //how log splitting will work. Just getting the basic implementation done.
 
-int Logarithm::logBaseN(int value, int n, int counter) {
+int Logarithm::logBaseN(long value, long n, int counter) {
     if (value % n != 0) {
         return counter;
     } else {
-        return logBaseN(value % n, n, counter++);
+        return logBaseN(value / n, n, counter++);
     }
 }
 

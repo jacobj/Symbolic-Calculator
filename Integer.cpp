@@ -127,9 +127,9 @@ Number* Integer::divide(Number* val)
 Number* Integer::exponentiate(Number* val)
 {
 	if (typeid(*val) == typeid(Integer)) {
-		long valLong = 0;
-		valLong = pow(value, val->getValue());
-	    return new Integer(valLong);
+		long double valLong = 0;
+		valLong = pow((long double)toDouble(), ((long double)val->toDouble()));
+	    return new Integer((long)valLong);
 	}
 	else{
 	    stringstream valStream;

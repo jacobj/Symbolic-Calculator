@@ -53,7 +53,9 @@ Number* Calculator::assignToClass(string& token)
 
 	if(isNumeric(token))
 	{
-		if(token == "e" || token == "pi")
+
+		//if(token == "e" || token == "pi")
+		if(token.find_first_of("pe") != -1)
 			temp = new TranscendentalNumber(token);
 		else
 			temp = new Integer(token);
@@ -74,8 +76,7 @@ Number* Calculator::assignToClass(string& token)
  */
 void Calculator::calculate()
 {
-    stack<string> st;
-    stack<Number*> st2;
+    stack<Number*> st;
     Number* val1b;
     Number* val2b;
     Number* resultt;
@@ -89,8 +90,7 @@ void Calculator::calculate()
         if ( !isOperator(token) )
         {
         	Number *token2 = assignToClass(expression[i]);
-            st.push(token);
-            st2.push(token2);
+            st.push(token2);
         }
         else
         {
@@ -98,10 +98,8 @@ void Calculator::calculate()
             double result =  0.0;
 
             // Token is an operator: pop top two entries
-            string val2 = st.top();
-            val2b = st2.top();
+            val2b = st.top();
             st.pop();
-            st2.pop();
             //const double d2 = strtod( val2.c_str(), NULL );
 
            /* if ( !st.empty() )
@@ -125,10 +123,10 @@ void Calculator::calculate()
             		result = d2;
             }*/
             //beginning of Number type
-            if ( !st2.empty() )
+            if ( !st.empty() )
             {
-                val1b = st2.top();
-                st2.pop();
+                val1b = st.top();
+                st.pop();
                 //calculate(val1, val2, token);
                 resultt = calculate(val1b, val2b, token);
             }
@@ -144,15 +142,13 @@ void Calculator::calculate()
             // Push result onto stack
             ostringstream s;
             s << result;
-            st.push( s.str() );
-            st2.push(resultt);
+            st.push(resultt);
 
         }
     }
-    if(!st.empty() && st.top().c_str() != " ")
+    if(!st.empty())// && st.top() != " ")
     {
-    	previousAnswers.push_back(st.top().c_str());
-    	previousA.push_back(st2.top());
+    	previousA.push_back(st.top());
     	expression.clear();
     }
 }
@@ -407,14 +403,15 @@ bool Calculator::isOperator(string token)
 
 bool Calculator::isNumeric(string token)
 {
-	if(token == "1" || token == "2" ||
-	   token == "3" || token == "4" ||
-	   token == "5" || token == "6" ||
-	   token == "7" || token == "8" ||
-	   token == "9" || token == "0" ||
-	   token == "e" || token == "p" ||
-	   token == "pi")
-		return true;
+	string onesDigit = token.substr(0,1);
+	if(onesDigit == "1" || onesDigit == "2" ||
+	   onesDigit == "3" || onesDigit == "4" ||
+	   onesDigit == "5" || onesDigit == "6" ||
+	   onesDigit == "7" || onesDigit == "8" ||
+	   onesDigit == "9" || onesDigit == "0" ||
+	   onesDigit == "e" || onesDigit == "p" ||
+	   onesDigit == "pi")
+	   return true;
 	else
 		return false;
 }

@@ -83,27 +83,45 @@ Number* Integer::add(Integer* val){
 
 Number* Integer::add(Number* val)
 {
-	if(typeid(*val) == typeid(Integer))
-	{
+	if (typeid(*val) == typeid(Integer)) {
 		this->value += val->getValue();
-		return new Integer(this->toString());
+		Number* result = new Integer(this->toString());
+        return result;
 	}
 }
 Number* Integer::subtract(Number* val)
 {
-	if(typeid(*val) == typeid(Integer))
-		{
-			this->value -= val->getValue();
-			return new Integer(this->toString());
-		}
+	if (typeid(*val) == typeid(Integer)) {
+        this->value -= val->getValue();
+        Number* result = new Integer(this->toString());
+        return result;
+    }
 }
 Number* Integer::multiply(Number* val)
 {
-
+    if (typeid(*val) == typeid(Integer)) {
+        this->value *= val->getValue();
+        Number* result = new Integer(this->toString());
+        return result;
+    }
+    // Add cases where this multiplies into coefficients
 }
 Number* Integer::divide(Number* val)
 {
-
+    if (typeid(*val) == typeid(Integer)) {
+        if (this->value % val->getValue() == 0) {
+            this->value /= val->getValue();
+            Number* result = new Integer(this->toString());
+            return result;
+        }
+    }
+    // Add cases where this divides out coefficients
+    else {
+        // Make sure this pointer is generic first
+        Number* numerator = this;
+        Number* result = new RationalNumber(this, val);
+        return result;
+    }
 }
 Number* Integer::exponentiate(Number* val)
 {

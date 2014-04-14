@@ -115,17 +115,17 @@ Number* RationalNumber::add(Number* val){
 	{
 		Number* numerator, denominator;
 
-			if (this->values["denominator"] == *val->values["denominator"])
+			if (this->values["denominator"] == val->getValues()["denominator"])
 			{
-				 numerator = this->values["numerator"]->add(*val->values["numerator"]);
+				 numerator = this->values["numerator"]->add(val->getValues()["numerator"]);
 				 denominator = this->values["denominator"];
 			}
 			else
 			{
-				Number* tempNumerator1 = this->values["numerator"]->multiply(*val->values["denominator"]);
-				Number* tempNumerator2 = this->values["denominator"]->multiply(*val->values["numerator"]);
+				Number* tempNumerator1 = this->values["numerator"]->multiply(val->getValues()["denominator"]);
+				Number* tempNumerator2 = this->values["denominator"]->multiply(val->getValues()["numerator"]);
 				numerator = tempNumerator1->add(tempNumerator2);
-				denominator = this->values["denominator"]->multiply(*val->values["numerator"]);
+				denominator = this->values["denominator"]->multiply(val->getValues()["numerator"]);
 			}
 			result = new RationalNumber(numerator, denominator);
 			result->simplify();
@@ -154,17 +154,17 @@ Number* RationalNumber::subtract(Number* val){
 	{
 		Number* numerator, denominator;
 
-		if (this->values["denominator"] == *val->values["denominator"])
+		if (this->values["denominator"] == val->getValues()["denominator"])
 		{
-			numerator = this->values["numerator"]->subtract(*val->values["numerator"]);
+			numerator = this->values["numerator"]->subtract(val->getValues()["numerator"]);
 			denominator = this->values["denominator"];
 		}
 		else
 		{
-			Number* tempNumerator1 = this->values["numerator"]->multiply(*val->values["denominator"]);
-			Number* tempNumerator2 = this->values["denominator"]->multiply(*val->values["numerator"]);
+			Number* tempNumerator1 = this->values["numerator"]->multiply(val->getValues()["denominator"]);
+			Number* tempNumerator2 = this->values["denominator"]->multiply(val->getValues()["numerator"]);
 			numerator = tempNumerator1->subtract(tempNumerator2);
-			denominator = this->values["denominator"]->multiply(*val->values["numerator"]);
+			denominator = this->values["denominator"]->multiply(val->getValues()["numerator"]);
 		}
 		result = new RationalNumber(numerator, denominator);
 		result->simplify();
@@ -181,7 +181,7 @@ Number* RationalNumber::multiply(Number* val){
 	{
 		Number* numerator, denominator;
 
-		numerator = this->values["numerator"]->multiply(*val);
+		numerator = this->values["numerator"]->multiply(val);
 		denominator = this->values["denominator"];
 
 		result = new RationalNumber(numerator, denominator);
@@ -192,8 +192,8 @@ Number* RationalNumber::multiply(Number* val){
 	{
 		Number* numerator, denominator;
 
-		numerator = this->values["numerator"]->multiply(*val->values["numerator"]);
-		denominator = this->values["denominator"]->multiply(*val->values["denominator"]);
+		numerator = this->values["numerator"]->multiply(val->getValues()["numerator"]);
+		denominator = this->values["denominator"]->multiply(val->getValues()["denominator"]);
 
 		result = new RationalNumber(numerator, denominator);
 		result->simplify();
@@ -215,8 +215,8 @@ Number* RationalNumber::divide(Number* val){
 	}
 	else
 	{
-		Number* tempNumerator = *val->values["denominator"];
-		Number* tempDenominator = *val->values["numerator"];
+		Number* tempNumerator = val->getValues()["denominator"];
+		Number* tempDenominator = val->getValues()["numerator"];
 
 		Number* tempRational = new RationalNumber(tempNumerator, tempDenominator);
 		result = this->multiply(tempRational);

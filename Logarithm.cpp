@@ -44,7 +44,7 @@ void Logarithm::setLogValues(vector<Number*> LogValues) {
 */
 
 double Logarithm::toDouble(){
-	//Uses log() from cmath which gives the natural logarithm.
+	// Uses log() from cmath which gives the natural logarithm.
     return values["coefficient"]->toDouble() * (log(values["value"]->toDouble()) / 
                                                 log(values["base"]->toDouble())) + values["integer"]->toDouble();
 }
@@ -188,44 +188,47 @@ Number* Logarithm::add(Number* val) {
 
 Number* Logarithm::subtract(Number* val) {
     if (typeid(*val) == typeid(Logarithm)) {
-        if (typeid(*values["value"]) == typeid(Integer) &&
-            typeid(*val->getValues()["value"]) == typeid(Integer)) {
-            if (values["value"]->getValue() == val->getValues()["value"]->getValue()) {
-                if (typeid(*values["base"]) == typeid(Integer) &&
-                    typeid(*val->getValues()["base"]) == typeid(Integer)) {
-                    if (values["base"]->getValue() == val->getValues()["base"]->getValue()) {
-                        Number* result = new Logarithm(values["coefficient"]->subtract(val->getValues()["coefficient"]),
-                                                       values["value"], values["base"]);
-                        return result;
+        // Makes sure the integer is at zero, forget foiling.
+        if (val->getValues()["integer"]->getValue() == 0 && values["integer"]->getValue() == 0) {
+            if (typeid(*values["value"]) == typeid(Integer) &&
+                typeid(*val->getValues()["value"]) == typeid(Integer)) {
+                if (values["value"]->getValue() == val->getValues()["value"]->getValue()) {
+                    if (typeid(*values["base"]) == typeid(Integer) &&
+                        typeid(*val->getValues()["base"]) == typeid(Integer)) {
+                        if (values["base"]->getValue() == val->getValues()["base"]->getValue()) {
+                            Number* result = new Logarithm(values["coefficient"]->subtract(val->getValues()["coefficient"]),
+                                                           values["value"], values["base"]);
+                            return result;
+                        }
                     }
-                }
-                else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                    typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
-                    if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
-                        Number* result = new Logarithm(values["coefficient"]->subtract(val->getValues()["coefficient"]),
-                                                       values["value"], values["base"]);
-                        return result;
+                    else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                             typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
+                        if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
+                            Number* result = new Logarithm(values["coefficient"]->subtract(val->getValues()["coefficient"]),
+                                                           values["value"], values["base"]);
+                            return result;
+                        }
                     }
                 }
             }
-        }
-        else if (typeid(*values["value"]) == typeid(TranscendentalNumber) &&
-            typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber)) {
-            if (values["value"]->getTranscendentalValue() == val->getValues()["value"]->getTranscendentalValue()) {
-                if (typeid(*values["base"]) == typeid(Integer) &&
-                    typeid(*val->getValues()["base"]) == typeid(Integer)) {
-                    if (values["base"]->getValue() == val->getValues()["base"]->getValue()) {
-                        Number* result = new Logarithm(values["coefficient"]->subtract(val->getValues()["coefficient"]),
-                                                       values["value"], values["base"]);
-                        return result;
+            else if (typeid(*values["value"]) == typeid(TranscendentalNumber) &&
+                     typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber)) {
+                if (values["value"]->getTranscendentalValue() == val->getValues()["value"]->getTranscendentalValue()) {
+                    if (typeid(*values["base"]) == typeid(Integer) &&
+                        typeid(*val->getValues()["base"]) == typeid(Integer)) {
+                        if (values["base"]->getValue() == val->getValues()["base"]->getValue()) {
+                            Number* result = new Logarithm(values["coefficient"]->subtract(val->getValues()["coefficient"]),
+                                                           values["value"], values["base"]);
+                            return result;
+                        }
                     }
-                }
-                else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                         typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
-                    if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
-                        Number* result = new Logarithm(values["coefficient"]->subtract(val->getValues()["coefficient"]),
-                                                       values["value"], values["base"]);
-                        return result;
+                    else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                             typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
+                        if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
+                            Number* result = new Logarithm(values["coefficient"]->subtract(val->getValues()["coefficient"]),
+                                                           values["value"], values["base"]);
+                            return result;
+                        }
                     }
                 }
             }
@@ -235,53 +238,63 @@ Number* Logarithm::subtract(Number* val) {
 
 Number* Logarithm::multiply(Number* val) {
     if (typeid(*val) == typeid(Logarithm)) {
-        if (typeid(*values["value"]) == typeid(Integer) &&
-            typeid(*val->getValues()["value"]) == typeid(Integer)) {
-            if (values["value"]->getValue() == val->getValues()["value"]->getValue()) {
-                if (typeid(*values["base"]) == typeid(Integer) &&
-                    typeid(*val->getValues()["base"]) == typeid(Integer)) {
-                    if (values["base"]->getValue() == val->getValues()["base"]->getValue()) {
-                        Number* result = new Logarithm(values["coefficient"]->multiply(val->getValues()["coefficient"]),
-                                             values["value"], values["base"]);
-                        return result;
+        // forget foiling atm...
+        if (val->getValues()["integer"]->getValue() == 0 && values["integer"]->getValue() == 0) {    
+            if (typeid(*values["value"]) == typeid(Integer) &&
+                typeid(*val->getValues()["value"]) == typeid(Integer)) {
+                if (values["value"]->getValue() == val->getValues()["value"]->getValue()) {
+                    if (typeid(*values["base"]) == typeid(Integer) &&
+                        typeid(*val->getValues()["base"]) == typeid(Integer)) {
+                        if (values["base"]->getValue() == val->getValues()["base"]->getValue()) {
+                            Number* result = new Logarithm(values["coefficient"]->multiply(val->getValues()["coefficient"]),
+                                                           values["value"], values["base"]);
+                            return result;
+                        }
                     }
-                }
-                else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                    typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
-                    if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
-                        Number* result =  new Logarithm(values["coefficient"]->multiply(val->getValues()["coefficient"]),
-                                             values["value"], values["base"]);
-                        return result;
+                    else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                             typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
+                        if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
+                            Number* result =  new Logarithm(values["coefficient"]->multiply(val->getValues()["coefficient"]),
+                                                            values["value"], values["base"]);
+                            return result;
+                        }
                     }
                 }
             }
-        }
-        else if (typeid(*values["value"]) == typeid(TranscendentalNumber) &&
-            typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber)) {
-            if (values["value"]->getTranscendentalValue() == val->getValues()["value"]->getTranscendentalValue()) {
-                if (typeid(*values["base"]) == typeid(Integer) &&
-                    typeid(*val->getValues()["base"]) == typeid(Integer)) {
-                    if (values["base"]->getValue() == val->getValues()["base"]->getValue()) {
-                        Number* result =  new Logarithm(values["coefficient"]->multiply(val->getValues()["coefficient"]),
-                                             values["value"], values["base"]);
-                        return result;
+            else if (typeid(*values["value"]) == typeid(TranscendentalNumber) &&
+                     typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber)) {
+                if (values["value"]->getTranscendentalValue() == val->getValues()["value"]->getTranscendentalValue()) {
+                    if (typeid(*values["base"]) == typeid(Integer) &&
+                        typeid(*val->getValues()["base"]) == typeid(Integer)) {
+                        if (values["base"]->getValue() == val->getValues()["base"]->getValue()) {
+                            Number* result =  new Logarithm(values["coefficient"]->multiply(val->getValues()["coefficient"]),
+                                                            values["value"], values["base"]);
+                            return result;
+                        }
                     }
-                }
-                else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                         typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
-                    if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
-                        Number* result = new Logarithm(values["coefficient"]->multiply(val->getValues()["coefficient"]),
-                                             values["value"], values["base"]);
-                        return result;
+                    else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                             typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
+                        if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
+                            Number* result = new Logarithm(values["coefficient"]->multiply(val->getValues()["coefficient"]),
+                                                           values["value"], values["base"]);
+                            return result;
+                        }
                     }
                 }
             }
         }
     }
+    else {
+        // What should this do? I firmly think it should just return the number passed so we can check if the reference is the same.
+        // If it is we know they were not able to be added.
+    }
 }
 
 Number* Logarithm::divide(Number* val) {
-    return 0;
+    // We need to make sure we make a generic Number pointer to self.
+    Number* numerator = this;
+    Number* val = new RationalNumber(numerator, val);
+    return val;
 }
 
 Number* Logarithm::exponentiate(Number* val) {

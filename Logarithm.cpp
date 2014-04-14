@@ -35,16 +35,16 @@ Logarithm::Logarithm(string expression) {
     pos2 = expression.find_first_of(":");
     // Next deal with the base...
     if(expression.substr(pos + 1, pos2).find_first_of("pe") != -1) {
-        base = new TranscendentalNumber(expression.substr(0, pos));
+        base = new TranscendentalNumber(expression.substr(pos + 1, pos2));
     }
     else {
-        base = new Integer(expression.substr(0, pos));
+        base = new Integer(expression.substr(pos + 1, pos2));
     }
     if(expression.substr(pos2).find_first_of("pe") != -1) {
-        value = new TranscendentalNumber(expression.substr(pos2, expression.size()));
+        value = new TranscendentalNumber(expression.substr(pos2 + 1, expression.size()));
     }
     else {
-        value = new Integer(expression.substr(pos2, expression.size()));
+        value = new Integer(expression.substr(pos2 + 1, expression.size()));
     }
     this->values["coefficient"] = coefficient;
     this->values["value"] = value;
@@ -95,17 +95,21 @@ void Logarithm::simplify() {
             // See what power of base can be pulled out of the value,
             long multiplier = logBaseN(values["value"]->getValue(), values["base"]->getValue(), 0);
             // If the coefficient is an Integer.
-            if (typeid(*values["coefficient"]) == typeid(Integer)) {
-                // Set the value of the Integer to the coefficient times the multiplier.
-                values["integer"]->setValue(multiplier * values["coefficient"]->getValue());
-                // Set the value equal to the result of the value divided by the base^multiplier,
-                values["value"]->setValue(values["value"]->getValue() / ((long)pow(values["base"]->getValue(), multiplier)));
-                // Get all the twos out.
-                long coefficientMultiplier = logBaseN(values["value"]->getValue(), 2, 0);
-                // Set the value of the coefficient equal to itself times the coefficient multiplier,
-                values["coefficient"]->setValue(values["coefficient"]->getValue() * coefficientMultiplier);
-                // Set the value of value to the value divided by 2^coefficient multiplier.
-                values["value"]->setValue(values["value"]->getValue() / ((long)pow(2, coefficientMultiplier)));
+            if (multiplier != 0) {
+                if (typeid(*values["coefficient"]) == typeid(Integer)) {
+                    // Set the value of the Integer to the coefficient times the multiplier.
+                    values["integer"]->setValue(multiplier * values["coefficient"]->getValue());
+                    // Set the value equal to the result of the value divided by the base^multiplier,
+                    values["value"]->setValue(values["value"]->getValue() / ((long long)pow((double long)values["base"]->getValue(), (double long)multiplier)));
+                    // Get all the twos out.
+                    long coefficientMultiplier = logBaseN(values["value"]->getValue(), 2, 0);
+                    if (coefficientMultiplier != 0) {
+                        // Set the value of the coefficient equal to itself times the coefficient multiplier,
+                        values["coefficient"]->setValue(values["coefficient"]->getValue() * coefficientMultiplier);
+                        // Set the value of value to the value divided by 2^coefficient multiplier.
+                        values["value"]->setValue(values["value"]->getValue() / ((long long)pow((double long)2, (double long)coefficientMultiplier)));
+                    }
+                }
             }
         }
     }

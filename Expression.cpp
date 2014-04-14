@@ -77,29 +77,49 @@ Expression::Expression(string expr){
 	}
 
 	// Used to return vector Log uses to store split logs.
-	vector<Number*> Expression::getLogValues()
+	/*vector<Number*> Expression::getLogValues()
 	{
 
 	}
 	void Expression::setLogValues(int index, Number* val)
 	{
 
-	}
+	}*/
 
 	Number* Expression::add(Number* val)
 	{
+		stringstream valStream
+		valStream << value << "+" << val->toString();
+		string str = valStream.str();
+		return new Expression(str);
 	}
     Number* Expression::subtract(Number* val)
     {
+		stringstream valStream
+		valStream << value << "-" << val->toString();
+		string str = valStream.str();
+		return new Expression(str);
     }
     Number* Expression::multiply(Number* val)
     {
+		stringstream valStream
+		valStream << value << "*" << val->toString();
+		string str = valStream.str();
+		return new Expression(str);
     }
    	Number* Expression::divide(Number* val)
    	{
+		stringstream valStream
+		valStream << value << "/" << val->toString();
+		string str = valStream.str();
+		return new Expression(str);
    	}
     Number* Expression::exponentiate(Number* val)
     {
+		stringstream valStream
+		valStream << value << "^" << val->toString();
+		string str = valStream.str();
+		return new Expression(str);
     }
 
     bool Expression::isNumeric(string token)

@@ -29,8 +29,7 @@ private:
 	vector<Number> operands;
 public:
 
-	//Expression();
-	//Expression(string);
+	Expression(string);
 	// Returns a map of Number pointer properties
 	map<string, Number*> getValues();
 	void setValues(string key, Number* val);
@@ -50,7 +49,12 @@ public:
 	// Used to return vector Log uses to store split logs.
 	vector<Number*> getLogValues();
 	void setLogValues(int index, Number* val);
-
+	
+	Number* add(Number*);
+    Number* subtract(Number*);
+    Number* multiply(Number*);
+   	Number* divide(Number*);
+    Number* exponentiate(Number*);
 };
 
 #endif	/* EXPRESSION_H */

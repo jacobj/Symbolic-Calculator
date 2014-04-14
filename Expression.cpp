@@ -13,14 +13,10 @@
 #include "Expression.h"
 
 //Constructor
-/*Expression::Expression(string expr){
+Expression::Expression(string expr){
 	operators.push_back(expr);
-}*/
-
-/*Expression::Expression()
-{
-
 }
+
 
 /*Expression::Expression(vector<Number> numbers, vector<char> operators) {
 	this->numbers = numbers;
@@ -28,59 +24,75 @@
 }*/
 
 // Returns a map of Number pointer properties
-	map<string, Number*> getValues()
-		{
-
-		}
-	void setValues(string key, Number* val)
+	map<string, Number*> Expression::getValues()
 	{
 
 	}
-	void simplify()
+	void Expression::setValues(string key, Number* val)
 	{
 
 	}
-	void display()
+	void Expression::simplify()
 	{
 
 	}
-	double toDouble()
+	void Expression::display()
 	{
 
 	}
-	string toString()
+	double Expression::toDouble()
+	{
+
+	}
+	string Expression::toString()
 	{
 
 	}
 
 	// Used only for Integers
-	long getValue()
+	long Expression::getValue()
 	{
 
 	}
-	void setValue(long value)
+	void Expression::setValue(long value)
 	{
 
 	}
 
 	// Used only for Transcendentals
-	string getTranscendentalValue()
+	string Expression::getTranscendentalValue()
 	{
 
 	}
-	void setTranscendentalValue(string value)
+	void Expression::setTranscendentalValue(string value)
 	{
 
 	}
 
 	// Used to return vector Log uses to store split logs.
-	vector<Number*> getLogValues()
+	vector<Number*> Expression::getLogValues()
 	{
 
 	}
-	void setLogValues(int index, Number* val)
+	void Expression::setLogValues(int index, Number* val)
 	{
 
 	}
+	
+	Number* Expression::add(Number* val)
+	{
+	}
+    Number* Expression::subtract(Number* val)
+    {
+    }
+    Number* Expression::multiply(Number* val)
+    {
+    }
+   	Number* Expression::divide(Number* val)
+   	{
+   	}
+    Number* Expression::exponentiate(Number* val)
+    {
+    }
 
 

@@ -142,13 +142,11 @@ void Exponential::simplify() {
             // What if the denominator is not an Integer? For now let's just leave it alone.
         }
         
-        // Else if the exponent is an Integer
+        // Else, if the exponent is an Integer
         else if (typeid(*values["value"] == typeid(Integer)) ) {
-            pow(values["value"]->getValue(), values["exponent"]->getValues());
-        }
-        
-        else {
-            return;
+            long num = pow(values["value"]->getValue(), values["exponent"]->getValues());
+            values["value"] = new Integer(num);
+            values["exponent"] = new Integer(1);
         }
         
     }

@@ -21,7 +21,7 @@ TranscendentalNumber::TranscendentalNumber(string value, Number* coefficient) {
 
 TranscendentalNumber::TranscendentalNumber(string value){
 	this->value = value;
-	coefficient = new *Number("1");
+	coefficient = new Number("1");
 }
 
 TranscendentalNumber::~TranscendentalNumber() {

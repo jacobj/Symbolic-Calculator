@@ -88,36 +88,36 @@ Expression::Expression(string expr){
 
 	Number* Expression::add(Number* val)
 	{
-		stringstream valStream
-		valStream << value << "+" << val->toString();
+		stringstream valStream;
+		valStream << toString() << "+" << val->toString();
 		string str = valStream.str();
 		return new Expression(str);
 	}
     Number* Expression::subtract(Number* val)
     {
-		stringstream valStream
-		valStream << value << "-" << val->toString();
+		stringstream valStream;
+		valStream << toString() << "-" << val->toString();
 		string str = valStream.str();
 		return new Expression(str);
     }
     Number* Expression::multiply(Number* val)
     {
-		stringstream valStream
-		valStream << value << "*" << val->toString();
+		stringstream valStream;
+		valStream << toString() << "*" << val->toString();
 		string str = valStream.str();
 		return new Expression(str);
     }
    	Number* Expression::divide(Number* val)
    	{
-		stringstream valStream
-		valStream << value << "/" << val->toString();
+		stringstream valStream;
+		valStream << toString() << "/" << val->toString();
 		string str = valStream.str();
 		return new Expression(str);
    	}
     Number* Expression::exponentiate(Number* val)
     {
-		stringstream valStream
-		valStream << value << "^" << val->toString();
+		stringstream valStream;
+		valStream << toString() << "^" << val->toString();
 		string str = valStream.str();
 		return new Expression(str);
     }

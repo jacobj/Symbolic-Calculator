@@ -76,6 +76,11 @@ Number* Integer::add(Number* val)
 		Number* result = new Integer(this->toString());
         return result;
 	}
+	/*else if (typeid(*val) == typeid(RationalNumber)){
+		stringstream RatNumStream;
+		RatNumStream << getValue() << "/1";
+		Number * RatNum = new RationalNumber
+	}*/
 }
 Number* Integer::subtract(Number* val)
 {
@@ -122,8 +127,8 @@ Number* Integer::divide(Number* val)
 Number* Integer::exponentiate(Number* val)
 {
 	if (typeid(*val) == typeid(Integer)) {
-		long valLong = pow(getValue(), val->getValue());
-	    return new Integer(valLong);
+		double valLong = pow(toDouble(), val->toDouble());
+	    return new Integer((long)valLong);
 	}
 	else{
 	    stringstream valStream;

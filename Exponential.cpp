@@ -204,12 +204,16 @@ void Exponential::simplify() {
                         int value2 = values["value"]->getValues()["denominator"]->getValues()["value"]->getValue();
                         int coefficient1 = values["value"]->getValues()["numerator"]->getValues()["coefficient"]->getValue();
                         int coefficient2 = values["value"]->getValues()["denominator"]->getValues()["coefficient"]->getValue();
+                        // Reduce inside each root inside of the numerator and the denominator
                         reduceInsideRoot(value1, coefficient1, 
                                          values["value"]->getValues()["numerator"]->getValues()["exponent"]->getValues()["denominator"]->getValue(), primes1);
                         reduceInsideRoot(value2, coefficient2, 
                                          values["value"]->getValues()["denominator"]->getValues()["exponent"]->getValues()["denominator"]->getValue(), primes2);
+                        // Set the value inside the root of the numerator to the simplified result,
                         values["value"]->getValues()["numerator"]->getValues()["value"]->setValue(value1);
+                        // Set the coefficient inside the root of the numerator to the simplifies result,
                         values["value"]->getValues()["numerator"]->getValues()["coefficient"]->setValue(coefficient1);
+                        // Same but for the dneominator.
                         values["value"]->getValues()["denominator"]->getValues()["value"]->setValue(value2);
                         values["value"]->getValues()["denominator"]->getValues()["coefficient"]->setValue(coefficient2);
                         // Finally simplify the inner and outer coefficients.

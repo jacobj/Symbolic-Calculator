@@ -185,11 +185,9 @@ Number* TranscendentalNumber::exponentiate(Number* val){
 }
 
 //For number's satisfaction
-
 // vector<Number*> TranscendentalNumber::getLogValues() {
 //     //return NULL;
 // }
-
 // void TranscendentalNumber::setLogValues(int index, Number* val) {
 //     return;
 // }

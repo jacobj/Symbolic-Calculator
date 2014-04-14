@@ -100,36 +100,27 @@ string Exponential::toString(){
 void Exponential::simplify() {
     // If the value is an Integer,
     if (typeid(*values["value"]) == typeid(Integer)) {
-    
         // If the exponent is a RationalNumber,
         if (typeid(*values["exponent"]) == typeid(RationalNumber)) { 
-            
             // If the exponent's numerator is an Integer,
             if (typeid(*values["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
-            
                 // Raise the value to nth power and set the exponent to 1.
                 values["value"]->setValue(((long)pow(values["value"]->getValue(), 
                                                      values["exponent"]->getValues()["numerator"]->getValue())));
-                                                     
                 // Set the numerator of the exponent to 1, as it has already been raised appropriately.
                 values["exponent"]->getValues()["numerator"]->setValue(1);
             }
-           
             // If the exponent's denominator is an Integer,
             if (typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {
-            
                 // Break up value into it's prime factors.
                 vector<int> primes; 
                 primes = findPrimeFactors(values["value"]->getValue(), 
                                           2, primes);
-                                          
                 // Sort results in descending order.
                 sort(primes.begin(), primes.end());
                 int value = values["value"]->getValue();
-
                 // If the coefficient is an Integer.
                 if (typeid(values["coefficient"]) == typeid(Integer)) {
-                
                     int coefficient = values["coefficient"]->getValue();
                     reduceInsideRoot(value, coefficient, 
                                      values["exponent"]->getValues()["denominator"]->getValue(), primes);
@@ -137,36 +128,29 @@ void Exponential::simplify() {
                     // Set value and coeffient to the returned values from reduceInsideRoot.
                     values["value"]->setValue(value);
                     values["coefficient"]->setValue(coefficient);
-                }       
+                }
             }
             // What if the denominator is not an Integer? For now let's just leave it alone.
         }
-        
         // Else, if the exponent is an Integer
         else if (typeid(*values["exponent"]) == typeid(Integer)) {
             long num = (long) pow(values["value"]->getValue(), values["exponent"]->getValue());
             values["value"] = new Integer(num);
             values["exponent"] = new Integer(1);
         }
-        
     }
     // Else, if the value is a rational
     else if (typeid(*values["value"]) == typeid(RationalNumber)) {
-    
         // And the numerator of the value is an Integer,
         if (typeid(*values["value"]->getValues()["numerator"]) == typeid(Integer) && 
             typeid(*values["value"]->getValues()["denominator"]) == typeid(Integer)) {
-            
             // And the exponent is an Integer,
             if (typeid(*values["exponent"]) == typeid(Integer)) {
-            
                 // Square both denominator and numerator.
                 values["value"]->getValues()["denominator"]->setValue((long)pow(values["value"]->getValues()["denominator"]->getValue(),
                                                                                 values["exponent"]->getValue()));
-                                                                              
                 values["value"]->getValues()["numerator"]->setValue((long)pow(values["value"]->getValues()["numerator"]->getValue(),
                                                                               values["exponent"]->getValue()));
-                                                                              
                 // Simplify the value using the RationalNumber simplify method.
                 values["value"]->simplify();
                 values["exponenet"]->setValue(1); 
@@ -174,18 +158,14 @@ void Exponential::simplify() {
             // Raise a rational to a rational
             // If the exponent is a rational.
             else if (typeid(*values["exponent"]) == typeid(RationalNumber)) {
-            
                 // If the exponent's numerator is an integer.
                 if (typeid(*values["exponent"]->getValues()["numerator"]) == typeid(Integer)) { 
-                
                     values["value"]->getValues()["denominator"]->setValue((long)pow(values["value"]->getValues()["denominator"]->getValue(),
                                                                                     values["exponent"]->getValues()["numerator"]->getValue()));
                     values["value"]->getValues()["numerator"]->setValue((long)pow(values["value"]->getValues()["numerator"]->getValue(),
                                                                                   values["exponent"]->getValues()["numerator"]->getValue()));
                     values["value"]->simplify();
-                    
                     values["exponent"]->getValues()["numerator"]->setValue(1); 
-                    
                     // If the exponents's denominator is an Integer.
                     if (typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {                    
                         // This needs to root both the numerator and denominator value.
@@ -263,62 +243,62 @@ void Exponential::setTranscendentalValue(string value) {
 //Operation methods
 Number* Exponential::add(Number* val) {
 	if (typeid(*val) == typeid(Integer)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(Exponential)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(Expression)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(RationalNumber)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(Logarithm)) {
-
+        
 	}
 	else {
-
+        
 	}
 }
 Number* Exponential::subtract(Number* val) {
 	if (typeid(*val) == typeid(Integer)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(Exponential)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(Expression)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(RationalNumber)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(Logarithm)) {
-
+        
 	}
 	else {
-
+        
 	}
 }
 Number* Exponential::multiply(Number* val) {
 	if (typeid(*val) == typeid(Integer)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(Exponential)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(Expression)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-
+        
 	}
 	else if (typeid(*val) == typeid(RationalNumber)) {
 

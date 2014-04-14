@@ -7,21 +7,28 @@
 *              Nicola Frachesen
 *              Elaine Del Rosario
 *
-*
 */
 
 #include "Expression.h"
 
 //Constructor
 Expression::Expression(string expr){
-	operators.push_back(expr);
+	string temp;
+	for(int i = 0;i < expr.size();i++)
+	{
+		if(isOperator(expr.substr(i,1)))
+			operators.push_back(expr.substr(i,1));
+		else if(isNumeric(expr.substr(i,1)))
+		{
+			operands.push_back(new Integer(expr.substr(i,1)));
+		}
+		else
+		{
+			//TODO add logs and sqrt
+
+		}
+	}
 }
-
-
-/*Expression::Expression(vector<Number> numbers, vector<char> operators) {
-	this->numbers = numbers;
-	this->operators = operators;
-}*/
 
 // Returns a map of Number pointer properties
 	map<string, Number*> Expression::getValues()
@@ -78,7 +85,7 @@ Expression::Expression(string expr){
 	{
 
 	}
-	
+
 	Number* Expression::add(Number* val)
 	{
 	}
@@ -95,4 +102,24 @@ Expression::Expression(string expr){
     {
     }
 
+    bool Expression::isNumeric(string token)
+    {
+    	if(token == "1" || token == "2" ||
+    	   token == "3" || token == "4" ||
+    	   token == "5" || token == "6" ||
+    	   token == "7" || token == "8" ||
+    	   token == "9" || token == "0")
+    		return true;
+    	else
+    		return false;
+    }
 
+    bool Expression::isOperator(string token)
+    {
+        if( token == "+" || token == "-" ||
+            token == "*" || token == "/" ||
+            token == "^")
+            return true;
+        else
+            return false;
+    }

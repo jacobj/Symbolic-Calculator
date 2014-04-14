@@ -494,3 +494,8 @@ long RationalNumber::getValue() {
 void RationalNumber::setValue(long value) {
     return; 
 }
+
+void RationalNumber::display()
+{
+
+}

@@ -48,11 +48,6 @@ public:
     Number* multiply(Number*);
     Number* divide(Number*);
     Number* exponentiate(Number*);
-    
-    /*Logarithm operator+(const Logarithm& log);
-      Logarithm operator-(const Logarithm& log);
-      Logarithm operator*(const Logarithm& log);
-      Logarithm operator/(const Logarithm& log);*/
 
     // Used to satisfy Number.h
     long getValue();

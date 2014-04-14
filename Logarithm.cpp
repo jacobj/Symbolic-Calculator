@@ -347,3 +347,8 @@ long Logarithm::getValue() {
 void Logarithm::setValue(long value) {
 	return;
 }
+
+void Logarithm::display()
+{
+
+}

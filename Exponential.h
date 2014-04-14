@@ -45,9 +45,7 @@ public:
     long getValue();
     void setValue(long value);
     string getTranscendentalValue();
-    void setTranscendentalValue(string value); 
-    /* vector<Number*> getLogValues(); */
-    /* void setLogValues(int index, Number* val); */
+    void setTranscendentalValue(string value);
     
     // Operation methods
     Number* add(Number*);
@@ -56,10 +54,6 @@ public:
     Number* divide(Number*);
     Number* exponentiate(Number*);
 
-    // Exponential operator+(const nthRootIrrational& nthRoot);
-    // Exponential operator-(const nthRootIrrational& nthRoot);
-    // Exponential operator*(const nthRootIrrational& nthRoot);
-    // Exponential operator/(const nthRootIrrational& nthRoot);
 };
     
 #endif	/* EXPONENTIAL_H */

@@ -76,16 +76,6 @@ Expression::Expression(string expr){
 
 	}
 
-	// Used to return vector Log uses to store split logs.
-	/*vector<Number*> Expression::getLogValues()
-	{
-
-	}
-	void Expression::setLogValues(int index, Number* val)
-	{
-
-	}*/
-
 	Number* Expression::add(Number* val)
 	{
 		stringstream valStream;

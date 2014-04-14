@@ -47,8 +47,6 @@ public:
     // Used to satisfy Number.h
     long getValue();
     void setValue(long value);
-    // vector<Number*> getLogValues();
-    // void setLogValues(int index, Number* val);
 
 private:
 	string value;

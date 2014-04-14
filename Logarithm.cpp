@@ -13,8 +13,40 @@ Logarithm::Logarithm(Number* coefficient, Number* value, Number* base) {
     this->values["integer"] = 0;
 }
 
-Logarithm::Logarithm(string value) {
-
+Logarithm::Logarithm(string expression) {
+    Number* coefficient; Number* value; Number* base;
+    int pos = expression.find_first_of("l");
+    int pos2;
+    if(pos == -1) {
+		string exception = "ERROR! This isn't a log! \n";
+		throw exception;
+	}
+    // First deal with the coefficient
+    if(expression.substr(0, pos).find_first_of("pe") != -1) {
+        coefficient = new Transcendental(expression.substr(0, pos));
+    }
+    else {
+        coefficient = new Integer(expression.substr(0, pos));
+    }
+    int pos = expression.find_first_of("_");
+    int pos2 = expression.find_first_of(":");
+    // Next deal with the base...
+    if(expression.substr(pos, pos2).find_first_of("pe") != -1) {
+        base = new Transcendental(expression.substr(0, pos));
+    }
+    else {
+        base = new Integer(expression.substr(0, pos));
+    }
+    if(expression.substr(pos2).find_first_of("pe") != -1) {
+        value = new Transcendental(expression.substr(pos2));
+    }
+    else {
+        value = new Integer(expression.substr(pos2));
+    }
+    this->values["coefficient"] = coefficient;
+    this->values["value"] = value;
+    this->values["base"] = base;
+    this->values["integer"] = 0;
 }
 
 Logarithm::~Logarithm() {

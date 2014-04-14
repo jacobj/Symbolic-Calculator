@@ -98,10 +98,10 @@ Number* RationalNumber::add(Number* val){
 	if (typeid(*val) == typeid(Integer) || 
 		typeid(*val) == typeid(TranscendentalNumber) ||
 		typeid(*val) == typeid(Expression) ||
-		typeid(*val) == typeid(Logarithm)
+		typeid(*val) == typeid(Logarithm) ||
 		typeid(*val) == typeid(Exponential))
 	{
-			Number* numerator, denominator, tempValNumerator;
+        Number* numerator; Number* denominator; Number* tempValNumerator;
 
 			tempValNumerator = val->multiply(this->values["denominator"]);
 			numerator = this->values["numerator"]->add(tempValNumerator);
@@ -113,7 +113,7 @@ Number* RationalNumber::add(Number* val){
 	}
 	else
 	{
-		Number* numerator, denominator;
+		Number* numerator; Number* denominator;
 
 			if (this->values["denominator"] == val->getValues()["denominator"])
 			{
@@ -137,10 +137,10 @@ Number* RationalNumber::subtract(Number* val){
 	if (typeid(*val) == typeid(Integer) ||
 		typeid(*val) == typeid(TranscendentalNumber) ||
 		typeid(*val) == typeid(Expression) ||
-		typeid(*val) == typeid(Logarithm)
+		typeid(*val) == typeid(Logarithm) ||
 		typeid(*val) == typeid(Exponential))
 	{
-		Number* numerator, denominator, tempValNumerator;
+		Number* numerator; Number* denominator; Number* tempValNumerator;
 
 		tempValNumerator = val->multiply(this->values["denominator"]);
 		numerator = this->values["numerator"]->subtract(tempValNumerator);
@@ -152,7 +152,7 @@ Number* RationalNumber::subtract(Number* val){
 	}
 	else
 	{
-		Number* numerator, denominator;
+		Number* numerator; Number* denominator;
 
 		if (this->values["denominator"] == val->getValues()["denominator"])
 		{
@@ -176,10 +176,10 @@ Number* RationalNumber::multiply(Number* val){
 	if (typeid(*val) == typeid(Integer) ||
 		typeid(*val) == typeid(TranscendentalNumber) ||
 		typeid(*val) == typeid(Expression) ||
-		typeid(*val) == typeid(Logarithm)
+		typeid(*val) == typeid(Logarithm) ||
 		typeid(*val) == typeid(Exponential))
 	{
-		Number* numerator, denominator;
+		Number* numerator; Number* denominator;
 
 		numerator = this->values["numerator"]->multiply(val);
 		denominator = this->values["denominator"];
@@ -190,7 +190,7 @@ Number* RationalNumber::multiply(Number* val){
 	}
 	else
 	{
-		Number* numerator, denominator;
+		Number* numerator; Number* denominator;
 
 		numerator = this->values["numerator"]->multiply(val->getValues()["numerator"]);
 		denominator = this->values["denominator"]->multiply(val->getValues()["denominator"]);
@@ -205,7 +205,7 @@ Number* RationalNumber::divide(Number* val){
 	if (typeid(*val) == typeid(Integer) ||
 		typeid(*val) == typeid(TranscendentalNumber) ||
 		typeid(*val) == typeid(Expression) ||
-		typeid(*val) == typeid(Logarithm)
+		typeid(*val) == typeid(Logarithm) ||
 		typeid(*val) == typeid(Exponential))
 	{
 		Number* tempNumerator = new Integer(1);

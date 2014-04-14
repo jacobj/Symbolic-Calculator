@@ -295,7 +295,10 @@ Number* Logarithm::divide(Number* val) {
 }
 
 Number* Logarithm::exponentiate(Number* val) {
-    return 0;
+	stringstream valStream;
+	valStream << toString() << "^" << val->toString();
+	string str = valStream.str();
+	return new Expression(str);
 }
 
 // Satisfying our love of maps

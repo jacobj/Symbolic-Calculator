@@ -104,6 +104,14 @@ Number* Integer::multiply(Number* val)
         Number* result = new Integer(this->toString());
         return result;
     }
+    else if (typeid(*val) == typeid(TranscendentalNumber)) {
+        Number* coeffs = new Integer(multiply(val->getValues()["coefficient"]));
+    	stringstream valStream;
+        valstream << coeffs->toString() << val->getTranscendentalValue();
+        string str = valuestream.str();
+        Number* result = new TranscendentalNumber(str);
+        return result;
+    }
     // Add cases where this multiplies into coefficients
 }
 Number* Integer::divide(Number* val)

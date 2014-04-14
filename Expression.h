@@ -23,17 +23,17 @@
 
 using namespace std;
 
-class Expression{// : public Number {
+class Expression : public Number {
 private:
 	vector<string> operators;
-	//vector<Number> operands;
+	vector<Number> operands;
 public:
 
-	Expression();
-	Expression(string);
+	//Expression();
+	//Expression(string);
 	// Returns a map of Number pointer properties
-	//map<string, Number*> getValues();
-	//void setValues(string key, Number* val);
+	map<string, Number*> getValues();
+	void setValues(string key, Number* val);
 	void simplify();
 	void display();
 	double toDouble();

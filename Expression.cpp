@@ -13,11 +13,11 @@
 #include "Expression.h"
 
 //Constructor
-Expression::Expression(string expr){
+/*Expression::Expression(string expr){
+	operators.push_back(expr);
+}*/
 
-}
-
-Expression::Expression()
+/*Expression::Expression()
 {
 
 }
@@ -28,14 +28,14 @@ Expression::Expression()
 }*/
 
 // Returns a map of Number pointer properties
-	/*map<string, Number*> getValues()
+	map<string, Number*> getValues()
 		{
 
 		}
 	void setValues(string key, Number* val)
 	{
 
-	}*/
+	}
 	void simplify()
 	{
 
@@ -73,7 +73,7 @@ Expression::Expression()
 
 	}
 
-	/*// Used to return vector Log uses to store split logs.
+	// Used to return vector Log uses to store split logs.
 	vector<Number*> getLogValues()
 	{
 
@@ -81,6 +81,6 @@ Expression::Expression()
 	void setLogValues(int index, Number* val)
 	{
 
-	}*/
+	}
 
 

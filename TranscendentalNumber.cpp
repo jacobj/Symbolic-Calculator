@@ -23,22 +23,25 @@ TranscendentalNumber::TranscendentalNumber(string expression){
 	// find the first e or pi in a string, then treat everything to the right as it's coefficient.
     // for now, just think of e and pi as having Integer coefficients.
     // p for pi, e for well e.
-    /*int pos = expression.find_first_of("pe");
+    int pos = expression.find_first_of("pe");
     if(pos == -1) {
 		string exception = "ERROR! Enter a valid Transcendental! (e or pi)\n";
 		throw exception;
 	}
-    if (expression[pos] == 'p') {
+    else if (expression[pos] == 'p') {
         this->value = "pi";
     }
-    if (expression[pos] == 'e') {
+    else if (expression[pos] == 'e') {
         this->value = "e";
     }
-    // currently, just throw everything to the right in an Integer constructor
-	values["coefficient"] = new Integer(value.substr(0,pos));*/
-	this->value = expression;
-	//coefficient = new Number("1");
-	values["coefficient"] = new Integer("1");
+    if (pos == 0) {
+        values["coefficient"] = new Integer("1");
+    }
+    else {
+        // currently, just row everything to the right in an Integer constructor
+        values["coefficient"] = new Integer(expression.substr(0,pos));
+        this->value = expression;
+    }
 }
 
 TranscendentalNumber::~TranscendentalNumber() {

@@ -67,6 +67,7 @@ RationalNumber::RationalNumber(string expression) {
 	//creates RationalNumber object
 	this->values["numerator"] = numerator;
 	this->values["denominator"] = denominator;
+    simplify();
 }
 RationalNumber::~RationalNumber() {
     delete values["numerator"];

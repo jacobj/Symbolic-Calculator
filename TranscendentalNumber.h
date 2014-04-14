@@ -18,6 +18,7 @@
 class TranscendentalNumber : public Number {
 public:
 	TranscendentalNumber(string value, Number* coefficient);
+	TranscendentalNumber(string value);
 	~TranscendentalNumber();
 	void simplify();
 	void display();
@@ -25,11 +26,11 @@ public:
 	string toString();
 
     //Operation Methods
-    Number* add(Number*);
-    Number* subtract(Number*);
-    Number* multiply(Number*);
-    Number* divide(Number*);
-    Number* exponentiate(Number*);
+    Number* add(Number* val);
+    Number* subtract(Number* val);
+    Number* multiply(Number* val);
+    Number* divide(Number* val);
+    Number* exponentiate(Number* val);
 
 	map<string, Number*> getValues();
 	void setValues(string key, Number* val);

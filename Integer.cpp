@@ -133,5 +133,15 @@ Number* Integer::divide(Number* val)
 }
 Number* Integer::exponentiate(Number* val)
 {
-
+	if (typeid(*val) == typeid(Integer)) {
+		long valLong = pow(getValue(), val->getValue());
+	    return new Integer(valLong);
+	}
+	else{
+	    stringstream valStream;
+	    valStream << toString() << "^" << val->toString();
+	    string str = valStream.str();
+	    return new Exponential(str);
+	}
 }
+

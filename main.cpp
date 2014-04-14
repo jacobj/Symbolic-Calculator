@@ -51,6 +51,7 @@ int main()
                     keepGoing = true;
                     while(keepGoing)
                         {
+						cout << "Enter 'back' to return to the main menu or 'quit' to exit the program." << endl;
                             cout << "\nEnter your expression: ";
                             getline(cin, expr);
                             if(expr == "back" || expr == "quit")

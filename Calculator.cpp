@@ -233,9 +233,9 @@ vector<string> Calculator::getExpression()
 	return expression;
 }
 
-string Calculator::getLatestAnswer()
+Number* Calculator::getLatestAnswer()
 {
-	return previousAnswers.back();
+	return previousA.back();
 }
 
 vector<string> Calculator::setExpressionTokens(string& expr)
@@ -294,7 +294,6 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
 {
     bool success = true;
     
-    //TODO why does the debugger pause here?
     stack<string>stack;
     list<string>out;
 

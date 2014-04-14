@@ -59,7 +59,7 @@ int main()
                                     if(calculator.addInput(expr))
                                     {
                                     	calculator.calculate();
-                                    	cout << "\nAnswer: " << calculator.getLatestAnswer() << endl;
+                                    	cout << "\nAnswer: " << (calculator.getLatestAnswer())->toString() << endl;
                                     }
                                 }
                         }

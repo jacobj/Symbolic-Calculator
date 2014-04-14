@@ -64,7 +64,7 @@ public:
     
     void calculate();
 
-    string getLatestAnswer();
+    Number* getLatestAnswer();
     
 	int comparePrecedence(string, string);
 };

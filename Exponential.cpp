@@ -70,7 +70,7 @@ Exponential:: Exponential(string expression) {
     else if(expo.find_first_of("/") != -1) {
         exponent = new RationalNumber(expo);
     }
-    else if(expo.find_first_of("log" != -1)) {
+    else if(expo.find_first_of("log") != -1) {
         exponent = new Logarithm(expo);
     }
     else {

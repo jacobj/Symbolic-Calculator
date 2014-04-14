@@ -20,7 +20,9 @@ using namespace std;
 }*/
 
 TranscendentalNumber::TranscendentalNumber(string value){
-	this->value = value;
+	// find the first e or pi in a string, then treat everything to the right as it's coefficient.
+    // for now, just think of e and pi as having Integer coefficients.
+    this->value = value;
 	values["coefficient"] = new Integer("1");
 }
 

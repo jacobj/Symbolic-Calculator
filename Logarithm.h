@@ -34,8 +34,8 @@ class Logarithm: public Number
     
         map<string, Number*> getValues();
         void setValues(string key, Number* val);
-        vector<Number*> getLogValues();
-        void setLogValues(vector<Number*> LogValues);
+        // vector<Number*> getLogValues();
+        // void setLogValues(vector<Number*> LogValues);
         vector<long> findPrimeFactors(long number, long i, vector<long> primeFactors);
 
         // Operation methods

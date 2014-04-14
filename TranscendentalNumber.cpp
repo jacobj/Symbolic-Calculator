@@ -19,7 +19,7 @@ using namespace std;
     this->values["coefficient"] = coefficient;
 }*/
 
-TranscendentalNumber::TranscendentalNumber(string value){
+TranscendentalNumber::TranscendentalNumber(string expression){
 	// find the first e or pi in a string, then treat everything to the right as it's coefficient.
     // for now, just think of e and pi as having Integer coefficients.
     // p for pi, e for well e.
@@ -28,10 +28,10 @@ TranscendentalNumber::TranscendentalNumber(string value){
 		string exception = "ERROR! Enter a valid Transcendental! (e or pi)\n";
 		throw exception;
 	}
-    if (value[pos] == p) {
+    if (expression[pos] == 'p') {
         this->value = "pi";
     }
-    if (value[pos] == e) {
+    if (expression[pos] == 'e') {
         this->value = "e";
     }
     // currently, just throw everything to the right in an Integer constructor

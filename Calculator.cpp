@@ -146,17 +146,24 @@ void Calculator::calculate()
 
         }
     }
+    if(typeid(*(st.top())) == typeid(Logarithm) )
+    	cout << "IT WORKED" << endl;
     if(!st.empty())// && st.top() != " ")
     {
-    	previousA.push_back(st.top());
-    	expression.clear();
+
+    	//previousA.push_back(st.top());
+    	//expression.clear();
     }
+    previousA.push_back(st.top());
+    expression.clear();
 }
 
 Number* Calculator::calculate(Number* num1, Number* num2, string op)
 {
 	Number* result;
 	Number *n1 = NULL, *n2 = NULL;
+	stringstream logStream;
+	string log;
 
 	//determine type of num1
 	if(typeid(*num1) == typeid(Integer))
@@ -183,16 +190,23 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 		else if(typeid(num2) == typeid(Exponential))
 		else if(typeid(num2) == typeid(Logarithm)))*/
 
+
 	if(op == "+")
 		result = n1->add(n2);
 	else if(op == "-")
 		result = n1->subtract(n2);
 	else if(op == "*")
 			result = n1->multiply(n2);
-	//else if(op == "/")
-			//result = n1->divide(n2);
+	else if(op == "/")
+			result = n1->divide(n2);
 	else if(op == "^")
-				result = n1->exponentiate(n2);
+			result = n1->exponentiate(n2);
+	else if(op == ":")
+	{
+		logStream << "log_" << n1->toString() << op << n2->toString();
+		log = logStream.str();
+		return new Logarithm(log);
+	}
 
 	return result;
 }
@@ -262,6 +276,11 @@ vector<string> Calculator::setExpressionTokens(string& expr)
         {
         	if(token == "p")
         		token = token + (expr[++i]);
+        	else if(token == "l")
+        	{
+
+        	}
+
 
         	str.append(token);
         }
@@ -395,7 +414,7 @@ bool Calculator::isOperator(string token)
 {
     if( token == "+" || token == "-" ||
         token == "*" || token == "/" ||
-        token == "^")
+        token == "^" || token == ":")
         return true;
     else
         return false;   
@@ -412,6 +431,7 @@ bool Calculator::isNumeric(string token)
 	   onesDigit == "e" || onesDigit == "p" ||
 	   onesDigit == "pi")
 	   return true;
+	//else if()
 	else
 		return false;
 }

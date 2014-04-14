@@ -95,10 +95,12 @@ string RationalNumber::toString(){
 //Operation Methods
 Number* RationalNumber::add(Number* val){
 	Number* result;
-	if (typeid(*val) == typeid(Integer)) {
-		if (typeid(this->values["numerator"]) == typeid(Integer)) &&
-			(typeid(this->values["denominator"]) == typeid(Integer)))
-		{
+	if (typeid(*val) == typeid(Integer) || 
+		typeid(*val) == typeid(TranscendentalNumber) ||
+		typeid(*val) == typeid(Expression) ||
+		typeid(*val) == typeid(Logarithm)
+		typeid(*val) == typeid(Exponential))
+	{
 			Number* numerator, denominator, tempValNumerator;
 
 			tempValNumerator = val->multiply(this->values["denominator"]);
@@ -108,26 +110,11 @@ Number* RationalNumber::add(Number* val){
 			result = new RationalNumber(numerator, denominator);
 			result->simplify();
 			return result;
-		}
-
 	}
-	else if (typeid(*val) == typeid(Exponential)) {
-
-	}
-	else if (typeid(*val) == typeid(Expression)) {
-
-	}
-	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(RationalNumber)) {
+	else
+	{
 		Number* numerator, denominator;
 
-		if ((typeid(this->values["numerator"]) == typeid(Integer)) &&
-			(typeid(this->values["denominator"]) == typeid(Integer)) &&
-			(typeid(*val->values["numerator"]) == typeid(Integer)) &&
-			(typeid(*val->values["denominator"]) == typeid(Integer)))
-		{
 			if (this->values["denominator"] == *val->values["denominator"])
 			{
 				 numerator = this->values["numerator"]->add(*val->values["numerator"]);
@@ -143,108 +130,101 @@ Number* RationalNumber::add(Number* val){
 			result = new RationalNumber(numerator, denominator);
 			result->simplify();
 			return result;
-		}
-
 	}
-	else if (typeid(*val) == typeid(Logarithm)) {
-
-	}
-	else {
-
-	}
-
 }
 Number* RationalNumber::subtract(Number* val){
-	if (typeid(*val) == typeid(Integer)) {
+	Number* result;
+	if (typeid(*val) == typeid(Integer) ||
+		typeid(*val) == typeid(TranscendentalNumber) ||
+		typeid(*val) == typeid(Expression) ||
+		typeid(*val) == typeid(Logarithm)
+		typeid(*val) == typeid(Exponential))
+	{
+		Number* numerator, denominator, tempValNumerator;
 
+		tempValNumerator = val->multiply(this->values["denominator"]);
+		numerator = this->values["numerator"]->subtract(tempValNumerator);
+		denominator = this->values["denominator"];
+
+		result = new RationalNumber(numerator, denominator);
+		result->simplify();
+		return result;
 	}
-	else if (typeid(*val) == typeid(Exponential)) {
+	else
+	{
+		Number* numerator, denominator;
 
-	}
-	else if (typeid(*val) == typeid(Expression)) {
-
-	}
-	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(RationalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(Logarithm)) {
-
-	}
-	else {
-
+		if (this->values["denominator"] == *val->values["denominator"])
+		{
+			numerator = this->values["numerator"]->subtract(*val->values["numerator"]);
+			denominator = this->values["denominator"];
+		}
+		else
+		{
+			Number* tempNumerator1 = this->values["numerator"]->multiply(*val->values["denominator"]);
+			Number* tempNumerator2 = this->values["denominator"]->multiply(*val->values["numerator"]);
+			numerator = tempNumerator1->subtract(tempNumerator2);
+			denominator = this->values["denominator"]->multiply(*val->values["numerator"]);
+		}
+		result = new RationalNumber(numerator, denominator);
+		result->simplify();
+		return result;
 	}
 }
 Number* RationalNumber::multiply(Number* val){
-	if (typeid(*val) == typeid(Integer)) {
+	Number* result;
+	if (typeid(*val) == typeid(Integer) ||
+		typeid(*val) == typeid(TranscendentalNumber) ||
+		typeid(*val) == typeid(Expression) ||
+		typeid(*val) == typeid(Logarithm)
+		typeid(*val) == typeid(Exponential))
+	{
+		Number* numerator, denominator;
 
+		numerator = this->values["numerator"]->multiply(*val);
+		denominator = this->values["denominator"];
+
+		result = new RationalNumber(numerator, denominator);
+		result->simplify();
+		return result;
 	}
-	else if (typeid(*val) == typeid(Exponential)) {
+	else
+	{
+		Number* numerator, denominator;
 
-	}
-	else if (typeid(*val) == typeid(Expression)) {
+		numerator = this->values["numerator"]->multiply(*val->values["numerator"]);
+		denominator = this->values["denominator"]->multiply(*val->values["denominator"]);
 
-	}
-	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(RationalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(Logarithm)) {
-
-	}
-	else {
-
+		result = new RationalNumber(numerator, denominator);
+		result->simplify();
+		return result;
 	}
 }
 Number* RationalNumber::divide(Number* val){
-	if (typeid(*val) == typeid(Integer)) {
-
+	Number* result;
+	if (typeid(*val) == typeid(Integer) ||
+		typeid(*val) == typeid(TranscendentalNumber) ||
+		typeid(*val) == typeid(Expression) ||
+		typeid(*val) == typeid(Logarithm)
+		typeid(*val) == typeid(Exponential))
+	{
+		Number* tempNumerator = new Integer(1);
+		Number* tempRational = new RationalNumber(tempNumerator, val);
+		result = this->multiply(tempRational);
+		return result;
 	}
-	else if (typeid(*val) == typeid(Exponential)) {
+	else
+	{
+		Number* tempNumerator = *val->values["denominator"];
+		Number* tempDenominator = *val->values["numerator"];
 
-	}
-	else if (typeid(*val) == typeid(Expression)) {
-
-	}
-	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(RationalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(Logarithm)) {
-
-	}
-	else {
-
+		Number* tempRational = new RationalNumber(tempNumerator, tempDenominator);
+		result = this->multiply(tempRational);
+		return result;
 	}
 }
 Number* RationalNumber::exponentiate(Number* val){
-	if (typeid(*val) == typeid(Integer)) {
-
-	}
-	else if (typeid(*val) == typeid(Exponential)) {
-
-	}
-	else if (typeid(*val) == typeid(Expression)) {
-
-	}
-	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(RationalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(Logarithm)) {
-
-	}
-	else {
-
-	}
+//
 }
 
 // Simplify helper method.

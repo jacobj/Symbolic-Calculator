@@ -13,7 +13,7 @@
 #ifndef EXPRESSION_H
 #define	EXPRESSION_H
 
-//#include "Number.h"
+#include "Number.h"
 #include <iostream>
 #include <cstdlib>
 #include <stack>
@@ -25,33 +25,34 @@ using namespace std;
 
 class Expression{// : public Number {
 private:
-        vector<string> expression;
-	/*vector<Number> numbers; //may not be needed
-	vector<char> operators; //may not be needed*/
+	vector<string> operators;
+	//vector<Number> operands;
 public:
-	//constructor
-        Expression(string);
-	//Expression(vector<Number> numbers, vector<char> operators); //may not be needed
-        
-        //function prototypes
-        vector<string> getExpressionTokens(string&);
-        void getTokensHelper(string);
-        bool infixToRPN(vector<string>&, vector<string>&);
-        bool isOperator(string);
-        bool isParentheses(string);
-        int comparePrecedence(string, string);
-        
-        
-	/*void addNumber(Number number); //may not be needed
-	void addOperator(char operand); //may not be needed
-	vector<Numbers> getNumbers(); //may not be needed
-	vector<char> getOperators(); //may not be needed
-	void setNumbers(vector<Number> numbers); //may not be needed
-	void setOperators(vector<char> operators); //may not be needed
-	string display();
-	void simplify(); //may not be needed*/
+
+	Expression();
+	Expression(string);
+	// Returns a map of Number pointer properties
+	//map<string, Number*> getValues();
+	//void setValues(string key, Number* val);
+	void simplify();
+	void display();
+	double toDouble();
+	string toString();
+
+	// Used only for Integers
+	long getValue();
+	void setValue(long value);
+
+	// Used only for Transcendentals
+	string getTranscendentalValue();
+	void setTranscendentalValue(string value);
+
+	// Used to return vector Log uses to store split logs.
+	vector<Number*> getLogValues();
+	void setLogValues(int index, Number* val);
 
 };
 
 #endif	/* EXPRESSION_H */
+
 

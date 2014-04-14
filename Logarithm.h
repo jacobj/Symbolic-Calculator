@@ -43,7 +43,7 @@ class Logarithm: public Number
         Number* subtract(Number*);
         Number* multiply(Number*);
         Number* divide(Number*);
-        Number* exponentiate(Number);
+        Number* exponentiate(Number*);
     
 		/*Logarithm operator+(const Logarithm& log);
 		Logarithm operator-(const Logarithm& log);

@@ -131,8 +131,11 @@ Number* Integer::exponentiate(Number* val)
 		for (long i = 1; i < val->getValue(); i+=1){
 			valLong += value*value;
 		}
+		stringstream valLongStream;
+		valLongStream << valLong;
+		string str = valLongStream.str();
 		//double valLong = pow(toDouble(), val->toDouble());
-	    return new Integer(valLong);
+	    return new Integer(str);
 	}
 	else{
 	    stringstream valStream;

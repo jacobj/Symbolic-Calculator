@@ -24,16 +24,16 @@ Exponential::Exponential(Number* value, Number* exponent, Number* coefficient) {
 
 Exponential:: Exponential(string expression) {
     /********************************************
-     Currently only evaluates simple expressions
-     containing only TNs or Ints
+     Evaluates expressions containing Ints,
+     TNs, Logs, and RNs.
      ********************************************/
     
     // searches for the position of the valid operator
     int pos = expression.find_first_of("^");
     
-    // checks if a valid operator was entered
+    // checks if valid operator was entered
     if (pos == -1) {
-        string exception = "ERROR! Enter a valid operator! (+ - * / ^) \n";
+        string exception = "ERROR! Enter the valid operator! (^) \n";
         throw exception;
     }
     // Obtains expression substrings -- one for value, one for exponent
@@ -47,8 +47,14 @@ Exponential:: Exponential(string expression) {
     if(base == "e") {
         value = new TranscendentalNumber(base);
     }
-    else if (base == "pi" || base == "PI") {
+    else if(base == "pi") {
         value = new TranscendentalNumber(base);
+    }
+    else if(base.find_first_of("/") != -1) {
+        value = new RationalNumber(base);
+    }
+    else if(base.find_first_of("log") != -1) {
+        value = new Logarithm(base);
     }
     else {
         value = new Integer(base);
@@ -58,8 +64,14 @@ Exponential:: Exponential(string expression) {
     if(expo == "e") {
         exponent = new TranscendentalNumber(expo);
     }
-    else if(expo == "pi" || expo == "PI") {
+    else if(expo == "pi") {
         exponent = new TranscendentalNumber(expo);
+    }
+    else if(expo.find_first_of("/") != -1) {
+        exponent = new RationalNumber(expo);
+    }
+    else if(expo.find_first_of("log" != -1)) {
+        exponent = new Logarithm(expo);
     }
     else {
         exponent = new Integer(expo);

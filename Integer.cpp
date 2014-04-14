@@ -127,15 +127,9 @@ Number* Integer::divide(Number* val)
 Number* Integer::exponentiate(Number* val)
 {
 	if (typeid(*val) == typeid(Integer)) {
-		long valLong;
-		for (long i = 1; i < val->getValue(); i+=1){
-			valLong += value*value;
-		}
-		stringstream valLongStream;
-		valLongStream << valLong;
-		string str = valLongStream.str();
-		//double valLong = pow(toDouble(), val->toDouble());
-	    return new Integer(str);
+		long valLong = 0;
+		valLong = pow(value, val->getValue());
+	    return new Integer(valLong);
 	}
 	else{
 	    stringstream valStream;

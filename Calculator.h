@@ -22,13 +22,12 @@
 #include <sstream>
 #include <cmath>
 
-class Expression;
 #include "Integer.h"
 #include "TranscendentalNumber.h"
-/*#include "Exponential"
+#include "Exponential.h"
 #include "Logarithm.h"
 #include "RationalNumber.h"
-#include "Expression.h"*/
+#include "Expression.h"
 
 using namespace std;
 

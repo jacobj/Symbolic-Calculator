@@ -217,6 +217,9 @@ void Exponential::simplify() {
                         values["value"]->getValues()["denominator"]->getValues()["value"]->setValue(value2);
                         values["value"]->getValues()["denominator"]->getValues()["coefficient"]->setValue(coefficient2);
                         // Finally simplify the inner and outer coefficients.
+                        values["value"]->getValues()["demominator"]->getValues()["coefficient"] = values["value"]->getValues()["demominator"]->getValues()["coefficient"]->multiply(values["coefficient"]);
+                        values["value"]->getValues()["demominator"]->getValues()["coefficient"] = values["value"]->getValues()["numerator"]->getValues()["coefficient"]->multiply(values["coefficient"]);
+                        values["coefficient"] = new Integer(1);
                     }
                 } 
             }      

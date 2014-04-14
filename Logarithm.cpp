@@ -21,8 +21,11 @@ Logarithm::Logarithm(string expression) {
 		string exception = "ERROR! This isn't a log! \n";
 		throw exception;
 	}
+    if(pos == 0) {
+        coefficient = new Integer(1);
+    }
     // First deal with the coefficient
-    if(expression.substr(0, pos).find_first_of("pe") != -1) {
+    else if(expression.substr(0, pos).find_first_of("pe") != -1) {
         coefficient = new TranscendentalNumber(expression.substr(0, pos));
     }
     else {

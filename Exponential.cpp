@@ -70,7 +70,7 @@ Exponential:: Exponential(string expression) {
     else if(expo.find_first_of("/") != -1) {
         exponent = new RationalNumber(expo);
     }
-    else if(expo.find_first_of("log") != -1) {
+    else if(expo.find_first_of("log" != -1)) {
         exponent = new Logarithm(expo);
     }
     else {
@@ -181,12 +181,10 @@ void Exponential::simplify() {
                     // If the exponents's denominator is an Integer.
                     if (typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {                    
                         // This needs to root both the numerator and denominator value.
-                        /*
-                          vector<int> primes1;
-                          primes1 = findPrimeFactors(denominatorptr->getValue(), 2, primes1); 
-                          vector<int> primes2;
-                          primes2 = findPrimeFactors(numeratorptr->getValue(), 2, primes2);
-                        */
+                        vector<int> primes1;
+                        primes1 = findPrimeFactors(values["denominator"]->getValue(), 2, primes1); 
+                        vector<int> primes2;
+                        primes2 = findPrimeFactors(values["numerator"]->getValue(), 2, primes2);
                     }
                 } 
             }      
@@ -254,27 +252,20 @@ void Exponential::setTranscendentalValue(string value) {
 
 //Operation methods
 Number* Exponential::add(Number* val) {
-	if (typeid(*val) == typeid(Integer)) {
-        
-	}
-	else if (typeid(*val) == typeid(Exponential)) {
-        
-	}
-	else if (typeid(*val) == typeid(Expression)) {
-        
-	}
-	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-        
-	}
-	else if (typeid(*val) == typeid(RationalNumber)) {
-        
-	}
-	else if (typeid(*val) == typeid(Logarithm)) {
-        
-	}
-	else {
-        
-	}
+    if (typeid(*val) == typeid(Exponential)) {
+        if (typeid(*val->getValues()["exponent"]) == typeid(Integer) &&
+            typeid(*values->getValues()["exponent"]) == typeid(Integer)) {
+            if (val->getValues()["exponent"]->getValue() == values["exponent"]->getValue()) {
+                if (typeid(*val->getValues()["value"]) == typeid(Integer) &&
+                    typeid(*values["value"]) == typeid(Integer)) {
+                    if (val->getValues()["value"]->getValue() == values["value"]->getValue()) {
+                        Number* result = new Exponential(values["value"], values["exponent"], values["coefficient"]add(val->getValues()["coefficient"]));
+                        return result;
+                    }
+                }
+            }
+        }
+    }   
 }
 Number* Exponential::subtract(Number* val) {
 	if (typeid(*val) == typeid(Integer)) {

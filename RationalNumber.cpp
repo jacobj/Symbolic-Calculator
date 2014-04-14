@@ -471,13 +471,13 @@ int RationalNumber::findGCD(int a, int b) {
     }
 }
 
-vector<Number*> RationalNumber::getLogValues() {
-    // return NULL;
-}
+// vector<Number*> RationalNumber::getLogValues() {
+//     // return NULL;
+// }
 
-void RationalNumber::setLogValues(int index, Number* val) {
-    return;
-}
+// void RationalNumber::setLogValues(int index, Number* val) {
+//     return;
+// }
 
 string RationalNumber::getTranscendentalValue() {
     return "";

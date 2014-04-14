@@ -43,8 +43,8 @@ public:
     void setValue(long value);
     string getTranscendentalValue();
     void setTranscendentalValue(string value); 
-    vector<Number*> getLogValues();
-    void setLogValues(int index, Number* val);
+    /* vector<Number*> getLogValues(); */
+    /* void setLogValues(int index, Number* val); */
     
     // Operation methods
     Number* add(Number*);

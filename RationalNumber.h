@@ -50,8 +50,8 @@ public:
     void setValue(long value);
     string getTranscendentalValue();
     void setTranscendentalValue(string value); 
-    vector<Number*> getLogValues();
-    void setLogValues(int index, Number* val);
+    // vector<Number*> getLogValues();
+    // void setLogValues(int index, Number* val);
     
     // RationalNumber operator+(const RationalNumber& ratnum);
     // RationalNumber operator-(const RationalNumber& ratnum);

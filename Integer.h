@@ -39,8 +39,8 @@ public:
     string getTranscendentalValue();
     void setTranscendentalValue(string value); 
     vector<Number*> getLogValues();
-    void setLogValues(int index, Number* val);
-    void simplify();
+    /* void setLogValues(int index, Number* val); */
+    /* void simplify(); */
     //TODO change to Number*
     Number* add(Integer*);
 

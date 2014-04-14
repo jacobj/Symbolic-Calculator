@@ -59,12 +59,12 @@ map<string, Number*> Integer::getValues() {
 void Integer::setValues(string key, Number* val) {
 }
 
-vector<Number*> Integer::getLogValues() {
-   // return NULL;
-}
+// vector<Number*> Integer::getLogValues() {
+//    // return NULL;
+// }
 
-void Integer::setLogValues(int index, Number* val) {
-}
+// void Integer::setLogValues(int index, Number* val) {
+// }
 
 string Integer::getTranscendentalValue() {
     //return "";

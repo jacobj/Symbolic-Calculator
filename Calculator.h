@@ -22,7 +22,13 @@
 #include <sstream>
 #include <cmath>
 
+class Expression;
 #include "Integer.h"
+#include "TranscendentalNumber.h"
+/*#include "Exponential"
+#include "Logarithm.h"
+#include "RationalNumber.h"
+#include "Expression.h"*/
 
 using namespace std;
 
@@ -30,7 +36,7 @@ class Calculator
 {
 private:
 	vector<Number*> previousA;
-	vector<Number*> expressionB;
+	vector<Expression*> expressionB;
 	vector<string> previousAnswers;
 	vector<string> previousInputs;
     vector<string> expression;
@@ -43,6 +49,7 @@ public:
 
     vector<string> getPreviousInputs();
     vector<string> getPreviousAnswers();
+    vector<Number*> getPreviousA();
     vector<string> getExpression();
     vector<string> setExpressionTokens(string&);
 
@@ -60,12 +67,8 @@ public:
     string getLatestAnswer();
     
 	int comparePrecedence(string, string);
-	
-	
-
 };
 
 
 #endif	/* CALCULATOR_H */
-
 

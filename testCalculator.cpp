@@ -7,12 +7,15 @@
 int main()
 {
 	Calculator calculator;
-	vector<string> inputs, answers;
+	vector<string> inputs;
+	vector<Number*> answers;
 	string input;
 	
 	//Number *integer;
-	calculator.addInput("1 + 2");
+	calculator.addInput("pi + pi");
 	calculator.calculate();
+	//calculator.addInput("e + e");
+	//calculator.calculate();
 	/*//exponent test cases
 	calculator.addInput("-2 ^ 2");
 	calculator.calculate();
@@ -76,13 +79,12 @@ int main()
 	calculator.calculate();*/
 
 	inputs = calculator.getPreviousInputs();
-	answers = calculator.getPreviousAnswers();
+	answers = calculator.getPreviousA();
 	for(int i = 0; i < inputs.size();i++)
 	{
 		cout << "Expression: " << inputs[i] << endl;
 		cout << endl;
-		cout << "Answer: " << answers[i] << endl;
+		cout << "Answer: " << answers[i]->toString() << endl;
 	}
 	return 0;
 }
-

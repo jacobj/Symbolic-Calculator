@@ -14,11 +14,11 @@
 #define	TRANSCENDENTALNUMBER_H
 
 #include "Number.h"
-#include "Exponential.h"
+//#include "Exponential.h"
 #include "Expression.h"
 #include "Integer.h"
-#include "Logarithm.h"
-#include "RationalNumber.h"
+//#include "Logarithm.h"
+//#include "RationalNumber.h"
 
 class TranscendentalNumber : public Number {
 public:

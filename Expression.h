@@ -23,10 +23,12 @@
 
 using namespace std;
 
+#include "Calculator.h"
+
 class Expression : public Number {
 private:
 	vector<string> operators;
-	vector<Number> operands;
+	vector<Number*> operands;
 public:
 
 	Expression(string);
@@ -37,6 +39,8 @@ public:
 	void display();
 	double toDouble();
 	string toString();
+	bool isNumeric(string);
+	bool isOperator(string);
 
 	// Used only for Integers
 	long getValue();
@@ -49,7 +53,7 @@ public:
 	// Used to return vector Log uses to store split logs.
 	vector<Number*> getLogValues();
 	void setLogValues(int index, Number* val);
-	
+
 	Number* add(Number*);
     Number* subtract(Number*);
     Number* multiply(Number*);
@@ -58,5 +62,4 @@ public:
 };
 
 #endif	/* EXPRESSION_H */
-
 

@@ -40,22 +40,16 @@ public:
     vector<Number*> getLogValues();
     void setLogValues(int index, Number* val);
     void simplify();
+    //TODO change to Number*
     Number* add(Integer*);
-    
-    //Operation method
-    Number* add(Number*);
-    Number* subtract(Number*);
-    Number* multiply(Number*);
-    Number* divide(Number*);
-    Number* exponentiate(Number*);
-    
-    // Overloaded operators
-    // Number* operator+(const Integer* integer);
-    // Integer operator-(const Integer& integer);
-    // Integer operator*(const Integer& integer);
-    // Integer operator/(const Integer& integer);
+
+        // Abstract operation methods
+        Number* add(Number*);
+        Number* subtract(Number*);
+        Number* multiply(Number*);
+        Number* divide(Number*);
+        Number* exponentiate(Number*);
 };
 
 #endif	/* INTEGER_H */
-
 

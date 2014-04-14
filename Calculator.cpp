@@ -53,7 +53,10 @@ Number* Calculator::assignToClass(string& token)
 
 	if(isNumeric(token))
 	{
-		temp = new Integer(token);
+		if(token == "e" || token == "pi")
+			temp = new TranscendentalNumber(token);
+		else
+			temp = new Integer(token);
 	}
 	return temp;
 }
@@ -73,7 +76,7 @@ void Calculator::calculate()
 {
     stack<string> st;
     stack<Number*> st2;
-    Number* val1;
+    Number* val1b;
     Number* val2b;
     Number* resultt;
 
@@ -99,9 +102,9 @@ void Calculator::calculate()
             val2b = st2.top();
             st.pop();
             st2.pop();
-            const double d2 = strtod( val2.c_str(), NULL );
+            //const double d2 = strtod( val2.c_str(), NULL );
 
-            if ( !st.empty() )
+           /* if ( !st.empty() )
             {
             	const string val1 = st.top();
             	st.pop();
@@ -120,45 +123,77 @@ void Calculator::calculate()
             		result = d2 * -1;
             	else
             		result = d2;
-            }
+            }*/
+            //beginning of Number type
             if ( !st2.empty() )
             {
-                val1 = st2.top();
+                val1b = st2.top();
                 st2.pop();
                 //calculate(val1, val2, token);
-                resultt = calculate(val1, val2b, token);
-                //Number* result =
-                //const double d1 = strtod( val1.c_str(), NULL );
-
-                //Get the result
-                /*result = token == "+" ? d1 + d2 :
-                         token == "-" ? d1 - d2 :
-                         token == "*" ? d1 * d2 :
-                         token == "/" ? d1 / d2 :
-                                        pow(d1, d2);*/
+                resultt = calculate(val1b, val2b, token);
             }
             else
             {
-                if ( token == "-" )
+                /*if ( token == "-" )
                     result = d2 * -1;
                 else
-                    result = d2;
+                    result = d2;*/
             }
+
 
             // Push result onto stack
             ostringstream s;
             s << result;
             st.push( s.str() );
+            st2.push(resultt);
 
         }
     }
     if(!st.empty() && st.top().c_str() != " ")
     {
     	previousAnswers.push_back(st.top().c_str());
+    	previousA.push_back(st2.top());
     	expression.clear();
     }
 }
 
+Number* Calculator::calculate(Number* num1, Number* num2, string op)
+{
+	Number* result;
+	Number *n1 = NULL, *n2 = NULL;
+
+	//determine type of num1
+	if(typeid(*num1) == typeid(Integer))
+		n1 = new Integer(num1->toString());
+
+	else if(typeid(*num1) == typeid(TranscendentalNumber))
+		n1 = new TranscendentalNumber(num1->toString());
+
+	//TODO work on additional class cases
+
+	/*else if(typeid(num1) == typeid(RationalNumber))
+	else if(typeid(num1) == typeid(Exponential))
+	else if(typeid(num1) == typeid(Logarithm)))*/
+
+	//determine type of num2
+	if(typeid(*num2) == typeid(Integer))
+			n2 = new Integer(num2->toString());
+
+	else if(typeid(*num2) == typeid(TranscendentalNumber))
+			n2 = new TranscendentalNumber(num2->toString());
+
+			//TODO work on additional class cases
+		/*else if(typeid(num2) == typeid(RationalNumber))
+		else if(typeid(num2) == typeid(Exponential))
+		else if(typeid(num2) == typeid(Logarithm)))*/
+
+	if(op == "+")
+		result = n1->add(n2);
+	if(op == "-")
+		result = n1->subtract(n2);
+
+	return result;
+}
 int Calculator::comparePrecedence(string op1, string op2)
 {
 	//if both operators are the same
@@ -188,6 +223,10 @@ vector<string> Calculator::getPreviousInputs()
 vector<string> Calculator::getPreviousAnswers()
 {
 	return previousAnswers;
+}
+vector<Number*> Calculator::getPreviousA()
+{
+	return previousA;
 }
 vector<string> Calculator::getExpression()
 {
@@ -219,14 +258,25 @@ vector<string> Calculator::setExpressionTokens(string& expr)
         }
         else if(isNumeric(token))
         {
-                str.append(token);
+        	if(token == "p")
+        		token = token + (expr[++i]);
+
+        	str.append(token);
         }
         else
         {
         	if(str != "")
         	{
-        		tokens.push_back(str);
-        		str = "";
+        		if(token == "p")
+        		{
+        			token = token + (expr[++i]);
+        			str.append(token);
+        		}
+        		else
+        		{
+        			tokens.push_back(str);
+        			str = "";
+        		}
         	 }
         }
 
@@ -244,9 +294,10 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
 {
     bool success = true;
     
-    list<string> out;
-    stack<string> stack;
-    
+    //TODO why does the debugger pause here?
+    stack<string>stack;
+    list<string>out;
+
     for(int i = 0; i <tokens.size();i++)
     {
         string token = tokens[i];
@@ -355,7 +406,9 @@ bool Calculator::isNumeric(string token)
 	   token == "3" || token == "4" ||
 	   token == "5" || token == "6" ||
 	   token == "7" || token == "8" ||
-	   token == "9" || token == "0")
+	   token == "9" || token == "0" ||
+	   token == "e" || token == "p" ||
+	   token == "pi")
 		return true;
 	else
 		return false;
@@ -367,39 +420,5 @@ bool Calculator::isParentheses(string token)
         return true;
     else
         return false;
-}
-
-Number* Calculator::calculate(Number* num1, Number* num2, string op)
-{
-	Number* result;
-	Integer *i1, *i2;
-
-	/*RationalNumber *r1, *r2;
-	Exponential *e1, *e2;
-	Logarithm *l1, *l2;
-	TranscendentalNumber *t1, *t2;*/
-
-	//determine type of num1
-	if(typeid(*num1) == typeid(Integer))
-		i1 = new Integer(num1->toString());
-		//TODO work on additional class cases
-	/*else if(typeid(num1) == typeid(RationalNumber))
-	else if(typeid(num1) == typeid(Exponential))
-	else if(typeid(num1) == typeid(Logarithm))
-	else if(typeid(num1) == typeid(TranscendentalNumber))*/
-
-	//determine type of num2
-	if(typeid(*num2) == typeid(Integer))
-			i2 = new Integer(num2->toString());
-			//TODO work on additional class cases
-		/*else if(typeid(num2) == typeid(RationalNumber))
-		else if(typeid(num2) == typeid(Exponential))
-		else if(typeid(num2) == typeid(Logarithm))
-		else if(typeid(num2) == typeid(TranscendentalNumber))*/
-
-	if(typeid(*i1) == typeid(*i2))
-		result = i1->add(i2);
-
-	return result;
 }
 

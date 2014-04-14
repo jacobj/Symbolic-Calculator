@@ -56,9 +56,11 @@ int main()
                                 keepGoing = false;
                             else
                                 {
-                                    calculator.addInput(expr);
-                                    calculator.calculate();
-                                    cout << "\nAnswer: " << endl;
+                                    if(calculator.addInput(expr))
+                                    {
+                                    	calculator.calculate();
+                                    	cout << "\nAnswer: " << calculator.getLatestAnswer() << endl;
+                                    }
                                 }
                         }
                     break;

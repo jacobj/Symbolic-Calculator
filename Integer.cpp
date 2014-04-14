@@ -50,38 +50,6 @@ string Integer::toString(){
 	return str;
 }
 
-/*
-Number* Integer:: operator+(const Integer* integer) {
-    Integer temp;
-    temp.value = value + integer->value;
-
-    Number *temp2 = new Integer(temp.toString());
-    return temp2;
-}
-
-Integer Integer:: operator-(const Integer &integer) {
-    Integer temp;
-    temp.value = value - integer.value;
-    return temp;
-}
-
-Integer Integer:: operator*(const Integer &integer) {
-    Integer temp;
-    temp.value = value * integer.value;
-    return temp;
-}
-
-Integer Integer:: operator/(const Integer &integer) {
-	Integer temp;
-    if (integer.value == 0) {
-    	cout << "Cannot divide by 0" << endl;
-    	temp.value = 0;
-    	return temp;
-    }
-    temp.value = value / integer.value;
-    return temp;
-}
- */
  
 // The methods below exist only to satisfy Number.h.
 map<string, Number*> Integer::getValues() {
@@ -109,23 +77,35 @@ void Integer::simplify() {
 }
 
 Number* Integer::add(Integer* val){
-	this->value += val->value;
-	return new Integer(this->toString());
+	//this->value += val->value;
+	//return new Integer(this->toString());
 }
 
-//Operator methods
-Number* Integer::add(Number*) {
-	return;
+Number* Integer::add(Number* val)
+{
+	if(typeid(*val) == typeid(Integer))
+	{
+		this->value += val->getValue();
+		return new Integer(this->toString());
+	}
 }
-Number* Integer::subtract(Number*) {
-	return;
+Number* Integer::subtract(Number* val)
+{
+	if(typeid(*val) == typeid(Integer))
+		{
+			this->value -= val->getValue();
+			return new Integer(this->toString());
+		}
 }
-Number* Integer::multiply(Number*) {
-	return;
+Number* Integer::multiply(Number* val)
+{
+
 }
-Number* Integer::divide(Number*) {
-	return;
+Number* Integer::divide(Number* val)
+{
+
 }
-Number* Integer::exponentiate(Number*) {
-	return;
+Number* Integer::exponentiate(Number* val)
+{
+
 }

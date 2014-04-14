@@ -76,11 +76,6 @@ void Integer::setTranscendentalValue(string value) {
 void Integer::simplify() {
 }
 
-Number* Integer::add(Integer* val){
-	//this->value += val->value;
-	//return new Integer(this->toString());
-}
-
 Number* Integer::add(Number* val)
 {
 	if (typeid(*val) == typeid(Integer)) {
@@ -144,4 +139,3 @@ Number* Integer::exponentiate(Number* val)
 	    return new Exponential(str);
 	}
 }
-

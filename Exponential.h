@@ -16,6 +16,9 @@
 #include "Number.h"
 #include "RationalNumber.h"
 #include "Integer.h"
+#include "Expression.h"
+#include "TranscendentalNumber.h"
+#include "Logarithm.h"
 
 using namespace std;
 

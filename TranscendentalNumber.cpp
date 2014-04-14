@@ -22,8 +22,20 @@ using namespace std;
 TranscendentalNumber::TranscendentalNumber(string value){
 	// find the first e or pi in a string, then treat everything to the right as it's coefficient.
     // for now, just think of e and pi as having Integer coefficients.
-    this->value = value;
-	values["coefficient"] = new Integer("1");
+    // p for pi, e for well e.
+    int pos = expression.find_first_of("pe");
+    if(pos == -1) {
+		string exception = "ERROR! Enter a valid Transcendental! (e or pi)\n";
+		throw exception;
+	}
+    if (value[pos] == p) {
+        this->value = "pi";
+    }
+    if (value[pos] == e) {
+        this->value = "e";
+    }
+    // currently, just throw everything to the right in an Integer constructor
+	values["coefficient"] = new Integer(value.substr(0,pos));
 }
 
 TranscendentalNumber::~TranscendentalNumber() {

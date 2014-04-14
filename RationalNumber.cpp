@@ -17,6 +17,57 @@ RationalNumber::RationalNumber(Number* numerator, Number* denominator) {
     this->values["denominator"] = denominator;
 }
 
+RationalNumber::RationalNumber(string expression) {
+	int pos = expression.find_first_of("/");
+	string numeratorString = expression.substr(0, pos);
+	string denominatorString = expression.substr(pos + 1, expression.size());
+	Number* numerator;
+	Number* denominator;
+
+	//Checks Number type of numerator
+	if (numeratorString.find_first_of("+-*/") != -1) {
+		numerator = new Expression(numeratorString);
+	}
+	else if (numeratorString.find_first_of("^") != -1) {
+		numerator = new Exponential(numeratorString);
+	}
+	else if (numeratorString.find_first_of("log") != -1)
+	{
+		numerator = new Logarithm(numeratorString);
+	}
+	else if (numeratorString.find_first_of("e") != -1 || numeratorString.find_first_of("pi") != -1)
+	{
+		numerator = new TranscendentalNumber(numeratorString);
+	}
+	else
+	{
+		numerator = new Integer(numeratorString);
+	}
+
+	//Checks Number type of denominator
+	if (denominatorString.find_first_of("+-*/") != -1) {
+		denominator = new Expression(numeratorString);
+	}
+	else if (denominatorString.find_first_of("^") != -1) {
+		denominator = new Exponential(numeratorString);
+	}
+	else if (denominatorString.find_first_of("log") != -1)
+	{
+		denominator = new Logarithm(numeratorString);
+	}
+	else if (denominatorString.find_first_of("e") != -1 || numeratorString.find_first_of("pi") != -1)
+	{
+		denominator = new TranscendentalNumber(numeratorString);
+	}
+	else
+	{
+		denominator = new Integer(numeratorString);
+	}
+
+	//creates RationalNumber object
+	this->values["numerator"] = numerator;
+	this->values["denominator"] = denominator;
+}
 RationalNumber::~RationalNumber() {
     delete values["numerator"];
     delete values["denominator"];

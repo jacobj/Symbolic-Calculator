@@ -149,6 +149,9 @@ Number* Integer::divide(Number* val)
             Number* result = new Integer(this->toString());
             return result;
         }
+        else{
+        	return new RationalNumber(this, val);
+        }
     }
     // Add cases where this divides out coefficients
     else if (typeid(*val) == typeid(RationalNumber)){

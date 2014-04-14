@@ -47,6 +47,7 @@ Logarithm::Logarithm(string expression) {
     this->values["value"] = value;
     this->values["base"] = base;
     this->values["integer"] = 0;
+    simplify();
 }
 
 Logarithm::~Logarithm() {

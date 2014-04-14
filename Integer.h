@@ -15,6 +15,10 @@
 
 #include "Number.h"
 #include "RationalNumber.h"
+#include "Exponential.h"
+#include "TranscendentalNumber.h"
+#include "Logarithm.h"
+#include "Expression.h"
 
 using namespace std;
 
@@ -42,7 +46,7 @@ public:
     // void setLogValues(int index, Number* val);
     void simplify();
     //TODO change to Number*
-    Number* add(Integer*);
+    // Number* add(Integer*);
 
     // Abstract operation methods
     Number* add(Number*);

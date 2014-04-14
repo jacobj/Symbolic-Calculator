@@ -76,11 +76,19 @@ Number* Integer::add(Number* val)
 		Number* result = new Integer(this->toString());
         return result;
 	}
-	/*else if (typeid(*val) == typeid(RationalNumber)){
+	else if (typeid(*val) == typeid(RationalNumber)){
 		stringstream RatNumStream;
 		RatNumStream << getValue() << "/1";
-		Number * RatNum = new RationalNumber
-	}*/
+		string str = RatNumStream.str();
+		Number* RatNum = new RationalNumber(str);
+		return RatNum->add(val);
+	}
+	else{
+		stringstream valStream;
+		valStream << toString() << "+" << val->toString();
+		string str = valStream.str();
+		return new Expression(str);
+	}
 }
 Number* Integer::subtract(Number* val)
 {
@@ -89,6 +97,19 @@ Number* Integer::subtract(Number* val)
         Number* result = new Integer(this->toString());
         return result;
     }
+	else if (typeid(*val) == typeid(RationalNumber)){
+		stringstream RatNumStream;
+		RatNumStream << getValue() << "/1";
+		string str = RatNumStream.str();
+		Number* RatNum = new RationalNumber(str);
+		return RatNum->subtract(val);
+	}
+	else{
+		stringstream valStream;
+		valStream << toString() << "-" << val->toString();
+		string str = valStream.str();
+		return new Expression(str);
+	}
 }
 Number* Integer::multiply(Number* val)
 {
@@ -97,6 +118,13 @@ Number* Integer::multiply(Number* val)
         Number* result = new Integer(this->toString());
         return result;
     }
+	else if (typeid(*val) == typeid(RationalNumber)){
+		stringstream RatNumStream;
+		RatNumStream << getValue() << "/1";
+		string str = RatNumStream.str();
+		Number* RatNum = new RationalNumber(str);
+		return RatNum->multiply(val);
+	}
     else if (typeid(*val) == typeid(TranscendentalNumber)) {
         Number* coeffs = new Integer(multiply(val->getValues()["coefficient"])->toString());
     	stringstream valStream;
@@ -105,6 +133,12 @@ Number* Integer::multiply(Number* val)
         Number* result = new TranscendentalNumber(str);
         return result;
     }
+	else{
+		stringstream valStream;
+		valStream << toString() << "-" << val->toString();
+		string str = valStream.str();
+		return new Expression(str);
+	}
     // Add cases where this multiplies into coefficients
 }
 Number* Integer::divide(Number* val)
@@ -117,20 +151,35 @@ Number* Integer::divide(Number* val)
         }
     }
     // Add cases where this divides out coefficients
-    else {
-        // Make sure this pointer is generic first
-        Number* numerator = this;
+    else if (typeid(*val) == typeid(RationalNumber)){
+		stringstream RatNumStream;
+		RatNumStream << getValue() << "/1";
+		string str = RatNumStream.str();
+		Number* RatNum = new RationalNumber(str);
+		return RatNum->divide(val);
+        /*Number* numerator = this;
         Number* result = new RationalNumber(this, val);
-        return result;
+        return result;*/
+    }
+    else{
+		stringstream valStream;
+		valStream << toString() << "/" << val->toString();
+		string str = valStream.str();
+		return new Expression(str);
     }
 }
 Number* Integer::exponentiate(Number* val)
 {
+    stringstream valStream;
 	if (typeid(*val) == typeid(Integer)) {
-		long double valLong = 0;
-		valLong = pow((long double)toDouble(), ((long double)val->toDouble()));
+		long valLong = 0;
+		valLong = pow(getValue(), val->getValue());
 	    return new Integer((long)valLong);
 	}
+    else if (typeid(*val) == typeid(RationalNumber)){
+    	Number* intCoefficient = new Integer("1");
+    	return new Exponential(this, val, intCoefficient);
+    }
 	else{
 	    stringstream valStream;
 	    valStream << toString() << "^" << val->toString();

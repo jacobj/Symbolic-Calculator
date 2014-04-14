@@ -113,8 +113,11 @@ int main()
                                     case '3':
                                         do
                                             {
-                                                cout << "\nIndicate the answer you wish to convert (Enter ""1"" for the first answer, etc.): " ;
-                                                cin >> previous;
+												do
+												{
+													cout << "\nIndicate the answer you wish to convert (Enter ""1"" for the first answer, etc.): ";
+													cin >> previous;
+												} while (previous > (previousAnswers.size());
 							
                                                 cout << "\nOriginal form: \n" << endl;
                                                 cout << previousAnswers[previous-1]->toString() << endl;

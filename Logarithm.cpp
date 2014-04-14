@@ -28,63 +28,16 @@ map<string, Number*> Logarithm::getValues() {
 void Logarithm::setValues(string key, Number* val) {
     values[key] = val;
 }
+
+/*
 vector<Number*> Logarithm::getLogValues() {
     return LogValues;
 }
 void Logarithm::setLogValues(vector<Number*> LogValues) {
     this->LogValues = LogValues;
 }
+*/
 
-// Make more general, in case other logs are added.
-// So, Josh decided he doesn't want this. CHANGE SIMPLIFY.
-void Logarithm::simplify() {
-    // If the base is an Integer,
-    if (typeid(*values["base"]) == typeid(Integer)) {
-        // and the last value in logValues is also an Integer,
-        if (typeid(*values["value"]) == typeid(Integer)) {
-            // if the value is divisible by the base to the base
-            if (values["value"]->getValue() / ((long)pow(values["value"]->getValue(), values["value"]->getValue())) == 0) {
-                long multiplier = values["value"]->getValue() / ((long)pow(values["value"]->getValue(), values["value"]->getValue()));
-                if (typeid(*values["coefficient"]) == typeid(Integer)) {
-                    values["integer"]->setValue(multiplier * values[coefficient]->getValue());
-                    // set the value equal to the multiplier,
-                    values["value"]->setValue(multiplier);
-                    // Get all the twos out.
-                    int coefficientMultiplier = logBaseN(values["value"]->getValue(), 2, 0);
-                    values["coefficient"]->setValue(values["coefficient"]->getValue() * counter);
-                    for (int i = 0; i < coeffientMultiplier; i++) {
-                        values["value"]->setValue(values["value"] / coefficientMultiplier);
-                    }
-                }
-            }
-        }
-    }
-                
-        // if (typeid(*logValues[logValues.size() - 1]) == typeid(Integer)) {
-    //         // Make a vector of prime factors
-    //         // Fill it 
-    //         vector<long> primes;
-    //         primes = findPrimeFactors(LogValues[logValues() - 1]->getValue(), 2, primes);
-    //         splitLog(primes)
-    //             }
-            
-    // if (typeid(LogValues[0]) == typeid(Integer)){
-    // 	primes = findPrimeFactors(LogValues[0]->getValue(), 2, primes);
-    // 	splitLog(primes);
-    // }
-    // if (typeid(LogValues[0]) == typeid(RationalNumber)){
-    // 	//Splits a log of a RationalNumber into a log of its numerator and denominator
-    // 	//separated by a minus.
-    // 	Number* temp = LogValues[0];
-    //     LogValues[0] = temp->getValues()["numerator"];
-    //     LogValues.push_back(temp->getValues()["denominator"]);
-    //     smoothOperator = '-';
-    // }
-}
-
-//toDouble and toString currently give you the log at the position in the vector
-//you want. This certainly needs tweaking, along with better interaction with
-//how log splitting will work. Just getting the basic implementation done.
 double Logarithm::toDouble(){
 	//Uses log() from cmath which gives the natural logarithm.
 	//Either subtracts or adds, depending on smoothOperator.
@@ -100,6 +53,7 @@ double Logarithm::toDouble(){
 	return tempSum;
 }
 
+// Needs to be changed.
 string Logarithm::toString(){
 	stringstream valueStream;
 	valueStream << values["coefficient"]->toString();
@@ -118,6 +72,39 @@ string Logarithm::toString(){
 	return str;
 }
 
+void Logarithm::simplify() {
+    // If the base is an Integer,
+    if (typeid(*values["base"]) == typeid(Integer)) {
+        // and the last value in logValues is also an Integer,
+        if (typeid(*values["value"]) == typeid(Integer)) {
+            // See what power of base can be pulled out of the value,
+            long multiplier = logBaseN(values["value"]->getValue(), values["base"]->getValue(), 0);
+            // If the coefficient is an Integer.
+            if (typeid(*values["coefficient"]) == typeid(Integer)) {
+                // Set the value of the Integer to the coefficient times the multiplier.
+                values["integer"]->setValue(multiplier * values["coefficient"]->getValue());
+                // Set the value equal to the result of the value divided by the base^multiplier,
+                values["value"]->setValue(values["value"]->getValue() / ((long)pow(values["base"]->getValue(), multiplier)));
+                // Get all the twos out.
+                int coefficientMultiplier = logBaseN(values["value"]->getValue(), 2, 0);
+                // Set the value of the coefficient equal to itself times the coefficient multiplier,
+                values["coefficient"]->setValue(values["coefficient"]->getValue() * coeffientMultiplier);
+                // Set the value of value to the value divided by 2^coefficient multiplier.
+                values["value"]->setValue(values["value"]->getValue() / ((long)pow(2, coefficientMultiplier)));
+            }
+        }
+    }
+}
+
+
+
+//toDouble and toString currently give you the log at the position in the vector
+//you want. This certainly needs tweaking, along with better interaction with
+//how log splitting will work. Just getting the basic implementation done.
+
+
+
+/*
 void Logarithm::splitLog(vector<long> primes) {
     // Not the best way to do this, will be overhauled later. -- Well, seems good.
     LogValues.clear();
@@ -126,6 +113,7 @@ void Logarithm::splitLog(vector<long> primes) {
         smoothOperator = '+';
     }
 }
+*/
 
 int Logarithm::logBaseN(int value, int n, int counter) {
     if (value % n != 0) {
@@ -135,6 +123,7 @@ int Logarithm::logBaseN(int value, int n, int counter) {
     }
 }
 
+/*
 vector<long> Logarithm::findPrimeFactors(long number, long i, vector<long> prime) {
     if (number < i) {
         return primeFactors;
@@ -145,6 +134,7 @@ vector<long> Logarithm::findPrimeFactors(long number, long i, vector<long> prime
         return findPrimeFactors(number, i++, primeFactors);
     }
 }
+*/
 
 // Operation methods -- not sure exactly what goes in these methods just yet
 Number* Logarithm::add(Number*) {

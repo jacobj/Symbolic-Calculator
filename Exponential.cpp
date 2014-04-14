@@ -141,6 +141,16 @@ void Exponential::simplify() {
             }
             // What if the denominator is not an Integer? For now let's just leave it alone.
         }
+        
+        // Else if the exponent is an Integer
+        else if (typeid(*values["value"] == typeid(Integer)) ) {
+            pow(values["value"]->getValue(), values["exponent"]->getValues());
+        }
+        
+        else {
+            return;
+        }
+        
     }
     // Else, if the value is a rational
     else if (typeid(*values["value"]) == typeid(RationalNumber)) {
@@ -252,115 +262,115 @@ void Exponential::setTranscendentalValue(string value) {
 }
 
 //Operation methods
-Number* Exponential::add(Number* value) {
-	if (typeid(*value) == typeid(Integer)) {
+Number* Exponential::add(Number* val) {
+	if (typeid(*val) == typeid(Integer)) {
 
 	}
-	else if (typeid(*value) == typeid(Exponential)) {
+	else if (typeid(*val) == typeid(Exponential)) {
 
 	}
-	else if (typeid(*value) == typeid(Expression)) {
+	else if (typeid(*val) == typeid(Expression)) {
 
 	}
-	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+	else if (typeid(*val) == typeid(TranscendentalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(RationalNumber)) {
+	else if (typeid(*val) == typeid(RationalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(Logarithm)) {
-
-	}
-	else {
-
-	}
-}
-Number* Exponential::subtract(Number* value) {
-	if (typeid(*value) == typeid(Integer)) {
-
-	}
-	else if (typeid(*value) == typeid(Exponential)) {
-
-	}
-	else if (typeid(*value) == typeid(Expression)) {
-
-	}
-	else if (typeid(*value) == typeid(TranscendentalNumber)) {
-
-	}
-	else if (typeid(*value) == typeid(RationalNumber)) {
-
-	}
-	else if (typeid(*value) == typeid(Logarithm)) {
+	else if (typeid(*val) == typeid(Logarithm)) {
 
 	}
 	else {
 
 	}
 }
-Number* Exponential::multiply(Number* value) {
-	if (typeid(*value) == typeid(Integer)) {
+Number* Exponential::subtract(Number* val) {
+	if (typeid(*val) == typeid(Integer)) {
 
 	}
-	else if (typeid(*value) == typeid(Exponential)) {
+	else if (typeid(*val) == typeid(Exponential)) {
 
 	}
-	else if (typeid(*value) == typeid(Expression)) {
+	else if (typeid(*val) == typeid(Expression)) {
 
 	}
-	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+	else if (typeid(*val) == typeid(TranscendentalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(RationalNumber)) {
+	else if (typeid(*val) == typeid(RationalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(Logarithm)) {
-
-	}
-	else {
-
-	}
-}
-Number* Exponential::divide(Number* value) {
-	if (typeid(*value) == typeid(Integer)) {
-
-	}
-	else if (typeid(*value) == typeid(Exponential)) {
-
-	}
-	else if (typeid(*value) == typeid(Expression)) {
-
-	}
-	else if (typeid(*value) == typeid(TranscendentalNumber)) {
-
-	}
-	else if (typeid(*value) == typeid(RationalNumber)) {
-
-	}
-	else if (typeid(*value) == typeid(Logarithm)) {
+	else if (typeid(*val) == typeid(Logarithm)) {
 
 	}
 	else {
 
 	}
 }
-Number* Exponential::exponentiate(Number* value) {
-	if (typeid(*value) == typeid(Integer)) {
+Number* Exponential::multiply(Number* val) {
+	if (typeid(*val) == typeid(Integer)) {
 
 	}
-	else if (typeid(*value) == typeid(Exponential)) {
+	else if (typeid(*val) == typeid(Exponential)) {
 
 	}
-	else if (typeid(*value) == typeid(Expression)) {
+	else if (typeid(*val) == typeid(Expression)) {
 
 	}
-	else if (typeid(*value) == typeid(TranscendentalNumber)) {
+	else if (typeid(*val) == typeid(TranscendentalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(RationalNumber)) {
+	else if (typeid(*val) == typeid(RationalNumber)) {
 
 	}
-	else if (typeid(*value) == typeid(Logarithm)) {
+	else if (typeid(*val) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
+}
+Number* Exponential::divide(Number* val) {
+	if (typeid(*val) == typeid(Integer)) {
+
+	}
+	else if (typeid(*val) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*val) == typeid(Expression)) {
+
+	}
+	else if (typeid(*val) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*val) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*val) == typeid(Logarithm)) {
+
+	}
+	else {
+
+	}
+}
+Number* Exponential::exponentiate(Number* val) {
+	if (typeid(*val) == typeid(Integer)) {
+
+	}
+	else if (typeid(*val) == typeid(Exponential)) {
+
+	}
+	else if (typeid(*val) == typeid(Expression)) {
+
+	}
+	else if (typeid(*val) == typeid(TranscendentalNumber)) {
+
+	}
+	else if (typeid(*val) == typeid(RationalNumber)) {
+
+	}
+	else if (typeid(*val) == typeid(Logarithm)) {
 
 	}
 	else {

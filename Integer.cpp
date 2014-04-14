@@ -128,7 +128,7 @@ Number* Integer::exponentiate(Number* val)
 {
 	if (typeid(*val) == typeid(Integer)) {
 		long valLong;
-		for (i = 0; i < val->getValue(); i++){
+		for (long i = 0; i < val->getValue(); i++){
 			valLong += value*value;
 		}
 		//double valLong = pow(toDouble(), val->toDouble());

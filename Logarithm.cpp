@@ -6,7 +6,7 @@ using namespace std;
  * TODO: Write a little bit about what this class does in relation to Expression
  */
 
-Logarithm::Logarithm(Number* coefficient, Number* values, Number* base) {
+Logarithm::Logarithm(Number* coefficient, Number* value, Number* base) {
 	this->values["coefficient"] = coefficient;
 	this->values["value"] = value;
 	this->values["base"] = base;
@@ -84,9 +84,9 @@ void Logarithm::simplify() {
                 // Set the value equal to the result of the value divided by the base^multiplier,
                 values["value"]->setValue(values["value"]->getValue() / ((long)pow(values["base"]->getValue(), multiplier)));
                 // Get all the twos out.
-                int coefficientMultiplier = logBaseN(values["value"]->getValue(), 2, 0);
+                long coefficientMultiplier = logBaseN(values["value"]->getValue(), 2, 0);
                 // Set the value of the coefficient equal to itself times the coefficient multiplier,
-                values["coefficient"]->setValue(values["coefficient"]->getValue() * coeffientMultiplier);
+                values["coefficient"]->setValue(values["coefficient"]->getValue() * coefficientMultiplier);
                 // Set the value of value to the value divided by 2^coefficient multiplier.
                 values["value"]->setValue(values["value"]->getValue() / ((long)pow(2, coefficientMultiplier)));
             }
@@ -136,23 +136,23 @@ vector<long> Logarithm::findPrimeFactors(long number, long i, vector<long> prime
 
 // Operation methods -- not sure exactly what goes in these methods just yet
 Number* Logarithm::add(Number*) {
-    return;
+    return 0;
 }
 
 Number* Logarithm::subtract(Number*) {
-    return;
+    return 0;
 }
 
 Number* Logarithm::multiply(Number*) {
-    return;
+    return 0;
 }
 
 Number* Logarithm::divide(Number*) {
-    return;
+    return 0;
 }
 
 Number* Logarithm::exponentiate(Number*) {
-    return;
+    return 0;
 }
 
 // Satisfying our love of maps

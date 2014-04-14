@@ -23,7 +23,7 @@ private:
     // vector<Number*> LogValues;
     // char smoothOperator;
 public:
-    Logarithm(Number* coefficient, vector<Number*> LogValues, Number* base);
+    Logarithm(Number* coefficient, Number* value, Number* base);
     ~Logarithm();
 
     void simplify();
@@ -34,9 +34,10 @@ public:
     
     map<string, Number*> getValues();
     void setValues(string key, Number* val);
+    int logBaseN(int value, int n, int counter);
     // vector<Number*> getLogValues();
     // void setLogValues(vector<Number*> LogValues);
-    vector<long> findPrimeFactors(long number, long i, vector<long> primeFactors);
+    // vector<long> findPrimeFactors(long number, long i, vector<long> primeFactors);
 
     // Operation methods
     Number* add(Number*);

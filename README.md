@@ -21,7 +21,8 @@ Project for COP3503.
 	• Able to convert all numbers to decimal/float -> toDouble() method
 	• Able to show all previous expressions and answers entered
 	• Able to multiply exponentials with fractions
-	• 'Ans' does not store the previous answer, but rather it stores the user-specified answer
+	• 'ans' does not store the previous answer, but rather it stores the user-specified answer
+		- Please put 'ans' at the end of your expression (i.e. 2+ans)
 
 - Used the following skills:
 	• Polymorphism

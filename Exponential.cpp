@@ -282,11 +282,15 @@ Number* Exponential::add(Number* val) {
     if (typeid(*val) == typeid(Exponential)) {
         if (typeid(*val->getValues()["exponent"]) == typeid(Integer) &&
             typeid(*values["exponent"]) == typeid(Integer)) {
+            
             if (val->getValues()["exponent"]->getValue() == values["exponent"]->getValue()) {
+                
                 if (typeid(*val->getValues()["value"]) == typeid(Integer) &&
                     typeid(*values["value"]) == typeid(Integer)) {
+                    
                     if (val->getValues()["value"]->getValue() == values["value"]->getValue()) {
                         Number* result = new Exponential(values["value"], values["exponent"], values["coefficient"]->add(val->getValues()["coefficient"]));
+                        
                         return result;
                     }
                 }
@@ -298,14 +302,52 @@ Number* Exponential::subtract(Number* val) {
 	if (typeid(*val) == typeid(Integer)) {
         
 	}
+    // Else, if the exponent is of type Exponential
 	else if (typeid(*val) == typeid(Exponential)) {
         
-	}
+        if (typeid(*val->getValues()["exponent"]) == typeid(Integer) &&
+            typeid(*values["exponent"]) == typeid(Integer)) {
+            
+            if (val->getValues()["exponent"]->getValue() == values["exponent"]->getValue()) {
+                
+                if (typeid(*val->getValues()["value"]) == typeid(Integer) &&
+                    typeid(*values["value"]) == typeid(Integer)) {
+                    
+                    if (val->getValues()["value"]->getValue() == values["value"]->getValue()) {
+                        
+                        Number* result = new Exponential(values["value"], values["exponent"], values["coefficient"]->subtract(val->getValues()["coefficient"]));
+                        
+                        return result;
+                    }
+                }
+            }
+        }
+    }
 	else if (typeid(*val) == typeid(Expression)) {
         
 	}
+    // Else, if the exponential is of type TN
 	else if (typeid(*val) == typeid(TranscendentalNumber)) {
         
+/*        // checks if exponents are of type TN
+        if(typeid(*val->getValues()["exponent"]) == typeid(TranscendentalNumber) && typeid(values["exponent"]) == typeid(TranscendentalNumber)) {
+            
+            // checks to see if exponents of the terms are the same value
+            if(val->getValues()["exponent"]->toString() == values["exponent"]->getValue()) {
+                
+                // checks to see if value is of type TN
+                if(typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber) && typeid(*values["value"]) == typeid(TranscendentalNumber)) {
+                    
+                    if(val->getValues()["value"]->getValue() == values["values"]->getValue()) {
+                        
+                        // returns Number* of type TN
+                        Number* result = new TranscendentalNumber(values["value"], values["exponent"], values["coefficient"]->subtract(val->getValues()["coefficient"]));
+                        return result;
+                    }
+                }
+            }
+        }
+ */
 	}
 	else if (typeid(*val) == typeid(RationalNumber)) {
         

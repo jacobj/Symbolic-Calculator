@@ -27,6 +27,8 @@ int main()
     string expr;
     string ans;
     string choice;
+    stringstream temp;
+    bool ansStored = false;
     
     cout << "*** Welcome to the Calculator Program! ***\n" << endl;
     
@@ -58,7 +60,13 @@ int main()
                                 keepGoing = false;
                             else
                                 {
-                                    if(calculator.addInput(expr))
+                            		if(ansStored)
+                            		{
+                            			int pos = expr.find_first_of("a");
+                            			temp << expr.substr(0,pos) << ans;
+                            			expr = temp.str();
+                            		}
+                            		if(calculator.addInput(expr))
                                     {
                                     	calculator.calculate();
                                     	cout << "\nAnswer: " << (calculator.getLatestAnswer())->toString() << endl;
@@ -147,6 +155,7 @@ int main()
 										ans = previousAnswers[previous - 1]->toString();
 								
                                         cout << "\nans = " + ans << endl;
+                                        ansStored = true;
                                         break;
                                     case '5':
                                         cout << "Returning back to the main menu..." << endl;

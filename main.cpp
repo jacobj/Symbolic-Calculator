@@ -144,9 +144,9 @@ int main()
                                         cin >> previous;
 								
                                         //update this
-                                        ans = "";
+										ans = previosAnswers[previous - 1]->toString();
 								
-                                        cout << "\nans = " << endl;
+                                        cout << "\nans = " + ans << endl;
                                         break;
                                     case '5':
                                         cout << "Returning back to the main menu..." << endl;

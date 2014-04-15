@@ -170,7 +170,18 @@ Number* TranscendentalNumber::multiply(Number* val){
 			}
 		}
 	}
-	//DO STUFF HERE
+	else if (typeid(*val) == typeid(Integer)){
+		Number* coeffs = values["coefficient"]->multiply(val);
+		valStream << coeffs->toString() << value;
+		string str = valStream.str();
+		return new TranscendentalNumber(str);
+	}
+	else if (typeid(*val) == typeid(RationalNumber)){
+		Number* coeffs = values["coefficient"]->multiply(val);
+		valStream << coeffs->toString() << value;
+		string str = valStream.str();
+		return new TranscendentalNumber(str);
+	}
 	else if(!values["coefficient"]->toString().compare("1")){
 		valStream << value << "*" << val->toString();
 		string str = valStream.str();

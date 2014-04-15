@@ -178,29 +178,31 @@ Number* RationalNumber::subtract(Number* val){
 }
 Number* RationalNumber::multiply(Number* val){
 	Number* result;
+	Number* numerator1;
+	Number* denominator1;
 	if (typeid(*val) == typeid(Integer) ||
 		typeid(*val) == typeid(TranscendentalNumber) ||
 		typeid(*val) == typeid(Expression) ||
 		typeid(*val) == typeid(Logarithm) ||
 		typeid(*val) == typeid(Exponential))
 	{
-		Number* numerator; Number* denominator;
 
-		numerator = this->values["numerator"]->multiply(val);
-		denominator = this->values["denominator"];
+		numerator1 = values["numerator"]->multiply(val);
+		denominator1 = values["denominator"];
 
-		result = new RationalNumber(numerator, denominator);
+		result = new RationalNumber(numerator1, denominator1);
 		result->simplify();
 		return result;
 	}
 	else
 	{
-		Number* numerator; Number* denominator;
+		Number* numerator1;
+		Number* denominator1;
 
-		numerator = this->values["numerator"]->multiply(val->getValues()["numerator"]);
-		denominator = this->values["denominator"]->multiply(val->getValues()["denominator"]);
+		numerator1 = values["numerator"]->multiply(val->getValues()["numerator"]);
+		denominator1 = values["denominator"]->multiply(val->getValues()["denominator"]);
 
-		result = new RationalNumber(numerator, denominator);
+		result = new RationalNumber(numerator1, denominator1);
 		result->simplify();
 		return result;
 	}

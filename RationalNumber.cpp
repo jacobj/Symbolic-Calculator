@@ -130,7 +130,7 @@ Number* RationalNumber::add(Number* val){
 				Number* tempNumerator1 = this->values["numerator"]->multiply(val->getValues()["denominator"]);
 				Number* tempNumerator2 = this->values["denominator"]->multiply(val->getValues()["numerator"]);
 				numerator = tempNumerator1->add(tempNumerator2);
-				denominator = this->values["denominator"]->multiply(val->getValues()["numerator"]);
+				denominator = this->values["denominator"]->multiply(val->getValues()["denominator"]);
 			}
 			result = new RationalNumber(numerator, denominator);
 			result->simplify();
@@ -169,7 +169,7 @@ Number* RationalNumber::subtract(Number* val){
 			Number* tempNumerator1 = this->values["numerator"]->multiply(val->getValues()["denominator"]);
 			Number* tempNumerator2 = this->values["denominator"]->multiply(val->getValues()["numerator"]);
 			numerator = tempNumerator1->subtract(tempNumerator2);
-			denominator = this->values["denominator"]->multiply(val->getValues()["numerator"]);
+			denominator = this->values["denominator"]->multiply(val->getValues()["denominator"]);
 		}
 		result = new RationalNumber(numerator, denominator);
 		result->simplify();

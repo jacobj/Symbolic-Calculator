@@ -144,7 +144,7 @@ int main()
                                         cin >> previous;
 								
                                         //update this
-										ans = previosAnswers[previous - 1]->toString();
+										ans = previousAnswers[previous - 1]->toString();
 								
                                         cout << "\nans = " + ans << endl;
                                         break;

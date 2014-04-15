@@ -160,7 +160,10 @@ Number* TranscendentalNumber::multiply(Number* val){
 				/*valStream << coeffs->toString() << value << "^" << "2";
 				string str = valStream.str();
 				return new Exponential(str);*/
-				Number* exponentialValue = new TranscendentalNumber("e");
+				Number* exponentialValue = new TranscendentalNumber("pi");
+				if (getTranscendentalValue() == "e"){
+					exponentialValue = new TranscendentalNumber("e");
+				}
 				Number* exponentialExponent = new Integer("2");
 				return new Exponential(exponentialValue, exponentialExponent, coeffs);
 			}

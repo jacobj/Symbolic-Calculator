@@ -100,15 +100,12 @@ void Logarithm::simplify() {
             // See what power of base can be pulled out of the value,
             long multiplier = (long)(logBaseN(values["value"]->getValue(), values["base"]->getValue(), 0));
             // If the coefficient is an Integer.
-            cout << multiplier << endl;
             if (multiplier != 0) {
                 if (typeid(*values["coefficient"]) == typeid(Integer)) {
                     values["integer"]->setValue(multiplier);
-                    cout << "how about now" <<endl;
                     // Set the value of the Integer to the coefficient times the multiplier.
                     values["integer"]->setValue(values["coefficient"]->getValue() * values["integer"]->getValue());
                     // Set the value equal to the result of the value divided by the base^multiplier,
-                    cout << "Does" << endl;
                     long valueBuilder = 1;
                     for (long i = 0; i < multiplier; i++) {
                         valueBuilder *= values["base"]->getValue();
@@ -141,11 +138,9 @@ void Logarithm::simplify() {
 //how log splitting will work. Just getting the basic implementation done.
 
 int Logarithm::logBaseN(long value, long n, int counter) {
-    cout << "ran 1" << endl;
     if (value % n != 0) {
         return counter;
     } else {
-        cout << "ran 2" <<endl;
         return logBaseN(value / n, n, ++counter);
     }
 }

@@ -78,10 +78,15 @@ double Logarithm::toDouble(){
 // Needs to be changed.
 string Logarithm::toString(){
 	stringstream valueStream;
-	valueStream << values["coefficient"]->toString() << "log_" << values["base"]->toString() << ":" << values["value"]->toString();
     if (values["integer"]->getValue() != 0) {
-        valueStream << "+" << values["integer"]->toString();
+        valueStream << values["integer"]->toString() << "+";
     }
+	if (typeid(*values["coefficient"]) == typeid(Integer)) {
+        if (values["coefficient"]->getValue() != 1) {
+            valueStream << values["coefficient"]->toString();
+        }
+    }
+    valueStream << "log_" << values["base"]->toString() << ":" << values["value"]->toString(); 
 	string str = valueStream.str();
 	return str;
 }

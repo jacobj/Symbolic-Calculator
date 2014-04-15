@@ -47,22 +47,22 @@ RationalNumber::RationalNumber(string expression) {
 
 	//Checks Number type of denominator
 	if (denominatorString.find_first_of("+-*/") != -1) {
-		denominator = new Expression(numeratorString);
+		denominator = new Expression(denominatorString);
 	}
 	else if (denominatorString.find_first_of("^") != -1) {
-		denominator = new Exponential(numeratorString);
+		denominator = new Exponential(denominatorString);
 	}
 	else if (denominatorString.find_first_of("log") != -1)
 	{
-		denominator = new Logarithm(numeratorString);
+		denominator = new Logarithm(denominatorString);
 	}
 	else if (denominatorString.find_first_of("e") != -1 || numeratorString.find_first_of("pi") != -1)
 	{
-		denominator = new TranscendentalNumber(numeratorString);
+		denominator = new TranscendentalNumber(denominatorString);
 	}
 	else
 	{
-		denominator = new Integer(numeratorString);
+		denominator = new Integer(denominatorString);
 	}
 
 	//creates RationalNumber object

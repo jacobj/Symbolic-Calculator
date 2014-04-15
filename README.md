@@ -21,6 +21,7 @@ Project for COP3503.
 	• Able to convert all numbers to decimal/float -> toDouble() method
 	• Able to show all previous expressions and answers entered
 	• Able to multiply exponentials with fractions
+	• 'Ans' does not store the previous answer, but rather it stores the user-specified answer
 
 - Used the following skills:
 	• Polymorphism
@@ -31,4 +32,6 @@ Project for COP3503.
 	• String conversion
 	• Euclid's method
 	• Prime factorization
+	• makefiles
+	• GitHub & git commands
 	• Team bonding!

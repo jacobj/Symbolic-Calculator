@@ -89,7 +89,10 @@ double RationalNumber::toDouble(){
 
 string RationalNumber::toString(){
 	stringstream valueStream;
-	valueStream << values["numerator"]->toString() << "/" << values["denominator"]->toString();
+	valueStream << values["numerator"]->toString();
+    if (values["denominator"]->toString() != "1") {
+        valueStream << "/" << values["denominator"]->toString();
+    }
 	string str = valueStream.str();
 	return str;
 }
@@ -279,8 +282,8 @@ void RationalNumber::simplify() {
         typeid(*values["numerator"]) == typeid(TranscendentalNumber)) {
         if (values["denominator"]->getTranscendentalValue() == 
             values["numerator"]->getTranscendentalValue()) {
-            values["numerator"] = values["coefficient"];
-            values["denominator"] = values["coefficient"];
+            values["numerator"] = values["numerator"]->getValues()["coefficient"];
+            values["denominator"] = values["denominator"]->getValues()["coefficient"];
         }
     }
     // If both the denominator and numerator are exponentials,
@@ -326,6 +329,7 @@ void RationalNumber::simplify() {
         // The denominator's and numerator's values are both trascendental,
         else if (typeid(*values["denominator"]->getValues()["value"]) == typeid(Integer) &&
                  typeid(*values["numerator"]->getValues()["value"]) == typeid(Integer)) {
+            cout << "Get here" <<endl;
             // The values of which are equal,
             if (values["denominator"]->getValues()["value"]->getTranscendentalValue() == 
                 values["numerator"]->getValues()["value"]->getTranscendentalValue()) {
@@ -453,7 +457,7 @@ void RationalNumber::simplify() {
             }
         }
     }
-            
+    /*
     else if (typeid(*values["denominator"]) == typeid(Exponential)) {  
         // Multiply the numerator and denominator by the denominator.
         // values["denominator"] * values["denominator"];
@@ -462,6 +466,7 @@ void RationalNumber::simplify() {
     else if (typeid(*values["numerator"]) == typeid(Integer)) {
         
     }
+    */
 }
     
 // Use euclid's algorithm

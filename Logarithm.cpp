@@ -71,8 +71,8 @@ void Logarithm::setValues(string key, Number* val) {
 
 double Logarithm::toDouble(){
 	// Uses log() from cmath which gives the natural logarithm.
-    return values["integer"]->toDouble() + (values["coefficient"]->toDouble() * (log(values["value"]->toDouble()) / 
-                                                                                 log(values["base"]->toDouble())) + values["integer"]->toDouble());
+    return values["coefficient"]->toDouble() * (log(values["value"]->toDouble()) / 
+                                                log(values["base"]->toDouble())) + values["integer"]->toDouble();
 }
 
 // Needs to be changed.

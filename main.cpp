@@ -194,7 +194,7 @@ int main()
                                     cout << "To write out a fraction or rational number, use the following format: a/b \n \n This will read as 'a over b'. \n" << endl;
                                     break;
                                 case '6':
-                                    cout << "Please keep in mind that your answers will be returned in their simplest forms as \nintegers (i.e. 2 + 2 = 4), fractions (i.e. 2/6 = 1/3), logarithms (i.e. log_10:6 = log_10:2 + log_10:3), \n or expressions (i.e. 2 + 2 + pi^2 = 4 + pi^2). /nIf you wish to receive decimal answers, please go to the main menu and press 2 to review previous answers. \nFrom here, you can also set previous answers to the ans keyword. \n" << endl;
+                                    cout << "Please keep in mind that your answers will be returned in their simplest forms as \nintegers (i.e. 2 + 2 = 4), fractions (i.e. 2/6 = 1/3), logarithms (i.e. log_10:6 = log_10:2 + log_10:3), \n or expressions (i.e. 2 + 2 + pi^2 = 4 + pi^2). \nIf you wish to receive decimal answers, please go to the main menu and press 2 to review previous answers. \nFrom here, you can also set previous answers to the ans keyword. \n" << endl;
                                     break;
                                 case '7':
                                     cout << "Returning back to the main menu..." << endl;

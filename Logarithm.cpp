@@ -109,7 +109,6 @@ void Logarithm::simplify() {
                         valueBuilder *= values["base"]->getValue();
                     }
                     values["value"]->setValue(values["value"]->getValue() / valueBuilder);
-                    // Get all the twos out.
                     /*
                     long coefficientMultiplier = logBaseN(values["value"]->getValue(), 2, 0);
                     if (coefficientMultiplier != 0) {

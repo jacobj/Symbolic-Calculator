@@ -55,7 +55,7 @@ public:
 	// Used only for Integers
 	long getValue();
 	void setValue(long value);
-	void calculate();
+	void sort();
 
 	// Used only for Transcendentals
 	string getTranscendentalValue();

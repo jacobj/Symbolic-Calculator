@@ -99,18 +99,14 @@ string TranscendentalNumber::toString(){
 //Operation Methods
 Number* TranscendentalNumber::add(Number* val){
 	stringstream valStream;
-	if (typeid(*val) == typeid(TranscendentalNumber)) {
-		//TODO might need this line?
-		if (value.compare(val->getTranscendentalValue()) == 0){
-			Number* coeffs = values["coefficient"]->add(val->getValues()["coefficient"]);
-			if(coeffs->toString() != "0")
-				valStream << coeffs->toString() << value;
-			else
-				valStream << coeffs->toString();
-
-			string str = valStream.str();
-			return new TranscendentalNumber(str);
-		}
+	if (typeid(*val) == typeid(TranscendentalNumber) && value.compare(val->getTranscendentalValue()) == 0) {
+		Number* coeffs = values["coefficient"]->add(val->getValues()["coefficient"]);
+		if(coeffs->toString() != "0")
+			valStream << coeffs->toString() << value;
+		else
+			valStream << coeffs->toString();
+		string str = valStream.str();
+		return new TranscendentalNumber(str);
 	}
 	else if(!values["coefficient"]->toString().compare("1")){
 		valStream << value << "+" << val->toString();
@@ -125,19 +121,17 @@ Number* TranscendentalNumber::add(Number* val){
 }
 Number* TranscendentalNumber::subtract(Number* val){
 	stringstream valStream;
-	if (typeid(*val) == typeid(TranscendentalNumber)) {
-		if (value.compare(val->getTranscendentalValue()) == 0){
-			Number* coeffs = values["coefficient"]->subtract(val->getValues()["coefficient"]);
-			if(coeffs->toString() != "0"){
-				valStream << coeffs->toString() << value;
-				string str = valStream.str();
-				return new TranscendentalNumber(str);
-			}
-			else{
-				valStream << "0";
-				string str = valStream.str();
-				return new Integer(str);
-			}
+	if (typeid(*val) == typeid(TranscendentalNumber) && value.compare(val->getTranscendentalValue()) == 0) {
+		Number* coeffs = values["coefficient"]->subtract(val->getValues()["coefficient"]);
+		if(coeffs->toString() != "0"){
+			valStream << coeffs->toString() << value;
+			string str = valStream.str();
+			return new TranscendentalNumber(str);
+		}
+		else{
+			valStream << "0";
+			string str = valStream.str();
+			return new Integer(str);
 		}
 	}
 	else if(!values["coefficient"]->toString().compare("1")){
@@ -153,24 +147,22 @@ Number* TranscendentalNumber::subtract(Number* val){
 }
 Number* TranscendentalNumber::multiply(Number* val){
 	stringstream valStream;
-	if (typeid(*val) == typeid(TranscendentalNumber)) {
-		if (value.compare(val->getTranscendentalValue()) == 0){
-			Number* coeffs = values["coefficient"]->multiply(val->getValues()["coefficient"]);
-			if(coeffs->toString() != "0"){
-				/*valStream << coeffs->toString() << value << "^" << "2";
-				string str = valStream.str();
-				return new Exponential(str);*/
-				Number* exponentialValue = new TranscendentalNumber("pi");
-				if (getTranscendentalValue() == "e"){
-					exponentialValue = new TranscendentalNumber("e");
-				}
-				Number* exponentialExponent = new Integer("2");
-				return new Exponential(exponentialValue, exponentialExponent, coeffs);
+	if (typeid(*val) == typeid(TranscendentalNumber) && value.compare(val->getTranscendentalValue()) == 0) {
+		Number* coeffs = values["coefficient"]->multiply(val->getValues()["coefficient"]);
+		if(coeffs->toString() != "0"){
+			/*valStream << coeffs->toString() << value << "^" << "2";
+			string str = valStream.str();
+			return new Exponential(str);*/
+			Number* exponentialValue = new TranscendentalNumber("pi");
+			if (getTranscendentalValue() == "e"){
+				exponentialValue = new TranscendentalNumber("e");
 			}
-			else{
-				valStream << coeffs->toString();
-				return new Integer("0");
-			}
+			Number* exponentialExponent = new Integer("2");
+			return new Exponential(exponentialValue, exponentialExponent, coeffs);
+		}
+		else{
+			valStream << coeffs->toString();
+			return new Integer("0");
 		}
 	}
 	else if (typeid(*val) == typeid(Integer)){

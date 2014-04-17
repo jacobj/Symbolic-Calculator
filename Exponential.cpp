@@ -107,7 +107,7 @@ string Exponential::toString(){
         valueStream << values["coefficient"]->toString(); 
     }
     if (values["value"]->toString() != "1") {
-        valueStream << "(" << values["value"]->toString()<< ")" << "^" << values["exponent"]->toString();
+        valueStream << "(" << values["value"]->toString() << ")" << "^" << values["exponent"]->toString();
     }
 	string str = valueStream.str();
 	return str;
@@ -143,6 +143,8 @@ void Exponential::simplify() {
                                      values["exponent"]->getValues()["denominator"]->getValue(), primes);
                                      
                     // Set value and coeffient to the returned values from reduceInsideRoot.
+                    cout << value << endl;
+                    cout << coefficient << endl;
                     values["value"]->setValue(value);
                     values["coefficient"]->setValue(coefficient);
                 }
@@ -257,9 +259,9 @@ vector<int> Exponential::findPrimeFactors(int number, int i, vector<int> primeFa
 void Exponential::reduceInsideRoot(int &value, int &coefficient, int root, vector<int> primeFactors) {
     int counter = 1;
     int current = primeFactors[0];
-    for (int i = 0; i < primeFactors.size(); i++) {
+    for (int i = 1; i < primeFactors.size(); i++) {
         if (current == primeFactors[i]) {
-            counter++;
+            ++counter;
         } else {
             current = primeFactors[i];
             counter = 1;
@@ -273,6 +275,7 @@ void Exponential::reduceInsideRoot(int &value, int &coefficient, int root, vecto
         }
     }
 }
+
 
 string Exponential::getTranscendentalValue() {
     return "";

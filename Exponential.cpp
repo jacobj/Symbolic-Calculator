@@ -103,7 +103,12 @@ double Exponential::toDouble(){
 
 string Exponential::toString(){
 	stringstream valueStream;
-    valueStream << values["coefficient"]->toString() << values["value"]->toString()<< "^" << values["exponent"]->toString();
+    if (values["coefficient"]->toString() != "1") {
+        valueStream << values["coefficient"]->toString(); 
+    }
+    if (values["value"]->toString() != "1") {
+        valueStream << "(" << values["value"]->toString()<< ")" << "^" << values["exponent"]->toString();
+    }
 	string str = valueStream.str();
 	return str;
 }
@@ -244,7 +249,7 @@ vector<int> Exponential::findPrimeFactors(int number, int i, vector<int> primeFa
         primeFactors.push_back(i);
         return findPrimeFactors(number / i, 2, primeFactors);
     } else {
-        return findPrimeFactors(number, i++, primeFactors);
+        return findPrimeFactors(number, ++i, primeFactors);
     }
 }
 

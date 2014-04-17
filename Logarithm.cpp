@@ -79,14 +79,19 @@ double Logarithm::toDouble(){
 string Logarithm::toString(){
 	stringstream valueStream;
     if (values["integer"]->getValue() != 0) {
-        valueStream << values["integer"]->toString() << "+";
+        valueStream << values["integer"]->toString();
     }
 	if (typeid(*values["coefficient"]) == typeid(Integer)) {
         if (values["coefficient"]->getValue() != 1) {
             valueStream << values["coefficient"]->toString();
         }
     }
-    valueStream << "log_" << values["base"]->toString() << ":" << values["value"]->toString(); 
+    if (values["value"]->toString() != "1") {
+        if (values["integer"]->getValue() != 0) {
+            valueStream << "+";
+        }
+        valueStream << "log_" << values["base"]->toString() << ":" << values["value"]->toString(); 
+    }
 	string str = valueStream.str();
 	return str;
 }

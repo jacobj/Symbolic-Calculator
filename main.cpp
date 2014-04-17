@@ -27,7 +27,7 @@ int main()
     string expr;
     string ans;
     string choice;
-    stringstream temp;
+
     bool ansStored = false;
     
     cout << "*** Welcome to the Calculator Program! ***\n" << endl;
@@ -60,8 +60,9 @@ int main()
                                 keepGoing = false;
                             else
                                 {
-                            		if(ansStored)
+                            		if(expr.find("ans") != -1)
                             		{
+                            			stringstream temp;
                             			int pos = expr.find_first_of("a");
                             			temp << expr.substr(0,pos) << ans;
                             			expr = temp.str();

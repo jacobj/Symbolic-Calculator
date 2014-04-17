@@ -60,14 +60,22 @@ int main()
                                 keepGoing = false;
                             else
                                 {
-                            		if(expr.find("ans") != -1)
+                            		string temp2 = expr;
+                            		while(temp2.find("ans") != -1)
                             		{
                             			stringstream temp;
-                            			int pos = expr.find_first_of("a");
-                            			temp << expr.substr(0,pos) << ans
-                            				 << expr.substr(pos+3,expr.size());
-                            			expr = temp.str();
+
+                            			int pos = temp2.find("ans");
+
+                            			temp << temp2.substr(0,pos) << ans
+                            				 << temp2.substr(pos+3,expr.size());
+
+                            			temp2 = temp.str();
                             		}
+
+                            		if(temp2 != expr)
+                            			expr = temp2;
+
                             		if(calculator.addInput(expr))
                                     {
                                     	calculator.calculate();

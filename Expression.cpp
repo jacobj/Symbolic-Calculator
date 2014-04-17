@@ -91,7 +91,6 @@ Expression::Expression(string& expr){
 
 	}
 	void Expression::simplify(){}
-	void Expression::display(){}
 	double Expression::toDouble()
 	{
 			 stack<double> st;
@@ -143,14 +142,6 @@ Expression::Expression(string& expr){
 
 		            }
 		        }
-		        //TODO maybe we will get to
-		        //if(typeid(*(st.top())) == typeid(Logarithm) )
-		        	//cout << "IT WORKED" << endl;
-		        /*if(!st.empty())// && st.top() != " ")
-		        {
-		        	previousA.push_back(st.top());
-		        	expression.clear();
-		        }*/
 		     return st.top();
 	}
 	string Expression::toString()
@@ -180,11 +171,32 @@ Expression::Expression(string& expr){
 
 	Number* Expression::add(Number* val)
 	{
-		stringstream valStream;
-		valStream << toString() << "+" << val->toString();
-		string str = valStream.str();
-		return new Expression(str);
+		if (typeid(*val) == typeid(Integer))
+		{
+			for(int i = 0; i < operands.size(); i++)
+			{
+				if(typeid(*operands[i]) == typeid(Integer))
+				{
+					operands[i] = calculate(operands[i],val,"+");
+				}
+			}
+		}
+		/*else if (typeid(*val) == typeid(RationalNumber)){
+			stringstream RatNumStream;
+			RatNumStream << getValue() << "/1";
+			string str = RatNumStream.str();
+			Number* RatNum = new RationalNumber(str);
+			return RatNum->add(val);
+		}
+		else{
+			stringstream valStream;
+			valStream << toString() << "+" << val->toString();
+			string str = valStream.str();
+			return new Expression(str);
+		}*/
+		return this;
 	}
+
     Number* Expression::subtract(Number* val)
     {
 		stringstream valStream;
@@ -343,7 +355,7 @@ Expression::Expression(string& expr){
         //return success;
     }
 
-void Expression::calculate()
+void Expression::sort()
  {
      stack<Number*> st;
      Number* val1b;
@@ -597,3 +609,4 @@ bool Expression::isParentheses(string token)
     else
         return false;
 }
+void Expression::display(){}

@@ -107,10 +107,13 @@ void Calculator::calculate()
             }
             else
             {
-                /*if ( token == "-" )
-                    result = d2 * -1;
+                if ( token == "-" )
+                {
+                	Number *temp = new Integer("-1");
+                    resultt =  calculate(val2b,temp,"*");
+                }
                 else
-                    result = d2;*/
+                    resultt = val2b;
             }
             // Push result onto stack
             st.push(resultt);
@@ -136,7 +139,10 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 
 	//determine type of num1
 	if(typeid(*num1) == typeid(Integer))
+	{
+		string temp = num1->toString();
 		n1 = new Integer(num1->toString());
+	}
 
 	else if(typeid(*num1) == typeid(TranscendentalNumber))
 		n1 = new TranscendentalNumber(num1->toString());

@@ -1,6 +1,10 @@
 # Symbolic Calculator
 Project for COP3503.
 
+## How To
+Compile with make, run with ./test
+For help entering expressions, visit the help menu.
+
 ## Authors
 - Elaine Del Rosario
 - Nicola Frachesen

@@ -28,7 +28,7 @@ class Expression;
 #include "Exponential.h"
 #include "Logarithm.h"
 #include "RationalNumber.h"
-//#include "Expression.h"
+#include "Expression.h"
 
 using namespace std;
 

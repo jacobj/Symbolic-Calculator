@@ -94,33 +94,9 @@ void Calculator::calculate()
         else
         {
 
-            double result =  0.0;
-
             // Token is an operator: pop top two entries
             val2b = st.top();
             st.pop();
-            //const double d2 = strtod( val2.c_str(), NULL );
-
-           /* if ( !st.empty() )
-            {
-            	const string val1 = st.top();
-            	st.pop();
-            	const double d1 = strtod( val1.c_str(), NULL );
-
-            	//Get the result
-            	result = token == "+" ? d1 + d2 :
-            			 token == "-" ? d1 - d2 :
-            		     token == "*" ? d1 * d2 :
-                         token == "/" ? d1 / d2 :
-                                    pow(d1, d2);
-            }
-            else
-            {
-            	if ( token == "-" )
-            		result = d2 * -1;
-            	else
-            		result = d2;
-            }*/
             //beginning of Number type
             if ( !st.empty() )
             {
@@ -136,11 +112,7 @@ void Calculator::calculate()
                 else
                     result = d2;*/
             }
-
-
             // Push result onto stack
-            ostringstream s;
-            s << result;
             st.push(resultt);
 
         }
@@ -150,7 +122,6 @@ void Calculator::calculate()
     	//cout << "IT WORKED" << endl;
     if(!st.empty())// && st.top() != " ")
     {
-
     	previousA.push_back(st.top());
     	expression.clear();
     }
@@ -179,7 +150,10 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 	else if(typeid(*num1) == typeid(Logarithm))
 		n1 = new Logarithm(num1->toString());
 	else
-		n1 = new Expression(num1->toString());
+	{
+		string temp = num1->toString();
+		n1 = new Expression(temp);
+	}
 
 	//determine type of num2
 	if(typeid(*num2) == typeid(Integer))
@@ -197,7 +171,10 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 	else if(typeid(*num2) == typeid(Logarithm))
 		n2 = new Logarithm(num2->toString());
 	else
-		n2 = new Expression(num2->toString());
+	{
+		string temp = num2->toString();
+		n2 = new Expression(temp);
+	}
 
 	if(op == "+")
 		result = n1->add(n2);
@@ -286,6 +263,7 @@ vector<string> Calculator::setExpressionTokens(string& expr)
         		token = token + (expr[++i]);
         	else if(token == "l")
         	{
+        		i++;
 
         	}
 

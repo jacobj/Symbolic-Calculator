@@ -132,7 +132,7 @@ void Exponential::simplify() {
                 sort(primes.begin(), primes.end());
                 int value = values["value"]->getValue();
                 // If the coefficient is an Integer.
-                if (typeid(values["coefficient"]) == typeid(Integer)) {
+                if (typeid(*values["coefficient"]) == typeid(Integer)) {
                     int coefficient = values["coefficient"]->getValue();
                     reduceInsideRoot(value, coefficient, 
                                      values["exponent"]->getValues()["denominator"]->getValue(), primes);

@@ -143,8 +143,6 @@ void Exponential::simplify() {
                                      values["exponent"]->getValues()["denominator"]->getValue(), primes);
                                      
                     // Set value and coeffient to the returned values from reduceInsideRoot.
-                    cout << value << endl;
-                    cout << coefficient << endl;
                     values["value"]->setValue(value);
                     values["coefficient"]->setValue(coefficient);
                 }
@@ -171,6 +169,8 @@ void Exponential::simplify() {
                 values["value"]->getValues()["numerator"]->setValue((long)pow(values["value"]->getValues()["numerator"]->getValue(),
                                                                               values["exponent"]->getValue()));
                 // Simplify the value using the RationalNumber simplify method.
+                cout << values["value"]->getValues()["denominator"]->getValue() << endl;
+                cout <<  values["value"]->getValues()["numerator"]->getValue() << endl;
                 values["value"]->simplify();
                 values["exponenet"]->setValue(1); 
             }

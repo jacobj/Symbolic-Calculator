@@ -64,7 +64,8 @@ int main()
                             		{
                             			stringstream temp;
                             			int pos = expr.find_first_of("a");
-                            			temp << expr.substr(0,pos) << ans;
+                            			temp << expr.substr(0,pos) << ans
+                            				 << expr.substr(pos+3,expr.size());
                             			expr = temp.str();
                             		}
                             		if(calculator.addInput(expr))

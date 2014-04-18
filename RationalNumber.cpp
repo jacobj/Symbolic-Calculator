@@ -231,7 +231,8 @@ Number* RationalNumber::divide(Number* val){
 	}
 }
 Number* RationalNumber::exponentiate(Number* val){
-//
+	Number* coeff = new Integer(1);
+	return new Exponential(this, val, coeff);
 }
 
 // Simplify helper method.

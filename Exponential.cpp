@@ -107,10 +107,13 @@ string Exponential::toString(){
         valueStream << values["coefficient"]->toString(); 
     }
     if (values["value"]->toString() != "1") {
-        valueStream << "(" << values["value"]->toString() << ")" << "^" << values["exponent"]->toString();
+        valueStream << "(" << values["value"]->toString() << ")";
+	if (values["exponent"]->toString() != "1") {
+             valueStream << "^" << values["exponent"]->toString();
+	}
     }
-	string str = valueStream.str();
-	return str;
+    string str = valueStream.str();
+    return str;
 }
   
 // Simplify method.
@@ -169,10 +172,10 @@ void Exponential::simplify() {
                 values["value"]->getValues()["numerator"]->setValue((long)pow(values["value"]->getValues()["numerator"]->getValue(),
                                                                               values["exponent"]->getValue()));
                 // Simplify the value using the RationalNumber simplify method.
-                cout << values["value"]->getValues()["denominator"]->getValue() << endl;
-                cout <<  values["value"]->getValues()["numerator"]->getValue() << endl;
+                values["value"]->getValues()["denominator"]->getValue();
+                values["value"]->getValues()["numerator"]->getValue();
                 values["value"]->simplify();
-                values["exponenet"]->setValue(1); 
+                values["exponent"]->setValue(1); 
             }
             // Raise a rational to a rational
             // If the exponent is a rational.

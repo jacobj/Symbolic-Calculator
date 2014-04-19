@@ -56,6 +56,8 @@ Number* Calculator::assignToClass(string& token)
 		//if(token == "e" || token == "pi")
 		if(token.find_first_of("pe") != -1)
 			temp = new TranscendentalNumber(token);
+		else if(token.find_first_of("/") != -1)
+			temp = new RationalNumber(token);
 		else
 			temp = new Integer(token);
 	}
@@ -125,6 +127,14 @@ void Calculator::calculate()
                     resultt = val2b;
             }
             // Push result onto stack
+            if(typeid(*resultt) == typeid(Exponential))
+            {
+            	if(resultt->getValues()["value"]->getValue() == 1)
+            	{
+            		string temp = resultt->toString();
+            		resultt = assignToClass(temp);
+            	}
+            }
             st.push(resultt);
 
         }

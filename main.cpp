@@ -78,8 +78,15 @@ int main()
 
                             		if(calculator.addInput(expr))
                                     {
-                                    	calculator.calculate();
-                                    	cout << "\nAnswer: " << (calculator.getLatestAnswer())->toString() << endl;
+                            			try
+                            			{
+											calculator.calculate();
+											cout << "\nAnswer: " << (calculator.getLatestAnswer())->toString() << endl;
+                            			}
+                            			catch(string exception)
+                            			{
+                            				cout << exception << endl;
+                            			}
                                     }
                                 }
                         }

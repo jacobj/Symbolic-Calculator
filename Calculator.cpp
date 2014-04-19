@@ -112,8 +112,15 @@ void Calculator::calculate()
             	{
 					val1b = st.top();
 					st.pop();
-					//calculate(val1, val2, token);
-					resultt = calculate(val1b, val2b, token);
+
+					try
+					{
+						resultt = calculate(val1b, val2b, token);
+					}
+					catch(string exception)
+					{
+						throw exception;
+					}
             	}
             }
             else
@@ -208,7 +215,17 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 	else if(op == "*")
 			result = n1->multiply(n2);
 	else if(op == "/")
+	{
+		if(typeid(*n2) == typeid(Integer))
+		{
+			if(n2->getValue() == 0)
+			   {
+					string exception = "\nERROR: Cannot divide by zero!";
+					throw exception;
+			   }
+		}
 			result = n1->divide(n2);
+	}
 	else if(op == "^")
 			result = n1->exponentiate(n2);
 	else if(op == ":")

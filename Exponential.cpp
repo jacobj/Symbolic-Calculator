@@ -118,6 +118,7 @@ string Exponential::toString(){
   
 // Simplify method.
 void Exponential::simplify() {
+	bool isNegative = false;
     // If the value is an Integer,
     if (typeid(*values["value"]) == typeid(Integer)) {
         // If the exponent is a RationalNumber,
@@ -125,8 +126,17 @@ void Exponential::simplify() {
             // If the exponent's numerator is an Integer,
             if (typeid(*values["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
                 // Raise the value to nth power and set the exponent to 1.
-                values["value"]->setValue(((long)pow(values["value"]->getValue(), 
-                                                     values["exponent"]->getValues()["numerator"]->getValue())));
+            	if(values["exponent"]->getValues()["numerator"]->getValue() < 0)
+            	{
+            		isNegative = true;
+            		values["value"]->setValue(((long)pow(values["value"]->getValue(),
+                                                     -1*values["exponent"]->getValues()["numerator"]->getValue())));
+            	}
+            	else
+            	{
+            		values["value"]->setValue(((long)pow(values["value"]->getValue(),
+            		                                                     values["exponent"]->getValues()["numerator"]->getValue())));
+            	}
                 // Set the numerator of the exponent to 1, as it has already been raised appropriately.
                 values["exponent"]->getValues()["numerator"]->setValue(1);
             }
@@ -146,8 +156,20 @@ void Exponential::simplify() {
                                      values["exponent"]->getValues()["denominator"]->getValue(), primes);
                                      
                     // Set value and coeffient to the returned values from reduceInsideRoot.
-                    values["value"]->setValue(value);
-                    values["coefficient"]->setValue(coefficient);
+                    if(isNegative)
+                    {
+                    	stringstream str;
+                    	string temp;
+                    	str << "1/" << coefficient;
+                    	temp = str.str();
+                    	this->values["coefficient"] = new RationalNumber(temp);
+                    	values["value"]->setValue(value);
+                    }
+                    else
+                    {
+                    	values["value"]->setValue(value);
+                    	values["coefficient"]->setValue(coefficient);
+                    }
                 }
             }
             // What if the denominator is not an Integer? For now let's just leave it alone.

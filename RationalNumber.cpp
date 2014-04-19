@@ -26,7 +26,8 @@ RationalNumber::RationalNumber(string expression) {
 	Number* denominator;
 
 	//Checks Number type of numerator
-	if (numeratorString.find_first_of("+-*/") != -1) {
+	if (numeratorString.find_first_of("+-*/") != -1 &&
+		numeratorString.find_first_of("+-*/") != 0) {
 		numerator = new Expression(numeratorString);
 	}
 	else if (numeratorString.find_first_of("^") != -1) {

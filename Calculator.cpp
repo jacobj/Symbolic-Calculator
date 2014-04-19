@@ -100,10 +100,19 @@ void Calculator::calculate()
             //beginning of Number type
             if ( !st.empty() )
             {
-                val1b = st.top();
-                st.pop();
-                //calculate(val1, val2, token);
-                resultt = calculate(val1b, val2b, token);
+            	if(token == "-" && typeid(*val2b)==typeid(RationalNumber) &&
+            			   expression[i+1] == "^")
+            	{
+            		Number *temp = new Integer("-1");
+            		resultt = calculate(val2b,temp,"*");
+            	}
+            	else
+            	{
+					val1b = st.top();
+					st.pop();
+					//calculate(val1, val2, token);
+					resultt = calculate(val1b, val2b, token);
+            	}
             }
             else
             {

@@ -176,12 +176,14 @@ Expression::Expression(string& expr){
 
 	Number* Expression::add(Number* val)
 	{
+		bool matchFound = false;
 		if (typeid(*val) == typeid(Integer))
 		{
 			for(int i = 0; i < operands.size(); i++)
 			{
 				if(typeid(*operands[i]) == typeid(Integer))
 				{
+					matchFound = true;
 					operands[i] = calculate(operands[i],val,"+");
 				}
 			}
@@ -192,7 +194,11 @@ Expression::Expression(string& expr){
 			{
 				if(typeid(*operands[i]) == typeid(TranscendentalNumber))
 				{
-					operands[i] = calculate(operands[i],val,"+");
+					if(operands[i]->getTranscendentalValue() == val->getTranscendentalValue())
+					{
+						matchFound = true;
+						operands[i] = calculate(operands[i],val,"+");
+					}
 				}
 			}
 		}
@@ -219,6 +225,11 @@ Expression::Expression(string& expr){
 			string str = valStream.str();
 			return new Expression(str);
 		}*/
+		if(!matchFound)
+		{
+			operators.push_back("+");
+			operands.push_back(val);
+		}
 		return this;
 	}
 

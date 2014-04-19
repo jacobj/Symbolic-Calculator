@@ -14,8 +14,8 @@
 //Constructor
 Expression::Expression(string& expr){
 	strExpression = expr;
-	int result;
 	addInput(strExpression);
+	sort();
 
 
 	/*for(int i = 0;i<expr.size();i++)
@@ -115,13 +115,11 @@ Expression::Expression(string& expr){
 		                // Token is an operator: pop top two entries
 		                val2b = st.top();
 		                st.pop();
-		                //const double d2 = val2b->toDouble();
 
 		               if ( !st.empty() )
 		                {
 		                	val1b = st.top();
 		                	st.pop();
-		                	//const double val1b = strtod( val1.c_str(), NULL );
 
 		                	//Get the result
 		                	result = token == "+" ? val1b + val2b :
@@ -146,7 +144,14 @@ Expression::Expression(string& expr){
 	}
 	string Expression::toString()
 	{
-		return strExpression;
+		stringstream temp;
+		for(int i = 0;i<operands.size();i++)
+		{
+			if(operators[i] != "0")
+				temp << operators[i];
+			temp << operands[i]->toString();
+		}
+		return strExpression = temp.str();
 	}
 
 	// Used only for Integers
@@ -181,6 +186,26 @@ Expression::Expression(string& expr){
 				}
 			}
 		}
+		else if (typeid(*val) == typeid(TranscendentalNumber))
+		{
+			for(int i = 0; i < operands.size(); i++)
+			{
+				if(typeid(*operands[i]) == typeid(TranscendentalNumber))
+				{
+					operands[i] = calculate(operands[i],val,"+");
+				}
+			}
+		}
+		else if (typeid(*val) == typeid(RationalNumber))
+		{
+			for(int i = 0; i < operands.size(); i++)
+			{
+				if(typeid(*operands[i]) == typeid(RationalNumber))
+				{
+					operands[i] = calculate(operands[i],val,"+");
+				}
+			}
+		}
 		/*else if (typeid(*val) == typeid(RationalNumber)){
 			stringstream RatNumStream;
 			RatNumStream << getValue() << "/1";
@@ -199,24 +224,114 @@ Expression::Expression(string& expr){
 
     Number* Expression::subtract(Number* val)
     {
-		stringstream valStream;
-		valStream << toString() << "-" << val->toString();
-		string str = valStream.str();
-		return new Expression(str);
+    	if (typeid(*val) == typeid(Integer))
+    			{
+    				for(int i = 0; i < operands.size(); i++)
+    				{
+    					if(typeid(*operands[i]) == typeid(Integer))
+    					{
+    						operands[i] = calculate(operands[i],val,"-");
+    					}
+    				}
+    			}
+    			else if (typeid(*val) == typeid(TranscendentalNumber))
+    			{
+    				for(int i = 0; i < operands.size(); i++)
+    				{
+    					if(typeid(*operands[i]) == typeid(TranscendentalNumber))
+    					{
+    						operands[i] = calculate(operands[i],val,"-");
+    					}
+    				}
+    			}
+    			/*else if (typeid(*val) == typeid(RationalNumber)){
+    				stringstream RatNumStream;
+    				RatNumStream << getValue() << "/1";
+    				string str = RatNumStream.str();
+    				Number* RatNum = new RationalNumber(str);
+    				return RatNum->add(val);
+    			}
+    			else{
+    				stringstream valStream;
+    				valStream << toString() << "+" << val->toString();
+    				string str = valStream.str();
+    				return new Expression(str);
+    			}*/
+    			return this;
     }
     Number* Expression::multiply(Number* val)
     {
-		stringstream valStream;
-		valStream << toString() << "*" << val->toString();
-		string str = valStream.str();
-		return new Expression(str);
+    	if (typeid(*val) == typeid(Integer))
+    			{
+    				for(int i = 0; i < operands.size(); i++)
+    				{
+    					if(typeid(*operands[i]) == typeid(Integer))
+    					{
+    						operands[i] = calculate(operands[i],val,"*");
+    					}
+    				}
+    			}
+    			else if (typeid(*val) == typeid(TranscendentalNumber))
+    			{
+    				for(int i = 0; i < operands.size(); i++)
+    				{
+    					if(typeid(*operands[i]) == typeid(TranscendentalNumber))
+    					{
+    						operands[i] = calculate(operands[i],val,"*");
+    					}
+    				}
+    			}
+    			/*else if (typeid(*val) == typeid(RationalNumber)){
+    				stringstream RatNumStream;
+    				RatNumStream << getValue() << "/1";
+    				string str = RatNumStream.str();
+    				Number* RatNum = new RationalNumber(str);
+    				return RatNum->add(val);
+    			}
+    			else{
+    				stringstream valStream;
+    				valStream << toString() << "+" << val->toString();
+    				string str = valStream.str();
+    				return new Expression(str);
+    			}*/
+    			return this;
     }
    	Number* Expression::divide(Number* val)
    	{
-		stringstream valStream;
-		valStream << toString() << "/" << val->toString();
-		string str = valStream.str();
-		return new Expression(str);
+   		if (typeid(*val) == typeid(Integer))
+   				{
+   					for(int i = 0; i < operands.size(); i++)
+   					{
+   						if(typeid(*operands[i]) == typeid(Integer))
+   						{
+   							operands[i] = calculate(operands[i],val,"/");
+   						}
+   					}
+   				}
+   				else if (typeid(*val) == typeid(TranscendentalNumber))
+   				{
+   					for(int i = 0; i < operands.size(); i++)
+   					{
+   						if(typeid(*operands[i]) == typeid(TranscendentalNumber))
+   						{
+   							operands[i] = calculate(operands[i],val,"/");
+   						}
+   					}
+   				}
+   				/*else if (typeid(*val) == typeid(RationalNumber)){
+   					stringstream RatNumStream;
+   					RatNumStream << getValue() << "/1";
+   					string str = RatNumStream.str();
+   					Number* RatNum = new RationalNumber(str);
+   					return RatNum->add(val);
+   				}
+   				else{
+   					stringstream valStream;
+   					valStream << toString() << "+" << val->toString();
+   					string str = valStream.str();
+   					return new Expression(str);
+   				}*/
+   				return this;
    	}
     Number* Expression::exponentiate(Number* val)
     {
@@ -228,13 +343,14 @@ Expression::Expression(string& expr){
 
     bool Expression::isNumeric(string token)
     {
-    	if(token == "1" || token == "2" ||
-    	   token == "3" || token == "4" ||
-    	   token == "5" || token == "6" ||
-    	   token == "7" || token == "8" ||
-    	   token == "9" || token == "0" ||
-    	   token == "e" || token == "p" ||
-    	   token == "pi" || token == "l")
+    	string onesDigit = token.substr(0,1);
+    	if(onesDigit == "1" || onesDigit == "2" ||
+			onesDigit == "3" || onesDigit == "4" ||
+			onesDigit == "5" || onesDigit == "6" ||
+			onesDigit == "7" || onesDigit == "8" ||
+			onesDigit == "9" || onesDigit == "0" ||
+			onesDigit == "e" || onesDigit == "p" ||
+			onesDigit == "pi" || onesDigit == "l")
     		return true;
     	else
     		return false;
@@ -250,117 +366,113 @@ Expression::Expression(string& expr){
             return false;
     }
 
-    void Expression::infixToRPN(vector<string>& tokens, vector<string>& rpn)
-    {
-        bool success = true;
+void Expression::infixToRPN(vector<string>& tokens, vector<string>& rpn)
+{
+	bool success = true;
 
-        stack<string>stack;
-        list<string>out;
+	stack<string>stack;
+	list<string>out;
 
-        for(int i = 0; i <tokens.size();i++)
-        {
-            string token = tokens[i];
+	for(int i = 0; i <tokens.size();i++)
+	{
+		string token = tokens[i];
 
-            if( isOperator( token ))
-            {
-            	string o1 = token;
-            	if(token != ":")
-            	{
+		if( isOperator( token ))
+		{
+			string o1 = token;
+			if(token != ":")
+			{
 
-                if( !stack.empty() )
-                {
-                    string o2 = stack.top();
-                    while( isOperator( o2 ) &&
-                           (comparePrecedence(o1, o2) == 0 ||
-                           comparePrecedence(o1, o2) == -1))
-                    {
-                        stack.pop();
-                        out.push_back( o2 );
+			if( !stack.empty() )
+			{
+				string o2 = stack.top();
+				while( isOperator( o2 ) &&
+					   (comparePrecedence(o1, o2) == 0 ||
+					   comparePrecedence(o1, o2) == -1))
+				{
+					stack.pop();
+					out.push_back( o2 );
 
-                        if ( !stack.empty() )
-                            o2 = stack.top();
+					if ( !stack.empty() )
+						o2 = stack.top();
 
-                        else
-                            break;
-                    }
-                }
-                	stack.push(o1);
-            	}
-            	else
-            		stack.push( o1 );
-            }
-            else if ( token == "(" )
-            {
-                // Push token to top of the stack
-                stack.push( token );
-            }
-            else if ( token == ")" )
-            {
-                // Until the token at the top of the stack is a left parenthesis,
-                // pop operators off the stack onto the output queue.
-                string topToken  = stack.top();
+					else
+						break;
+				}
+			}
+				stack.push(o1);
+			}
+			else
+				stack.push( o1 );
+		}
+		else if ( token == "(" )
+		{
+			// Push token to top of the stack
+			stack.push( token );
+		}
+		else if ( token == ")" )
+		{
+			// Until the token at the top of the stack is a left parenthesis,
+			// pop operators off the stack onto the output queue.
+			string topToken  = stack.top();
 
-                while ( topToken != "(" )
-                {
-                    out.push_back(topToken );
-                    stack.pop();
+			while ( topToken != "(" )
+			{
+				out.push_back(topToken );
+				stack.pop();
 
-                    if ( stack.empty() )
-                        break;
+				if ( stack.empty() )
+					break;
 
-                    topToken = stack.top();
-                }
+				topToken = stack.top();
+			}
 
-                // Pop the left parenthesis from the stack, but not onto the output queue.
-                if ( !stack.empty() )
-                    stack.pop();
+			// Pop the left parenthesis from the stack, but not onto the output queue.
+			if ( !stack.empty() )
+				stack.pop();
 
-                // If the stack runs out without finding a left parenthesis,
-                // then there are mismatched parentheses.
-                if ( topToken != "(" )
-                {
-                    //return false;
-                }
-            }
-            else if(isNumeric(token))
-            {
-            	out.push_back( token );
-            }
-            //TODO will handle pi, e, log, etc.
-            else
-            {
+			// If the stack runs out without finding a left parenthesis,
+			// then there are mismatched parentheses.
+			if ( topToken != "(" )
+			{
+				//return false;
+			}
+		}
+		else if(isNumeric(token))
+		{
+			out.push_back( token );
+		}
+		//TODO will handle pi, e, log, etc.
+		else
+		{
 
-            }
-        }
+		}
+	}
 
-        while ( !stack.empty() )
-        {
-            string stackToken = stack.top();
+	while ( !stack.empty() )
+	{
+		string stackToken = stack.top();
 
-            // If the operator token on the top of the stack is a parenthesis,
-            // then there are mismatched parentheses.
-            if ( isParentheses( stackToken )   )
-            {
-                success = false;
-               // return success;
-            }
+		// If the operator token on the top of the stack is a parenthesis,
+		// then there are mismatched parentheses.
+		if ( isParentheses( stackToken )   )
+		{
+			success = false;
+		   // return success;
+		}
 
-            // Pop the operator onto the output queue./
-            out.push_back( stackToken );
-            stack.pop();
-        }
+		// Pop the operator onto the output queue./
+		out.push_back( stackToken );
+		stack.pop();
+	}
 
-        rpn.assign( out.begin(), out.end() );
+	rpn.assign( out.begin(), out.end() );
 
-        //return success;
-    }
+	//return success;
+}
 
 void Expression::sort()
- {
-     stack<Number*> st;
-     Number* val1b;
-     Number* val2b;
-     Number* resultt;
+{
 
      // For each token
      for ( int i = 0; i < (int) expression.size(); ++i )
@@ -370,66 +482,18 @@ void Expression::sort()
             // If the token is a value push it onto the stack
             if ( !isOperator(token) )
             {
-            	Number *token2 = assignToClass(expression[i]);
-                st.push(token2);
+            	operands.push_back(assignToClass(expression[i]));
+                if(i == 0)
+                {
+                	operators.push_back("0");
+                }
             }
             else
             {
-
-                // Token is an operator: pop top two entries
-                val2b = st.top();
-                st.pop();
-                //const double d2 = strtod( val2.c_str(), NULL );
-
-               /* if ( !st.empty() )
-                {
-                	const string val1 = st.top();
-                	st.pop();
-                	const double d1 = strtod( val1.c_str(), NULL );
-
-                	//Get the result
-                	result = token == "+" ? d1 + d2 :
-                			 token == "-" ? d1 - d2 :
-                		     token == "*" ? d1 * d2 :
-                             token == "/" ? d1 / d2 :
-                                        pow(d1, d2);
-                }
-                else
-                {
-                	if ( token == "-" )
-                		result = d2 * -1;
-                	else
-                		result = d2;
-                }*/
-                //beginning of Number type
-                if ( !st.empty() )
-                {
-                    val1b = st.top();
-                    st.pop();
-                    //calculate(val1, val2, token);
-                    resultt = calculate(val1b, val2b, token);
-                }
-                else
-                {
-                    /*if ( token == "-" )
-                        result = d2 * -1;
-                    else
-                        result = d2;*/
-                }
-                // Push result onto stack
-                st.push(resultt);
-
+                operators.push_back(token);
             }
-        }
-        //TODO maybe we will get to
-        //if(typeid(*(st.top())) == typeid(Logarithm) )
-        	//cout << "IT WORKED" << endl;
-        if(!st.empty())// && st.top() != " ")
-        {
-        	//previousA.push_back(st.top());
-        	expression.clear();
-        }
-    }
+      }
+}
 
 Number* Expression::calculate(Number* num1, Number* num2, string op)
 {

@@ -244,6 +244,8 @@ void RationalNumber::simplify() {
         int gcd = findGCD(values["denominator"]->getValue(), 
                           values["numerator"]->getValue());
         // Divide the values by that factor to simplify.
+        if(gcd < 0)
+        	gcd *= -1;
         values["denominator"]->setValue(values["denominator"]->getValue() / gcd);
         values["numerator"]->setValue(values["numerator"]->getValue() / gcd);
     }

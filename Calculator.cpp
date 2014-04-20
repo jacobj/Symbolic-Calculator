@@ -342,6 +342,8 @@ vector<string> Calculator::setExpressionTokens(string& expr)
 bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
 {
     bool success = true;
+    bool leadingNegative = false;
+    bool notPushed = true;
     
     stack<string>stack;
     list<string>out;
@@ -356,29 +358,44 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
             if( !stack.empty() )
             {
                 string o2 = stack.top();
-                while( isOperator( o2 ) && 
-                       (comparePrecedence(o1, o2) == 0 ||
-                       comparePrecedence(o1, o2) == -1))
+                if(o1 == "-" && o2 == "-")
                 {
-                    stack.pop();
-                    out.push_back( o2 );
-                    
-                    if ( !stack.empty() )       
-                        o2 = stack.top();
-                    
-                    else      
-                        break;
+                	stack.pop();
+                	o1 = "+";
+                }
+                else
+                {
+					while( isOperator( o2 ) &&
+						   (comparePrecedence(o1, o2) == 0 ||
+						   comparePrecedence(o1, o2) == -1))
+					{
+						stack.pop();
+						out.push_back( o2 );
+
+						if ( !stack.empty() )
+							o2 = stack.top();
+
+						else
+							break;
+					}
                 }
             }
             stack.push( o1 );
         }
         else if ( token == "(" )          
         {          
-            // Push token to top of the stack        
-            stack.push( token );          
+//        	if(stack.top()=="-")
+//        	{
+//        		stack.pop();
+//        		stack.push("+");
+//        		leadingNegative = true;
+//        	}
+			// Push token to top of the stack
+			stack.push( token );
         }
         else if ( token == ")" )          
         {        
+        	leadingNegative = false;
             // Until the token at the top of the stack is a left parenthesis,       
             // pop operators off the stack onto the output queue.      
             string topToken  = stack.top();    
@@ -408,6 +425,7 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
         else if(isNumeric(token))
         {
         	out.push_back( token );
+        	notPushed = true;
         }
         //TODO will handle pi, e, log, etc.
         else

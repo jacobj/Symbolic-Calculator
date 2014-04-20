@@ -78,9 +78,10 @@ Exponential:: Exponential(string expression) {
     }
     
     // Creates Exponential object
-    // this->values["coefficient"] = coefficient;
+    this->values["coefficient"] = new Integer(1);
     this->values["value"] = value;
     this->values["exponent"] = exponent;
+    simplify();
 }
 
 Exponential::~Exponential() {
@@ -103,14 +104,14 @@ double Exponential::toDouble(){
 
 string Exponential::toString(){
 	stringstream valueStream;
-    if (values["coefficient"]->toString() != "1") {
+    if (values["coefficient"]->toString().compare("1")) {
         valueStream << values["coefficient"]->toString(); 
     }
-    if (values["value"]->toString() != "1") {
+    if (values["value"]->toString().compare("1")) {
         valueStream << "(" << values["value"]->toString() << ")";
-	if (values["exponent"]->toString() != "1") {
-             valueStream << "^" << values["exponent"]->toString();
-	}
+        if (values["exponent"]->toString().compare("1")) {
+            valueStream << "^" << values["exponent"]->toString();
+        }
     }
     string str = valueStream.str();
     return str;
@@ -126,16 +127,13 @@ void Exponential::simplify() {
             // If the exponent's numerator is an Integer,
             if (typeid(*values["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
                 // Raise the value to nth power and set the exponent to 1.
-            	if(values["exponent"]->getValues()["numerator"]->getValue() < 0)
-            	{
+            	if(values["exponent"]->getValues()["numerator"]->getValue() < 0) {
             		isNegative = true;
             		values["value"]->setValue(((long)pow(values["value"]->getValue(),
-                                                     -1*values["exponent"]->getValues()["numerator"]->getValue())));
-            	}
-            	else
-            	{
+                                                         -1*values["exponent"]->getValues()["numerator"]->getValue())));
+                } else {
             		values["value"]->setValue(((long)pow(values["value"]->getValue(),
-            		                                                     values["exponent"]->getValues()["numerator"]->getValue())));
+                                                         values["exponent"]->getValues()["numerator"]->getValue())));
             	}
                 // Set the numerator of the exponent to 1, as it has already been raised appropriately.
                 values["exponent"]->getValues()["numerator"]->setValue(1);
@@ -325,7 +323,28 @@ Number* Exponential::add(Number* val) {
                 }
             }
         }
-    }   
+        else if (typeid(*val->getValues()["exponent"]) == typeid(RationalNumber) &&
+                 typeid(*values["exponent"]) == typeid(RationalNumber)) {
+            if (typeid(*val->getValues()["exponent"]->getValues()["denominator"]) == typeid(Integer) &&
+                typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {
+                if (val->getValues()["exponent"]->getValues()["denominator"]->getValue() == values["exponent"]->getValues()["denominator"]->getValue()) {
+                    if (typeid(*(val->getValues()["exponent"]->getValues()["numerator"])) == typeid(Integer) &&
+                               typeid(*(values["exponent"]->getValues()["numerator"])) == typeid(Integer)) {
+                        if (val->getValues()["exponent"]->getValues()["numerator"]->getValue() == values["exponent"]->getValues()["numerator"]->getValue()) {
+                            if (typeid(*val->getValues()["value"]) == typeid(Integer) &&
+                                typeid(*values["value"]) == typeid(Integer)) {
+                                if (val->getValues()["value"]->getValue() == values["value"]->getValue()) {
+                                    Number* result = new Exponential(values["value"], values["exponent"], values["coefficient"]->add(val->getValues()["coefficient"]));
+                                    return result;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // return new Expression(this, val);
 }
 Number* Exponential::subtract(Number* val) {
 	if (typeid(*val) == typeid(Integer)) {
@@ -351,9 +370,11 @@ Number* Exponential::subtract(Number* val) {
 	}
 }
 Number* Exponential::multiply(Number* val) {
-	if (typeid(*val) == typeid(Integer)) {
-        
-	}
+	if (typeid(*val) == typeid(Integer) && 
+        typeid(*values["coefficient"]) == typeid(Integer)) {
+        Number* result = new Exponential(values["value"], values["exponent"], values["coefficient"]->multiply(val));
+        return result;
+    }
 	else if (typeid(*val) == typeid(Exponential)) {
         
 	}

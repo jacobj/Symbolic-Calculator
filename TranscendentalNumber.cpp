@@ -186,7 +186,12 @@ Number* TranscendentalNumber::multiply(Number* val){
 	}
 }
 Number* TranscendentalNumber::divide(Number* val){
-	return new RationalNumber(this, val);
+	if(typeid(*val) == typeid(RationalNumber)){
+		return new RationalNumber(this->multiply(val->getValues()["denominator"]), val->getValues()["numerator"]);
+	}
+	else{
+	    return new RationalNumber(this, val);
+	}
 }
 Number* TranscendentalNumber::exponentiate(Number* val){
 	stringstream valStream;

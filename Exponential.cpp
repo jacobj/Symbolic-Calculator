@@ -418,28 +418,43 @@ Number* Exponential::add(Number* val) {
     // return new Expression(this, val);
 }
 Number* Exponential::subtract(Number* val) {
-	if (typeid(*val) == typeid(Integer)) {
-        
-	}
-	else if (typeid(*val) == typeid(Exponential)) {
-        
-	}
-	else if (typeid(*val) == typeid(Expression)) {
-        
-	}
-	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-        
-	}
-	else if (typeid(*val) == typeid(RationalNumber)) {
-        
-	}
-	else if (typeid(*val) == typeid(Logarithm)) {
-        
-	}
-	else {
-        
-	}
+        if (typeid(*val) == typeid(Exponential)) {
+        if (typeid(*val->getValues()["exponent"]) == typeid(Integer) &&
+            typeid(*values["exponent"]) == typeid(Integer)) {
+            if (val->getValues()["exponent"]->getValue() == values["exponent"]->getValue()) {
+                if (typeid(*val->getValues()["value"]) == typeid(Integer) &&
+                    typeid(*values["value"]) == typeid(Integer)) {
+                    if (val->getValues()["value"]->getValue() == values["value"]->getValue()) {
+                        Number* result = new Exponential(values["value"], values["exponent"], values["coefficient"]->subtract(val->getValues()["coefficient"]));
+                        return result;
+                    }
+                }
+            }
+        }
+        else if (typeid(*val->getValues()["exponent"]) == typeid(RationalNumber) &&
+                 typeid(*values["exponent"]) == typeid(RationalNumber)) {
+            if (typeid(*val->getValues()["exponent"]->getValues()["denominator"]) == typeid(Integer) &&
+                typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {
+                if (val->getValues()["exponent"]->getValues()["denominator"]->getValue() == values["exponent"]->getValues()["denominator"]->getValue()) {
+                    if (typeid(*(val->getValues()["exponent"]->getValues()["numerator"])) == typeid(Integer) &&
+                               typeid(*(values["exponent"]->getValues()["numerator"])) == typeid(Integer)) {
+                        if (val->getValues()["exponent"]->getValues()["numerator"]->getValue() == values["exponent"]->getValues()["numerator"]->getValue()) {
+                            if (typeid(*val->getValues()["value"]) == typeid(Integer) &&
+                                typeid(*values["value"]) == typeid(Integer)) {
+                                if (val->getValues()["value"]->getValue() == values["value"]->getValue()) {
+                                    Number* result = new Exponential(values["value"], values["exponent"], values["coefficient"]->subtract(val->getValues()["coefficient"]));
+                                    return result;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // return new Expression(this, val);
 }
+
 Number* Exponential::multiply(Number* val) {
 	if (typeid(*val) == typeid(Integer) && 
         typeid(*values["coefficient"]) == typeid(Integer)) {
@@ -447,7 +462,7 @@ Number* Exponential::multiply(Number* val) {
         return result;
     }
 	else if (typeid(*val) == typeid(Exponential)) {
-        
+        // Important case.
 	}
 	else if (typeid(*val) == typeid(Expression)) {
         
@@ -456,7 +471,7 @@ Number* Exponential::multiply(Number* val) {
         
 	}
 	else if (typeid(*val) == typeid(RationalNumber)) {
-
+        return new RationalNumber(multiply(val->getValues()["numerator"]), val->getValues()["denominator"]);
 	}
 	else if (typeid(*val) == typeid(Logarithm)) {
 
@@ -466,52 +481,14 @@ Number* Exponential::multiply(Number* val) {
 	}
 }
 Number* Exponential::divide(Number* val) {
-	if (typeid(*val) == typeid(Integer)) {
-
-	}
-	else if (typeid(*val) == typeid(Exponential)) {
-
-	}
-	else if (typeid(*val) == typeid(Expression)) {
-
-	}
-	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(RationalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(Logarithm)) {
-
-	}
-	else {
-
-	}
+	Number* result = new RationalNumber(this, val);
+    return result;
 }
 Number* Exponential::exponentiate(Number* val) {
-	if (typeid(*val) == typeid(Integer)) {
-
-	}
-	else if (typeid(*val) == typeid(Exponential)) {
-
-	}
-	else if (typeid(*val) == typeid(Expression)) {
-
-	}
-	else if (typeid(*val) == typeid(TranscendentalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(RationalNumber)) {
-
-	}
-	else if (typeid(*val) == typeid(Logarithm)) {
-
-	}
-	else {
-
-	}
+    // Should this really be implemented?
 }
 
+// Not used
 void Exponential::display()
 {
 

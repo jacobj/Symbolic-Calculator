@@ -195,7 +195,10 @@ Number* TranscendentalNumber::divide(Number* val){
 }
 Number* TranscendentalNumber::exponentiate(Number* val){
 	stringstream valStream;
-	if(!values["coefficient"]->toString().compare("1")){
+	if (typeid(*val) == typeid(Integer) && val->getValue() == 0){
+		return new Integer("1");
+	}
+	else if(!values["coefficient"]->toString().compare("1")){
 		valStream << value << "^" << val->toString();
 		string str = valStream.str();
 		return new Expression(str);

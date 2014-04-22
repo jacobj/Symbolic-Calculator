@@ -22,66 +22,137 @@ Exponential::Exponential(Number* value, Number* exponent, Number* coefficient) {
     simplify();
 }
 
-Exponential:: Exponential(string expression) {
+Exponential::Exponential(string expression) {
     /********************************************
      Evaluates expressions containing Ints,
      TNs, Logs, and RNs.
      ********************************************/
     
     // searches for the position of the valid operator
-    int pos = expression.find_first_of("^");
-    
-    // checks if valid operator was entered
-    if (pos == -1) {
-        string exception = "ERROR! Enter the valid operator! (^) \n";
-        throw exception;
-    }
-    // Obtains expression substrings -- one for value, one for exponent
-    string base = expression.substr(0, pos);
-    string expo = expression.substr(pos+1, expression.size());
-    Number* value;
-    Number* exponent;
-    // Number* coefficient;
-    
-    // Checks Number type for value/base
-    if(base == "e") {
-        value = new TranscendentalNumber(base);
-    }
-    else if(base == "pi") {
-        value = new TranscendentalNumber(base);
-    }
-    else if(base.find_first_of("/") != -1) {
-        value = new RationalNumber(base);
-    }
-    else if(base.find_first_of("log") != -1) {
-        value = new Logarithm(base);
+    int pos1 = expression.find_first_of("(");
+    if (pos1 != -1) {
+        int pos2 = expression.find_first_of("^");
+        if (pos2 == -1) {
+            string exception = "ERROR! Enter the valid operator! (^) \n";
+            throw exception;
+        }
+        string coeff = expression.substr(0, pos1); 
+        string base = expression.substr(pos1 + 1, pos2);
+        string expo = expression.substr(pos2+1, expression.size());
+        Number* value;
+        Number* exponent;
+        Number* coefficient;
+
+        // Checks Number type for value/base
+        if(base == "e") {
+            value = new TranscendentalNumber(base);
+        }
+        else if(base == "pi") {
+            value = new TranscendentalNumber(base);
+        }
+        else if(base.find_first_of("/") != -1) {
+            value = new RationalNumber(base);
+        }
+        else if(base.find_first_of("log") != -1) {
+            value = new Logarithm(base);
+        }
+        else {
+            value = new Integer(base);
+        }
+                
+        // Checks Number type for exponent
+        if(expo == "e") {
+            exponent = new TranscendentalNumber(expo);
+        }
+        else if(expo == "pi") {
+            exponent = new TranscendentalNumber(expo);
+        }
+        else if(expo.find_first_of("/") != -1) {
+            exponent = new RationalNumber(expo);
+        }
+        else if(expo.find_first_of("log") != -1) {
+            exponent = new Logarithm(expo);
+        }
+        else {
+            exponent = new Integer(expo);
+        }
+
+         // Checks Number type for exponent
+        if(coeff == "e") {
+            coefficient = new TranscendentalNumber(coeff);
+        }
+        else if(coeff == "pi") {
+            coefficient = new TranscendentalNumber(coeff);
+        }
+        else if(coeff.find_first_of("/") != -1) {
+            coefficient = new RationalNumber(coeff);
+        }
+        else if(coeff.find_first_of("log") != -1) {
+            coefficient = new Logarithm(expo);
+        }
+        else {
+            coefficient = new Integer(coeff);
+        }
+
+        // Creates Exponential object
+        this->values["coefficient"] = coefficient;
+        this->values["value"] = value;
+        this->values["exponent"] = exponent;
+        simplify();
     }
     else {
-        value = new Integer(base);
+
+        int pos2 = expression.find_first_of("^");
+        // checks if valid operator was entered
+        if (pos2 == -1) {
+            string exception = "ERROR! Enter the valid operator! (^) \n";
+            throw exception;
+        }
+        // Obtains expression substrings -- one for value, one for exponent
+        string base = expression.substr(0, pos2);
+        string expo = expression.substr(pos2 + 1, expression.size());
+        Number* value;
+        Number* exponent;
+                
+        // Checks Number type for value/base
+        if(base == "e") {
+            value = new TranscendentalNumber(base);
+        }
+        else if(base == "pi") {
+            value = new TranscendentalNumber(base);
+        }
+        else if(base.find_first_of("/") != -1) {
+            value = new RationalNumber(base);
+        }
+        else if(base.find_first_of("log") != -1) {
+            value = new Logarithm(base);
+        }
+        else {
+            value = new Integer(base);
+        }
+                
+        // Checks Number type for exponent
+        if(expo == "e") {
+            exponent = new TranscendentalNumber(expo);
+        }
+        else if(expo == "pi") {
+            exponent = new TranscendentalNumber(expo);
+        }
+        else if(expo.find_first_of("/") != -1) {
+            exponent = new RationalNumber(expo);
+        }
+        else if(expo.find_first_of("log") != -1) {
+            exponent = new Logarithm(expo);
+        }
+        else {
+            exponent = new Integer(expo);
+        }
+        // Creates Exponential object
+        this->values["coefficient"] = new Integer(1);
+        this->values["value"] = value;
+        this->values["exponent"] = exponent;
+        simplify();
     }
-    
-    // Checks Number type for exponent
-    if(expo == "e") {
-        exponent = new TranscendentalNumber(expo);
-    }
-    else if(expo == "pi") {
-        exponent = new TranscendentalNumber(expo);
-    }
-    else if(expo.find_first_of("/") != -1) {
-        exponent = new RationalNumber(expo);
-    }
-    else if(expo.find_first_of("log") != -1) {
-        exponent = new Logarithm(expo);
-    }
-    else {
-        exponent = new Integer(expo);
-    }
-    
-    // Creates Exponential object
-    this->values["coefficient"] = new Integer(1);
-    this->values["value"] = value;
-    this->values["exponent"] = exponent;
-    simplify();
 }
 
 Exponential::~Exponential() {

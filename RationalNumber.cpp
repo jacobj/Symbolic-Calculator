@@ -307,11 +307,11 @@ void RationalNumber::simplify() {
                     // of which the denominator and numerator are Integers
                     if (typeid(*values["denominator"]->getValues()["exponent"]->getValues()["denominator"]) == typeid(Integer) &&
                         typeid(*values["denominator"]->getValues()["exponent"]->getValues()["numerator"]) == typeid(Integer) &&
-                        typeid(*values["numerator"]->getValues()["exponent"]->getValues()["demominator"]) == typeid(Integer) &&
+                        typeid(*values["numerator"]->getValues()["exponent"]->getValues()["denominator"]) == typeid(Integer) &&
                         typeid(*values["numerator"]->getValues()["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
                         // And the values of the denominator's of the exponents are equal,
-                        if (values["numerator"]->getValues()["exponent"]->getValues()["demominator"]->getValue() == 
-                            values["denominator"]->getValues()["exponent"]->getValues()["demominator"]->getValue()) {
+                        if (values["numerator"]->getValues()["exponent"]->getValues()["denominator"]->getValue() == 
+                            values["denominator"]->getValues()["exponent"]->getValues()["denominator"]->getValue()) {
                             // Set the denominator and numerator equal to only the coefficients.
                             values["numerator"] = values["numerator"]->getValues()["coefficient"];
                             values["denominator"] = values["denominator"]->getValues()["coefficient"];
@@ -345,11 +345,11 @@ void RationalNumber::simplify() {
                     // of which the denominator and numerator are Integers
                     if (typeid(*values["denominator"]->getValues()["exponent"]->getValues()["denominator"]) == typeid(Integer) &&
                         typeid(*values["denominator"]->getValues()["exponent"]->getValues()["numerator"]) == typeid(Integer) &&
-                        typeid(*values["numerator"]->getValues()["exponent"]->getValues()["demominator"]) == typeid(Integer) &&
+                        typeid(*values["numerator"]->getValues()["exponent"]->getValues()["denominator"]) == typeid(Integer) &&
                         typeid(*values["numerator"]->getValues()["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
                         // And the values of the denominator's of the exponents are equal,
-                        if (values["numerator"]->getValues()["exponent"]->getValues()["demominator"]->getValue() == 
-                            values["denominator"]->getValues()["exponent"]->getValues()["demominator"]->getValue()) {
+                        if (values["numerator"]->getValues()["exponent"]->getValues()["denominator"]->getValue() == 
+                            values["denominator"]->getValues()["exponent"]->getValues()["denominator"]->getValue()) {
                             // Set the denominator and numerator equal to only the coefficients.
                             values["numerator"] = values["numerator"]->getValues()["coefficient"];
                             values["denominator"] = values["denominator"]->getValues()["coefficient"];

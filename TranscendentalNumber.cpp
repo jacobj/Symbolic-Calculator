@@ -194,22 +194,14 @@ Number* TranscendentalNumber::divide(Number* val){
 	}
 }
 Number* TranscendentalNumber::exponentiate(Number* val){
-	stringstream valStream;
 	if (typeid(*val) == typeid(Integer) && val->getValue() == 0){
 		return new Integer("1");
 	}
 	else if (typeid(*val) == typeid(Integer) && val->getValue() == 1){
-			return new TranscendentalNumber(value);
-	}
-	else if(!values["coefficient"]->toString().compare("1")){
-		valStream << value << "^" << val->toString();
-		string str = valStream.str();
-		return new Expression(str);
+		return new TranscendentalNumber(value);
 	}
 	else{
-		valStream << values["coefficient"]->toString() << value << "^" << val->toString();
-		string str = valStream.str();
-		return new Expression(str);
+		return new Exponential(new TranscendentalNumber(value), val, values["coefficient"]);
 	}
 }
 

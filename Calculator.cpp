@@ -306,7 +306,6 @@ vector<string> Calculator::setExpressionTokens(string& expr)
         	else if(token == "l")
         	{
         		i++;
-
         	}
 
 
@@ -343,7 +342,7 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
 {
     bool success = true;
     bool leadingNegative = false;
-    bool notPushed = true;
+    bool pushed = false;
     
     stack<string>stack;
     list<string>out;
@@ -352,13 +351,17 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
     {
         string token = tokens[i];
         
+        if(token == "-" && i == 0)
+        	leadingNegative = true;
+
         if( isOperator( token ) )
         {
+
             string o1 = token;
             if( !stack.empty() )
             {
                 string o2 = stack.top();
-                if(o1 == "-" && o2 == "-")
+                if(!pushed && !leadingNegative && o1 == "-" && o2 == "-")
                 {
                 	stack.pop();
                 	o1 = "+";
@@ -369,6 +372,7 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
 						   (comparePrecedence(o1, o2) == 0 ||
 						   comparePrecedence(o1, o2) == -1))
 					{
+
 						stack.pop();
 						out.push_back( o2 );
 
@@ -381,6 +385,7 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
                 }
             }
             stack.push( o1 );
+            pushed = false;
         }
         else if ( token == "(" )          
         {          
@@ -395,7 +400,6 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
         }
         else if ( token == ")" )          
         {        
-        	leadingNegative = false;
             // Until the token at the top of the stack is a left parenthesis,       
             // pop operators off the stack onto the output queue.      
             string topToken  = stack.top();    
@@ -425,7 +429,7 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
         else if(isNumeric(token))
         {
         	out.push_back( token );
-        	notPushed = true;
+        	pushed = true;
         }
         //TODO will handle pi, e, log, etc.
         else

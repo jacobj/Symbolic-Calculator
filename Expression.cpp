@@ -16,6 +16,7 @@ Expression::Expression(string& expr){
 	strExpression = expr;
 	addInput(strExpression);
 	sort();
+	simplify();
 
 
 	/*for(int i = 0;i<expr.size();i++)
@@ -90,7 +91,55 @@ Expression::Expression(string& expr){
 	{
 
 	}
-	void Expression::simplify(){}
+	void Expression::simplify()
+	{
+		if(operands.size() > 1)
+		{
+			for(int i = 1;i<operands.size()-1;i++)
+			{
+				if(operands[i]->toString().compare("0") == 0)
+				{
+					for(int j = i;j<operands.size()-1;j++)
+					{
+						operands[j] = operands[j+1];
+						operators[j] = operators[j+1];
+					}
+					operands.pop_back();
+					operators.pop_back();
+				}
+			}
+
+		}
+		if(operands.back()->toString().compare("0") == 0)
+		{
+			operands.pop_back();
+			operators.pop_back();
+		}
+
+		if(operands.front()->toString().compare("0") == 0)
+		{
+			if(operators.front().compare("-") == 0)
+				operators[0] = "0";
+
+			for(int i = 0;i<operands.size()-1;i++)
+			{
+				operands[i] = operands[i+1];
+			}
+			if(operators[1].compare("+") == 0)
+			{
+				for(int i = 1;i<operators.size()-1;i++)
+					operators[i] = operators[i+1];
+			}
+			else
+			{
+				for(int i = 0;i<operators.size()-1;i++)
+						operators[i] = operators[i+1];
+			}
+			operands.pop_back();
+			operators.pop_back();
+		}
+
+	}
 	double Expression::toDouble()
 	{
 			 stack<double> st;
@@ -230,6 +279,8 @@ Expression::Expression(string& expr){
 			operators.push_back("+");
 			operands.push_back(val);
 		}
+		else
+			simplify();
 		return this;
 	}
 
@@ -289,6 +340,8 @@ Expression::Expression(string& expr){
 			operators.push_back("-");
 			operands.push_back(val);
 		}
+		else
+			simplify();
 		return this;
     }
     Number* Expression::multiply(Number* val)

@@ -53,8 +53,9 @@ Number* Calculator::assignToClass(string& token)
 
 	if(isNumeric(token))
 	{
-		//if(token == "e" || token == "pi")
-		if(token.find_first_of("pe") != -1)
+		if(token.find_first_of("+-") != -1)
+			temp = new Expression(token);
+		else if(token.find_first_of("pe") != -1)
 			temp = new TranscendentalNumber(token);
 		else if(token.find_first_of("/") != -1)
 			temp = new RationalNumber(token);
@@ -159,53 +160,69 @@ void Calculator::calculate()
 Number* Calculator::calculate(Number* num1, Number* num2, string op)
 {
 	Number* result;
-	Number *n1 = NULL, *n2 = NULL;
+	Number *n1 = NULL, *n2 = NULL, *temp = NULL;
 	stringstream logStream;
-	string log;
+	string log, tempStr;
 
-	//determine type of num1
-	if(typeid(*num1) == typeid(Integer))
+	if(typeid(*num1) == typeid(Expression))
 	{
-		string temp = num1->toString();
-		n1 = new Integer(num1->toString());
+		tempStr = num1->toString();
+		n1 = assignToClass(tempStr);
 	}
-
-	else if(typeid(*num1) == typeid(TranscendentalNumber))
-		n1 = new TranscendentalNumber(num1->toString());
-
-	else if(typeid(*num1) == typeid(RationalNumber))
-		n1 = new RationalNumber(num1->toString());
-
-	else if(typeid(*num1) == typeid(Exponential))
-		n1 = new Exponential(num1->toString());
-
-	else if(typeid(*num1) == typeid(Logarithm))
-		n1 = new Logarithm(num1->toString());
 	else
 	{
-		string temp = num1->toString();
-		n1 = new Expression(temp);
+		//determine type of num1
+		if(typeid(*num1) == typeid(Integer))
+		{
+			string temp = num1->toString();
+			n1 = new Integer(num1->toString());
+		}
+
+		else if(typeid(*num1) == typeid(TranscendentalNumber))
+			n1 = new TranscendentalNumber(num1->toString());
+
+		else if(typeid(*num1) == typeid(RationalNumber))
+			n1 = new RationalNumber(num1->toString());
+
+		else if(typeid(*num1) == typeid(Exponential))
+			n1 = new Exponential(num1->toString());
+
+		else if(typeid(*num1) == typeid(Logarithm))
+			n1 = new Logarithm(num1->toString());
+		else
+		{
+			string temp = num1->toString();
+			n1 = new Expression(temp);
+		}
 	}
 
-	//determine type of num2
-	if(typeid(*num2) == typeid(Integer))
-		n2 = new Integer(num2->toString());
-
-	else if(typeid(*num2) == typeid(TranscendentalNumber))
-		n2 = new TranscendentalNumber(num2->toString());
-
-	else if(typeid(*num2) == typeid(RationalNumber))
-		n2 = new RationalNumber(num2->toString());
-
-	else if(typeid(*num2) == typeid(Exponential))
-		n2 = new Exponential(num2->toString());
-
-	else if(typeid(*num2) == typeid(Logarithm))
-		n2 = new Logarithm(num2->toString());
+	if(typeid(*num2) == typeid(Expression))
+	{
+		tempStr = num2->toString();
+		n2 = assignToClass(tempStr);
+	}
 	else
 	{
-		string temp = num2->toString();
-		n2 = new Expression(temp);
+		//determine type of num2
+		if(typeid(*num2) == typeid(Integer))
+			n2 = new Integer(num2->toString());
+
+		else if(typeid(*num2) == typeid(TranscendentalNumber))
+			n2 = new TranscendentalNumber(num2->toString());
+
+		else if(typeid(*num2) == typeid(RationalNumber))
+			n2 = new RationalNumber(num2->toString());
+
+		else if(typeid(*num2) == typeid(Exponential))
+			n2 = new Exponential(num2->toString());
+
+		else if(typeid(*num2) == typeid(Logarithm))
+			n2 = new Logarithm(num2->toString());
+		else
+		{
+			string temp = num2->toString();
+			n2 = new Expression(temp);
+		}
 	}
 
 	if(op == "+")

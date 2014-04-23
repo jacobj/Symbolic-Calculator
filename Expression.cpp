@@ -235,40 +235,61 @@ Expression::Expression(string& expr){
 
     Number* Expression::subtract(Number* val)
     {
-    	if (typeid(*val) == typeid(Integer))
-    			{
-    				for(int i = 0; i < operands.size(); i++)
-    				{
-    					if(typeid(*operands[i]) == typeid(Integer))
-    					{
-    						operands[i] = calculate(operands[i],val,"-");
-    					}
-    				}
-    			}
-    			else if (typeid(*val) == typeid(TranscendentalNumber))
-    			{
-    				for(int i = 0; i < operands.size(); i++)
-    				{
-    					if(typeid(*operands[i]) == typeid(TranscendentalNumber))
-    					{
-    						operands[i] = calculate(operands[i],val,"-");
-    					}
-    				}
-    			}
-    			/*else if (typeid(*val) == typeid(RationalNumber)){
-    				stringstream RatNumStream;
-    				RatNumStream << getValue() << "/1";
-    				string str = RatNumStream.str();
-    				Number* RatNum = new RationalNumber(str);
-    				return RatNum->add(val);
-    			}
-    			else{
-    				stringstream valStream;
-    				valStream << toString() << "+" << val->toString();
-    				string str = valStream.str();
-    				return new Expression(str);
-    			}*/
-    			return this;
+    	bool matchFound = false;
+		if (typeid(*val) == typeid(Integer))
+		{
+			for(int i = 0; i < operands.size(); i++)
+			{
+				if(typeid(*operands[i]) == typeid(Integer))
+				{
+					matchFound = true;
+					operands[i] = calculate(operands[i],val,"-");
+				}
+			}
+		}
+		else if (typeid(*val) == typeid(TranscendentalNumber))
+		{
+			for(int i = 0; i < operands.size(); i++)
+			{
+				if(typeid(*operands[i]) == typeid(TranscendentalNumber))
+				{
+					if(operands[i]->getTranscendentalValue() == val->getTranscendentalValue())
+					{
+						matchFound = true;
+						operands[i] = calculate(operands[i],val,"-");
+					}
+				}
+			}
+		}
+		else if (typeid(*val) == typeid(RationalNumber))
+		{
+			for(int i = 0; i < operands.size(); i++)
+			{
+				if(typeid(*operands[i]) == typeid(RationalNumber))
+				{
+					operands[i] = calculate(operands[i],val,"-");
+				}
+			}
+		}
+		/*else if (typeid(*val) == typeid(RationalNumber)){
+			stringstream RatNumStream;
+			RatNumStream << getValue() << "/1";
+			string str = RatNumStream.str();
+			Number* RatNum = new RationalNumber(str);
+			return RatNum->add(val);
+		}
+		else{
+			stringstream valStream;
+			valStream << toString() << "+" << val->toString();
+			string str = valStream.str();
+			return new Expression(str);
+		}*/
+		if(!matchFound)
+		{
+			operators.push_back("-");
+			operands.push_back(val);
+		}
+		return this;
     }
     Number* Expression::multiply(Number* val)
     {

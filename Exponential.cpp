@@ -251,7 +251,7 @@ void Exponential::simplify() {
         }
     }
     // Else, if the value is a rational
-    else if (typeid(*values["value"]) == typeid(RationalNumber)) {
+    /* else if (typeid(*values["value"]) == typeid(RationalNumber)) {
         // And the numerator of the value is an Integer,
         if (typeid(*values["value"]->getValues()["numerator"]) == typeid(Integer) && 
             typeid(*values["value"]->getValues()["denominator"]) == typeid(Integer)) {
@@ -318,24 +318,25 @@ void Exponential::simplify() {
                         values["value"]->getValues()["denominator"]->getValues()["value"]->setValue(value2);
                         values["value"]->getValues()["denominator"]->getValues()["coefficient"]->setValue(coefficient2);
                         // Finally simplify the inner and outer coefficients.
-                        values["value"]->getValues()["demominator"]->getValues()["coefficient"] = values["value"]->getValues()["demominator"]->getValues()["coefficient"]->multiply(values["coefficient"]);
-                        values["value"]->getValues()["demominator"]->getValues()["coefficient"] = values["value"]->getValues()["numerator"]->getValues()["coefficient"]->multiply(values["coefficient"]);
+                        values["value"]->getValues()["denominator"]->getValues()["coefficient"] = values["value"]->getValues()["denominator"]->getValues()["coefficient"]->multiply(values["coefficient"]);
+                        values["value"]->getValues()["denominator"]->getValues()["coefficient"] = values["value"]->getValues()["numerator"]->getValues()["coefficient"]->multiply(values["coefficient"]);
                         values["coefficient"] = new Integer(1);
                     }
                 } 
             }      
         }
-        else {
-            // Split into two seperate expoentials
-            Number* coef1 = new Integer("1");
-            Number* coef2 = new Integer("1");
-            values["value"]->getValues()["denominator"] = new Exponential(values["value"]->getValues()["denominator"], 
-                                                                          values["exponent"], coef1);
-            values["value"]->getValues()["numerator"] = new Exponential(values["value"]->getValues()["numerator"], 
-                                                                        values["exponent"], coef2);
-        }
+    */
+    else {
+        // Split into two seperate expoentials
+        Number* coef1 = new Integer("1");
+        Number* coef2 = new Integer("1");
+        values["value"]->getValues()["denominator"] = new Exponential(values["value"]->getValues()["denominator"], 
+                                                                      values["exponent"], coef1);
+        values["value"]->getValues()["numerator"] = new Exponential(values["value"]->getValues()["numerator"], 
+                                                                    values["exponent"], coef2);
     }
 }
+
 
 // Find the primes. Helper method.
 vector<int> Exponential::findPrimeFactors(int number, int i, vector<int> primeFactors) {

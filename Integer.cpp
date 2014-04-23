@@ -173,20 +173,25 @@ Number* Integer::divide(Number* val)
 }
 Number* Integer::exponentiate(Number* val)
 {
-    stringstream valStream;
-	if (typeid(*val) == typeid(Integer)) {
-		long valLong = 0;
-		valLong = pow(getValue(), val->getValue());
-	    return new Integer((long)valLong);
-	}
-    else if (typeid(*val) == typeid(RationalNumber)){
-    	Number* intCoefficient = new Integer("1");
-    	return new Exponential(this, val, intCoefficient);
+    if (toString() == "1") {
+        return new Integer("1");
     }
-	else{
-	    stringstream valStream;
-	    valStream << toString() << "^" << val->toString();
-	    string str = valStream.str();
-	    return new Exponential(str);
-	}
+    else {
+        stringstream valStream;
+        if (typeid(*val) == typeid(Integer)) {
+            long valLong = 0;
+            valLong = pow(getValue(), val->getValue());
+            return new Integer((long)valLong);
+        }
+        else if (typeid(*val) == typeid(RationalNumber)){
+            Number* intCoefficient = new Integer("1");
+            return new Exponential(this, val, intCoefficient);
+        }
+        else{
+            stringstream valStream;
+            valStream << toString() << "^" << val->toString();
+            string str = valStream.str();
+            return new Exponential(str);
+        }
+    }
 }

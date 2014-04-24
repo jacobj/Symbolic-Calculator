@@ -33,36 +33,46 @@ using namespace std;
 
 class Expression : public Number {
 private:
-	vector<string> operators;
 	vector<string> expression;
+	vector<string> operators;
+
 	vector<Number*> operands;
+
 	string strExpression;
+
 public:
 
 	Expression(string&);
 	// Returns a map of Number pointer properties
 	map<string, Number*> getValues();
+
 	vector<string> setExpressionTokens(string&);
+	vector<string> getOperators();
+	vector<Number*> getOperands();
+
+	void infixToRPN(vector<string>& tokens, vector<string>& rpn);
 	void setValues(string key, Number* val);
+	void addInput(string);
 	void simplify();
 	void display();
+	void sort();
+
 	double toDouble();
 	string toString();
+
 	bool isNumeric(string);
 	bool isOperator(string);
-	void addInput(string);
+	bool isParentheses(string token);
+
+	int comparePrecedence(string op1, string op2);
 
 	// Used only for Integers
 	long getValue();
 	void setValue(long value);
-	void sort();
 
 	// Used only for Transcendentals
 	string getTranscendentalValue();
 	void setTranscendentalValue(string value);
-	void infixToRPN(vector<string>& tokens, vector<string>& rpn);
-	int comparePrecedence(string op1, string op2);
-	bool isParentheses(string token);
 
 	Number* calculate(Number*, Number*, string);
 	Number* assignToClass(string& token);

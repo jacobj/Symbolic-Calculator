@@ -498,15 +498,8 @@ bool Calculator::isOperator(string token)
 bool Calculator::isNumeric(string token)
 {
 	string onesDigit = token.substr(0,1);
-	if(onesDigit == "1" || onesDigit == "2" ||
-	   onesDigit == "3" || onesDigit == "4" ||
-	   onesDigit == "5" || onesDigit == "6" ||
-	   onesDigit == "7" || onesDigit == "8" ||
-	   onesDigit == "9" || onesDigit == "0" ||
-	   onesDigit == "e" || onesDigit == "p" ||
-	   onesDigit == "pi")
-	   return true;
-	//else if()
+	if(token.find_first_of("1234567890ep") != -1)
+		return true;
 	else
 		return false;
 }

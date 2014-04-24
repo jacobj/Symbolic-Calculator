@@ -378,14 +378,83 @@ Expression::Expression(string& expr){
     }
     Number* Expression::multiply(Number* val)
     {
-    	for(int i = 0; i < operands.size(); i++)
-    		operands[i] = calculate(operands[i],val,"*");
+    	if (typeid(*val) == typeid(Expression))
+		{
+    		string tempstr = val->toString();
+    		Expression *expr = new Expression(tempstr);
+    		vector<Number*> tempOperands;
+    		vector<string> tempOperators;
 
-//    	if (typeid(*val) == typeid(Integer))
-//		{
-//			for(int i = 0; i < operands.size(); i++)
-//				operands[i] = calculate(operands[i],val,"*");
-//		}
+			for(int i = 0; i < operands.size(); i++)
+			{
+				for(int j = 0; j < expr->getOperands().size();j++)
+				{
+					tempOperands.push_back(calculate(operands[i],expr->getOperands()[j],"*"));
+
+					//if the operators are both + or -
+					if(operators[i].compare(expr->getOperators()[j]) == 0)
+					{
+						if(i == 0 && j == 0)
+							tempOperators.push_back("0");
+
+						else
+							tempOperators.push_back("+");
+					}
+					//different
+					else
+					{
+						if(i == 0 && j == 0)
+							tempOperators.push_back("-");
+
+						else
+						{
+							if(i == 0)
+							{
+								if(operators[i] == "0")
+									tempOperators.push_back(expr->getOperators()[j]);
+								//if the first operators is negative
+								else
+								{
+									if(operators[i].compare(expr->getOperators()[j]) == 0)
+										tempOperators.push_back("+");
+									else
+										tempOperators.push_back("-");
+								}
+							}
+							else if(j == 0)
+							{
+								if(expr->getOperators()[j] == "0")
+									tempOperators.push_back(operators[i]);
+								//if the first operators is negative
+								else
+								{
+									if(expr->getOperators()[j].compare(operators[i]) == 0)
+										tempOperators.push_back("+");
+									else
+										tempOperators.push_back("-");
+								}
+							}
+							else
+							{
+								if(operators[i].compare(expr->getOperators()[j]) == 0)
+									tempOperators.push_back("+");
+								else
+									tempOperators.push_back("-");
+							}
+						}
+					}
+				}
+			}
+			operands = tempOperands;
+			operators = tempOperators;
+		}
+    	else
+    	{
+			for(int i = 0; i < operands.size(); i++)
+				operands[i] = calculate(operands[i],val,"*");
+    	}
+
+
 //		else if (typeid(*val) == typeid(TranscendentalNumber))
 //		{
 //			for(int i = 0; i < operands.size(); i++)
@@ -404,7 +473,8 @@ Expression::Expression(string& expr){
     				string str = valStream.str();
     				return new Expression(str);
     			}*/
-    			return this;
+    	simplify();
+		return this;
     }
    	Number* Expression::divide(Number* val)
    	{
@@ -595,7 +665,13 @@ void Expression::sort()
             	operands.push_back(assignToClass(expression[i]));
                 if(i == 0)
                 {
-                	operators.push_back("0");
+                	if(expression[i+1] == "-")
+                	{
+                		operators.push_back("-");
+                		i++;
+                	}
+                	else
+                		operators.push_back("0");
                 }
             }
             else
@@ -784,3 +860,13 @@ bool Expression::isParentheses(string token)
         return false;
 }
 void Expression::display(){}
+
+
+vector<string> Expression::getOperators()
+{
+	return operators;
+}
+vector<Number*> Expression::getOperands()
+{
+	return operands;
+}

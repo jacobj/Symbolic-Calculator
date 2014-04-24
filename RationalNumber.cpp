@@ -90,9 +90,21 @@ double RationalNumber::toDouble(){
 
 string RationalNumber::toString(){
 	stringstream valueStream;
-	valueStream << values["numerator"]->toString();
+	
+    // if (typeid(*values["numerator"]) == typeid(Integer)) {
+        valueStream << values["numerator"]->toString();
+        // }
+    // else {
+        // valueStream << "(" << values["numerator"]->toString() << ")";
+        // }
     if (values["denominator"]->toString() != "1") {
-        valueStream << "/" << values["denominator"]->toString();
+        // if (typeid(*values["denominator"]) == typeid(Integer)) {
+            valueStream << "/" << values["denominator"]->toString();   
+        // }
+        // else {
+        //    valueStream << "/" << "(" << values["denominator"]->toString() << ")";
+        // }
+        
     }
 	string str = valueStream.str();
 	return str;

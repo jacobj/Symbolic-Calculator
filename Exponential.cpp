@@ -30,8 +30,9 @@ Exponential::Exponential(string expression) {
     
     // searches for the position of the valid operator
     int pos1 = expression.find_first_of("(");
-    if (pos1 != -1) {
-        int pos2 = expression.find_first_of("^");
+    int pos2 = expression.find_first_of("^");
+    int pos3 = expression.find_last_of("(");
+    if (pos1 != pos3 && pos2 > pos1) {
         if (pos2 == -1) {
             string exception = "ERROR! Enter the valid operator! (^) \n";
             throw exception;
@@ -181,7 +182,7 @@ string Exponential::toString(){
     if (values["value"]->toString().compare("1")) {
         valueStream << "(" << values["value"]->toString() << ")";
         if (values["exponent"]->toString().compare("1")) {
-            valueStream << "^" << values["exponent"]->toString();
+            valueStream << "^(" << values["exponent"]->toString() << ")";
         }
     }
     string str = valueStream.str();
@@ -221,8 +222,10 @@ void Exponential::simplify() {
                 // If the coefficient is an Integer.
                 if (typeid(*values["coefficient"]) == typeid(Integer)) {
                     int coefficient = values["coefficient"]->getValue();
-                    reduceInsideRoot(value, coefficient, 
-                                     values["exponent"]->getValues()["denominator"]->getValue(), primes);
+                    if (primes.size() > 0) {
+                        reduceInsideRoot(value, coefficient, 
+                                         values["exponent"]->getValues()["denominator"]->getValue(), primes);
+                    }
                                      
                     // Set value and coeffient to the returned values from reduceInsideRoot.
                     if(isNegative)
@@ -285,30 +288,34 @@ void Exponential::simplify() {
                         Number* coef1 = new Integer(1);
                         Number* coef2 = new Integer(1);
                         // Split into two seperate expoentials,
-			cout << values["value"]->getValues()["denominator"]->getValue() << endl;
-			cout << values["value"]->getValues()["numerator"]->getValue() << endl;
-			Number* denom = new Exponential(new Integer(values["value"]->getValues()["denominator"]->getValue()), 
-							new RationalNumber(new Integer(values["exponent"]->getValues()["numerator"]->getValue()),new Integer(values["exponent"]->getValues()["denominator"]->getValue())), coef1);
+                        cout << values["value"]->getValues()["denominator"]->getValue() << endl;
+                        cout << values["value"]->getValues()["numerator"]->getValue() << endl;
+                        Number* denom = new Exponential(new Integer(values["value"]->getValues()["denominator"]->getValue()), 
+                                                        new RationalNumber(new Integer(values["exponent"]->getValues()["numerator"]->getValue()),
+                                                                           new Integer(values["exponent"]->getValues()["denominator"]->getValue())), coef1);
                         Number* numer = new Exponential(new Integer(values["value"]->getValues()["numerator"]->getValue()), 
-                                                                                    values["exponent"], coef2);
+                                                        new RationalNumber(new Integer(values["exponent"]->getValues()["numerator"]->getValue()),
+                                                                           new Integer(values["exponent"]->getValues()["denominator"]->getValue())), coef2);
 
+                        cout << values["value"]->getValues()["denominator"]->getValue() << endl;
+                        cout << values["value"]->getValues()["numerator"]->getValue() << endl;
 
-			cout << values["value"]->getValues()["denominator"]->getValue() << endl;
-			cout << values["value"]->getValues()["numerator"]->getValue() << endl;
-
-			values["value"]->getValues()["denominator"] = denom;
-			values["value"]->getValues()["numerator"] = numer;
-
+                        values["value"]->setValues("denominator", denom); //= denom;
+                        values["value"]->setValues("numerator", numer);
+                        setValues("exponent", new Integer(1));
+                        cout << values["value"]->getValues()["numerator"]->getValues()["value"]->getValue() << endl;
+                        /*
                         // Make the outer exponent a 1.
                         values["exponent"] = new Integer(1);
                         vector<int> primes1;
+                        cout << values["value"]->getValues()["denominator"]->getValues()["value"]->getValue() << endl;
                         // Find the primes of the denominators value inside the exponent.
-                        primes1 = findPrimeFactors(values["denominator"]->getValues()["value"]->getValue(), 2, primes1);
+                        primes1 = findPrimeFactors(values["value"]->getValues()["denominator"]->getValues()["value"]->getValue(), 2, primes1);
                         // Sort the returned primes.
                         sort(primes1.begin(), primes1.end());
                         vector<int> primes2;
                         // Find the primes of the denominators value inside the exponent.
-                        primes2 = findPrimeFactors(values["numerator"]->getValues()["value"]->getValue(), 2, primes2);
+                        primes2 = findPrimeFactors(values["value"]->getValues()["numerator"]->getValues()["value"]->getValue(), 2, primes2);
                         sort(primes2.begin(), primes2.end());
                         // Make values to pass into reduce inside root.
                         int value1 = values["value"]->getValues()["numerator"]->getValues()["value"]->getValue();
@@ -331,6 +338,7 @@ void Exponential::simplify() {
                         values["value"]->getValues()["denominator"]->getValues()["coefficient"] = values["value"]->getValues()["denominator"]->getValues()["coefficient"]->multiply(values["coefficient"]);
                         values["value"]->getValues()["denominator"]->getValues()["coefficient"] = values["value"]->getValues()["numerator"]->getValues()["coefficient"]->multiply(values["coefficient"]);
                         values["coefficient"] = new Integer(1);
+                        */
                     }
                 } 
             }      

@@ -109,6 +109,11 @@ void Calculator::calculate()
             		Number *temp = new Integer("-1");
             		resultt = calculate(val2b,temp,"*");
             	}
+            	else if(token == "n")
+            	{
+            		Number *temp = new Integer("-1");
+					resultt = calculate(val2b,temp,"*");
+            	}
             	else
             	{
 					val1b = st.top();
@@ -130,6 +135,11 @@ void Calculator::calculate()
                 {
                 	Number *temp = new Integer("-1");
                     resultt =  calculate(val2b,temp,"*");
+                }
+                else if (token == "n")
+                {
+                	Number *temp = new Integer("-1");
+					resultt =  calculate(val2b,temp,"*");
                 }
                 else
                     resultt = val2b;
@@ -269,12 +279,12 @@ int Calculator::comparePrecedence(string op1, string op2)
     if(op1.compare(op2) == 0)
         return 0;
     
-    if(op1 == "^")
+    if(op1 == "^" || op1 == "n")
         return 1;
     
     else if(op1 == "*" || op1 == "/")
     {
-        if(op2 == "^")
+        if(op2 == "^" || op2 == "n")
             return -1;
         else
             return 1;
@@ -376,8 +386,11 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
     {
         string token = tokens[i];
         
-        if(token == "-" && i == 0)
+        if(token == "-" && (i == 0 || tokens[i-1] == "("))
+        {
+        	token = "n";
         	leadingNegative = true;
+        }
 
         if( isOperator( token ) )
         {
@@ -390,23 +403,33 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
                 {
                 	stack.pop();
                 	o1 = "+";
+                	leadingNegative = false;
                 }
                 else
                 {
-					while( isOperator( o2 ) &&
-						   (comparePrecedence(o1, o2) == 0 ||
-						   comparePrecedence(o1, o2) == -1))
-					{
+//                	if(leadingNegative && comparePrecedence(o1,o2) == 1)
+//                	{
+//                		stack.pop();
+//                		out.push_back(o2);
+//                		leadingNegative = false;
+//                	}
+                	//else
+                	//{
+						while(isOperator( o2 ) &&
+							   (comparePrecedence(o1, o2) == 0 ||
+							   comparePrecedence(o1, o2) == -1))
+						{
 
-						stack.pop();
-						out.push_back( o2 );
+							stack.pop();
+							out.push_back( o2 );
 
-						if ( !stack.empty() )
-							o2 = stack.top();
+							if ( !stack.empty() )
+								o2 = stack.top();
 
-						else
-							break;
-					}
+							else
+								break;
+						}
+                	//}
                 }
             }
             stack.push( o1 );
@@ -449,7 +472,8 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
             if ( topToken != "(" )      
             {                          
                 return false;      
-            }                                            
+            }
+            leadingNegative = false;
         }
         else if(isNumeric(token))
         {
@@ -489,7 +513,8 @@ bool Calculator::isOperator(string token)
 {
     if( token == "+" || token == "-" ||
         token == "*" || token == "/" ||
-        token == "^" || token == ":")
+        token == "^" || token == ":" ||
+        token == "n")
         return true;
     else
         return false;   

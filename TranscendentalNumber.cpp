@@ -174,6 +174,9 @@ Number* TranscendentalNumber::multiply(Number* val){
 	else if (typeid(*val) == typeid(RationalNumber)){
 		return new RationalNumber(this->multiply(val->getValues()["numerator"]), val->getValues()["denominator"]);
 	}
+    else if (typeid(*val) == typeid(Expression)) {
+        return val->multiply(this);
+    }
 	else if(!values["coefficient"]->toString().compare("1")){
 		valStream << value << "*" << val->toString();
 		string str = valStream.str();

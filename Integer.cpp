@@ -133,9 +133,12 @@ Number* Integer::multiply(Number* val)
         Number* result = new TranscendentalNumber(str);
         return result;
     }
+    else if (typeid(*val) == typeid(Expression)) {
+        return val->multiply(this);
+    }
 	else{
 		stringstream valStream;
-		valStream << toString() << "-" << val->toString();
+		valStream << toString() << "*" << val->toString();
 		string str = valStream.str();
 		return new Expression(str);
 	}

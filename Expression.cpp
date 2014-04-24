@@ -451,7 +451,18 @@ Expression::Expression(string& expr){
     	else
     	{
 			for(int i = 0; i < operands.size(); i++)
+			{
 				operands[i] = calculate(operands[i],val,"*");
+				if(typeid(*operands[i]) != typeid(Integer))
+				{
+					if(operands[i]->getValues()["coefficient"]->getValue() < 0)
+					{
+						Number *temp = new Integer("-1");
+						operands[i] = calculate(operands[i],temp,"*");
+						operators[i]="-";
+					}
+				}
+			}
     	}
 
 

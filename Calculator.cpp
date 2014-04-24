@@ -147,9 +147,7 @@ void Calculator::calculate()
 
         }
     }
-    //TODO maybe we will get to
-    //if(typeid(*(st.top())) == typeid(Logarithm) )
-    	//cout << "IT WORKED" << endl;
+
     if(!st.empty())// && st.top() != " ")
     {
     	previousA.push_back(st.top());

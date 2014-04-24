@@ -43,8 +43,6 @@ public:
     string getTranscendentalValue();
     void setTranscendentalValue(string value); 
     void simplify();
-    //TODO change to Number*
-    // Number* add(Integer*);
 
     // Abstract operation methods
     Number* add(Number*);

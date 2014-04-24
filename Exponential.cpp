@@ -252,7 +252,7 @@ void Exponential::simplify() {
     }
     // Else, if the value is a rational
     else if (typeid(*values["value"]) == typeid(RationalNumber)) {
-        // And the numerator of the value is an Integer,
+        // And the numerator of the value is an Integer
         if (typeid(*values["value"]->getValues()["numerator"]) == typeid(Integer) && 
             typeid(*values["value"]->getValues()["denominator"]) == typeid(Integer)) {
             // And the exponent is an Integer,
@@ -285,10 +285,20 @@ void Exponential::simplify() {
                         Number* coef1 = new Integer(1);
                         Number* coef2 = new Integer(1);
                         // Split into two seperate expoentials,
-                        values["value"]->getValues()["denominator"] = new Exponential(values["value"]->getValues()["denominator"], 
-                                                                                      values["exponent"], coef1);
-                        values["value"]->getValues()["numerator"] = new Exponential(values["value"]->getValues()["numerator"], 
+			cout << values["value"]->getValues()["denominator"]->getValue() << endl;
+			cout << values["value"]->getValues()["numerator"]->getValue() << endl;
+			Number* denom = new Exponential(new Integer(values["value"]->getValues()["denominator"]->getValue()), 
+							new RationalNumber(new Integer(values["exponent"]->getValues()["numerator"]->getValue()),new Integer(values["exponent"]->getValues()["denominator"]->getValue())), coef1);
+                        Number* numer = new Exponential(new Integer(values["value"]->getValues()["numerator"]->getValue()), 
                                                                                     values["exponent"], coef2);
+
+
+			cout << values["value"]->getValues()["denominator"]->getValue() << endl;
+			cout << values["value"]->getValues()["numerator"]->getValue() << endl;
+
+			values["value"]->getValues()["denominator"] = denom;
+			values["value"]->getValues()["numerator"] = numer;
+
                         // Make the outer exponent a 1.
                         values["exponent"] = new Integer(1);
                         vector<int> primes1;

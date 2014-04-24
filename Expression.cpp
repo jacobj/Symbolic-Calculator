@@ -378,26 +378,19 @@ Expression::Expression(string& expr){
     }
     Number* Expression::multiply(Number* val)
     {
-    	if (typeid(*val) == typeid(Integer))
-    			{
-    				for(int i = 0; i < operands.size(); i++)
-    				{
-    					if(typeid(*operands[i]) == typeid(Integer))
-    					{
-    						operands[i] = calculate(operands[i],val,"*");
-    					}
-    				}
-    			}
-    			else if (typeid(*val) == typeid(TranscendentalNumber))
-    			{
-    				for(int i = 0; i < operands.size(); i++)
-    				{
-    					if(typeid(*operands[i]) == typeid(TranscendentalNumber))
-    					{
-    						operands[i] = calculate(operands[i],val,"*");
-    					}
-    				}
-    			}
+    	for(int i = 0; i < operands.size(); i++)
+    		operands[i] = calculate(operands[i],val,"*");
+
+//    	if (typeid(*val) == typeid(Integer))
+//		{
+//			for(int i = 0; i < operands.size(); i++)
+//				operands[i] = calculate(operands[i],val,"*");
+//		}
+//		else if (typeid(*val) == typeid(TranscendentalNumber))
+//		{
+//			for(int i = 0; i < operands.size(); i++)
+//					operands[i] = calculate(operands[i],val,"*");
+//		}
     			/*else if (typeid(*val) == typeid(RationalNumber)){
     				stringstream RatNumStream;
     				RatNumStream << getValue() << "/1";

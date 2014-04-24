@@ -169,6 +169,11 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 		tempStr = num1->toString();
 		n1 = assignToClass(tempStr);
 	}
+	else if(typeid(*num1) == typeid(Logarithm))
+	{
+		tempStr = num1->toString();
+		n1 = assignToClass(tempStr);
+	}
 	else
 	{
 		//determine type of num1
@@ -200,6 +205,11 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 	{
 		tempStr = num2->toString();
 		n2 = assignToClass(tempStr);
+	}
+	else if(typeid(*num2) == typeid(Logarithm))
+	{
+		tempStr = num2->toString();
+		n1 = assignToClass(tempStr);
 	}
 	else
 	{

@@ -17,285 +17,228 @@ Expression::Expression(string& expr){
 	addInput(strExpression);
 	sort();
 	simplify();
-
-
-	/*for(int i = 0;i<expr.size();i++)
-	{
-		int pos = expr.find_first_of("+-/*");
-
-		if(pos == -1)
-		{
-			string exception = "ERROR! This isn't a log! \n";
-			throw exception;
-		}
-
-		string op(1, expr[pos]);
-		string term = expr.substr(0, pos);
-		string secondTerm = expr.substr(pos+1, expr.size());
-	
-
-		operators.push_back(op);
-		term = expr.substr(0, pos);
-		secondTerm = expr.substr(pos+1, expr.size());
-
-		if(term.find_first_of("^") != -1)
-		{
-			operands.push_back(new Exponential(term));
-		}
-		else if(term.find_first_of(":") != -1)
-		{
-			operands.push_back(new Logarithm(term));
-		}
-		else if(term.find_first_of("e") != -1)
-		{
-			operands.push_back(new TranscendentalNumber(term));
-		}
-		else if(term.find_first_of("p") != -1)
-		{
-			operands.push_back(new TranscendentalNumber(term));
-		}
-		else
-		{
-			operands.push_back(new Integer(term));
-		}
-
-		if(secondTerm.find_first_of("^") != -1)
-		{
-			operands.push_back(new Exponential(secondTerm));
-		}
-		else if(secondTerm.find_first_of(":") != -1)
-		{
-			operands.push_back(new Logarithm(secondTerm));
-		}
-		else if(secondTerm.find_first_of("e") != -1)
-		{
-			operands.push_back(new TranscendentalNumber(secondTerm));
-		}
-		else if(secondTerm.find_first_of("p") != -1)
-		{
-			operands.push_back(new TranscendentalNumber(secondTerm));
-		}
-		else
-		{
-			operands.push_back(new Integer(secondTerm));
-		}
-	}*/
 }
 
-// Returns a map of Number pointer properties
-	map<string, Number*> Expression::getValues()
+void Expression::simplify()
+{
+	vector<Number*> tempOperands;
+	vector<string> tempOperators;
+
+	if(operands.size() > 1)
 	{
-
-	}
-		void Expression::setValues(string key, Number* val)
-	{
-
-	}
-
-	void Expression::simplify()
-	{
-		vector<Number*> tempOperands;
-		vector<string> tempOperators;
-
-		if(operands.size() > 1)
+		for(int i = 0; i < operands.size();i++)
 		{
-			for(int i = 0; i < operands.size();i++)
+			if(operands [i] != NULL)
 			{
-				if(operands [i] != NULL)
+				for(int j = i+1; j < operands.size();j++)
 				{
-					for(int j = i+1; j < operands.size();j++)
+					if(typeid(*operands[i]) == typeid(*operands[j]))
 					{
-						if(typeid(*operands[i]) == typeid(*operands[j]))
+						if(typeid(*operands[i]) == typeid(TranscendentalNumber))
 						{
-							if(typeid(*operands[i]) == typeid(TranscendentalNumber))
-							{
-								if(operands[i]->getTranscendentalValue().compare(operands[j]->getTranscendentalValue()) == 0)
-								{
-									if(operators[i].compare(operators[j]) == 0)
-									{
-										operands[i] = calculate(operands[i],operands[j],"+");
-									}
-									else
-									{
-										if(operators[i] == "+")
-										{
-											operands[i] = calculate(operands[i],operands[j],"-");
-										}
-										else
-										{
-											operands[i] = calculate(operands[j],operands[i],"-");
-										}
-									}
-									if(typeid(*operands[i]) != typeid(Integer))
-									{
-										if( operands[i]->getValues()["coefficient"]->getValue() < 0)
-										{
-											Number *temp = new Integer("-1");
-											operands[i] = calculate(operands[i],temp,"*");
-											operators[i]="-";
-										}
-									}
-									operands[j] = NULL;
-								}
-							}
-							else
+							if(operands[i]->getTranscendentalValue().compare(operands[j]->getTranscendentalValue()) == 0)
 							{
 								if(operators[i].compare(operators[j]) == 0)
 								{
 									operands[i] = calculate(operands[i],operands[j],"+");
-									operands[j] = NULL;
 								}
 								else
 								{
-
+									if(operators[i] == "+")
+									{
+										operands[i] = calculate(operands[i],operands[j],"-");
+									}
+									else
+									{
+										operands[i] = calculate(operands[j],operands[i],"-");
+									}
 								}
+								if(typeid(*operands[i]) != typeid(Integer))
+								{
+									if( operands[i]->getValues()["coefficient"]->getValue() < 0)
+									{
+										Number *temp = new Integer("-1");
+										operands[i] = calculate(operands[i],temp,"*");
+										operators[i]="-";
+									}
+								}
+								operands[j] = NULL;
+							}
+						}
+						else
+						{
+							if(operators[i].compare(operators[j]) == 0)
+							{
+								operands[i] = calculate(operands[i],operands[j],"+");
+								operands[j] = NULL;
+							}
+							else
+							{
+
 							}
 						}
 					}
-					tempOperands.push_back(operands[i]);
-					tempOperators.push_back(operators[i]);
 				}
+				tempOperands.push_back(operands[i]);
+				tempOperators.push_back(operators[i]);
 			}
+		}
 
-			operands = tempOperands;
-			operators = tempOperators;
+		operands = tempOperands;
+		operators = tempOperators;
 
-			for(int i = 1;i<operands.size()-1;i++)
+		for(int i = 1;i<operands.size()-1;i++)
+		{
+			if(operands[i]->toString().compare("0") == 0)
 			{
-				if(operands[i]->toString().compare("0") == 0)
+				for(int j = i;j<operands.size()-1;j++)
 				{
-					for(int j = i;j<operands.size()-1;j++)
+					operands[j] = operands[j+1];
+					operators[j] = operators[j+1];
+				}
+				operands.pop_back();
+				operators.pop_back();
+			}
+		}
+
+	}
+	if(operands.back()->toString().compare("0") == 0)
+	{
+		operands.pop_back();
+		operators.pop_back();
+	}
+
+	if(operands.front()->toString().compare("0") == 0)
+	{
+		if(operators.front().compare("-") == 0)
+			operators[0] = "0";
+
+		for(int i = 0;i<operands.size()-1;i++)
+		{
+			operands[i] = operands[i+1];
+		}
+		if(operators[1].compare("+") == 0)
+		{
+			for(int i = 1;i<operators.size()-1;i++)
+				operators[i] = operators[i+1];
+		}
+		else
+		{
+			for(int i = 0;i<operators.size()-1;i++)
+					operators[i] = operators[i+1];
+		}
+		operands.pop_back();
+		operators.pop_back();
+	}
+
+}
+double Expression::toDouble()
+{
+		 stack<double> st;
+		 double val1b;
+		 double val2b;
+		 double result = 0.0;
+
+		 // For each token
+		 for ( int i = 0; i < (int) expression.size(); ++i )
+		 {
+				const string token = expression[ i ];
+
+				// If the token is a value push it onto the stack
+				if ( !isOperator(token) )
+				{
+					Number *token2 = assignToClass(expression[i]);
+					st.push(token2->toDouble());
+				}
+				else
+				{
+
+					// Token is an operator: pop top two entries
+					val2b = st.top();
+					st.pop();
+
+				   if ( !st.empty() )
 					{
-						operands[j] = operands[j+1];
-						operators[j] = operators[j+1];
+						val1b = st.top();
+						st.pop();
+
+						//Get the result
+						result = token == "+" ? val1b + val2b :
+								 token == "-" ? val1b - val2b :
+								 token == "*" ? val1b * val2b :
+								 token == "/" ? val1b / val2b :
+											pow(val1b, val2b);
 					}
-					operands.pop_back();
-					operators.pop_back();
+					else
+					{
+						if ( token == "-" )
+							result = val2b * -1;
+						else
+							result = val2b;
+					}
+					// Push result onto stack
+					st.push(result);
+
 				}
 			}
+		 return st.top();
+}
+string Expression::toString()
+{
+	stringstream temp;
+	for(int i = 0;i<operands.size();i++)
+	{
+		if(operators[i] != "0")
+			temp << operators[i];
+		temp << operands[i]->toString();
+	}
+	return strExpression = temp.str();
+}
 
-		}
-		if(operands.back()->toString().compare("0") == 0)
+Number* Expression::add(Number* val)
+{
+	bool matchFound = false;
+	if (typeid(*val) == typeid(Integer))
+	{
+		for(int i = 0; i < operands.size(); i++)
 		{
-			operands.pop_back();
-			operators.pop_back();
-		}
-
-		if(operands.front()->toString().compare("0") == 0)
-		{
-			if(operators.front().compare("-") == 0)
-				operators[0] = "0";
-
-			for(int i = 0;i<operands.size()-1;i++)
+			if(typeid(*operands[i]) == typeid(Integer))
 			{
-				operands[i] = operands[i+1];
+				matchFound = true;
+				if(i > 0)
+					operands[i] = calculate(operands[i],val,operators[i]);
+				else
+				{
+					if(operators[i] == "0")
+						operands[i] = calculate(operands[i],val,"+");
+					else
+						operands[i] = calculate(operands[i],val,operators[i]);
+				}
+				if(operands[i]->getValue() < 0)
+				{
+					if(i > 0)
+					{
+						Number *temp = new Integer("-1");
+						operands[i] = calculate(operands[i],temp,"*");
+						operators[i]="+";
+					}
+					else
+					{
+						Number *temp = new Integer("-1");
+						operands[i] = calculate(operands[i],temp,"*");
+						operators[i]="0";
+					}
+				}
 			}
-			if(operators[1].compare("+") == 0)
-			{
-				for(int i = 1;i<operators.size()-1;i++)
-					operators[i] = operators[i+1];
-			}
-			else
-			{
-				for(int i = 0;i<operators.size()-1;i++)
-						operators[i] = operators[i+1];
-			}
-			operands.pop_back();
-			operators.pop_back();
 		}
-
 	}
-	double Expression::toDouble()
+	else if (typeid(*val) == typeid(TranscendentalNumber))
 	{
-			 stack<double> st;
-		     double val1b;
-		     double val2b;
-		     double result = 0.0;
-
-		     // For each token
-		     for ( int i = 0; i < (int) expression.size(); ++i )
-		     {
-		        	const string token = expression[ i ];
-
-		            // If the token is a value push it onto the stack
-		            if ( !isOperator(token) )
-		            {
-		            	Number *token2 = assignToClass(expression[i]);
-		                st.push(token2->toDouble());
-		            }
-		            else
-		            {
-
-		                // Token is an operator: pop top two entries
-		                val2b = st.top();
-		                st.pop();
-
-		               if ( !st.empty() )
-		                {
-		                	val1b = st.top();
-		                	st.pop();
-
-		                	//Get the result
-		                	result = token == "+" ? val1b + val2b :
-		                			 token == "-" ? val1b - val2b :
-		                		     token == "*" ? val1b * val2b :
-		                             token == "/" ? val1b / val2b :
-		                                        pow(val1b, val2b);
-		                }
-		                else
-		                {
-		                	if ( token == "-" )
-		                		result = val2b * -1;
-		                	else
-		                		result = val2b;
-		                }
-		                // Push result onto stack
-		                st.push(result);
-
-		            }
-		        }
-		     return st.top();
-	}
-	string Expression::toString()
-	{
-		stringstream temp;
-		for(int i = 0;i<operands.size();i++)
+		for(int i = 0; i < operands.size(); i++)
 		{
-			if(operators[i] != "0")
-				temp << operators[i];
-			temp << operands[i]->toString();
-		}
-		return strExpression = temp.str();
-	}
-
-	// Used only for Integers
-	long Expression::getValue()
-	{
-
-	}
-	void Expression::setValue(long value)
-	{
-
-	}
-
-	// Used only for Transcendentals
-	string Expression::getTranscendentalValue()
-	{
-
-	}
-	void Expression::setTranscendentalValue(string value)
-	{
-
-	}
-
-	Number* Expression::add(Number* val)
-	{
-		bool matchFound = false;
-		if (typeid(*val) == typeid(Integer))
-		{
-			for(int i = 0; i < operands.size(); i++)
+			if(typeid(*operands[i]) == typeid(TranscendentalNumber))
 			{
-				if(typeid(*operands[i]) == typeid(Integer))
+				if(operands[i]->getTranscendentalValue() == val->getTranscendentalValue())
 				{
 					matchFound = true;
 					if(i > 0)
@@ -307,105 +250,92 @@ Expression::Expression(string& expr){
 						else
 							operands[i] = calculate(operands[i],val,operators[i]);
 					}
-					if(operands[i]->getValue() < 0)
+					if(typeid(*operands[i]) != typeid(Integer))
 					{
-						if(i > 0)
+						if(operands[i]->getValues()["coefficient"]->getValue() < 0)
 						{
-							Number *temp = new Integer("-1");
-							operands[i] = calculate(operands[i],temp,"*");
-							operators[i]="+";
-						}
-						else
-						{
-							Number *temp = new Integer("-1");
-							operands[i] = calculate(operands[i],temp,"*");
-							operators[i]="0";
-						}
-					}
-				}
-			}
-		}
-		else if (typeid(*val) == typeid(TranscendentalNumber))
-		{
-			for(int i = 0; i < operands.size(); i++)
-			{
-				if(typeid(*operands[i]) == typeid(TranscendentalNumber))
-				{
-					if(operands[i]->getTranscendentalValue() == val->getTranscendentalValue())
-					{
-						matchFound = true;
-						if(i > 0)
-							operands[i] = calculate(operands[i],val,operators[i]);
-						else
-						{
-							if(operators[i] == "0")
-								operands[i] = calculate(operands[i],val,"+");
-							else
-								operands[i] = calculate(operands[i],val,operators[i]);
-						}
-						if(typeid(*operands[i]) != typeid(Integer))
-						{
-							if(operands[i]->getValues()["coefficient"]->getValue() < 0)
+							if(i>0)
 							{
-								if(i>0)
-								{
-									Number *temp = new Integer("-1");
-									operands[i] = calculate(operands[i],temp,"*");
-									operators[i]="+";
-								}
-								else
-								{
-									Number *temp = new Integer("-1");
-									operands[i] = calculate(operands[i],temp,"*");
-									operators[i]="+";
-								}
+								Number *temp = new Integer("-1");
+								operands[i] = calculate(operands[i],temp,"*");
+								operators[i]="+";
+							}
+							else
+							{
+								Number *temp = new Integer("-1");
+								operands[i] = calculate(operands[i],temp,"*");
+								operators[i]="+";
 							}
 						}
 					}
 				}
 			}
 		}
-		else if (typeid(*val) == typeid(RationalNumber))
+	}
+	else if (typeid(*val) == typeid(RationalNumber))
+	{
+		for(int i = 0; i < operands.size(); i++)
 		{
-			for(int i = 0; i < operands.size(); i++)
+			if(typeid(*operands[i]) == typeid(RationalNumber))
 			{
-				if(typeid(*operands[i]) == typeid(RationalNumber))
-				{
+				operands[i] = calculate(operands[i],val,"+");
+			}
+		}
+	}
+	/*else if (typeid(*val) == typeid(RationalNumber)){
+		stringstream RatNumStream;
+		RatNumStream << getValue() << "/1";
+		string str = RatNumStream.str();
+		Number* RatNum = new RationalNumber(str);
+		return RatNum->add(val);
+	}
+	else{
+		stringstream valStream;
+		valStream << toString() << "+" << val->toString();
+		string str = valStream.str();
+		return new Expression(str);
+	}*/
+	if(!matchFound)
+	{
+		operators.push_back("+");
+		operands.push_back(val);
+	}
+	else
+		simplify();
+	return this;
+}
+
+Number* Expression::subtract(Number* val)
+{
+	bool matchFound = false;
+	if (typeid(*val) == typeid(Integer))
+	{
+		for(int i = 0; i < operands.size(); i++)
+		{
+			if(typeid(*operands[i]) == typeid(Integer))
+			{
+				matchFound = true;
+				if(operators[i]=="-")
 					operands[i] = calculate(operands[i],val,"+");
+				else
+					operands[i] = calculate(operands[i],val,"-");
+
+				if(operands[i]->getValue() < 0)
+				{
+					Number *temp = new Integer("-1");
+					operands[i] = calculate(operands[i],temp,"*");
+					operators[i]="-";
 				}
 			}
 		}
-		/*else if (typeid(*val) == typeid(RationalNumber)){
-			stringstream RatNumStream;
-			RatNumStream << getValue() << "/1";
-			string str = RatNumStream.str();
-			Number* RatNum = new RationalNumber(str);
-			return RatNum->add(val);
-		}
-		else{
-			stringstream valStream;
-			valStream << toString() << "+" << val->toString();
-			string str = valStream.str();
-			return new Expression(str);
-		}*/
-		if(!matchFound)
-		{
-			operators.push_back("+");
-			operands.push_back(val);
-		}
-		else
-			simplify();
-		return this;
 	}
-
-    Number* Expression::subtract(Number* val)
-    {
-    	bool matchFound = false;
-		if (typeid(*val) == typeid(Integer))
+	else if (typeid(*val) == typeid(TranscendentalNumber))
+	{
+		for(int i = 0; i < operands.size(); i++)
 		{
-			for(int i = 0; i < operands.size(); i++)
+			if(typeid(*operands[i]) == typeid(TranscendentalNumber))
 			{
-				if(typeid(*operands[i]) == typeid(Integer))
+				if(operands[i]->getTranscendentalValue() == val->getTranscendentalValue())
 				{
 					matchFound = true;
 					if(operators[i]=="-")
@@ -413,132 +343,88 @@ Expression::Expression(string& expr){
 					else
 						operands[i] = calculate(operands[i],val,"-");
 
-					if(operands[i]->getValue() < 0)
+					if(typeid(*operands[i]) != typeid(Integer))
 					{
-						Number *temp = new Integer("-1");
-						operands[i] = calculate(operands[i],temp,"*");
-						operators[i]="-";
-					}
-				}
-			}
-		}
-		else if (typeid(*val) == typeid(TranscendentalNumber))
-		{
-			for(int i = 0; i < operands.size(); i++)
-			{
-				if(typeid(*operands[i]) == typeid(TranscendentalNumber))
-				{
-					if(operands[i]->getTranscendentalValue() == val->getTranscendentalValue())
-					{
-						matchFound = true;
-						if(operators[i]=="-")
-							operands[i] = calculate(operands[i],val,"+");
-						else
-							operands[i] = calculate(operands[i],val,"-");
-
-						if(typeid(*operands[i]) != typeid(Integer))
+						if(operands[i]->getValues()["coefficient"]->getValue() < 0)
 						{
-							if(operands[i]->getValues()["coefficient"]->getValue() < 0)
-							{
-								Number *temp = new Integer("-1");
-								operands[i] = calculate(operands[i],temp,"*");
-								operators[i]="-";
-							}
+							Number *temp = new Integer("-1");
+							operands[i] = calculate(operands[i],temp,"*");
+							operators[i]="-";
 						}
 					}
 				}
 			}
 		}
-		else if (typeid(*val) == typeid(RationalNumber))
+	}
+	else if (typeid(*val) == typeid(RationalNumber))
+	{
+		for(int i = 0; i < operands.size(); i++)
 		{
-			for(int i = 0; i < operands.size(); i++)
+			if(typeid(*operands[i]) == typeid(RationalNumber))
 			{
-				if(typeid(*operands[i]) == typeid(RationalNumber))
-				{
-					operands[i] = calculate(operands[i],val,"-");
-				}
+				operands[i] = calculate(operands[i],val,"-");
 			}
 		}
-		/*else if (typeid(*val) == typeid(RationalNumber)){
-			stringstream RatNumStream;
-			RatNumStream << getValue() << "/1";
-			string str = RatNumStream.str();
-			Number* RatNum = new RationalNumber(str);
-			return RatNum->add(val);
-		}
-		else{
-			stringstream valStream;
-			valStream << toString() << "+" << val->toString();
-			string str = valStream.str();
-			return new Expression(str);
-		}*/
-		if(!matchFound)
-		{
-			operators.push_back("-");
-			operands.push_back(val);
-		}
-		else
-			simplify();
-		return this;
-    }
-    Number* Expression::multiply(Number* val)
-    {
-    	if (typeid(*val) == typeid(Expression))
-		{
-    		string tempstr = val->toString();
-    		Expression *expr = new Expression(tempstr);
-    		vector<Number*> tempOperands;
-    		vector<string> tempOperators;
+	}
+	/*else if (typeid(*val) == typeid(RationalNumber)){
+		stringstream RatNumStream;
+		RatNumStream << getValue() << "/1";
+		string str = RatNumStream.str();
+		Number* RatNum = new RationalNumber(str);
+		return RatNum->add(val);
+	}
+	else{
+		stringstream valStream;
+		valStream << toString() << "+" << val->toString();
+		string str = valStream.str();
+		return new Expression(str);
+	}*/
+	if(!matchFound)
+	{
+		operators.push_back("-");
+		operands.push_back(val);
+	}
+	else
+		simplify();
+	return this;
+}
+Number* Expression::multiply(Number* val)
+{
+	if (typeid(*val) == typeid(Expression))
+	{
+		string tempstr = val->toString();
+		Expression *expr = new Expression(tempstr);
+		vector<Number*> tempOperands;
+		vector<string> tempOperators;
 
-			for(int i = 0; i < operands.size(); i++)
+		for(int i = 0; i < operands.size(); i++)
+		{
+			for(int j = 0; j < expr->getOperands().size();j++)
 			{
-				for(int j = 0; j < expr->getOperands().size();j++)
+				tempOperands.push_back(calculate(operands[i],expr->getOperands()[j],"*"));
+
+				//if the operators are both + or -
+				if(operators[i].compare(expr->getOperators()[j]) == 0)
 				{
-					tempOperands.push_back(calculate(operands[i],expr->getOperands()[j],"*"));
+					if(i == 0 && j == 0)
+						tempOperators.push_back("0");
 
-					//if the operators are both + or -
-					if(operators[i].compare(expr->getOperators()[j]) == 0)
-					{
-						if(i == 0 && j == 0)
-							tempOperators.push_back("0");
+					else
+						tempOperators.push_back("+");
+				}
+				//different
+				else
+				{
+					if(i == 0 && j == 0)
+						tempOperators.push_back("-");
 
-						else
-							tempOperators.push_back("+");
-					}
-					//different
 					else
 					{
-						if(i == 0 && j == 0)
-							tempOperators.push_back("-");
-
-						else
+						if(i == 0)
 						{
-							if(i == 0)
-							{
-								if(operators[i] == "0")
-									tempOperators.push_back(expr->getOperators()[j]);
-								//if the first operators is negative
-								else
-								{
-									if(operators[i].compare(expr->getOperators()[j]) == 0)
-										tempOperators.push_back("+");
-									else
-										tempOperators.push_back("-");
-								}
-							}
-							else if(j == 0)
-							{
-								if(expr->getOperators()[j] == "0")
-									tempOperators.push_back(operators[i]);
-								//if the first operators is negative
-								else
-								{
-									if(expr->getOperators()[j].compare(operators[i]) == 0)
-										tempOperators.push_back("+");
-									else
-										tempOperators.push_back("-");
-								}
-							}
+							if(operators[i] == "0")
+								tempOperators.push_back(expr->getOperators()[j]);
+							//if the first operators is negative
 							else
 							{
 								if(operators[i].compare(expr->getOperators()[j]) == 0)
@@ -547,28 +433,49 @@ Expression::Expression(string& expr){
 									tempOperators.push_back("-");
 							}
 						}
+						else if(j == 0)
+						{
+							if(expr->getOperators()[j] == "0")
+								tempOperators.push_back(operators[i]);
+							//if the first operators is negative
+							else
+							{
+								if(expr->getOperators()[j].compare(operators[i]) == 0)
+									tempOperators.push_back("+");
+								else
+									tempOperators.push_back("-");
+							}
+						}
+						else
+						{
+							if(operators[i].compare(expr->getOperators()[j]) == 0)
+								tempOperators.push_back("+");
+							else
+								tempOperators.push_back("-");
+						}
 					}
 				}
 			}
-			operands = tempOperands;
-			operators = tempOperators;
 		}
-    	else
-    	{
-			for(int i = 0; i < operands.size(); i++)
+		operands = tempOperands;
+		operators = tempOperators;
+	}
+	else
+	{
+		for(int i = 0; i < operands.size(); i++)
+		{
+			operands[i] = calculate(operands[i],val,"*");
+			if(typeid(*operands[i]) != typeid(Integer))
 			{
-				operands[i] = calculate(operands[i],val,"*");
-				if(typeid(*operands[i]) != typeid(Integer))
+				if(operands[i]->getValues()["coefficient"]->getValue() < 0)
 				{
-					if(operands[i]->getValues()["coefficient"]->getValue() < 0)
-					{
-						Number *temp = new Integer("-1");
-						operands[i] = calculate(operands[i],temp,"*");
-						operators[i]="-";
-					}
+					Number *temp = new Integer("-1");
+					operands[i] = calculate(operands[i],temp,"*");
+					operators[i]="-";
 				}
 			}
-    	}
+		}
+	}
 
 
 //		else if (typeid(*val) == typeid(TranscendentalNumber))
@@ -576,92 +483,92 @@ Expression::Expression(string& expr){
 //			for(int i = 0; i < operands.size(); i++)
 //					operands[i] = calculate(operands[i],val,"*");
 //		}
-    			/*else if (typeid(*val) == typeid(RationalNumber)){
-    				stringstream RatNumStream;
-    				RatNumStream << getValue() << "/1";
-    				string str = RatNumStream.str();
-    				Number* RatNum = new RationalNumber(str);
-    				return RatNum->add(val);
-    			}
-    			else{
-    				stringstream valStream;
-    				valStream << toString() << "+" << val->toString();
-    				string str = valStream.str();
-    				return new Expression(str);
-    			}*/
-    	simplify();
-		return this;
-    }
-   	Number* Expression::divide(Number* val)
-   	{
-   		if (typeid(*val) == typeid(Integer))
+			/*else if (typeid(*val) == typeid(RationalNumber)){
+				stringstream RatNumStream;
+				RatNumStream << getValue() << "/1";
+				string str = RatNumStream.str();
+				Number* RatNum = new RationalNumber(str);
+				return RatNum->add(val);
+			}
+			else{
+				stringstream valStream;
+				valStream << toString() << "+" << val->toString();
+				string str = valStream.str();
+				return new Expression(str);
+			}*/
+	simplify();
+	return this;
+}
+Number* Expression::divide(Number* val)
+{
+	if (typeid(*val) == typeid(Integer))
+	{
+		for(int i = 0; i < operands.size(); i++)
 		{
-			for(int i = 0; i < operands.size(); i++)
+			if(typeid(*operands[i]) == typeid(Integer))
 			{
-				if(typeid(*operands[i]) == typeid(Integer))
-				{
-					operands[i] = calculate(operands[i],val,"/");
-				}
+				operands[i] = calculate(operands[i],val,"/");
 			}
 		}
-		else if (typeid(*val) == typeid(TranscendentalNumber))
+	}
+	else if (typeid(*val) == typeid(TranscendentalNumber))
+	{
+		for(int i = 0; i < operands.size(); i++)
 		{
-			for(int i = 0; i < operands.size(); i++)
+			if(typeid(*operands[i]) == typeid(TranscendentalNumber))
 			{
-				if(typeid(*operands[i]) == typeid(TranscendentalNumber))
-				{
-					operands[i] = calculate(operands[i],val,"/");
-				}
+				operands[i] = calculate(operands[i],val,"/");
 			}
 		}
-   				/*else if (typeid(*val) == typeid(RationalNumber)){
-   					stringstream RatNumStream;
-   					RatNumStream << getValue() << "/1";
-   					string str = RatNumStream.str();
-   					Number* RatNum = new RationalNumber(str);
-   					return RatNum->add(val);
-   				}
-   				else{
-   					stringstream valStream;
-   					valStream << toString() << "+" << val->toString();
-   					string str = valStream.str();
-   					return new Expression(str);
-   				}*/
-   				return this;
-   	}
-    Number* Expression::exponentiate(Number* val)
-    {
-    	if (typeid(*val) == typeid(Integer))
-		{
-			if(val->getValue() == 2)
-				return this->multiply(this);
-		}
-    }
+	}
+			/*else if (typeid(*val) == typeid(RationalNumber)){
+				stringstream RatNumStream;
+				RatNumStream << getValue() << "/1";
+				string str = RatNumStream.str();
+				Number* RatNum = new RationalNumber(str);
+				return RatNum->add(val);
+			}
+			else{
+				stringstream valStream;
+				valStream << toString() << "+" << val->toString();
+				string str = valStream.str();
+				return new Expression(str);
+			}*/
+			return this;
+}
+Number* Expression::exponentiate(Number* val)
+{
+	if (typeid(*val) == typeid(Integer))
+	{
+		if(val->getValue() == 2)
+			return this->multiply(this);
+	}
+}
 
-    bool Expression::isNumeric(string token)
-    {
-    	string onesDigit = token.substr(0,1);
-    	if(onesDigit == "1" || onesDigit == "2" ||
-			onesDigit == "3" || onesDigit == "4" ||
-			onesDigit == "5" || onesDigit == "6" ||
-			onesDigit == "7" || onesDigit == "8" ||
-			onesDigit == "9" || onesDigit == "0" ||
-			onesDigit == "e" || onesDigit == "p" ||
-			onesDigit == "pi" || onesDigit == "l")
-    		return true;
-    	else
-    		return false;
-    }
+bool Expression::isNumeric(string token)
+{
+	string onesDigit = token.substr(0,1);
+	if(onesDigit == "1" || onesDigit == "2" ||
+		onesDigit == "3" || onesDigit == "4" ||
+		onesDigit == "5" || onesDigit == "6" ||
+		onesDigit == "7" || onesDigit == "8" ||
+		onesDigit == "9" || onesDigit == "0" ||
+		onesDigit == "e" || onesDigit == "p" ||
+		onesDigit == "pi" || onesDigit == "l")
+		return true;
+	else
+		return false;
+}
 
-    bool Expression::isOperator(string token)
-    {
-        if( token == "+" || token == "-" ||
-            token == "*" || token == "/" ||
-            token == "^" || token == ":")
-            return true;
-        else
-            return false;
-    }
+bool Expression::isOperator(string token)
+{
+	if( token == "+" || token == "-" ||
+		token == "*" || token == "/" ||
+		token == "^" || token == ":")
+		return true;
+	else
+		return false;
+}
 
 void Expression::infixToRPN(vector<string>& tokens, vector<string>& rpn)
 {
@@ -727,22 +634,10 @@ void Expression::infixToRPN(vector<string>& tokens, vector<string>& rpn)
 			// Pop the left parenthesis from the stack, but not onto the output queue.
 			if ( !stack.empty() )
 				stack.pop();
-
-			// If the stack runs out without finding a left parenthesis,
-			// then there are mismatched parentheses.
-			if ( topToken != "(" )
-			{
-				//return false;
-			}
 		}
 		else if(isNumeric(token))
 		{
 			out.push_back( token );
-		}
-		//TODO will handle pi, e, log, etc.
-		else
-		{
-
 		}
 	}
 
@@ -750,22 +645,12 @@ void Expression::infixToRPN(vector<string>& tokens, vector<string>& rpn)
 	{
 		string stackToken = stack.top();
 
-		// If the operator token on the top of the stack is a parenthesis,
-		// then there are mismatched parentheses.
-		if ( isParentheses( stackToken )   )
-		{
-			success = false;
-		   // return success;
-		}
-
 		// Pop the operator onto the output queue./
 		out.push_back( stackToken );
 		stack.pop();
 	}
 
 	rpn.assign( out.begin(), out.end() );
-
-	//return success;
 }
 
 void Expression::sort()
@@ -911,9 +796,8 @@ vector<string> Expression::setExpressionTokens(string& expr)
         			tokens.push_back(str);
         			str = "";
         		}
-        	 }
+        	}
         }
-
     }
     if(tokens.empty())
     	return tokens;
@@ -929,8 +813,7 @@ void Expression::addInput(string exp)
 	bool success = true;
     vector<string> temp = setExpressionTokens(exp);
 
-     infixToRPN(temp, expression);
-
+    infixToRPN(temp, expression);
 }
 
 Number* Expression::assignToClass(string& token)
@@ -939,7 +822,6 @@ Number* Expression::assignToClass(string& token)
 
 	if(isNumeric(token))
 	{
-		//if(token == "e" || token == "pi")
 		if(token.find_first_of("pe") != -1)
 			temp = new TranscendentalNumber(token);
 		else
@@ -976,8 +858,6 @@ bool Expression::isParentheses(string token)
     else
         return false;
 }
-void Expression::display(){}
-
 
 vector<string> Expression::getOperators()
 {
@@ -987,3 +867,12 @@ vector<Number*> Expression::getOperands()
 {
 	return operands;
 }
+
+// Used only for Other classes
+long Expression::getValue(){}
+void Expression::display(){}
+void Expression::setValue(long value){}
+string Expression::getTranscendentalValue(){}
+map<string, Number*> Expression::getValues(){}
+void Expression::setTranscendentalValue(string value){}
+void Expression::setValues(string key, Number* val){}

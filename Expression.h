@@ -43,18 +43,14 @@ private:
 public:
 
 	Expression(string&);
-	// Returns a map of Number pointer properties
-	map<string, Number*> getValues();
 
 	vector<string> setExpressionTokens(string&);
 	vector<string> getOperators();
 	vector<Number*> getOperands();
 
 	void infixToRPN(vector<string>& tokens, vector<string>& rpn);
-	void setValues(string key, Number* val);
 	void addInput(string);
 	void simplify();
-	void display();
 	void sort();
 
 	double toDouble();
@@ -66,14 +62,6 @@ public:
 
 	int comparePrecedence(string op1, string op2);
 
-	// Used only for Integers
-	long getValue();
-	void setValue(long value);
-
-	// Used only for Transcendentals
-	string getTranscendentalValue();
-	void setTranscendentalValue(string value);
-
 	Number* calculate(Number*, Number*, string);
 	Number* assignToClass(string& token);
 	Number* add(Number*);
@@ -81,6 +69,15 @@ public:
     Number* multiply(Number*);
    	Number* divide(Number*);
     Number* exponentiate(Number*);
+
+	// Used only for other classes
+	long getValue();
+	void setValue(long value);
+	void display();
+	string getTranscendentalValue();
+	void setTranscendentalValue(string value);
+	void setValues(string key, Number* val);
+	map<string, Number*> getValues();
 };
 
 #endif	/* EXPRESSION_H */

@@ -198,7 +198,11 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 			n1 = new RationalNumber(num1->toString());
 
 		else if(typeid(*num1) == typeid(Exponential))
-			n1 = new Exponential(num1->toString());
+		{
+			n1 = new Exponential(num1->getValues()["value"],
+								 num1->getValues()["exponent"],
+								 num1->getValues()["coefficient"]);
+		}
 
 		else if(typeid(*num1) == typeid(Logarithm))
 			n1 = new Logarithm(num1->toString());
@@ -232,7 +236,11 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 			n2 = new RationalNumber(num2->toString());
 
 		else if(typeid(*num2) == typeid(Exponential))
-			n2 = new Exponential(num2->toString());
+		{
+			n2 = new Exponential(num2->getValues()["value"],
+								 num2->getValues()["exponent"],
+								 num2->getValues()["coefficient"]);
+}
 
 		else if(typeid(*num2) == typeid(Logarithm))
 			n2 = new Logarithm(num2->toString());

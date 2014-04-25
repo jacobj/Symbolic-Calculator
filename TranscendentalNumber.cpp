@@ -221,7 +221,7 @@ Number* TranscendentalNumber::exponentiate(Number* val){
 	}
     */
     else {
-        return new Exponential(new TranscendentalNumber(value), val, values["coefficient"]);
+        return new Exponential(new TranscendentalNumber(value), val, values["coefficient"]->exponentiate(val));
     }
 }
 

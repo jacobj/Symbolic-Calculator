@@ -240,7 +240,7 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 			n2 = new Exponential(num2->getValues()["value"],
 								 num2->getValues()["exponent"],
 								 num2->getValues()["coefficient"]);
-}
+		}
 
 		else if(typeid(*num2) == typeid(Logarithm))
 			n2 = new Logarithm(num2->toString());
@@ -273,9 +273,24 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 			result = n1->exponentiate(n2);
 	else if(op == ":")
 	{
-		logStream << "log_" << n1->toString() << op << n2->toString();
-		log = logStream.str();
-		return new Logarithm(log);
+		if(typeid(*n2) != typeid(Exponential))
+		{
+			logStream << "log_" << n1->toString() << op << n2->toString();
+			log = logStream.str();
+			return new Logarithm(log);
+		}
+		else
+		{
+			Number *coeff = new Integer("1");
+			Number *value = n2;
+			Number *base;
+			if(typeid(*n1) == typeid(Integer))
+				base = new Integer(n1->toString());
+			else if(typeid(*n1) == typeid(TranscendentalNumber))
+				base = new TranscendentalNumber(n1->toString());
+
+			return new Logarithm(coeff,value,base);
+		}
 	}
 
 	return result;

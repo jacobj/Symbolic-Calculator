@@ -133,6 +133,9 @@ Number* Integer::multiply(Number* val)
         Number* result = new TranscendentalNumber(str);
         return result;
     }
+    else if (typeid(*val) == typeid(Exponential)){
+    	return val->multiply(this);
+    }
     else if (typeid(*val) == typeid(Expression)) {
         return val->multiply(this);
     }

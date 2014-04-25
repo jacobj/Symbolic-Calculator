@@ -12,6 +12,17 @@ For help entering expressions, visit the help menu.
 - Brent Lewis
 - Shreya Nirmalan
 
+## Added Functionality For Stage 2
+### Also Able To:
+- 'ans' can now be placed anywhere in the expression for computations
+- Simplify mixed expressions containing different number types, i.e. 7+2*e+8*e^(4-3)
+- Simplfiy exponentials with both positive and negative rational exponents
+- FOIL expressions
+- Add, multiply, subtract, and divide nthroot irrationals with Integer bases and exponents
+
+### Bonus Functionality:
+- Double negative input works, i.e. "x--y" and "x-(-y)"
+
 ## Accomplishments
 ### Able to:
 - Add, subtract, multiply, divide, exponentiate, and take logs of integers
@@ -25,7 +36,6 @@ For help entering expressions, visit the help menu.
 - Able to show all previous expressions and answers entered
 - Able to multiply exponentials with fractions
 - 'ans' does not store the previous answer, but rather it stores the user-specified answer
-	- Please put 'ans' at the end of your expression (i.e. 2+ans)
 
 ### Used the following skills:
 - Polymorphism
@@ -39,3 +49,5 @@ For help entering expressions, visit the help menu.
 - makefiles
 - GitHub & git commands
 - Team bonding!
+
+

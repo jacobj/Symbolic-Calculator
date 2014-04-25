@@ -388,7 +388,7 @@ void RationalNumber::simplify() {
                         values["numerator"]->getValues()["base"]->getValue()) {
                         // Set the denominator and numerator equal to only the coefficients.
                         values["numerator"] = values["numerator"]->getValues()["coefficient"];
-                        values["denominator"] = values["denominator"]->getValues()["coefficiet"];
+                        values["denominator"] = values["denominator"]->getValues()["coefficient"];
                     }
                 }
                 // If the bases are Transcendentals
@@ -407,7 +407,7 @@ void RationalNumber::simplify() {
                                 values["denominator"]->getValues()["base"]->getValues()["coefficient"]->getValue()) {
                                 // Set the denominator and numerator equal to only the coefficients.
                                 values["numerator"] = values["numerator"]->getValues()["coefficient"];
-                                values["denominator"] = values["denominator"]->getValues()["coefficiet"];
+                                values["denominator"] = values["denominator"]->getValues()["coefficient"];
                             }
                         }
                     }
@@ -435,7 +435,7 @@ void RationalNumber::simplify() {
                                 values["numerator"]->getValues()["base"]->getValue()) {
                                 // Set the denominator and numerator equal to only thise coefficients.
                                 values["numerator"] = values["numerator"]->getValues()["coefficient"];
-                                values["denominator"] = values["denominator"]->getValues()["coefficiet"];
+                                values["denominator"] = values["denominator"]->getValues()["coefficient"];
                             }
                         }
                         // If the bases are Transcendentals
@@ -454,7 +454,7 @@ void RationalNumber::simplify() {
                                         values["denominator"]->getValues()["base"]->getValues()["coefficient"]->getValue()) {
                                         // Set the denominator and numerator equal to only the coefficients.
                                         values["numerator"] = values["numerator"]->getValues()["coefficient"];
-                                        values["denominator"] = values["denominator"]->getValues()["coefficiet"];
+                                        values["denominator"] = values["denominator"]->getValues()["coefficient"];
                                     }
                                 }
                             }

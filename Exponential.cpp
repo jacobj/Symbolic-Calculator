@@ -364,7 +364,12 @@ Number* Exponential::add(Number* val) {
             }
         }
     }
-    // return new Expression(this, val);
+    else{
+    	stringstream valStream;
+    	valStream << this->toString() << "+" << val->toString();
+    	string str = valStream.str();
+    	return new Expression(str);
+    }
 }
 Number* Exponential::subtract(Number* val) {
     if (typeid(*val) == typeid(Exponential)) {
@@ -403,7 +408,12 @@ Number* Exponential::subtract(Number* val) {
         else {
         }
     }
-    // return new Expression(this, val);
+    else{
+    	stringstream valStream;
+    	valStream << this->toString() << "-" << val->toString();
+    	string str = valStream.str();
+    	return new Expression(str);
+    }
 }
 
 Number* Exponential::multiply(Number* val) {
@@ -420,30 +430,47 @@ Number* Exponential::multiply(Number* val) {
             return result;
         }
     }
-    else if (typeid(*val) == typeid(Expression)) {
+    //NEEDS TO BE HANDLED
+    //else if (typeid(*val) == typeid(Expression)) {
         
-    }
-    else if (typeid(*val) == typeid(TranscendentalNumber)) {
+    //}
+    //else if (typeid(*val) == typeid(TranscendentalNumber)) {
         
-    }
+    //}
     else if (typeid(*val) == typeid(RationalNumber)) {
         return new RationalNumber(multiply(val->getValues()["numerator"]), val->getValues()["denominator"]);
     }
-    else if (typeid(*val) == typeid(Logarithm)) {
+    //else if (typeid(*val) == typeid(Logarithm)) {
 
-    }
-    else {
-
+    //}
+    else{
+    	stringstream valStream;
+    	valStream << this->toString() << "*" << val->toString();
+    	string str = valStream.str();
+    	return new Expression(str);
     }
 }
 
 Number* Exponential::divide(Number* val) {
-    Number* result = new RationalNumber(this, val);
+    Number* result =  new RationalNumber(this, val);
+    if(!result->getValues()["denominator"]->toString().compare("1")){
+    	result = result->getValues()["numerator"];
+    }
     return result;
 }
 
 Number* Exponential::exponentiate(Number* val) {
     // Should this really be implemented?
+	// Yes, it does not know what to do with, say, (2^(1/3))^3
+	/*if (typeid(*val) == typeid(Integer) || typeid(*val) == typeid(RationalNumber)){
+
+	}
+    else{
+    	stringstream valStream;
+    	valStream << this->toString() << "^" << val->toString();
+    	string str = valStream.str();
+    	return new Expression(str);
+    }*/
 }
 
 // Not used

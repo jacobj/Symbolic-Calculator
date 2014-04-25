@@ -193,7 +193,11 @@ Number* TranscendentalNumber::divide(Number* val){
 		return new RationalNumber(this->multiply(val->getValues()["denominator"]), val->getValues()["numerator"]);
 	}
 	else{
-	    return new RationalNumber(this, val);
+	    Number* result =  new RationalNumber(this, val);
+	    if(!result->getValues()["denominator"]->toString().compare("1")){
+	    	result = result->getValues()["numerator"];
+	    }
+	    return result;
 	}
 }
 Number* TranscendentalNumber::exponentiate(Number* val){

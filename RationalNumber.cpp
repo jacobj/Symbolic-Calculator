@@ -33,16 +33,13 @@ RationalNumber::RationalNumber(string expression) {
 	else if (numeratorString.find_first_of("^") != -1) {
 		numerator = new Exponential(numeratorString);
 	}
-	else if (numeratorString.find_first_of("log") != -1)
-	{
+	else if (numeratorString.find_first_of("log") != -1) {
 		numerator = new Logarithm(numeratorString);
 	}
-	else if (numeratorString.find_first_of("e") != -1 || numeratorString.find_first_of("pi") != -1)
-	{
+	else if (numeratorString.find_first_of("e") != -1 || numeratorString.find_first_of("pi") != -1) {
 		numerator = new TranscendentalNumber(numeratorString);
 	}
-	else
-	{
+	else {
 		numerator = new Integer(numeratorString);
 	}
 
@@ -53,16 +50,13 @@ RationalNumber::RationalNumber(string expression) {
 	else if (denominatorString.find_first_of("^") != -1) {
 		denominator = new Exponential(denominatorString);
 	}
-	else if (denominatorString.find_first_of("log") != -1)
-	{
+	else if (denominatorString.find_first_of("log") != -1) {
 		denominator = new Logarithm(denominatorString);
 	}
-	else if (denominatorString.find_first_of("e") != -1 || numeratorString.find_first_of("pi") != -1)
-	{
+	else if (denominatorString.find_first_of("e") != -1 || numeratorString.find_first_of("pi") != -1) {
 		denominator = new TranscendentalNumber(denominatorString);
 	}
-	else
-	{
+	else {
 		denominator = new Integer(denominatorString);
 	}
 
@@ -90,21 +84,9 @@ double RationalNumber::toDouble(){
 
 string RationalNumber::toString(){
 	stringstream valueStream;
-	
-    // if (typeid(*values["numerator"]) == typeid(Integer)) {
-        valueStream << values["numerator"]->toString();
-        // }
-    // else {
-        // valueStream << "(" << values["numerator"]->toString() << ")";
-        // }
+    valueStream << values["numerator"]->toString();
     if (values["denominator"]->toString() != "1") {
-        // if (typeid(*values["denominator"]) == typeid(Integer)) {
-            valueStream << "/" << values["denominator"]->toString();   
-        // }
-        // else {
-        //    valueStream << "/" << "(" << values["denominator"]->toString() << ")";
-        // }
-        
+        valueStream << "/" << values["denominator"]->toString();   
     }
 	string str = valueStream.str();
 	return str;

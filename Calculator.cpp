@@ -279,18 +279,32 @@ int Calculator::comparePrecedence(string op1, string op2)
     if(op1.compare(op2) == 0)
         return 0;
     
-    if(op1 == "^" || op1 == "n")
+    if(op1 == "n")
         return 1;
     
+    else if(op1 == "^")
+    {
+    	if(op2 == "n")
+    		return -1;
+    	else
+    		return 1;
+    }
     else if(op1 == "*" || op1 == "/")
     {
         if(op2 == "^" || op2 == "n")
             return -1;
+        else if(op2 == "*" || op2 == "/")
+        	return 0;
         else
             return 1;
     }
     else
-        return -1;
+    {
+    	if(op2 == "+" || op2 == "-")
+    		return 0;
+    	else
+    		return -1;
+    }
 }
 
 vector<string> Calculator::getPreviousInputs()

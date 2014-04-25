@@ -119,49 +119,51 @@ int main()
                                     {
                                     case '1':
                                         cout << "\nHere are the previous expressions: \n" << endl;
-                                        for(int i = 0;i<previousExpressions.size();i++)
-                                            {
-                                                cout << "Expression " << (i+1) << ": "
-                                                     << previousExpressions[i] << "\n" 
-                                                     << endl;;
-                                            }
+
+                                        for(int i = previousExpressions.size()-1;i>=0;i--)
+										{
+											cout << "Expression " << (previousExpressions.size()-i) << ": "
+												 << previousExpressions[i] << "\n"
+												 << endl;
+										}
                                         break;
                                     case '2':
                                         cout << "\nHere are the previous answers: \n" << endl;
-                                        for(int i = 0;i<previousExpressions.size();i++)
-                                        {
-                                        	cout << "Answer " << (i+1) << ": "
-                                        		 << previousAnswers[i]->toString() << "\n"
-                                        	     << endl;;
-                                        }
+
+                                        for(int i = previousAnswers.size()-1;i>=0;i--)
+										{
+											cout << "Answer " << (previousExpressions.size()-i) << ": "
+												 << previousAnswers[i]->toString() << "\n"
+												 << endl;
+										}
                                         break;
                                     case '3':
                                         do
-                                            {
-												do
-												{
-													cout << "\nIndicate the answer you wish to convert (Enter ""1"" for the first answer, etc.): ";
-													cin >> previous;
-												} while (previous > previousAnswers.size());
-							
-                                                cout << "\nOriginal form: \n" << endl;
-                                                cout << previousAnswers[previous-1]->toString() << endl;
+										{
+                                        	do
+											{
+												cout << "\nIndicate the answer you wish to convert (Enter ""1"" for the first answer, etc.): ";
+												cin >> previous;
+											} while (previous > previousAnswers.size());
 
-                                                cout << "\nHere is the floating point form:\n " << endl;
-                                                cout << previousAnswers[previous-1]->toDouble() << endl;
+											cout << "\nOriginal form: \n" << endl;
+											cout << previousAnswers[previousAnswers.size()-previous]->toString() << endl;
 
-                                                cout << "\nContinue? (Y/N) ";
-                                                cin >> choice;
-							
-                                                if(choice == "Y" || choice == "y")
-                                                    {
-                                                        proceed = true;
-                                                    }
-                                                else if(choice == "N" || choice == "n")
-                                                    {
-                                                        proceed = false;
-                                                    }
-                                            }while (proceed); //end while
+											cout << "\nHere is the floating point form:\n " << endl;
+											cout << previousAnswers[previousAnswers.size()-previous]->toDouble() << endl;
+
+											cout << "\nContinue? (Y/N) ";
+											cin >> choice;
+
+											if(choice == "Y" || choice == "y")
+											{
+												proceed = true;
+											}
+											else if(choice == "N" || choice == "n")
+											{
+												proceed = false;
+											}
+										}while (proceed); //end while
                                         break;
                                     case '4':
                                         cout << "\nIndicate the answer you wish to store in the 'ans' variable "
@@ -169,7 +171,7 @@ int main()
                                         cin >> previous;
 								
                                         //update this
-										ans = previousAnswers[previous - 1]->toString();
+										ans = previousAnswers[previousAnswers.size()-previous]->toString();
 								
                                         cout << "\nans = " + ans << endl;
                                         ansStored = true;

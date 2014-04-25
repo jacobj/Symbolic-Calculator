@@ -134,6 +134,16 @@ void Logarithm::simplify() {
             }
         }
     }
+    else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+    		((typeid(*values["value"]) == typeid(TranscendentalNumber) ||
+    		(typeid(*values["value"]) == typeid(Exponential) && typeid(*values["value"]->getValues()["value"]) == typeid(TranscendentalNumber))))) {
+    	if(typeid(*values["base"]) == typeid(TranscendentalNumber) && typeid(*values["value"]) == typeid(TranscendentalNumber)
+    		&& !values["base"]->getTranscendentalValue().compare(values["value"]->getTranscendentalValue())){
+    		values["base"] = new Integer("2");
+    		values["value"] = new Integer("2");
+    		this->simplify();
+    	}
+    }
 }
 
 

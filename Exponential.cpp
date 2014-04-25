@@ -32,14 +32,126 @@ Exponential::Exponential(string expression) {
     int pos1 = expression.find_first_of("(");
     int pos2 = expression.find_first_of("^");
     int pos3 = expression.find_last_of("(");
-    if (pos1 != pos3 && pos2 > pos1) {
-        if (pos2 == -1) {
-            string exception = "ERROR! Enter the valid operator! (^) \n";
-            throw exception;
+    if (pos2 == -1) {
+        string exception = "ERROR! Enter the valid operator! (^) \n";
+        throw exception;
+    }
+    // If there are two sets of parenthesis
+    if (pos1 != pos3) {
+        if (pos1 != 0) {
+            string coeff = expression.substr(0, pos1); 
+            string base = expression.substr(pos1 + 1, pos2);
+            string expo = expression.substr(pos3+1, expression.size() - 1);
+            Number* value;
+            Number* exponent;
+            Number* coefficient;
+            // Checks Number type for value/base
+            if(base == "e") {
+                value = new TranscendentalNumber(base);
+            }
+            else if(base == "pi") {
+                value = new TranscendentalNumber(base);
+            }
+            else if(base.find_first_of("/") != -1) {
+                value = new RationalNumber(base);
+            }
+            else if(base.find_first_of("log") != -1) {
+                value = new Logarithm(base);
+            }
+            else {
+                value = new Integer(base);
+            }
+                
+            // Checks Number type for exponent
+            if(expo == "e") {
+                exponent = new TranscendentalNumber(expo);
+            }
+            else if(expo == "pi") {
+                exponent = new TranscendentalNumber(expo);
+            }
+            else if(expo.find_first_of("/") != -1) {
+                exponent = new RationalNumber(expo);
+            }
+            else if(expo.find_first_of("log") != -1) {
+                exponent = new Logarithm(expo);
+            }
+            else {
+                exponent = new Integer(expo);
+            }
+
+            // Checks Number type for exponent
+            if(coeff == "e") {
+                coefficient = new TranscendentalNumber(coeff);
+            }
+            else if(coeff == "pi") {
+                coefficient = new TranscendentalNumber(coeff);
+            }
+            else if(coeff.find_first_of("/") != -1) {
+                coefficient = new RationalNumber(coeff);
+            }
+            else if(coeff.find_first_of("log") != -1) {
+                coefficient = new Logarithm(expo);
+            }
+            else {
+                coefficient = new Integer(coeff);
+            }
+
+            // Creates Exponential object
+            this->values["coefficient"] = coefficient;
+            this->values["value"] = value;
+            this->values["exponent"] = exponent;
+            simplify();
         }
+        else {
+            string base = expression.substr(1, pos2);
+            string expo = expression.substr(pos3 + 1, expression.size() - 1);
+            Number* value;
+            Number* exponent;
+                
+            // Checks Number type for value/base
+            if(base == "e") {
+                value = new TranscendentalNumber(base);
+            }
+            else if(base == "pi") {
+                value = new TranscendentalNumber(base);
+            }
+            else if(base.find_first_of("/") != -1) {
+                value = new RationalNumber(base);
+            }
+            else if(base.find_first_of("log") != -1) {
+                value = new Logarithm(base);
+            }
+            else {
+                value = new Integer(base);
+            }
+                
+            // Checks Number type for exponent
+            if(expo == "e") {
+                exponent = new TranscendentalNumber(expo);
+            }
+            else if(expo == "pi") {
+                exponent = new TranscendentalNumber(expo);
+            }
+            else if(expo.find_first_of("/") != -1) {
+                exponent = new RationalNumber(expo);
+            }
+            else if(expo.find_first_of("log") != -1) {
+                exponent = new Logarithm(expo);
+            }
+            else {
+                exponent = new Integer(expo);
+            }
+            // Creates Exponential object
+            this->values["coefficient"] = new Integer(1);
+            this->values["value"] = value;
+            this->values["exponent"] = exponent;
+            simplify();
+        }
+    }
+    else if (pos1 == pos3 && pos2 > pos1) {
         string coeff = expression.substr(0, pos1); 
         string base = expression.substr(pos1 + 1, pos2);
-        string expo = expression.substr(pos2+1, expression.size());
+        string expo = expression.substr(pos2 + 1, expression.size());
         Number* value;
         Number* exponent;
         Number* coefficient;
@@ -101,14 +213,53 @@ Exponential::Exponential(string expression) {
         this->values["exponent"] = exponent;
         simplify();
     }
-    else {
-
-        int pos2 = expression.find_first_of("^");
-        // checks if valid operator was entered
-        if (pos2 == -1) {
-            string exception = "ERROR! Enter the valid operator! (^) \n";
-            throw exception;
+    else if (pos1 == pos3 && pos2 < pos1) {
+        // Obtains expression substrings -- one for value, one for exponent
+        string base = expression.substr(0, pos2);
+        string expo = expression.substr(pos3 + 1, expression.size() - 1);
+        Number* value;
+        Number* exponent;
+                
+        // Checks Number type for value/base
+        if(base == "e") {
+            value = new TranscendentalNumber(base);
         }
+        else if(base == "pi") {
+            value = new TranscendentalNumber(base);
+        }
+        else if(base.find_first_of("/") != -1) {
+            value = new RationalNumber(base);
+        }
+        else if(base.find_first_of("log") != -1) {
+            value = new Logarithm(base);
+        }
+        else {
+            value = new Integer(base);
+        }
+                
+        // Checks Number type for exponent
+        if(expo == "e") {
+            exponent = new TranscendentalNumber(expo);
+        }
+        else if(expo == "pi") {
+            exponent = new TranscendentalNumber(expo);
+        }
+        else if(expo.find_first_of("/") != -1) {
+            exponent = new RationalNumber(expo);
+        }
+        else if(expo.find_first_of("log") != -1) {
+            exponent = new Logarithm(expo);
+        }
+        else {
+            exponent = new Integer(expo);
+        }
+        // Creates Exponential object
+        this->values["coefficient"] = new Integer(1);
+        this->values["value"] = value;
+        this->values["exponent"] = exponent;
+        simplify();
+    }
+    else {
         // Obtains expression substrings -- one for value, one for exponent
         string base = expression.substr(0, pos2);
         string expo = expression.substr(pos2 + 1, expression.size());
@@ -193,7 +344,11 @@ string Exponential::toString(){
 void Exponential::simplify() {
 	bool isNegative = false;
     // If the value is an Integer,
-    if (typeid(*values["value"]) == typeid(Integer)) {
+    if (!values["exponent"]->toString().compare("1")) {
+        values["coefficient"] = values["coefficient"]->multiply(values["value"]);
+        values["value"] = new Integer(1);
+    }
+    else if (typeid(*values["value"]) == typeid(Integer)) {
         // If the exponent is a RationalNumber,
         if (typeid(*values["exponent"]) == typeid(RationalNumber)) { 
             // If the exponent's numerator is an Integer,
@@ -214,8 +369,7 @@ void Exponential::simplify() {
             if (typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {
                 // Break up value into it's prime factors.
                 vector<int> primes; 
-                primes = findPrimeFactors(values["value"]->getValue(), 
-                                          2, primes);
+                primes = findPrimeFactors(values["value"]->getValue(), 2, primes);
                 // Sort results in descending order.
                 sort(primes.begin(), primes.end());
                 int value = values["value"]->getValue();
@@ -226,22 +380,18 @@ void Exponential::simplify() {
                         reduceInsideRoot(value, coefficient, 
                                          values["exponent"]->getValues()["denominator"]->getValue(), primes);
                     }
-                                     
                     // Set value and coeffient to the returned values from reduceInsideRoot.
-                    if(isNegative)
-                        {
-                            stringstream str;
-                            string temp;
-                            str << "1/" << coefficient;
-                            temp = str.str();
-                            this->values["coefficient"] = new RationalNumber(temp);
-                            values["value"]->setValue(value);
-                        }
-                    else
-                        {
-                            values["value"]->setValue(value);
-                            values["coefficient"]->setValue(coefficient);
-                        }
+                    if(isNegative) {
+                        stringstream str;
+                        string temp;
+                        str << "1/" << coefficient;
+                        temp = str.str();
+                        this->values["coefficient"] = new RationalNumber(temp);
+                        values["value"]->setValue(value);
+                    } else {
+                        values["value"]->setValue(value);
+                        values["coefficient"]->setValue(coefficient);
+                    }
                 }
             }
             // What if the denominator is not an Integer? For now let's just leave it alone.
@@ -288,8 +438,6 @@ void Exponential::simplify() {
                         Number* coef1 = new Integer(1);
                         Number* coef2 = new Integer(1);
                         // Split into two seperate expoentials,
-                        cout << values["value"]->getValues()["denominator"]->getValue() << endl;
-                        cout << values["value"]->getValues()["numerator"]->getValue() << endl;
                         Number* denom = new Exponential(new Integer(values["value"]->getValues()["denominator"]->getValue()), 
                                                         new RationalNumber(new Integer(values["exponent"]->getValues()["numerator"]->getValue()),
                                                                            new Integer(values["exponent"]->getValues()["denominator"]->getValue())), coef1);
@@ -297,48 +445,9 @@ void Exponential::simplify() {
                                                         new RationalNumber(new Integer(values["exponent"]->getValues()["numerator"]->getValue()),
                                                                            new Integer(values["exponent"]->getValues()["denominator"]->getValue())), coef2);
 
-                        cout << values["value"]->getValues()["denominator"]->getValue() << endl;
-                        cout << values["value"]->getValues()["numerator"]->getValue() << endl;
-
                         values["value"]->setValues("denominator", denom); //= denom;
                         values["value"]->setValues("numerator", numer);
                         setValues("exponent", new Integer(1));
-                        cout << values["value"]->getValues()["numerator"]->getValues()["value"]->getValue() << endl;
-                        /*
-                        // Make the outer exponent a 1.
-                        values["exponent"] = new Integer(1);
-                        vector<int> primes1;
-                        cout << values["value"]->getValues()["denominator"]->getValues()["value"]->getValue() << endl;
-                        // Find the primes of the denominators value inside the exponent.
-                        primes1 = findPrimeFactors(values["value"]->getValues()["denominator"]->getValues()["value"]->getValue(), 2, primes1);
-                        // Sort the returned primes.
-                        sort(primes1.begin(), primes1.end());
-                        vector<int> primes2;
-                        // Find the primes of the denominators value inside the exponent.
-                        primes2 = findPrimeFactors(values["value"]->getValues()["numerator"]->getValues()["value"]->getValue(), 2, primes2);
-                        sort(primes2.begin(), primes2.end());
-                        // Make values to pass into reduce inside root.
-                        int value1 = values["value"]->getValues()["numerator"]->getValues()["value"]->getValue();
-                        int value2 = values["value"]->getValues()["denominator"]->getValues()["value"]->getValue();
-                        int coefficient1 = values["value"]->getValues()["numerator"]->getValues()["coefficient"]->getValue();
-                        int coefficient2 = values["value"]->getValues()["denominator"]->getValues()["coefficient"]->getValue();
-                        // Reduce inside each root inside of the numerator and the denominator
-                        reduceInsideRoot(value1, coefficient1, 
-                                         values["value"]->getValues()["numerator"]->getValues()["exponent"]->getValues()["denominator"]->getValue(), primes1);
-                        reduceInsideRoot(value2, coefficient2, 
-                                         values["value"]->getValues()["denominator"]->getValues()["exponent"]->getValues()["denominator"]->getValue(), primes2);
-                        // Set the value inside the root of the numerator to the simplified result,
-                        values["value"]->getValues()["numerator"]->getValues()["value"]->setValue(value1);
-                        // Set the coefficient inside the root of the numerator to the simplifies result,
-                        values["value"]->getValues()["numerator"]->getValues()["coefficient"]->setValue(coefficient1);
-                        // Same but for the dneominator.
-                        values["value"]->getValues()["denominator"]->getValues()["value"]->setValue(value2);
-                        values["value"]->getValues()["denominator"]->getValues()["coefficient"]->setValue(coefficient2);
-                        // Finally simplify the inner and outer coefficients.
-                        values["value"]->getValues()["denominator"]->getValues()["coefficient"] = values["value"]->getValues()["denominator"]->getValues()["coefficient"]->multiply(values["coefficient"]);
-                        values["value"]->getValues()["denominator"]->getValues()["coefficient"] = values["value"]->getValues()["numerator"]->getValues()["coefficient"]->multiply(values["coefficient"]);
-                        values["coefficient"] = new Integer(1);
-                        */
                     }
                 } 
             }      

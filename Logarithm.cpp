@@ -137,10 +137,19 @@ void Logarithm::simplify() {
     else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
     		((typeid(*values["value"]) == typeid(TranscendentalNumber) ||
     		(typeid(*values["value"]) == typeid(Exponential) && typeid(*values["value"]->getValues()["value"]) == typeid(TranscendentalNumber))))) {
-    	if(typeid(*values["base"]) == typeid(TranscendentalNumber) && typeid(*values["value"]) == typeid(TranscendentalNumber)
-    		&& !values["base"]->getTranscendentalValue().compare(values["value"]->getTranscendentalValue())){
+    	if(typeid(*values["base"]) == typeid(TranscendentalNumber) && typeid(*values["value"]) == typeid(TranscendentalNumber) &&
+    		!values["base"]->getTranscendentalValue().compare(values["value"]->getTranscendentalValue()) &&
+    		values["base"]->getValues()["coefficient"]->getValue() == values["value"]->getValues()["coefficient"]->getValue()){
     		values["base"] = new Integer("2");
     		values["value"] = new Integer("2");
+    		this->simplify();
+    	}
+    	else if(typeid(*values["value"]) == typeid(Exponential) && typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+    			typeid(*values["value"]->getValues()["exponent"]) == typeid(Integer) &&
+    			!values["base"]->getTranscendentalValue().compare(values["value"]->getValues()["value"]->getTranscendentalValue())){
+    		values["base"] = new Integer("2");
+    		long power = pow(2, values["value"]->getValues()["exponent"]->getValue());
+    		values["value"] = new Integer(power);
     		this->simplify();
     	}
     }

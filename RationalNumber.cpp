@@ -485,6 +485,18 @@ void RationalNumber::simplify() {
         
     }
     */
+    //If the top is negative and the bottom is negative, multiply them by -1 to get a positive result.
+    if(((typeid(*values["denominator"]) == typeid(Integer) && values["denominator"]->getValue() < 0) ||
+    	(typeid(*values["denominator"]) == typeid(TranscendentalNumber) &&
+    	 typeid(values["denominator"]->getValues()["coefficient"]) == typeid(Integer) &&
+    	 values["denominator"]->getValues()["coefficient"]->getValue() < 0)) &&
+    	((typeid(*values["numerator"]) == typeid(Integer) && values["numerator"]->getValue() < 0) ||
+    	(typeid(*values["numerator"]) == typeid(TranscendentalNumber) &&
+    	 typeid(values["denominator"]->getValues()["coefficient"]) == typeid(Integer) &&
+    	 values["numerator"]->getValues()["coefficient"]->getValue() < 0))){
+    		values["denominator"] = values["denominator"]->multiply(new Integer("-1"));
+    		values["numerator"] = values["numerator"]->multiply(new Integer("-1"));
+    }
 }
     
 // Use euclid's algorithm

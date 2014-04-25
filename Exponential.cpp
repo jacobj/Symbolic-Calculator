@@ -414,7 +414,10 @@ Number* Exponential::multiply(Number* val) {
     }
     else if (typeid(*val) == typeid(Exponential)) {
         if (values["value"]->toString().compare(val->getValues()["value"]->toString()) == 0) {
-            return new Exponential(values["value"], values["exponent"]->add(val->getValues()["exponent"]),values["coefficient"]->multiply(val->getValues()["coefficient"]));
+            Number* exponent = values["exponent"]->add(val->getValues()["exponent"]);
+            Number* coefficient = values["coefficient"]->multiply(val->getValues()["coefficient"]);
+            Number* result = new Exponential(values["value"], exponent, coefficient);
+            return result;
         }
     }
     else if (typeid(*val) == typeid(Expression)) {

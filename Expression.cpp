@@ -276,9 +276,33 @@ Number* Expression::add(Number* val)
 	{
 		for(int i = 0; i < operands.size(); i++)
 		{
-			if(typeid(*operands[i]) == typeid(RationalNumber))
+			if(typeid(*operands[i]) == typeid(Integer))
 			{
-				operands[i] = calculate(operands[i],val,"+");
+				matchFound = true;
+				if(i > 0)
+					operands[i] = calculate(operands[i],val,operators[i]);
+				else
+				{
+					if(operators[i] == "0")
+						operands[i] = calculate(operands[i],val,"+");
+					else
+						operands[i] = calculate(operands[i],val,operators[i]);
+				}
+				if(operands[i]->getValue() < 0)
+				{
+					if(i > 0)
+					{
+						Number *temp = new Integer("-1");
+						operands[i] = calculate(operands[i],temp,"*");
+						operators[i]="+";
+					}
+					else
+					{
+						Number *temp = new Integer("-1");
+						operands[i] = calculate(operands[i],temp,"*");
+						operators[i]="0";
+					}
+				}
 			}
 		}
 	}
@@ -465,7 +489,8 @@ Number* Expression::multiply(Number* val)
 		for(int i = 0; i < operands.size(); i++)
 		{
 			operands[i] = calculate(operands[i],val,"*");
-			if(typeid(*operands[i]) != typeid(Integer))
+			if(typeid(*operands[i]) != typeid(Integer) &&
+			   typeid(*operands[i]) != typeid(RationalNumber))
 			{
 				if(operands[i]->getValues()["coefficient"]->getValue() < 0)
 				{
@@ -778,7 +803,6 @@ vector<string> Expression::setExpressionTokens(string& expr)
         	{
         		token = "";
         	}
-
 
         	str.append(token);
         }

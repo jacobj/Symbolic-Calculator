@@ -103,13 +103,13 @@ void Calculator::calculate()
             //beginning of Number type
             if ( !st.empty() )
             {
-            	if(token == "-" && typeid(*val2b)==typeid(RationalNumber) &&
-            			   expression[i+1] == "^")
-            	{
-            		Number *temp = new Integer("-1");
-            		resultt = calculate(val2b,temp,"*");
-            	}
-            	else if(token == "n")
+//            	if(token == "-" && typeid(*val2b)==typeid(RationalNumber) &&
+//            			   expression[i+1] == "^")
+//            	{
+//            		Number *temp = new Integer("-1");
+//            		resultt = calculate(val2b,temp,"*");
+//            	}
+            	if(token == "n")
             	{
             		Number *temp = new Integer("-1");
 					resultt = calculate(val2b,temp,"*");

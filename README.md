@@ -39,3 +39,15 @@ For help entering expressions, visit the help menu.
 - makefiles
 - GitHub & git commands
 - Team bonding!
+
+
+## Added Functionality For Stage 2
+### Also Able To:
+- 'ans' can now be placed anywhere in the expression for computations
+- Simplify mixed expressions containing different number types, i.e. 7+2*e+8*e^(4-3)
+- Simplfiy exponentials with both positive and negative rational exponents
+- FOIL expressions
+- Add, multiply, subtract, and divide nthroot irrationals with Integer bases and exponents
+
+### Bonus Functionality:
+- Double negative input works, i.e. "1--2" returns 3.

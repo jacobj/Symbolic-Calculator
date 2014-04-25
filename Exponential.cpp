@@ -410,7 +410,7 @@ Number* Exponential::subtract(Number* val) {
     }
     else{
     	stringstream valStream;
-    	valStream << this->toString() << "+" << val->toString();
+    	valStream << this->toString() << "-" << val->toString();
     	string str = valStream.str();
     	return new Expression(str);
     }
@@ -442,7 +442,7 @@ Number* Exponential::multiply(Number* val) {
     //}
     else{
     	stringstream valStream;
-    	valStream << this->toString() << "+" << val->toString();
+    	valStream << this->toString() << "*" << val->toString();
     	string str = valStream.str();
     	return new Expression(str);
     }
@@ -459,6 +459,15 @@ Number* Exponential::divide(Number* val) {
 Number* Exponential::exponentiate(Number* val) {
     // Should this really be implemented?
 	// Yes, it does not know what to do with, say, (2^(1/3))^3
+	/*if (typeid(*val) == typeid(Integer) || typeid(*val) == typeid(RationalNumber)){
+
+	}
+    else{
+    	stringstream valStream;
+    	valStream << this->toString() << "^" << val->toString();
+    	string str = valStream.str();
+    	return new Expression(str);
+    }*/
 }
 
 // Not used

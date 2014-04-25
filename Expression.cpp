@@ -595,25 +595,25 @@ Expression::Expression(string& expr){
    	Number* Expression::divide(Number* val)
    	{
    		if (typeid(*val) == typeid(Integer))
-   				{
-   					for(int i = 0; i < operands.size(); i++)
-   					{
-   						if(typeid(*operands[i]) == typeid(Integer))
-   						{
-   							operands[i] = calculate(operands[i],val,"/");
-   						}
-   					}
-   				}
-   				else if (typeid(*val) == typeid(TranscendentalNumber))
-   				{
-   					for(int i = 0; i < operands.size(); i++)
-   					{
-   						if(typeid(*operands[i]) == typeid(TranscendentalNumber))
-   						{
-   							operands[i] = calculate(operands[i],val,"/");
-   						}
-   					}
-   				}
+		{
+			for(int i = 0; i < operands.size(); i++)
+			{
+				if(typeid(*operands[i]) == typeid(Integer))
+				{
+					operands[i] = calculate(operands[i],val,"/");
+				}
+			}
+		}
+		else if (typeid(*val) == typeid(TranscendentalNumber))
+		{
+			for(int i = 0; i < operands.size(); i++)
+			{
+				if(typeid(*operands[i]) == typeid(TranscendentalNumber))
+				{
+					operands[i] = calculate(operands[i],val,"/");
+				}
+			}
+		}
    				/*else if (typeid(*val) == typeid(RationalNumber)){
    					stringstream RatNumStream;
    					RatNumStream << getValue() << "/1";
@@ -631,10 +631,11 @@ Expression::Expression(string& expr){
    	}
     Number* Expression::exponentiate(Number* val)
     {
-		stringstream valStream;
-		valStream << toString() << "^" << val->toString();
-		string str = valStream.str();
-		return new Expression(str);
+    	if (typeid(*val) == typeid(Integer))
+		{
+			if(val->getValue() == 2)
+				return this->multiply(this);
+		}
     }
 
     bool Expression::isNumeric(string token)

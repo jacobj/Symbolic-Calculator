@@ -530,20 +530,20 @@ Number* Expression::divide(Number* val)
 	{
 		for(int i = 0; i < operands.size(); i++)
 		{
-			if(typeid(*operands[i]) == typeid(Integer))
-			{
+			//if(typeid(*operands[i]) == typeid(Integer))
+			//{
 				operands[i] = calculate(operands[i],val,"/");
-			}
+			//}
 		}
 	}
 	else if (typeid(*val) == typeid(TranscendentalNumber))
 	{
 		for(int i = 0; i < operands.size(); i++)
 		{
-			if(typeid(*operands[i]) == typeid(TranscendentalNumber))
-			{
+			//if(typeid(*operands[i]) == typeid(TranscendentalNumber))
+			//{
 				operands[i] = calculate(operands[i],val,"/");
-			}
+			//}
 		}
 	}
 			/*else if (typeid(*val) == typeid(RationalNumber)){

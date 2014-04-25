@@ -298,12 +298,29 @@ Expression::Expression(string& expr){
 				if(typeid(*operands[i]) == typeid(Integer))
 				{
 					matchFound = true;
-					operands[i] = calculate(operands[i],val,operators[i]);
+					if(i > 0)
+						operands[i] = calculate(operands[i],val,operators[i]);
+					else
+					{
+						if(operators[i] == "0")
+							operands[i] = calculate(operands[i],val,"+");
+						else
+							operands[i] = calculate(operands[i],val,operators[i]);
+					}
 					if(operands[i]->getValue() < 0)
 					{
-						Number *temp = new Integer("-1");
-						operands[i] = calculate(operands[i],temp,"*");
-						operators[i]="+";
+						if(i > 0)
+						{
+							Number *temp = new Integer("-1");
+							operands[i] = calculate(operands[i],temp,"*");
+							operators[i]="+";
+						}
+						else
+						{
+							Number *temp = new Integer("-1");
+							operands[i] = calculate(operands[i],temp,"*");
+							operators[i]="0";
+						}
 					}
 				}
 			}
@@ -317,12 +334,32 @@ Expression::Expression(string& expr){
 					if(operands[i]->getTranscendentalValue() == val->getTranscendentalValue())
 					{
 						matchFound = true;
-						operands[i] = calculate(operands[i],val,operators[i]);
-						if(operands[i]->getValues()["coefficient"]->getValue() < 0)
+						if(i > 0)
+							operands[i] = calculate(operands[i],val,operators[i]);
+						else
 						{
-							Number *temp = new Integer("-1");
-							operands[i] = calculate(operands[i],temp,"*");
-							operators[i]="+";
+							if(operators[i] == "0")
+								operands[i] = calculate(operands[i],val,"+");
+							else
+								operands[i] = calculate(operands[i],val,operators[i]);
+						}
+						if(typeid(*operands[i]) != typeid(Integer))
+						{
+							if(operands[i]->getValues()["coefficient"]->getValue() < 0)
+							{
+								if(i>0)
+								{
+									Number *temp = new Integer("-1");
+									operands[i] = calculate(operands[i],temp,"*");
+									operators[i]="+";
+								}
+								else
+								{
+									Number *temp = new Integer("-1");
+									operands[i] = calculate(operands[i],temp,"*");
+									operators[i]="+";
+								}
+							}
 						}
 					}
 				}
@@ -399,11 +436,14 @@ Expression::Expression(string& expr){
 						else
 							operands[i] = calculate(operands[i],val,"-");
 
-						if(operands[i]->getValues()["coefficient"]->getValue() < 0)
+						if(typeid(*operands[i]) != typeid(Integer))
 						{
-							Number *temp = new Integer("-1");
-							operands[i] = calculate(operands[i],temp,"*");
-							operators[i]="-";
+							if(operands[i]->getValues()["coefficient"]->getValue() < 0)
+							{
+								Number *temp = new Integer("-1");
+								operands[i] = calculate(operands[i],temp,"*");
+								operators[i]="-";
+							}
 						}
 					}
 				}

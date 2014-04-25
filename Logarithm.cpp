@@ -317,8 +317,10 @@ Number* Logarithm::multiply(Number* val) {
 
 Number* Logarithm::divide(Number* val) {
     // We need to make sure we make a generic Number pointer to self.
-    Number* numerator = this;
-    Number* result = new RationalNumber(numerator, val);
+    Number* result =  new RationalNumber(this, val);
+    if(!result->getValues()["denominator"]->toString().compare("1")){
+    	result = result->getValues()["numerator"];
+    }
     return result;
 }
 

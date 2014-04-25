@@ -435,7 +435,10 @@ Number* Exponential::multiply(Number* val) {
 }
 
 Number* Exponential::divide(Number* val) {
-    Number* result = new RationalNumber(this, val);
+    Number* result =  new RationalNumber(this, val);
+    if(!result->getValues()["denominator"]->toString().compare("1")){
+    	result = result->getValues()["numerator"];
+    }
     return result;
 }
 

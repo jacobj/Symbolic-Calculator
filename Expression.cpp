@@ -91,10 +91,75 @@ Expression::Expression(string& expr){
 	{
 
 	}
+
 	void Expression::simplify()
 	{
+		vector<Number*> tempOperands;
+		vector<string> tempOperators;
+
 		if(operands.size() > 1)
 		{
+			for(int i = 0; i < operands.size();i++)
+			{
+				if(operands [i] != NULL)
+				{
+					for(int j = i+1; j < operands.size();j++)
+					{
+						if(typeid(*operands[i]) == typeid(*operands[j]))
+						{
+							if(typeid(*operands[i]) == typeid(TranscendentalNumber))
+							{
+								if(operands[i]->getTranscendentalValue().compare(operands[j]->getTranscendentalValue()) == 0)
+								{
+									if(operators[i].compare(operators[j]) == 0)
+									{
+										operands[i] = calculate(operands[i],operands[j],"+");
+									}
+									else
+									{
+										if(operators[i] == "+")
+										{
+											operands[i] = calculate(operands[i],operands[j],"-");
+										}
+										else
+										{
+											operands[i] = calculate(operands[j],operands[i],"-");
+										}
+									}
+									if(typeid(*operands[i]) != typeid(Integer))
+									{
+										if( operands[i]->getValues()["coefficient"]->getValue() < 0)
+										{
+											Number *temp = new Integer("-1");
+											operands[i] = calculate(operands[i],temp,"*");
+											operators[i]="-";
+										}
+									}
+									operands[j] = NULL;
+								}
+							}
+							else
+							{
+								if(operators[i].compare(operators[j]) == 0)
+								{
+									operands[i] = calculate(operands[i],operands[j],"+");
+									operands[j] = NULL;
+								}
+								else
+								{
+
+								}
+							}
+						}
+					}
+					tempOperands.push_back(operands[i]);
+					tempOperators.push_back(operators[i]);
+				}
+			}
+
+			operands = tempOperands;
+			operators = tempOperators;
+
 			for(int i = 1;i<operands.size()-1;i++)
 			{
 				if(operands[i]->toString().compare("0") == 0)

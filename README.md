@@ -25,7 +25,6 @@ For help entering expressions, visit the help menu.
 - Able to show all previous expressions and answers entered
 - Able to multiply exponentials with fractions
 - 'ans' does not store the previous answer, but rather it stores the user-specified answer
-	- Please put 'ans' at the end of your expression (i.e. 2+ans)
 
 ### Used the following skills:
 - Polymorphism

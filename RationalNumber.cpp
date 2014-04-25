@@ -85,9 +85,9 @@ double RationalNumber::toDouble(){
 string RationalNumber::toString(){
 	stringstream valueStream;
     valueStream << values["numerator"]->toString();
-    if (values["denominator"]->toString() != "1") {
+    //if (values["denominator"]->toString() != "1") {
         valueStream << "/" << values["denominator"]->toString();   
-    }
+    //}
 	string str = valueStream.str();
 	return str;
 }
@@ -108,8 +108,6 @@ Number* RationalNumber::add(Number* val){
 			denominator = this->values["denominator"];
 
 			result = new RationalNumber(numerator, denominator);
-			result->simplify();
-			return result;
 	}
 	else
 	{
@@ -128,9 +126,13 @@ Number* RationalNumber::add(Number* val){
 				denominator = this->values["denominator"]->multiply(val->getValues()["denominator"]);
 			}
 			result = new RationalNumber(numerator, denominator);
-			result->simplify();
-			return result;
 	}
+	result->simplify();
+	//Check if the denominator is 1. If so, simply return the numerator.
+	if (typeid(*result->getValues()["denominator"]) == typeid(Integer) && result->getValues()["denominator"]->getValue() == 1){
+			result = result->getValues()["numerator"];
+	}
+	return result;
 }
 Number* RationalNumber::subtract(Number* val){
 	Number* result;
@@ -147,8 +149,6 @@ Number* RationalNumber::subtract(Number* val){
 		denominator = this->values["denominator"];
 
 		result = new RationalNumber(numerator, denominator);
-		result->simplify();
-		return result;
 	}
 	else
 	{
@@ -167,9 +167,13 @@ Number* RationalNumber::subtract(Number* val){
 			denominator = this->values["denominator"]->multiply(val->getValues()["denominator"]);
 		}
 		result = new RationalNumber(numerator, denominator);
-		result->simplify();
-		return result;
 	}
+	result->simplify();
+	//Check if the denominator is 1. If so, simply return the numerator.
+	if (typeid(*result->getValues()["denominator"]) == typeid(Integer) && result->getValues()["denominator"]->getValue() == 1){
+			result = result->getValues()["numerator"];
+	}
+	return result;
 }
 Number* RationalNumber::multiply(Number* val){
 	Number* result;
@@ -186,8 +190,6 @@ Number* RationalNumber::multiply(Number* val){
 		denominator1 = values["denominator"];
 
 		result = new RationalNumber(numerator1, denominator1);
-		result->simplify();
-		return result;
 	}
 	else
 	{
@@ -198,9 +200,13 @@ Number* RationalNumber::multiply(Number* val){
 		denominator1 = values["denominator"]->multiply(val->getValues()["denominator"]);
 
 		result = new RationalNumber(numerator1, denominator1);
-		result->simplify();
-		return result;
 	}
+	result->simplify();
+	//Check if the denominator is 1. If so, simply return the numerator.
+	if (typeid(*result->getValues()["denominator"]) == typeid(Integer) && result->getValues()["denominator"]->getValue() == 1){
+			result = result->getValues()["numerator"];
+	}
+	return result;
 }
 Number* RationalNumber::divide(Number* val){
 	Number* result;
@@ -213,7 +219,6 @@ Number* RationalNumber::divide(Number* val){
 		Number* tempNumerator = new Integer(1);
 		Number* tempRational = new RationalNumber(tempNumerator, val);
 		result = this->multiply(tempRational);
-		return result;
 	}
 	else
 	{
@@ -222,8 +227,9 @@ Number* RationalNumber::divide(Number* val){
 
 		Number* tempRational = new RationalNumber(tempNumerator, tempDenominator);
 		result = this->multiply(tempRational);
-		return result;
 	}
+	//Check for the denominator being 1 is unnecessary here, as multiply already handles that.
+	return result;
 }
 Number* RationalNumber::exponentiate(Number* val){
     Number* numerator = values["numerator"]->exponentiate(val);

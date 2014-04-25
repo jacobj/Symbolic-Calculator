@@ -29,7 +29,7 @@ Exponential::Exponential(string expression) {
     int pos3 = expression.find_last_of("(");
     Number* value;
     Number* exponent;
-    Number* coeffcient;
+    Number* coefficient;
     string base;
     string expo;
     string coeff;

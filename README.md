@@ -21,7 +21,7 @@ For help entering expressions, visit the help menu.
 - Add, multiply, subtract, and divide nthroot irrationals with Integer bases and exponents
 
 ### Bonus Functionality:
-- Double negative input works, i.e. "1--2" returns 3.
+- Double negative input works, i.e. "x--y" and "x-(-y)"
 
 ## Accomplishments
 ### Able to:

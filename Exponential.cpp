@@ -423,12 +423,13 @@ Number* Exponential::multiply(Number* val) {
         return result;
     }
     else if (typeid(*val) == typeid(Exponential)) {
-        if (values["value"]->toString().compare(val->getValues()["value"]->toString()) == 0) {
-            Number* exponent = values["exponent"]->add(val->getValues()["exponent"]);
+        if (val->getValues()["exponent"]->toString().compare(values["exponent"]->toString()) == 0) {
             Number* coefficient = values["coefficient"]->multiply(val->getValues()["coefficient"]);
-            Number* result = new Exponential(values["value"], exponent, coefficient);
+            Number* value = values["value"]->multiply(val->getValues()["value"]);
+            Number* result = new Exponential(value, values["exponent"], coefficient);
             return result;
         }
+        
     }
     //NEEDS TO BE HANDLED
     //else if (typeid(*val) == typeid(Expression)) {

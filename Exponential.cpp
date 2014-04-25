@@ -26,7 +26,7 @@ Exponential::Exponential(string expression) {
     /********************************************
      Evaluates expressions containing Ints,
      TNs, Logs, and RNs.
-     ********************************************/
+    ********************************************/
     
     // searches for the position of the valid operator
     int pos1 = expression.find_first_of("(");
@@ -190,7 +190,7 @@ Exponential::Exponential(string expression) {
             exponent = new Integer(expo);
         }
 
-         // Checks Number type for exponent
+        // Checks Number type for exponent
         if(coeff == "e") {
             coefficient = new TranscendentalNumber(coeff);
         }
@@ -326,7 +326,7 @@ double Exponential::toDouble(){
 }
 
 string Exponential::toString(){
-	stringstream valueStream;
+    stringstream valueStream;
     if (values["coefficient"]->toString().compare("1")) {
         valueStream << values["coefficient"]->toString(); 
     }
@@ -342,7 +342,7 @@ string Exponential::toString(){
   
 // Simplify method.
 void Exponential::simplify() {
-	bool isNegative = false;
+    bool isNegative = false;
     // If the value is an Integer,
     if (!values["exponent"]->toString().compare("1")) {
         values["coefficient"] = values["coefficient"]->multiply(values["value"]);
@@ -354,14 +354,14 @@ void Exponential::simplify() {
             // If the exponent's numerator is an Integer,
             if (typeid(*values["exponent"]->getValues()["numerator"]) == typeid(Integer)) {
                 // Raise the value to nth power and set the exponent to 1.
-            	if(values["exponent"]->getValues()["numerator"]->getValue() < 0) {
-            		isNegative = true;
-            		values["value"]->setValue(((long)pow(values["value"]->getValue(),
+                if(values["exponent"]->getValues()["numerator"]->getValue() < 0) {
+                    isNegative = true;
+                    values["value"]->setValue(((long)pow(values["value"]->getValue(),
                                                          -1*values["exponent"]->getValues()["numerator"]->getValue())));
                 } else {
-            		values["value"]->setValue(((long)pow(values["value"]->getValue(),
+                    values["value"]->setValue(((long)pow(values["value"]->getValue(),
                                                          values["exponent"]->getValues()["numerator"]->getValue())));
-            	}
+                }
                 // Set the numerator of the exponent to 1, as it has already been raised appropriately.
                 values["exponent"]->getValues()["numerator"]->setValue(1);
             }
@@ -586,51 +586,51 @@ Number* Exponential::subtract(Number* val) {
 }
 
 Number* Exponential::multiply(Number* val) {
-	if (typeid(*val) == typeid(Integer) && 
+    if (typeid(*val) == typeid(Integer) && 
         typeid(*values["coefficient"]) == typeid(Integer)) {
         Number* result = new Exponential(values["value"], values["exponent"], values["coefficient"]->multiply(val));
         return result;
     }
-	else if (typeid(*val) == typeid(Exponential)) {
+    else if (typeid(*val) == typeid(Exponential)) {
         if (values["value"]->toString().compare(val->getValues()["value"]->toString()) == 0) {
             return new Exponential(values["value"], values["exponent"]->add(val->getValues()["exponent"]),values["coefficient"]->multiply(val->getValues()["coefficient"]));
         }
-	}
-	else if (typeid(*val) == typeid(Expression)) {
+    }
+    else if (typeid(*val) == typeid(Expression)) {
         
-	}
-	else if (typeid(*val) == typeid(TranscendentalNumber)) {
+    }
+    else if (typeid(*val) == typeid(TranscendentalNumber)) {
         
-	}
-	else if (typeid(*val) == typeid(RationalNumber)) {
+    }
+    else if (typeid(*val) == typeid(RationalNumber)) {
         return new RationalNumber(multiply(val->getValues()["numerator"]), val->getValues()["denominator"]);
-	}
-	else if (typeid(*val) == typeid(Logarithm)) {
+    }
+    else if (typeid(*val) == typeid(Logarithm)) {
 
-	}
-	else {
+    }
+    else {
 
-	}
+    }
 }
+
 Number* Exponential::divide(Number* val) {
-	Number* result = new RationalNumber(this, val);
+    Number* result = new RationalNumber(this, val);
     return result;
 }
+
 Number* Exponential::exponentiate(Number* val) {
     // Should this really be implemented?
 }
 
 // Not used
-void Exponential::display()
-{
+void Exponential::display() {
 
 }
 
-long Exponential::getValue()
-{
+long Exponential::getValue() {
 
 }
-void Exponential::setValue(long value)
-{
+
+void Exponential::setValue(long value) {
 
 }

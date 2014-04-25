@@ -526,39 +526,10 @@ Number* Expression::multiply(Number* val)
 }
 Number* Expression::divide(Number* val)
 {
-	if (typeid(*val) == typeid(Integer))
+	for(int i = 0; i < operands.size(); i++)
 	{
-		for(int i = 0; i < operands.size(); i++)
-		{
-			//if(typeid(*operands[i]) == typeid(Integer))
-			//{
-				operands[i] = calculate(operands[i],val,"/");
-			//}
-		}
+			operands[i] = calculate(operands[i],val,"/");
 	}
-	else if (typeid(*val) == typeid(TranscendentalNumber))
-	{
-		for(int i = 0; i < operands.size(); i++)
-		{
-			//if(typeid(*operands[i]) == typeid(TranscendentalNumber))
-			//{
-				operands[i] = calculate(operands[i],val,"/");
-			//}
-		}
-	}
-			/*else if (typeid(*val) == typeid(RationalNumber)){
-				stringstream RatNumStream;
-				RatNumStream << getValue() << "/1";
-				string str = RatNumStream.str();
-				Number* RatNum = new RationalNumber(str);
-				return RatNum->add(val);
-			}
-			else{
-				stringstream valStream;
-				valStream << toString() << "+" << val->toString();
-				string str = valStream.str();
-				return new Expression(str);
-			}*/
 			return this;
 }
 Number* Expression::exponentiate(Number* val)

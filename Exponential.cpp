@@ -403,6 +403,7 @@ void Exponential::simplify() {
             values["exponent"] = new Integer(1);
         }
     }
+    /*
     // Else, if the value is a rational
     else if (typeid(*values["value"]) == typeid(RationalNumber)) {
         // And the numerator of the value is an Integer
@@ -450,18 +451,11 @@ void Exponential::simplify() {
                         setValues("exponent", new Integer(1));
                     }
                 } 
+   
             }      
         }
-        else {
-            // Split into two seperate expoentials
-            Number* coef1 = new Integer("1");
-            Number* coef2 = new Integer("1");
-            values["value"]->getValues()["denominator"] = new Exponential(values["value"]->getValues()["denominator"], 
-                                                                          values["exponent"], coef1);
-            values["value"]->getValues()["numerator"] = new Exponential(values["value"]->getValues()["numerator"], 
-                                                                        values["exponent"], coef2);
-        }
     }
+    */
 }
 
 

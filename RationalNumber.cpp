@@ -244,8 +244,20 @@ Number* RationalNumber::divide(Number* val){
 	}
 }
 Number* RationalNumber::exponentiate(Number* val){
-	Number* coeff = new Integer(1);
-	return new Exponential(this, val, coeff);
+	if (typeid(*val) == typeid(RationalNumber)) {
+        Number* numerator = new Exponential(values["numerator"], val, new Integer(1));
+        Number* denominator = new Exponential(values["denominator"], val, new Integer(1));
+        return new RationalNumber(numerator, denominator);
+    }
+    else if(typeid(*val) == typeid(Integer)) {
+        Number* numerator = values["numerator"]->exponentiate(val);
+        Number* denominator = values["denominator"]->exponentiate(val);
+        return new RationalNumber(numerator, denominator);
+    }
+    else {
+        Number* coeff = new Integer(1);
+        return new Exponential(this, val, coeff);
+    }
 }
 
 // Simplify helper method.

@@ -196,8 +196,9 @@ int main()
                             cout << "(3) Square/Nth roots" << endl;
                             cout << "(4) Logarithms" << endl;
                             cout << "(5) Fractions" << endl;
-                            cout << "(6) How your answer will be displayed" << endl;
-                            cout << "(7) Return to main menu" << endl;
+                            cout << "(6) Decimals" << endl;
+                            cout << "(7) How your answer will be displayed" << endl;
+                            cout << "(8) Return to main menu" << endl;
                             cout << "\nEnter your choice: ";
                     
                             cin >> helpMenu;
@@ -207,7 +208,7 @@ int main()
                             switch(helpMenu) 
                                 {
                                 case '1':
-                                    cout << "To enter your expression: \n 1) Type in your first value \n 2) Type in your operator, \n 3) Type your second value \n \n Ex: 4*5 \t (3 + 5) / 2 \nApproved Operators: +, -, *, /, ^ \nTranscedental Numbers: pi, e \n" << endl;
+                                    cout << "To enter your expression: \n 1) Type in your first value \n 2) Type in your operator, \n 3) Type your second value \n\nEx: 4*5 \t (3 + 5) / 2 \nApproved Operators: +, -, *, /, ^ \nTranscedental Numbers: pi, e \n" << endl;
                                     break;
                                 case '2':
                                     cout << "To write out an exponent, use the following format: \n a^x \n\nThis will be read as 'a raised to the power of x'.\n" << endl;
@@ -222,15 +223,18 @@ int main()
                                     cout << "To write out a fraction or rational number, use the following format: a/b \n \nThis will read as 'a over b'. \n" << endl;
                                     break;
                                 case '6':
-                                    cout << "Please keep in mind that your answers will be returned in their simplest forms as \nintegers (i.e. 2 + 2 = 4), fractions (i.e. 2/6 = 1/3), logarithms (i.e. log_10:6 = log_10:2 + log_10:3), \n or expressions (i.e. 2 + 2 + pi^2 = 4 + pi^2). \nIf you wish to receive decimal answers, please go to the main menu and press 2 to review previous answers. \nFrom here, you can also set previous answers to the ans keyword. \n\nIf you input a decimal as your expression, then your answer will return as a fraction. Decimals must be terminating, or have 4+ significant figures (if the decimal is repeating)." << endl;
+                                        cout << "If you input a decimal as your expression, then your answer will return as a simplified fraction. Decimals must be terminating, or have 4+ significant figures (if the decimal is repeating). \nEx: .2 = 1/5 \t .3333 = 1/3\n" << endl;
                                     break;
                                 case '7':
+                                    cout << "Please keep in mind that your answers will be returned in their simplest forms as \nintegers (i.e. 2 + 2 = 4), fractions (i.e. 2/6 = 1/3), logarithms (i.e. log_10:6 = log_10:2 + log_10:3), \n or expressions (i.e. 2 + 2 + pi^2 = 4 + pi^2). \nIf you wish to receive decimal answers, please go to the main menu and press 2 to review previous answers. \nFrom here, you can also set previous answers to the ans keyword." << endl;
+                                    break;
+                                case '8':
                                     cout << "Returning back to the main menu..." << endl;
                                     break;
                                 default:
-                                    cout << "Invalid selection! Choose 1, 2, 3, 4, 5, 6, or 7.\n" << endl;
+                                    cout << "Invalid selection! Choose 1, 2, 3, 4, 5, 6, 7, or 8.\n" << endl;
                                 }
-                        }while(helpMenu != '7');
+                        }while(helpMenu != '8');
                     break;
                 case '4':
                     break;

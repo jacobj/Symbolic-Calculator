@@ -357,19 +357,66 @@ vector<string> Calculator::setExpressionTokens(string& expr)
 {
     vector<string> tokens;
     string str = "";
+    int count = 0;
+    bool isDecimal = false;
     
     for(int i = 0; i < (int) expr.length();i++)
     {
         string token(1,expr[i]);
         
+        if(token == ".")
+        	isDecimal = true;
+        else if(isDecimal && isNumeric(token))
+        {
+        	count++;
+        }
+
         if(isOperator(token) || isParentheses(token))
         {
-            if(!str.empty())
-            {
-                tokens.push_back(str);
-            }
-            str = "";
-            tokens.push_back(token);
+        	if(isDecimal)
+        	{
+        		stringstream strstream;
+        		double numer = strtod(str.c_str(), NULL);
+        		int denom = 1;
+        		bool repeatThrees = false;
+
+        		if(str.find("3333") != -1 ||
+				   str.find("6666") != -1 ||
+				   str.find("9999") != -1)
+					repeatThrees = true;
+
+				if(repeatThrees)
+				{
+					numer*=3;
+					denom*=3;
+					numer = ceil(numer);
+				}
+				else
+				{
+					for(int i = 0; i < count; i++)
+					{
+						numer*=10;
+						denom*=10;
+					}
+				}
+
+        		strstream << (int)numer;
+        		tokens.push_back(strstream.str());
+        		tokens.push_back("/");
+        		strstream.str("");
+        		strstream << denom;
+        		str = strstream.str();
+        		isDecimal = false;
+        		count = 0;
+        	}
+
+			if(!str.empty())
+			{
+				tokens.push_back(str);
+			}
+			str = "";
+			tokens.push_back(token);
+
         }
         else if(isNumeric(token))
         {
@@ -379,7 +426,8 @@ vector<string> Calculator::setExpressionTokens(string& expr)
         	{
         		i++;
         	}
-
+//        	else if(token != ".")
+//        		str.append(token);
 
         	str.append(token);
         }
@@ -399,6 +447,44 @@ vector<string> Calculator::setExpressionTokens(string& expr)
         		}
         	 }
         }
+
+    }
+    if(isDecimal)
+    {
+
+		stringstream strstream;
+		double numer = strtod(str.c_str(), NULL);
+		int denom = 1;
+		bool repeatThrees = false;
+
+		if(str.find("3333") != -1 ||
+		   str.find("6666") != -1 ||
+		   str.find("9999") != -1)
+			repeatThrees = true;
+
+		if(repeatThrees)
+		{
+			numer*=3;
+			denom*=3;
+			numer = ceil(numer);
+		}
+		else
+		{
+			for(int i = 0; i < count; i++)
+			{
+				numer*=10;
+				denom*=10;
+			}
+		}
+
+		strstream << (int)numer;
+		tokens.push_back(strstream.str());
+		tokens.push_back("/");
+		strstream.str("");
+		strstream << denom;
+		str = strstream.str();
+		isDecimal = false;
+		count = 0;
 
     }
     if(tokens.empty())
@@ -560,7 +646,7 @@ bool Calculator::isOperator(string token)
 bool Calculator::isNumeric(string token)
 {
 	string onesDigit = token.substr(0,1);
-	if(token.find_first_of("1234567890ep") != -1)
+	if(token.find_first_of("1234567890ep.") != -1)
 		return true;
 	else
 		return false;

@@ -85,10 +85,11 @@ string Logarithm::toString(){
 			valueStream << values["integer"]->toString();
 		}
 	}
-	else if(typeid(*values["integer"]) == typeid(TranscendentalNumber))
-		{
-				valueStream << values["integer"]->toString();
-		}
+
+	else
+	{
+			valueStream << values["integer"]->toString();
+	}
 	if (typeid(*values["coefficient"]) == typeid(Integer)) {
         if (values["coefficient"]->getValue() != 1) {
             valueStream << values["coefficient"]->toString();
@@ -166,12 +167,16 @@ void Logarithm::simplify() {
 				typeid(*values["value"]->getValues()["exponent"]) == typeid(TranscendentalNumber) &&
 				!values["base"]->getTranscendentalValue().compare(values["value"]->getValues()["value"]->getTranscendentalValue())){
 			values["base"] = new Integer("2");
-			//long power = pow(2, values["value"]->getValues()["exponent"]->getValue());
 			values["integer"] = new TranscendentalNumber(values["value"]->getValues()["exponent"]->getTranscendentalValue());
 			values["value"] = new Integer("1");
-			//values["integer"] = new TranscendentalNumber(values["value"]->getValues()["value"]->getTranscendentalValue());
-    		//this->simplify();
     	}
+    	else if(typeid(*values["value"]) == typeid(Exponential) && typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+				typeid(*values["value"]->getValues()["exponent"]) == typeid(RationalNumber) &&
+				!values["base"]->getTranscendentalValue().compare(values["value"]->getValues()["value"]->getTranscendentalValue())){
+			values["base"] = new Integer("2");
+			values["integer"] = new RationalNumber(values["value"]->getValues()["exponent"]->toString());
+			values["value"] = new Integer("1");
+    	    	}
     }
 }
 

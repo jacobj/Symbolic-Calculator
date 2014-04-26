@@ -163,6 +163,7 @@ string Exponential::toString(){
 // Simplify method.
 void Exponential::simplify() {
     bool isNegative = false;
+    bool valueNegative = false;
     // If the value is an Integer,
     if (!values["exponent"]->toString().compare("1")) {
         values["coefficient"] = values["coefficient"]->multiply(values["value"]);
@@ -188,6 +189,11 @@ void Exponential::simplify() {
             // If the exponent's denominator is an Integer,
             if (typeid(*values["exponent"]->getValues()["denominator"]) == typeid(Integer)) {
                 // Break up value into it's prime factors.
+            	if(values["value"]->getValue() < 0)
+            	{
+            		valueNegative = true;
+            		values["value"]->setValue(values["value"]->getValue()*-1);
+            	}
                 vector<int> primes; 
                 primes = findPrimeFactors(values["value"]->getValue(), 2, primes);
                 // Sort results in descending order.
@@ -209,6 +215,9 @@ void Exponential::simplify() {
                         this->values["coefficient"] = new RationalNumber(temp);
                         values["value"]->setValue(value);
                     } else {
+                    	if(valueNegative)
+                    		coefficient *= -1;
+
                         values["value"]->setValue(value);
                         values["coefficient"]->setValue(coefficient);
                     }

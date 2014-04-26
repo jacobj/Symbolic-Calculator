@@ -77,11 +77,7 @@ Number* Integer::add(Number* val)
         return result;
 	}
 	else if (typeid(*val) == typeid(RationalNumber)){
-		stringstream RatNumStream;
-		RatNumStream << getValue() << "/1";
-		string str = RatNumStream.str();
-		Number* RatNum = new RationalNumber(str);
-		return RatNum->add(val);
+		return val->add(this);
 	}
 	else{
 		stringstream valStream;

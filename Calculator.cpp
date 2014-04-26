@@ -530,29 +530,20 @@ bool Calculator::infixToRPN(vector<string>& tokens, vector<string>& rpn)
                 }
                 else
                 {
-//                	if(leadingNegative && comparePrecedence(o1,o2) == 1)
-//                	{
-//                		stack.pop();
-//                		out.push_back(o2);
-//                		leadingNegative = false;
-//                	}
-                	//else
-                	//{
-						while(isOperator( o2 ) &&
-							   (comparePrecedence(o1, o2) == 0 ||
-							   comparePrecedence(o1, o2) == -1))
-						{
+					while(isOperator( o2 ) &&
+						   (comparePrecedence(o1, o2) == 0 ||
+						   comparePrecedence(o1, o2) == -1))
+					{
 
-							stack.pop();
-							out.push_back( o2 );
+						stack.pop();
+						out.push_back( o2 );
 
-							if ( !stack.empty() )
-								o2 = stack.top();
+						if ( !stack.empty() )
+							o2 = stack.top();
 
-							else
-								break;
-						}
-                	//}
+						else
+							break;
+					}
                 }
             }
             stack.push( o1 );

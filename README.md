@@ -15,7 +15,7 @@ Please note that square roots are entered as x^(1/2) and nth roots as x^(1/n)
 
 ## Added Functionality For Stage 2
 ### Also Able To:
-- 'ans' can now be placed anywhere in the expression, and an expression can contain multiple ans terms(i.e. ans + ans)
+- 'ans' can now be placed anywhere in the expression, and an expression can contain multiple ans terms (i.e. ans + ans)
 - Simplify mixed expressions containing different number types (i.e. 7+2*e+8*e^(4-3))
 - Add, multiply, subtract, and divide expressions (i.e. 3 + 2*pi -1, or 5*(1+e))
 - Simplify exponentials with both positive and negative rational exponents
@@ -23,7 +23,8 @@ Please note that square roots are entered as x^(1/2) and nth roots as x^(1/n)
 - Add, multiply, subtract, and divide nthroot irrationals with Integer bases and exponents
 
 ### Bonus Functionality:
-- Double negative input works, i.e. "x--y" and "x-(-y)"
+- Double negative input works (i.e. "x--y" and "x-(-y)")
+- Evaluate terminating decimals and repeating decimals with 4+ sig figs (i.e. ".2 = 1/5" and ".3333 = 1/3")
 
 ## Accomplishments
 ### Able to:

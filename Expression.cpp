@@ -499,6 +499,15 @@ Number* Expression::multiply(Number* val)
 					operators[i]="-";
 				}
 			}
+			else
+			{
+				if(operands[i]->getValue() < 0)
+				{
+					Number *temp = new Integer("-1");
+					operands[i] = calculate(operands[i],temp,"*");
+					operators[i]="-";
+				}
+			}
 		}
 	}
 

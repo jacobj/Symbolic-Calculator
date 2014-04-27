@@ -683,7 +683,25 @@ void Expression::sort()
             }
             else
             {
-                operators.push_back(token);
+            	if(token == ":")
+            	{
+					Number *coeff = new Integer("1");
+					Number *value = operands[i-1];
+					Number *base = operands[i-2];
+					operands.pop_back();
+					operands.pop_back();
+//					if(typeid(*n1) == typeid(Integer))
+//						base = new Integer(n1->toString());
+//					else if(typeid(*n1) == typeid(TranscendentalNumber))
+//						base = new TranscendentalNumber(n1->toString());
+
+					operands.push_back(new Logarithm(coeff,value,base));
+
+            	}
+            	else
+            	{
+            		operators.push_back(token);
+            	}
             }
       }
 }

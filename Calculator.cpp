@@ -54,7 +54,9 @@ Number* Calculator::assignToClass(string& token)
 	if(isNumeric(token))
 	{
 		if(token.find_first_of("+-") != -1)
+		{
 			temp = new Expression(token);
+		}
 		else if(token.find_first_of("pe") != -1)
 			temp = new TranscendentalNumber(token);
 		else if(token.find_first_of("/") != -1)
@@ -180,7 +182,10 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 	else if(typeid(*num1) == typeid(Logarithm))
 	{
 		tempStr = num1->toString();
-		n1 = assignToClass(tempStr);
+		if(isNumeric(tempStr))
+			n1 = assignToClass(tempStr);
+		else
+			n2 = new Logarithm(tempStr);
 	}
 	else
 	{
@@ -221,7 +226,10 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 	else if(typeid(*num2) == typeid(Logarithm))
 	{
 		tempStr = num2->toString();
-		n1 = assignToClass(tempStr);
+		if(isNumeric(tempStr))
+			n2 = assignToClass(tempStr);
+		else
+			n2 = new Logarithm(tempStr);
 	}
 	else
 	{
@@ -312,9 +320,16 @@ int Calculator::comparePrecedence(string op1, string op2)
     	else
     		return 1;
     }
+    else if(op1 == ":")
+    {
+    	if(op2 == "n" || op2 == "^")
+			return -1;
+		else
+			return 1;
+    }
     else if(op1 == "*" || op1 == "/")
     {
-        if(op2 == "^" || op2 == "n")
+        if(op2 == "^" || op2 == "n" || op2 == ":")
             return -1;
         else if(op2 == "*" || op2 == "/")
         	return 0;
@@ -637,7 +652,8 @@ bool Calculator::isOperator(string token)
 bool Calculator::isNumeric(string token)
 {
 	string onesDigit = token.substr(0,1);
-	if(token.find_first_of("1234567890ep.") != -1)
+	if(token.find_first_of("1234567890ep.") != -1 &&
+	   token.find_first_of("_") == -1	)
 		return true;
 	else
 		return false;

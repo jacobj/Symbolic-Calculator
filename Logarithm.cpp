@@ -362,10 +362,18 @@ Number* Logarithm::divide(Number* val) {
 }
 
 Number* Logarithm::exponentiate(Number* val) {
-    stringstream valStream;
-    valStream << toString() << "^" << val->toString();
-    string str = valStream.str();
-    return new Expression(str);
+	if (typeid(*val) == typeid(Integer) && val->getValue() == 1){
+		return this;
+	}
+	else if (typeid(*val) == typeid(Integer) && val->getValue() == 0){
+		return new Integer(1);
+	}
+	else{
+	    stringstream valStream;
+	    valStream << toString() << "^" << val->toString();
+	    string str = valStream.str();
+	    return new Expression(str);
+	}
 }
 
 // Satisfying our love of maps

@@ -141,8 +141,7 @@ void Logarithm::simplify() {
                 for (int i = 1; i < primes.size(); i++) {
                     if (current == primes[i]) {
                         newCounter++;
-                    }
-                    if (current != primes[i]) {
+                    } else if (current != primes[i]) {
                         current = primes[i];
                         newCounter = 1;
                     }

@@ -122,6 +122,8 @@ Number* RationalNumber::add(Number* val){
 			{
 				Number* tempNumerator1 = this->values["numerator"]->multiply(val->getValues()["denominator"]);
 				Number* tempNumerator2 = this->values["denominator"]->multiply(val->getValues()["numerator"]);
+				this->values["numerator"]->divide(val->getValues()["denominator"]);
+				this->values["denominator"]->divide(val->getValues()["numerator"]);
 				numerator = tempNumerator1->add(tempNumerator2);
 				denominator = this->values["denominator"]->multiply(val->getValues()["denominator"]);
 			}

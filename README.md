@@ -21,6 +21,7 @@ Please note that square roots are entered as x^(1/2) and nth roots as x^(1/n)
 - Simplify exponentials with both positive and negative rational exponents
 - FOIL expressions
 - Add, multiply, subtract, and divide nthroot irrationals with Integer bases and exponents
+- Fixed: 'ans' variable now stores the previous expression's answer
 
 ### Bonus Functionality:
 - Double negative input works (i.e. "x--y" and "x-(-y)")
@@ -38,7 +39,6 @@ Please note that square roots are entered as x^(1/2) and nth roots as x^(1/n)
 - Able to convert all numbers to decimal/float -> toDouble() method
 - Able to show all previous expressions and answers entered
 - Able to multiply exponentials with fractions
-- 'ans' does not store the previous answer, but rather it stores the user-specified answer
 
 ### Used the following skills:
 - Polymorphism

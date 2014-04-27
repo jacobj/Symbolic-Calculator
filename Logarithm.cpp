@@ -117,20 +117,33 @@ void Logarithm::simplify() {
                         valueBuilder *= values["base"]->getValue();
                     }
                     values["value"]->setValue(values["value"]->getValue() / valueBuilder);
-                    /*
-                    long coefficientMultiplier = logBaseN(values["value"]->getValue(), 2, 0);
-                    if (coefficientMultiplier != 0) {
-                        cout << coefficientMultiplier << endl;
-                        // Set the value of the coefficient equal to itself times the coefficient multiplier,
-                        values["coefficient"]->setValue(values["coefficient"]->getValue() * coefficientMultiplier);
-                        valueBuilder = 1;
-                        for (long i = 0; i < coefficientMultiplier; i++) {
-                            valueBuilder *= 2;
+                    // Grab list of prime factors for the remaining value
+                    vector<long> primes; 
+                    primes = findPrimeFactors(values["value"]->getValue(), 2, primes);
+                    if (primes.size() != 0) {
+                        int current = primes[0];
+                        int counter = 1;
+                        int newCounter = 1;
+                        int max = primes[0];
+                        for (int i = 1; i < primes.size(); i++) {
+                            if (current == primes[i]) {
+                                newCounter++;
+                            }
+                            if (current != primes[i]) {
+                                current = primes[i];
+                                newCounter = 1;
+                            }
+                            if (newCounter > counter) {
+                                counter = newCounter;
+                                max = current;
+                            }
                         }
-                        // Set the value of value to the value divided by 2^coefficient multiplier.
-                        values["value"]->setValue(values["value"]->getValue() / valueBuilder);
+                        // Set the value of the coefficient equal to itself times the coefficient multiplier,
+                        values["coefficient"]->setValue(counter * values["coefficient"]->getValue());
+                        for (int i = 1; i < counter; i++) {
+                            values["value"]->setValue(values["value"]->getValue() / max);
+                        }
                     }
-                    */
                 }
             }
         }
@@ -183,18 +196,17 @@ int Logarithm::logBaseN(long value, long n, int counter) {
     }
 }
 
-/*
-vector<long> Logarithm::findPrimeFactors(long number, long i, vector<long> prime) {
+
+vector<long> Logarithm::findPrimeFactors(long number, long i, vector<long> primeFactors) {
     if (number < i) {
         return primeFactors;
     } else if (number % i == 0) {
         primeFactors.push_back(i);
         return findPrimeFactors(number / i, 2, primeFactors);
     } else {
-        return findPrimeFactors(number, i++, primeFactors);
+        return findPrimeFactors(number, ++i, primeFactors);
     }
 }
-*/
 
 Number* Logarithm::add(Number* val) {
     if (typeid(*val) == typeid(Logarithm)) {

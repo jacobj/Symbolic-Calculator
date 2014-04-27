@@ -37,7 +37,7 @@ public:
     map<string, Number*> getValues();
     void setValues(string key, Number* val);
     int logBaseN(long value, long n, int counter);
-    // vector<long> findPrimeFactors(long number, long i, vector<long> primeFactors);
+    vector<long> findPrimeFactors(long number, long i, vector<long> primeFactors);
 
     // Operation methods
     Number* add(Number*);

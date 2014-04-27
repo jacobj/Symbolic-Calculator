@@ -167,10 +167,7 @@ Number* Integer::divide(Number* val)
         return result;*/
     }
     else{
-		stringstream valStream;
-		valStream << toString() << "/" << val->toString();
-		string str = valStream.str();
-		return new Expression(str);
+    	return new RationalNumber(this, val);
     }
 }
 Number* Integer::exponentiate(Number* val)

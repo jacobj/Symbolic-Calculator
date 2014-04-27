@@ -85,9 +85,9 @@ double RationalNumber::toDouble(){
 string RationalNumber::toString(){
 	stringstream valueStream;
     valueStream << values["numerator"]->toString();
-    //if (values["denominator"]->toString() != "1") {
+    if (values["denominator"]->toString() != "1") {
         valueStream << "/" << values["denominator"]->toString();   
-    //}
+    }
 	string str = valueStream.str();
 	return str;
 }
@@ -113,7 +113,7 @@ Number* RationalNumber::add(Number* val){
 	{
 		Number* numerator; Number* denominator;
 
-			if (this->values["denominator"]->getValue() == val->getValues()["denominator"]->getValue())
+			if (!this->values["denominator"]->toString().compare(val->getValues()["denominator"]->toString()))
 			{
 				 numerator = this->values["numerator"]->add(val->getValues()["numerator"]);
 				 denominator = this->values["denominator"];
@@ -154,10 +154,10 @@ Number* RationalNumber::subtract(Number* val){
 	{
 		Number* numerator; Number* denominator;
 
-		if (this->values["denominator"]->getValue() == val->getValues()["denominator"]->getValue())
+		if (!this->values["denominator"]->toString().compare(val->getValues()["denominator"]->toString()))
 		{
-			numerator = this->values["numerator"]->subtract(val->getValues()["numerator"]);
-			denominator = this->values["denominator"];
+			 numerator = this->values["numerator"]->subtract(val->getValues()["numerator"]);
+			 denominator = this->values["denominator"];
 		}
 		else
 		{

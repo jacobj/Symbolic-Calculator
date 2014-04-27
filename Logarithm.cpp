@@ -11,32 +11,52 @@ Logarithm::Logarithm(Number* coefficient, Number* value, Number* base) {
 }
 
 Logarithm::Logarithm(string expression) {
-    Number* coefficient; Number* value; Number* base;
+    Number* coefficient; Number* value; Number* base; Number* integer;
     int pos = expression.find_first_of("l");
-    int pos2;
-    // Check for + sign.
+    int pos2 = expression.find_first_of(":");
+    int pos3 = expression.find_first_of("_");
+    int pos4 = expression.find_first_of("+");
     if(pos == -1) {
 		string exception = "ERROR! This isn't a log! \n";
 		throw exception;
 	}
-    if(pos == 0) {
-        coefficient = new Integer(1);
-    }
-    // First deal with the coefficient
-    else if(expression.substr(0, pos).find_first_of("pe") != -1) {
-        coefficient = new TranscendentalNumber(expression.substr(0, pos));
+    if (pos4 != -1) {
+        if(expression.substr(0, pos4).find_first_of("pe") != -1) {
+            integer = new TranscendentalNumber(expression.substr(0, pos4));
+        }
+        else {
+            integer = new Integer(expression.substr(0, pos4));
+        }
+        if (pos4 + 1 == pos) {
+            coefficient = new Integer(1);
+        }
+        else if(expression.substr(0, pos).find_first_of("pe") != -1) {
+            coefficient = new TranscendentalNumber(expression.substr(pos4 + 1, pos));
+        }
+        else {
+            coefficient = new Integer(expression.substr(pos4 + 1, pos));
+        }
+        this->values["integer"] = integer;
     }
     else {
-        coefficient = new Integer(expression.substr(0, pos));
+        if(pos == 0) {
+            coefficient = new Integer(1);
+        }
+        // First deal with the coefficient
+        else if(expression.substr(0, pos).find_first_of("pe") != -1) {
+            coefficient = new TranscendentalNumber(expression.substr(0, pos));
+        }
+        else {
+            coefficient = new Integer(expression.substr(0, pos));
+        }
+        this->values["integer"] = new Integer(0);
     }
-    pos = expression.find_first_of("_");
-    pos2 = expression.find_first_of(":");
     // Next deal with the base...
-    if(expression.substr(pos + 1, pos2).find_first_of("pe") != -1) {
+    if(expression.substr(pos3 + 1, pos2).find_first_of("pe") != -1) {
         base = new TranscendentalNumber(expression.substr(pos + 1, pos2));
     }
     else {
-        base = new Integer(expression.substr(pos + 1, pos2));
+        base = new Integer(expression.substr(pos3 + 1, pos2));
     }
     if(expression.substr(pos2).find_first_of("pe") != -1) {
         value = new TranscendentalNumber(expression.substr(pos2 + 1, expression.size()));
@@ -47,7 +67,6 @@ Logarithm::Logarithm(string expression) {
     this->values["coefficient"] = coefficient;
     this->values["value"] = value;
     this->values["base"] = base;
-    this->values["integer"] = new Integer(0);
     simplify();
 }
 
@@ -84,14 +103,14 @@ string Logarithm::toString(){
 	else {
         valueStream << values["integer"]->toString();
 	}
-	if (typeid(*values["coefficient"]) == typeid(Integer)) {
-        if (values["coefficient"]->getValue() != 1) {
-            valueStream << values["coefficient"]->toString();
-        }
-    }
     if (values["value"]->toString() != "1") {
         if (values["integer"]->getValue() != 0) {
             valueStream << "+";
+        }
+        if (typeid(*values["coefficient"]) == typeid(Integer)) {
+            if (values["coefficient"]->getValue() != 1) {
+                valueStream << values["coefficient"]->toString();
+            }
         }
         valueStream << "log_" << values["base"]->toString() << ":" << values["value"]->toString(); 
     }
@@ -123,6 +142,7 @@ void Logarithm::simplify() {
             // Grab list of prime factors for the remaining value
             vector<long> primes; 
             primes = findPrimeFactors(values["value"]->getValue(), 2, primes);
+            // Find the prime that occurs the most often.
             if (primes.size() != 0) {
                 int current = primes[0];
                 int counter = 1;
@@ -141,9 +161,10 @@ void Logarithm::simplify() {
                         max = current;
                     }
                 }
-                // Set the value of the coefficient equal to itself times the coefficient multiplier,
+                // Set the value of the coefficient equal to itself times the counter,
                 values["coefficient"]->setValue(counter * values["coefficient"]->getValue());
                 for (int i = 1; i < counter; i++) {
+                    // divide the value counter - 1 times, this leaves the base in the value.
                     values["value"]->setValue(values["value"]->getValue() / max);
                 }
             }

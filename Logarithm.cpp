@@ -3,9 +3,9 @@
 using namespace std;
 
 Logarithm::Logarithm(Number* coefficient, Number* value, Number* base) {
-	this->values["coefficient"] = coefficient;
-	this->values["value"] = value;
-	this->values["base"] = base;
+    this->values["coefficient"] = coefficient;
+    this->values["value"] = value;
+    this->values["base"] = base;
     this->values["integer"] = new Integer(0);
     simplify();
 }
@@ -17,51 +17,42 @@ Logarithm::Logarithm(string expression) {
     int pos3 = expression.find_first_of("_");
     int pos4 = expression.find_first_of("+");
     if(pos == -1) {
-		string exception = "ERROR! This isn't a log! \n";
-		throw exception;
-	}
+        string exception = "ERROR! This isn't a log! \n";
+        throw exception;
+    }
     if (pos4 != -1) {
         if(expression.substr(0, pos4).find_first_of("pe") != -1) {
             integer = new TranscendentalNumber(expression.substr(0, pos4));
-        }
-        else {
+        } else {
             integer = new Integer(expression.substr(0, pos4));
         }
         if (pos4 + 1 == pos) {
             coefficient = new Integer(1);
-        }
-        else if(expression.substr(0, pos).find_first_of("pe") != -1) {
+        } else if (expression.substr(0, pos).find_first_of("pe") != -1) {
             coefficient = new TranscendentalNumber(expression.substr(pos4 + 1, pos));
-        }
-        else {
+        } else {
             coefficient = new Integer(expression.substr(pos4 + 1, pos));
         }
         this->values["integer"] = integer;
-    }
-    else {
-        if(pos == 0) {
+    } else {
+        if (pos == 0) {
             coefficient = new Integer(1);
-        }
-        // First deal with the coefficient
-        else if(expression.substr(0, pos).find_first_of("pe") != -1) {
+        } else if (expression.substr(0, pos).find_first_of("pe") != -1) {
             coefficient = new TranscendentalNumber(expression.substr(0, pos));
-        }
-        else {
+        } else {
             coefficient = new Integer(expression.substr(0, pos));
         }
         this->values["integer"] = new Integer(0);
     }
     // Next deal with the base...
-    if(expression.substr(pos3 + 1, pos2).find_first_of("pe") != -1) {
+    if (expression.substr(pos3 + 1, pos2).find_first_of("pe") != -1) {
         base = new TranscendentalNumber(expression.substr(pos + 1, pos2));
-    }
-    else {
+    } else {
         base = new Integer(expression.substr(pos3 + 1, pos2));
     }
-    if(expression.substr(pos2).find_first_of("pe") != -1) {
+    if (expression.substr(pos2).find_first_of("pe") != -1) {
         value = new TranscendentalNumber(expression.substr(pos2 + 1, expression.size()));
-    }
-    else {
+    } else {
         value = new Integer(expression.substr(pos2 + 1, expression.size()));
     }
     this->values["coefficient"] = coefficient;
@@ -87,22 +78,21 @@ void Logarithm::setValues(string key, Number* val) {
 }
 
 double Logarithm::toDouble(){
-	// Uses log() from cmath which gives the natural logarithm.
+    // Uses log() from cmath which gives the natural logarithm.
     return values["coefficient"]->toDouble() * (log(values["value"]->toDouble()) / 
                                                 log(values["base"]->toDouble())) + values["integer"]->toDouble();
 }
 
 // Needs to be changed.
 string Logarithm::toString(){
-	stringstream valueStream;
-	if (typeid(*values["integer"]) == typeid(Integer)) {
-		if (values["integer"]->getValue() != 0) {
-			valueStream << values["integer"]->toString();
-		}
-	}
-	else {
+    stringstream valueStream;
+    if (typeid(*values["integer"]) == typeid(Integer)) {
+        if (values["integer"]->getValue() != 0) {
+            valueStream << values["integer"]->toString();
+        }
+    } else {
         valueStream << values["integer"]->toString();
-	}
+    }
     if (values["value"]->toString() != "1") {
         if (values["integer"]->getValue() != 0) {
             valueStream << "+";
@@ -114,8 +104,8 @@ string Logarithm::toString(){
         }
         valueStream << "log_" << values["base"]->toString() << ":" << values["value"]->toString(); 
     }
-	string str = valueStream.str();
-	return str;
+    string str = valueStream.str();
+    return str;
 }
 
 void Logarithm::simplify() {
@@ -169,43 +159,39 @@ void Logarithm::simplify() {
                 }
             }
         }
-    }
-    else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-             ((typeid(*values["value"]) == typeid(TranscendentalNumber) ||
-               (typeid(*values["value"]) == typeid(Exponential) && 
-                typeid(*values["value"]->getValues()["value"]) == typeid(TranscendentalNumber))))) {
-    	if (typeid(*values["base"]) == typeid(TranscendentalNumber) && 
+    } else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+               ((typeid(*values["value"]) == typeid(TranscendentalNumber) ||
+                 (typeid(*values["value"]) == typeid(Exponential) && 
+                  typeid(*values["value"]->getValues()["value"]) == typeid(TranscendentalNumber))))) {
+        if (typeid(*values["base"]) == typeid(TranscendentalNumber) && 
             typeid(*values["value"]) == typeid(TranscendentalNumber) &&
             !values["base"]->getTranscendentalValue().compare(values["value"]->getTranscendentalValue()) &&
             values["base"]->getValues()["coefficient"]->getValue() == values["value"]->getValues()["coefficient"]->getValue()) {
-    		values["base"] = new Integer("2");
-    		values["value"] = new Integer("2");
-    		this->simplify();
-    	}
-    	else if (typeid(*values["value"]) == typeid(Exponential) && 
-                 typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                 typeid(*values["value"]->getValues()["exponent"]) == typeid(Integer) &&
-                 !values["base"]->getTranscendentalValue().compare(values["value"]->getValues()["value"]->getTranscendentalValue())){
-    		values["base"] = new Integer("2");
-    		long power = pow(2, values["value"]->getValues()["exponent"]->getValue());
-    		values["value"] = new Integer(power);
-    		this->simplify();
-    	}
-    	else if (typeid(*values["value"]) == typeid(Exponential) && 
-                 typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                 typeid(*values["value"]->getValues()["exponent"]) == typeid(TranscendentalNumber) &&
-                 !values["base"]->getTranscendentalValue().compare(values["value"]->getValues()["value"]->getTranscendentalValue())){
-			values["base"] = new Integer("2");
-			values["integer"] = new TranscendentalNumber(values["value"]->getValues()["exponent"]->getTranscendentalValue());
-			values["value"] = new Integer("1");
-    	}
-    	else if (typeid(*values["value"]) == typeid(Exponential) && 
-                 typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                 typeid(*values["value"]->getValues()["exponent"]) == typeid(RationalNumber) &&
-                 !values["base"]->getTranscendentalValue().compare(values["value"]->getValues()["value"]->getTranscendentalValue())){
-			values["base"] = new Integer("2");
-			values["integer"] = new RationalNumber(values["value"]->getValues()["exponent"]->toString());
-			values["value"] = new Integer("1");
+            values["base"] = new Integer("2");
+            values["value"] = new Integer("2");
+            this->simplify();
+        } else if (typeid(*values["value"]) == typeid(Exponential) && 
+                   typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                   typeid(*values["value"]->getValues()["exponent"]) == typeid(Integer) &&
+                   !values["base"]->getTranscendentalValue().compare(values["value"]->getValues()["value"]->getTranscendentalValue())){
+            values["base"] = new Integer("2");
+            long power = pow(2, values["value"]->getValues()["exponent"]->getValue());
+            values["value"] = new Integer(power);
+            this->simplify();
+        } else if (typeid(*values["value"]) == typeid(Exponential) && 
+                   typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                   typeid(*values["value"]->getValues()["exponent"]) == typeid(TranscendentalNumber) &&
+                   !values["base"]->getTranscendentalValue().compare(values["value"]->getValues()["value"]->getTranscendentalValue())){
+            values["base"] = new Integer("2");
+            values["integer"] = new TranscendentalNumber(values["value"]->getValues()["exponent"]->getTranscendentalValue());
+            values["value"] = new Integer("1");
+        } else if (typeid(*values["value"]) == typeid(Exponential) && 
+                   typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                   typeid(*values["value"]->getValues()["exponent"]) == typeid(RationalNumber) &&
+                   !values["base"]->getTranscendentalValue().compare(values["value"]->getValues()["value"]->getTranscendentalValue())){
+            values["base"] = new Integer("2");
+            values["integer"] = new RationalNumber(values["value"]->getValues()["exponent"]->toString());
+            values["value"] = new Integer("1");
         }
     }
 }
@@ -242,9 +228,8 @@ Number* Logarithm::add(Number* val) {
                                                        values["value"], values["base"]);
                         return result;
                     }
-                }
-                else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                    typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
+                } else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                           typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
                     if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
                         Number* result = new Logarithm(values["coefficient"]->add(val->getValues()["coefficient"]),
                                                        values["value"], values["base"]);
@@ -252,9 +237,8 @@ Number* Logarithm::add(Number* val) {
                     }
                 }
             }
-        }
-        else if (typeid(*values["value"]) == typeid(TranscendentalNumber) &&
-            typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber)) {
+        } else if (typeid(*values["value"]) == typeid(TranscendentalNumber) &&
+                   typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber)) {
             if (values["value"]->getTranscendentalValue() == val->getValues()["value"]->getTranscendentalValue()) {
                 if (typeid(*values["base"]) == typeid(Integer) &&
                     typeid(*val->getValues()["base"]) == typeid(Integer)) {
@@ -263,9 +247,8 @@ Number* Logarithm::add(Number* val) {
                                                        values["value"], values["base"]);
                         return result;
                     }
-                }
-                else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                         typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
+                } else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                           typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
                     if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
                         Number* result = new Logarithm(values["coefficient"]->add(val->getValues()["coefficient"]),
                                                        values["value"], values["base"]);
@@ -290,9 +273,8 @@ Number* Logarithm::subtract(Number* val) {
                                                            values["value"], values["base"]);
                             return result;
                         }
-                    }
-                    else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                             typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
+                    } else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                               typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
                         if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
                             Number* result = new Logarithm(values["coefficient"]->subtract(val->getValues()["coefficient"]),
                                                            values["value"], values["base"]);
@@ -300,9 +282,8 @@ Number* Logarithm::subtract(Number* val) {
                         }
                     }
                 }
-            }
-            else if (typeid(*values["value"]) == typeid(TranscendentalNumber) &&
-                     typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber)) {
+            } else if (typeid(*values["value"]) == typeid(TranscendentalNumber) &&
+                       typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber)) {
                 if (values["value"]->getTranscendentalValue() == val->getValues()["value"]->getTranscendentalValue()) {
                     if (typeid(*values["base"]) == typeid(Integer) &&
                         typeid(*val->getValues()["base"]) == typeid(Integer)) {
@@ -311,9 +292,8 @@ Number* Logarithm::subtract(Number* val) {
                                                            values["value"], values["base"]);
                             return result;
                         }
-                    }
-                    else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                             typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
+                    } else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                               typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
                         if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
                             Number* result = new Logarithm(values["coefficient"]->subtract(val->getValues()["coefficient"]),
                                                            values["value"], values["base"]);
@@ -340,9 +320,8 @@ Number* Logarithm::multiply(Number* val) {
                                                            values["value"], values["base"]);
                             return result;
                         }
-                    }
-                    else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                             typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
+                    } else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                               typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
                         if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
                             Number* result =  new Logarithm(values["coefficient"]->multiply(val->getValues()["coefficient"]),
                                                             values["value"], values["base"]);
@@ -350,9 +329,8 @@ Number* Logarithm::multiply(Number* val) {
                         }
                     }
                 }
-            }
-            else if (typeid(*values["value"]) == typeid(TranscendentalNumber) &&
-                     typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber)) {
+            } else if (typeid(*values["value"]) == typeid(TranscendentalNumber) &&
+                       typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber)) {
                 if (values["value"]->getTranscendentalValue() == val->getValues()["value"]->getTranscendentalValue()) {
                     if (typeid(*values["base"]) == typeid(Integer) &&
                         typeid(*val->getValues()["base"]) == typeid(Integer)) {
@@ -361,9 +339,8 @@ Number* Logarithm::multiply(Number* val) {
                                                             values["value"], values["base"]);
                             return result;
                         }
-                    }
-                    else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
-                             typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
+                    } else if (typeid(*values["base"]) == typeid(TranscendentalNumber) &&
+                               typeid(*val->getValues()["base"]) == typeid(TranscendentalNumber)) {
                         if (values["base"]->getTranscendentalValue() == val->getValues()["base"]->getTranscendentalValue()) {
                             Number* result = new Logarithm(values["coefficient"]->multiply(val->getValues()["coefficient"]),
                                                            values["value"], values["base"]);
@@ -380,16 +357,16 @@ Number* Logarithm::divide(Number* val) {
     // We need to make sure we make a generic Number pointer to self.
     Number* result =  new RationalNumber(this, val);
     if (!result->getValues()["denominator"]->toString().compare("1")){
-    	result = result->getValues()["numerator"];
+        result = result->getValues()["numerator"];
     }
     return result;
 }
 
 Number* Logarithm::exponentiate(Number* val) {
-	stringstream valStream;
-	valStream << toString() << "^" << val->toString();
-	string str = valStream.str();
-	return new Expression(str);
+    stringstream valStream;
+    valStream << toString() << "^" << val->toString();
+    string str = valStream.str();
+    return new Expression(str);
 }
 
 // Satisfying our love of maps
@@ -404,7 +381,7 @@ long Logarithm::getValue() {
     return 1;
 }
 void Logarithm::setValue(long value) {
-	return;
+    return;
 }
 
 void Logarithm::display() {

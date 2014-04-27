@@ -14,6 +14,9 @@ Please note that square roots are entered as x^(1/2) and nth roots as x^(1/n)
 - Shreya Nirmalan
 
 ## Added Functionality For Stage 2
+### tl;dr
+- All of the "common" and "a bit complex" cases are functional. FOILing is functional. 
+- BONUS: Double negative inputs are functional. Decimal inputs are turned into fractions.
 ### Also Able To:
 - 'ans' can now be placed anywhere in the expression, and an expression can contain multiple ans terms (i.e. ans + ans)
 - Simplify mixed expressions containing different number types (i.e. 7+2*e+8*e^(4-3))

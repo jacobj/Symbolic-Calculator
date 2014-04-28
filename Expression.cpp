@@ -557,7 +557,12 @@ Number* Expression::exponentiate(Number* val)
 		else if(val->getValue() == 1)
 			return this;
 		else if(val->getValue() == 2)
-			return this->multiply(this);
+		{
+			if(operands.size() > 2)
+				return new Exponential(this, val, new Integer("1"));
+			else
+				return this->multiply(this);
+		}
 		else
 		{
 			return new Exponential(this, val, new Integer("1"));

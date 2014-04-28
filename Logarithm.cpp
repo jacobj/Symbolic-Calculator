@@ -256,6 +256,13 @@ Number* Logarithm::add(Number* val) {
                         return result;
                     }
                 }
+            }else if (!values["base"]->toString().compare(val->getValues()["base"]->toString()) &&
+        			typeid(*values["coefficient"]) == typeid(Integer) &&
+        			typeid(*val->getValues()["coefficient"]) == typeid(Integer)) {
+            	values["value"] = new Integer(pow(values["value"]->getValue(), values["coefficient"]->getValue()));
+            	val->getValues()["value"] = new Integer(pow(val->getValues()["value"]->getValue(), val->getValues()["coefficient"]->getValue()));
+            	Number* result = new Logarithm(new Integer(1), values["value"]->multiply(val->getValues()["value"]), values["base"]);
+            	return result;
             }
         } else if (typeid(*values["value"]) == typeid(TranscendentalNumber) &&
                    typeid(*val->getValues()["value"]) == typeid(TranscendentalNumber)) {

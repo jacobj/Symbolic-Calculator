@@ -130,7 +130,9 @@ Number* Integer::multiply(Number* val) {
     	return val->multiply(this);
     } else if (typeid(*val) == typeid(Expression)) {
         return val->multiply(this);
-    } else {
+    } else if (typeid(*val) == typeid(Logarithm)){
+    	return new Logarithm(this, val->getValues()["value"], val->getValues()["base"]);
+	}else {
 		stringstream valStream;
 		valStream << toString() << "*" << val->toString();
 		string str = valStream.str();

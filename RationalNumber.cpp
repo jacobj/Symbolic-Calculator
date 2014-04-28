@@ -53,7 +53,7 @@ RationalNumber::RationalNumber(string expression) {
 	else if (denominatorString.find_first_of("log") != -1) {
 		denominator = new Logarithm(denominatorString);
 	}
-	else if (denominatorString.find_first_of("e") != -1 || numeratorString.find_first_of("pi") != -1) {
+	else if (denominatorString.find_first_of("e") != -1 || denominatorString.find_first_of("pi") != -1) {
 		denominator = new TranscendentalNumber(denominatorString);
 	}
 	else {

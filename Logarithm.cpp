@@ -113,20 +113,38 @@ void Logarithm::simplify() {
     if (typeid(*values["base"]) == typeid(Integer)) {
         // and the last value in logValues is also an Integer,
         if (typeid(*values["value"]) == typeid(Integer)) {
-            // See what power of base can be pulled out of the value,
-            long multiplier = (long)(logBaseN(values["value"]->getValue(), values["base"]->getValue(), 0));
-            // If the coefficient is an Integer.
-            if (multiplier != 0) {
-                if (typeid(*values["coefficient"]) == typeid(Integer)) {
-                    values["integer"]->setValue(multiplier);
-                    // Set the value of the Integer to the coefficient times the multiplier.
-                    values["integer"]->setValue(values["coefficient"]->getValue() * values["integer"]->getValue());
-                    // Set the value equal to the result of the value divided by the base^multiplier,
-                    long valueBuilder = 1;
-                    for (long i = 0; i < multiplier; i++) {
-                        valueBuilder *= values["base"]->getValue();
+            if (values["base"]->getValue() > values["value"]->getValue()) {
+                long multiplier = (long)(logBaseN(values["base"]->getValue(), values["value"]->getValue(), 0));
+                 // If the coefficient is an Integer.
+                if (multiplier != 0) {
+                    if (typeid(*values["coefficient"]) == typeid(Integer)) {
+                        values["integer"] = values["coefficient"]->multiply(new RationalNumber(new Integer(1), new Integer(multiplier)));
+                        // Set the value of the Integer to the coefficient times the multiplier.
+                        // values["integer"]->setValue(values["coefficient"]->getValue() * values["integer"]->getValue());
+                        // Set the value equal to the result of the value divided by the base^multiplier,
+                        long valueBuilder = 1;
+                        for (long i = 0; i < multiplier; i++) {
+                            valueBuilder *= values["value"]->getValue();
+                        }
+                        values["value"]->setValue(values["base"]->getValue() / valueBuilder);
                     }
-                    values["value"]->setValue(values["value"]->getValue() / valueBuilder);
+                }
+            } else {
+                // See what power of base can be pulled out of the value,
+                long multiplier = (long)(logBaseN(values["value"]->getValue(), values["base"]->getValue(), 0));
+                // If the coefficient is an Integer.
+                if (multiplier != 0) {
+                    if (typeid(*values["coefficient"]) == typeid(Integer)) {
+                        values["integer"]->setValue(multiplier);
+                        // Set the value of the Integer to the coefficient times the multiplier.
+                        values["integer"]->setValue(values["coefficient"]->getValue() * values["integer"]->getValue());
+                        // Set the value equal to the result of the value divided by the base^multiplier,
+                        long valueBuilder = 1;
+                        for (long i = 0; i < multiplier; i++) {
+                            valueBuilder *= values["base"]->getValue();
+                        }
+                        values["value"]->setValue(values["value"]->getValue() / valueBuilder);
+                    }
                 }
             }                    
             // Grab list of prime factors for the remaining value

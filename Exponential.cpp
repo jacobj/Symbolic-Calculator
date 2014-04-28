@@ -51,6 +51,12 @@ Exponential::Exponential(string expression) {
             expo = expression.substr(pos3 + 1, expression.size() - 1);
         }
     }
+    else if (pos1 == -1 && pos3 == -1) {
+        // Obtains expression substrings -- one for value, one for exponent
+        coeff = "1";
+        base = expression.substr(0, pos2);
+        expo = expression.substr(pos2 + 1, expression.size());
+    }
     else if (pos1 == pos3 && pos2 > pos1) {
         coeff = expression.substr(0, pos1); 
         base = expression.substr(pos1 + 1, pos2);
@@ -62,13 +68,6 @@ Exponential::Exponential(string expression) {
         base = expression.substr(0, pos2);
         expo = expression.substr(pos3 + 1, expression.size() - 1);
     }
-    else {
-        // Obtains expression substrings -- one for value, one for exponent
-        coeff = "1";
-        base = expression.substr(0, pos2);
-        expo = expression.substr(pos2 + 1, expression.size());
-    }
-    
     // Checks Number type for value/base
     if(base == "e") {
         value = new TranscendentalNumber(base);
@@ -114,7 +113,7 @@ Exponential::Exponential(string expression) {
         coefficient = new RationalNumber(coeff);
     }
     else if(coeff.find_first_of("log") != -1) {
-        coefficient = new Logarithm(expo);
+        coefficient = new Logarithm(coeff);
     }
     else {
         coefficient = new Integer(coeff);

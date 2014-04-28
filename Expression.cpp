@@ -522,7 +522,10 @@ Number* Expression::multiply(Number* val)
 						operators[i]="-";
 					else if(operators[i] == "-")
 					{
-						operators[i] = "+";
+						if(i == 0)
+							operators[i] = "0";
+						else
+							operators[i] = "+";
 					}
 				}
 			}
@@ -536,7 +539,10 @@ Number* Expression::multiply(Number* val)
 						operators[i]="-";
 					else if(operators[i] == "-")
 					{
-						operators[i] = "+";
+						if(i == 0)
+							operators[i] = "0";
+						else
+							operators[i] = "+";
 					}
 
 				}

@@ -4,5 +4,6 @@
 *.suo
 *.o
 \#*
+.\#*
 .DS_Store
 test

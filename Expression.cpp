@@ -510,43 +510,62 @@ Number* Expression::multiply(Number* val)
 			}
 		}
 	}
-
-
-//		else if (typeid(*val) == typeid(TranscendentalNumber))
-//		{
-//			for(int i = 0; i < operands.size(); i++)
-//					operands[i] = calculate(operands[i],val,"*");
-//		}
-			/*else if (typeid(*val) == typeid(RationalNumber)){
-				stringstream RatNumStream;
-				RatNumStream << getValue() << "/1";
-				string str = RatNumStream.str();
-				Number* RatNum = new RationalNumber(str);
-				return RatNum->add(val);
-			}
-			else{
-				stringstream valStream;
-				valStream << toString() << "+" << val->toString();
-				string str = valStream.str();
-				return new Expression(str);
-			}*/
 	simplify();
 	return this;
 }
 Number* Expression::divide(Number* val)
 {
-	for(int i = 0; i < operands.size(); i++)
+	if (typeid(*val) == typeid(Expression))
 	{
-			operands[i] = calculate(operands[i],val,"/");
+		return new RationalNumber(this, val);
 	}
-			return this;
+	else
+	{
+		for(int i = 0; i < operands.size(); i++)
+		{
+			operands[i] = calculate(operands[i],val,"/");
+			if(typeid(*operands[i]) != typeid(Integer) &&
+			   typeid(*operands[i]) != typeid(RationalNumber))
+			{
+				if(operands[i]->getValues()["coefficient"]->getValue() < 0)
+				{
+					Number *temp = new Integer("-1");
+					operands[i] = calculate(operands[i],temp,"*");
+					operators[i]="-";
+				}
+			}
+			else
+			{
+				if(operands[i]->getValue() < 0)
+				{
+					Number *temp = new Integer("-1");
+					operands[i] = calculate(operands[i],temp,"*");
+					operators[i]="-";
+				}
+			}
+		}
+	}
+	simplify();
+	return this;
 }
 Number* Expression::exponentiate(Number* val)
 {
 	if (typeid(*val) == typeid(Integer))
 	{
-		if(val->getValue() == 2)
+		if(val->getValue() == 0)
+			return new Integer("1");
+		else if(val->getValue() == 1)
+			return this;
+		else if(val->getValue() == 2)
 			return this->multiply(this);
+		else
+		{
+			return new Exponential(this, val, new Integer("1"));
+		}
+	}
+	else
+	{
+		return new Exponential(this, val, new Integer("1"));
 	}
 }
 

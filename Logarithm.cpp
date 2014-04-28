@@ -45,15 +45,15 @@ Logarithm::Logarithm(string expression) {
         this->values["integer"] = new Integer(0);
     }
     // Next deal with the base...
-    if (expression.substr(pos3 + 1, pos2).find_first_of("pe") != -1) {
-        base = new TranscendentalNumber(expression.substr(pos3 + 1, pos2));
+    if (expression.substr(pos3 + 1, pos2 - (pos3 + 1)).find_first_of("pe") != -1) {
+        base = new TranscendentalNumber(expression.substr(pos3 + 1, pos2 - (pos3 + 1)));
     } else {
-        base = new Integer(expression.substr(pos3 + 1, pos2));
+        base = new Integer(expression.substr(pos3 + 1, pos2 - (pos3 + 1)));
     }
-    if (expression.substr(pos2 + 1, expression.size()).find_first_of("pe") != -1) {
-        value = new TranscendentalNumber(expression.substr(pos2 + 1, expression.size()));
+    if (expression.substr(pos2 + 1, expression.size() - (pos2 + 1)).find_first_of("pe") != -1) {
+        value = new TranscendentalNumber(expression.substr(pos2 + 1, expression.size() - (pos2 + 1)));
     } else {
-        value = new Integer(expression.substr(pos2 + 1, expression.size()));
+        value = new Integer(expression.substr(pos2 + 1, expression.size() - (pos2 + 1)));
     }
     this->values["coefficient"] = coefficient;
     this->values["value"] = value;

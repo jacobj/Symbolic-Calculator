@@ -185,7 +185,7 @@ Number* Calculator::calculate(Number* num1, Number* num2, string op)
 		if(isNumeric(tempStr))
 			n1 = assignToClass(tempStr);
 		else
-			n2 = new Logarithm(tempStr);
+			n1 = new Logarithm(tempStr);
 	}
 	else
 	{

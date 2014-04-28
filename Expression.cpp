@@ -306,6 +306,16 @@ Number* Expression::add(Number* val)
 			}
 		}
 	}
+	else if (typeid(*val) == typeid(Expression))
+	{
+		string tempStr= val->toString();
+		Number *temp = new Expression(tempStr);
+		for(int i = 0; i < operands.size(); i++)
+		{
+			temp = calculate(temp,operands[i], "+");
+		}
+		return temp;
+	}
 	/*else if (typeid(*val) == typeid(RationalNumber)){
 		stringstream RatNumStream;
 		RatNumStream << getValue() << "/1";
@@ -323,6 +333,7 @@ Number* Expression::add(Number* val)
 	{
 		operators.push_back("+");
 		operands.push_back(val);
+		simplify();
 	}
 	else
 		simplify();
@@ -389,6 +400,16 @@ Number* Expression::subtract(Number* val)
 				operands[i] = calculate(operands[i],val,"-");
 			}
 		}
+	}
+	else if (typeid(*val) == typeid(Expression))
+	{
+		string tempStr= val->toString();
+		Number *temp = new Expression(tempStr);
+		for(int i = 0; i < operands.size(); i++)
+		{
+			temp = calculate(temp,operands[i], "-");
+		}
+		return temp;
 	}
 	/*else if (typeid(*val) == typeid(RationalNumber)){
 		stringstream RatNumStream;
@@ -733,70 +754,138 @@ void Expression::sort()
 Number* Expression::calculate(Number* num1, Number* num2, string op)
 {
 	Number* result;
-	Number *n1 = NULL, *n2 = NULL;
-	stringstream logStream;
-	string log;
+		Number *n1 = NULL, *n2 = NULL, *temp = NULL;
+		stringstream logStream;
+		string log, tempStr;
 
-	//determine type of num1
-	if(typeid(*num1) == typeid(Integer))
-		n1 = new Integer(num1->toString());
+		if(typeid(*num1) == typeid(Expression))
+		{
+			tempStr = num1->toString();
+			n1 = assignToClass(tempStr);
+		}
+		else if(typeid(*num1) == typeid(Logarithm))
+		{
+			tempStr = num1->toString();
+			if(isNumeric(tempStr))
+				n1 = assignToClass(tempStr);
+			else
+				n1 = new Logarithm(tempStr);
+		}
+		else
+		{
+			//determine type of num1
+			if(typeid(*num1) == typeid(Integer))
+			{
+				string temp = num1->toString();
+				n1 = new Integer(num1->toString());
+			}
 
-	else if(typeid(*num1) == typeid(TranscendentalNumber))
-		n1 = new TranscendentalNumber(num1->toString());
+			else if(typeid(*num1) == typeid(TranscendentalNumber))
+				n1 = new TranscendentalNumber(num1->toString());
 
-	else if(typeid(*num1) == typeid(RationalNumber))
-		n1 = new RationalNumber(num1->toString());
+			else if(typeid(*num1) == typeid(RationalNumber))
+				n1 = new RationalNumber(num1->toString());
 
-	else if(typeid(*num1) == typeid(Exponential))
-		n1 = new Exponential(num1->toString());
+			else if(typeid(*num1) == typeid(Exponential))
+			{
+				n1 = new Exponential(num1->getValues()["value"],
+									 num1->getValues()["exponent"],
+									 num1->getValues()["coefficient"]);
+			}
 
-	else if(typeid(*num1) == typeid(Logarithm))
-		n1 = new Logarithm(num1->toString());
-	else
-	{
-		string temp = num1->toString();
-		n1 = new Expression(temp);
-	}
+			else if(typeid(*num1) == typeid(Logarithm))
+				n1 = new Logarithm(num1->toString());
+			else
+			{
+				string temp = num1->toString();
+				n1 = new Expression(temp);
+			}
+		}
 
-	//determine type of num2
-	if(typeid(*num2) == typeid(Integer))
-		n2 = new Integer(num2->toString());
+		if(typeid(*num2) == typeid(Expression))
+		{
+			tempStr = num2->toString();
+			n2 = assignToClass(tempStr);
+		}
+		else if(typeid(*num2) == typeid(Logarithm))
+		{
+			tempStr = num2->toString();
+			if(isNumeric(tempStr))
+				n2 = assignToClass(tempStr);
+			else
+				n2 = new Logarithm(tempStr);
+		}
+		else
+		{
+			//determine type of num2
+			if(typeid(*num2) == typeid(Integer))
+				n2 = new Integer(num2->toString());
 
-	else if(typeid(*num2) == typeid(TranscendentalNumber))
-		n2 = new TranscendentalNumber(num2->toString());
+			else if(typeid(*num2) == typeid(TranscendentalNumber))
+				n2 = new TranscendentalNumber(num2->toString());
 
-	else if(typeid(*num2) == typeid(RationalNumber))
-		n2 = new RationalNumber(num2->toString());
+			else if(typeid(*num2) == typeid(RationalNumber))
+				n2 = new RationalNumber(num2->toString());
 
-	else if(typeid(*num2) == typeid(Exponential))
-		n2 = new Exponential(num2->toString());
+			else if(typeid(*num2) == typeid(Exponential))
+			{
+				n2 = new Exponential(num2->getValues()["value"],
+									 num2->getValues()["exponent"],
+									 num2->getValues()["coefficient"]);
+			}
 
-	else if(typeid(*num2) == typeid(Logarithm))
-		n2 = new Logarithm(num2->toString());
-	else
-	{
-		string temp = num2->toString();
-		n2 = new Expression(temp);
-	}
+			else if(typeid(*num2) == typeid(Logarithm))
+				n2 = new Logarithm(num2->toString());
+			else
+			{
+				string temp = num2->toString();
+				n2 = new Expression(temp);
+			}
+		}
 
-	if(op == "+")
-		result = n1->add(n2);
-	else if(op == "-")
-		result = n1->subtract(n2);
-	else if(op == "*")
-			result = n1->multiply(n2);
-	else if(op == "/")
-			result = n1->divide(n2);
-	else if(op == "^")
-			result = n1->exponentiate(n2);
-	else if(op == ":")
-	{
-		logStream << "log_" << n1->toString() << op << n2->toString();
-		log = logStream.str();
-		return new Logarithm(log);
-	}
+		if(op == "+")
+			result = n1->add(n2);
+		else if(op == "-")
+			result = n1->subtract(n2);
+		else if(op == "*")
+				result = n1->multiply(n2);
+		else if(op == "/")
+		{
+			if(typeid(*n2) == typeid(Integer))
+			{
+				if(n2->getValue() == 0)
+				   {
+						string exception = "\nERROR: Cannot divide by zero!";
+						throw exception;
+				   }
+			}
+				result = n1->divide(n2);
+		}
+		else if(op == "^")
+				result = n1->exponentiate(n2);
+		else if(op == ":")
+		{
+			if(typeid(*n2) != typeid(Exponential))
+			{
+				logStream << "log_" << n1->toString() << op << n2->toString();
+				log = logStream.str();
+				return new Logarithm(log);
+			}
+			else
+			{
+				Number *coeff = new Integer("1");
+				Number *value = n2;
+				Number *base;
+				if(typeid(*n1) == typeid(Integer))
+					base = new Integer(n1->toString());
+				else if(typeid(*n1) == typeid(TranscendentalNumber))
+					base = new TranscendentalNumber(n1->toString());
 
-	return result;
+				return new Logarithm(coeff,value,base);
+			}
+		}
+
+		return result;
 }
 
 vector<string> Expression::setExpressionTokens(string& expr)
@@ -866,35 +955,62 @@ Number* Expression::assignToClass(string& token)
 {
 	Number *temp;
 
-	if(isNumeric(token))
-	{
-		if(token.find_first_of("pe") != -1)
-			temp = new TranscendentalNumber(token);
-		else
-			temp = new Integer(token);
-	}
-	return temp;
+		if(isNumeric(token))
+		{
+			if(token.find_first_of("+-") != -1)
+			{
+				temp = new Expression(token);
+			}
+			else if(token.find_first_of("pe") != -1)
+				temp = new TranscendentalNumber(token);
+			else if(token.find_first_of("/") != -1)
+				temp = new RationalNumber(token);
+			else
+				temp = new Integer(token);
+		}
+		return temp;
 }
 
 int Expression::comparePrecedence(string op1, string op2)
 {
 	//if both operators are the same
-	//return 0 for equal precedence
-    if(op1.compare(op2) == 0)
-        return 0;
+		//return 0 for equal precedence
+	    if(op1.compare(op2) == 0)
+	        return 0;
 
-    if(op1 == "^")
-        return 1;
+	    if(op1 == "n")
+	        return 1;
 
-    else if(op1 == "*" || op1 == "/")
-    {
-        if(op2 == "^")
-            return -1;
-        else
-            return 1;
-    }
-    else
-        return -1;
+	    else if(op1 == "^")
+	    {
+	    	if(op2 == "n")
+	    		return -1;
+	    	else
+	    		return 1;
+	    }
+	    else if(op1 == ":")
+	    {
+	    	if(op2 == "n" || op2 == "^")
+				return -1;
+			else
+				return 1;
+	    }
+	    else if(op1 == "*" || op1 == "/")
+	    {
+	        if(op2 == "^" || op2 == "n" || op2 == ":")
+	            return -1;
+	        else if(op2 == "*" || op2 == "/")
+	        	return 0;
+	        else
+	            return 1;
+	    }
+	    else
+	    {
+	    	if(op2 == "+" || op2 == "-")
+	    		return 0;
+	    	else
+	    		return -1;
+	    }
 }
 
 bool Expression::isParentheses(string token)

@@ -118,15 +118,14 @@ void Logarithm::simplify() {
                  // If the coefficient is an Integer.
                 if (multiplier != 0) {
                     if (typeid(*values["coefficient"]) == typeid(Integer)) {
-                        values["integer"] = values["coefficient"]->multiply(new RationalNumber(new Integer(1), new Integer(multiplier)));
-                        // Set the value of the Integer to the coefficient times the multiplier.
-                        // values["integer"]->setValue(values["coefficient"]->getValue() * values["integer"]->getValue());
-                        // Set the value equal to the result of the value divided by the base^multiplier,
                         long valueBuilder = 1;
                         for (long i = 0; i < multiplier; i++) {
                             valueBuilder *= values["value"]->getValue();
                         }
-                        values["value"]->setValue(values["base"]->getValue() / valueBuilder);
+                        if ((values["base"]->getValue() / valueBuilder) == 1) {
+                            values["integer"] = values["coefficient"]->multiply(new RationalNumber(new Integer(1), new Integer(multiplier)));
+                            values["value"]->setValue(values["base"]->getValue() / valueBuilder);
+                        }
                     }
                 }
             } else {

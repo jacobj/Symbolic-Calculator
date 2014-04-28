@@ -150,11 +150,15 @@ void Logarithm::simplify() {
                         max = current;
                     }
                 }
-                // Set the value of the coefficient equal to itself times the counter,
-                values["coefficient"]->setValue(counter * values["coefficient"]->getValue());
+                int check = values["value"]->getValue();
                 for (int i = 1; i < counter; i++) {
                     // divide the value counter - 1 times, this leaves the base in the value.
-                    values["value"]->setValue(values["value"]->getValue() / max);
+                    check = check / max;
+                }
+                if (check == max) {
+                    values["value"]->setValue(max);
+                    // Set the value of the coefficient equal to itself times the counter,
+                    values["coefficient"]->setValue(counter * values["coefficient"]->getValue());
                 }
             }
         }

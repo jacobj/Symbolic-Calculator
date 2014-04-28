@@ -76,6 +76,11 @@ Number* Integer::add(Number* val) {
         return result;
 	} else if (typeid(*val) == typeid(RationalNumber)) {
 		return val->add(this);
+	} else if (typeid(*val) == typeid(Exponential)){
+		stringstream valStream;
+		valStream << val->toString() << "+" << toString();
+		string str = valStream.str();
+		return new Expression(str);
 	} else {
 		stringstream valStream;
 		valStream << toString() << "+" << val->toString();

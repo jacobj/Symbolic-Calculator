@@ -28,7 +28,7 @@ Please note that square roots are entered as x^(1/2) and nth roots as x^(1/n)
 ### tl;dr
 - All of the "common" and "a bit complex" cases are functional. FOILing is functional. 
 - The "more complex" case of simplification of logs with bases greater than their values is functional (i.e. log_64:4)
-- BONUS: Double negative inputs are functional. Decimal inputs are turned into fractions.
+- BONUS: Double negative inputs are functional. Decimal inputs are turned into fractions. Any previous answer can be assigned to the 'mem' keyword.
 
 ### Also Able To:
 - Display killer ASCII art on startup.
@@ -36,7 +36,7 @@ Please note that square roots are entered as x^(1/2) and nth roots as x^(1/n)
 - Simplify mixed expressions containing different number types (i.e. 7+2*e+8*e^(4-3))
 - Add, multiply, subtract, and divide expressions (i.e. 3 + 2*pi -1, or 5*(1+e))
 - Simplify exponentials with both positive and negative rational exponents
-- FOIL expressions
+- FOIL expressions (i.e. (e+1)*(e+2), or (e+1)^2)
 - Add, multiply, subtract, and divide nthroot irrationals with Integer bases and exponents
 - Logarithms simplify completely even with transcendentals and if the base is greater than the value (i.e. log_e:e^3, and log_64:4)
 - Fixed: 'ans' variable now stores the previous expression's answer
@@ -44,6 +44,7 @@ Please note that square roots are entered as x^(1/2) and nth roots as x^(1/n)
 ### Bonus Functionality:
 - Double negative input works (i.e. "x--y" and "x-(-y)")
 - Evaluate terminating decimals and repeating decimals with 4+ sig figs (i.e. ".2 = 1/5" and ".3333 = 1/3")
+- Any previous answer can be assigned to the 'mem' keyword.
 
 ## Accomplishments
 ### Able to:

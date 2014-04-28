@@ -217,7 +217,8 @@ cout << "    \\/___/  \\/__/\\/_/\\/____/\\/____/ \\/___/  \\/____/\\/__/\\/_/ \
                             cout << "(5) Fractions" << endl;
                             cout << "(6) Decimals" << endl;
                             cout << "(7) How your answer will be displayed" << endl;
-                            cout << "(8) Return to main menu" << endl;
+                            cout << "(8) Previous Answers, ans, and mem" << endl;
+                            cout << "(9) Return to main menu" << endl;
                             cout << "\nEnter your choice: ";
                     
                             cin >> helpMenu;
@@ -242,18 +243,21 @@ cout << "    \\/___/  \\/__/\\/_/\\/____/\\/____/ \\/___/  \\/____/\\/__/\\/_/ \
                                     cout << "To write out a fraction or rational number, use the following format: a/b \n \nThis will read as 'a over b'. \n" << endl;
                                     break;
                                 case '6':
-                                    cout << "If your input is a terminating decimal, then your answer will return as a simplified fraction. \nEx: .25 = 1/4 \t .2 = 1/5\n\nExceptions include: \n.3333 = 1/3 \t .6666 = 2/3 \t .9999 = 1\n" << endl;
+                                    cout << "If your input is a terminating decimal, \n then your answer will return as a simplified fraction. \nEx: .25 = 1/4 \t .2 = 1/5\n\nExceptions include: \n.3333 = 1/3 \t .6666 = 2/3 \t .9999 = 1\n If you wish to convert a previous answer to decimal form, \n please go to option 2 on the main menu. \n" << endl;
                                     break;
                                 case '7':
-                                    cout << "Please keep in mind that your answers will be returned in their simplest forms as \nintegers (i.e. 2 + 2 = 4), fractions (i.e. 2/6 = 1/3), logarithms (i.e. log_10:6 = log_10:2 + log_10:3), \n or expressions (i.e. 2 + 2 + pi^2 = 4 + pi^2). \nIf you wish to receive decimal answers, please go to the main menu and press 2 to review previous answers. \nFrom here, you can also set previous answers to the ans keyword." << endl;
+                                    cout << "Please keep in mind that your answers will be returned in their simplest forms: \nintegers (i.e. 2 + 2 = 4), fractions (i.e. 2/6 = 1/3), \nlogarithms (i.e. log_3:108 = 3+2log_3:2), \nexponentials (i.e. (2*2)^(1/3) = (4)^(1/3)), \nor expressions (i.e. 2 + 2 + pi = 4 + pi).\n" << endl;
                                     break;
                                 case '8':
+                                    cout << "If you wish to look at your previous answers or expressions, \n please go to option 2 in the main menu. \n The ans keyword will always store the previous answer. \n (i.e. 2+2 returns 4, then ans+2 returns 6) \n You can also assign the mem keyword from option 2 in the main menu. \n This allows you to have mem represent any previous answer of your choice. \n" << endl;
+                                    break;
+                                case '9':
                                     cout << "Returning back to the main menu..." << endl;
                                     break;
                                 default:
-                                    cout << "Invalid selection! Choose 1, 2, 3, 4, 5, 6, 7, or 8.\n" << endl;
+                                    cout << "Invalid selection! Choose 1, 2, 3, 4, 5, 6, 7, 8, or 9.\n" << endl;
                                 }
-                        }while(helpMenu != '8');
+                        }while(helpMenu != '9');
                     break;
                 case '4':
                     break;

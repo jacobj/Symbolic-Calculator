@@ -40,6 +40,8 @@ private:
 
 	string strExpression;
 
+	bool exponentialPresent;
+
 public:
 
 	Expression(string&);

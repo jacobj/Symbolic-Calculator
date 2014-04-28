@@ -13,10 +13,20 @@
 
 //Constructor
 Expression::Expression(string& expr){
-	strExpression = expr;
-	addInput(strExpression);
-	sort();
-	simplify();
+	if(expr.find_first_of("^") != -1)
+	{
+		strExpression = expr;
+		exponentialPresent = true;
+	}
+	else
+	{
+		exponentialPresent = false;
+		strExpression = expr;
+		addInput(strExpression);
+		sort();
+		simplify();
+	}
+
 }
 
 void Expression::simplify()
@@ -186,13 +196,18 @@ double Expression::toDouble()
 string Expression::toString()
 {
 	stringstream temp;
-	for(int i = 0;i<operands.size();i++)
+	if(exponentialPresent)
+		return strExpression;
+	else
 	{
-		if(operators[i] != "0")
-			temp << operators[i];
-		temp << operands[i]->toString();
+		for(int i = 0;i<operands.size();i++)
+		{
+			if(operators[i] != "0")
+				temp << operators[i];
+			temp << operands[i]->toString();
+		}
+		return strExpression = temp.str();
 	}
-	return strExpression = temp.str();
 }
 
 Number* Expression::add(Number* val)
@@ -748,10 +763,6 @@ void Expression::sort()
 					Number *base = operands[i-2];
 					operands.pop_back();
 					operands.pop_back();
-//					if(typeid(*n1) == typeid(Integer))
-//						base = new Integer(n1->toString());
-//					else if(typeid(*n1) == typeid(TranscendentalNumber))
-//						base = new TranscendentalNumber(n1->toString());
 
 					operands.push_back(new Logarithm(coeff,value,base));
 

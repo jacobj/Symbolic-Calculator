@@ -10,7 +10,7 @@
     
 ```
 
-Project for COP3503.
+Project for COP 3503.
 
 ## How To
 Compile with make, run with ./test

@@ -405,10 +405,8 @@ Number* Expression::subtract(Number* val)
 	{
 		string tempStr= val->toString();
 		Number *temp = new Expression(tempStr);
-		for(int i = 0; i < operands.size(); i++)
-		{
-			temp = calculate(temp,operands[i], "-");
-		}
+		temp = calculate(temp, new Integer("-1"),"*");
+		temp = calculate(this,temp, "+");
 		return temp;
 	}
 	/*else if (typeid(*val) == typeid(RationalNumber)){
@@ -517,7 +515,12 @@ Number* Expression::multiply(Number* val)
 				{
 					Number *temp = new Integer("-1");
 					operands[i] = calculate(operands[i],temp,"*");
-					operators[i]="-";
+					if(operators[i]== "+" || operators[i] == "0")
+						operators[i]="-";
+					else if(operators[i] == "-")
+					{
+						operators[i] = "+";
+					}
 				}
 			}
 			else
@@ -526,7 +529,13 @@ Number* Expression::multiply(Number* val)
 				{
 					Number *temp = new Integer("-1");
 					operands[i] = calculate(operands[i],temp,"*");
-					operators[i]="-";
+					if(operators[i]== "+" || operators[i] == "0")
+						operators[i]="-";
+					else if(operators[i] == "-")
+					{
+						operators[i] = "+";
+					}
+
 				}
 			}
 		}
@@ -598,16 +607,11 @@ Number* Expression::exponentiate(Number* val)
 bool Expression::isNumeric(string token)
 {
 	string onesDigit = token.substr(0,1);
-	if(onesDigit == "1" || onesDigit == "2" ||
-		onesDigit == "3" || onesDigit == "4" ||
-		onesDigit == "5" || onesDigit == "6" ||
-		onesDigit == "7" || onesDigit == "8" ||
-		onesDigit == "9" || onesDigit == "0" ||
-		onesDigit == "e" || onesDigit == "p" ||
-		onesDigit == "pi" || onesDigit == "l")
-		return true;
-	else
-		return false;
+		if(token.find_first_of("1234567890ep.") != -1 &&
+		   token.find_first_of("_") == -1	)
+			return true;
+		else
+			return false;
 }
 
 bool Expression::isOperator(string token)
@@ -959,7 +963,20 @@ Number* Expression::assignToClass(string& token)
 		{
 			if(token.find_first_of("+-") != -1)
 			{
-				temp = new Expression(token);
+				if(token.find_first_of("+-") != 0)
+					temp = new Expression(token);
+				else
+				{
+					int pos = 1;
+					if(token.substr(pos,token.size()).find_first_of("+-") != -1)
+						temp = new Expression(token);
+					else if(token.find_first_of("pe") != -1)
+						temp = new TranscendentalNumber(token);
+					else if(token.find_first_of("/") != -1)
+						temp = new RationalNumber(token);
+					else
+						temp = new Integer(token);
+				}
 			}
 			else if(token.find_first_of("pe") != -1)
 				temp = new TranscendentalNumber(token);

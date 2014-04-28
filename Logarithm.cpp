@@ -28,7 +28,7 @@ Logarithm::Logarithm(string expression) {
         }
         if (pos4 + 1 == pos) {
             coefficient = new Integer(1);
-        } else if (expression.substr(0, pos).find_first_of("pe") != -1) {
+        } else if (expression.substr(pos4 + 1, pos).find_first_of("pe") != -1) {
             coefficient = new TranscendentalNumber(expression.substr(pos4 + 1, pos));
         } else {
             coefficient = new Integer(expression.substr(pos4 + 1, pos));
@@ -46,11 +46,11 @@ Logarithm::Logarithm(string expression) {
     }
     // Next deal with the base...
     if (expression.substr(pos3 + 1, pos2).find_first_of("pe") != -1) {
-        base = new TranscendentalNumber(expression.substr(pos + 1, pos2));
+        base = new TranscendentalNumber(expression.substr(pos3 + 1, pos2));
     } else {
         base = new Integer(expression.substr(pos3 + 1, pos2));
     }
-    if (expression.substr(pos2).find_first_of("pe") != -1) {
+    if (expression.substr(pos2 + 1, expression.size()).find_first_of("pe") != -1) {
         value = new TranscendentalNumber(expression.substr(pos2 + 1, expression.size()));
     } else {
         value = new Integer(expression.substr(pos2 + 1, expression.size()));

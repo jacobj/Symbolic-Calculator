@@ -312,7 +312,10 @@ Number* Expression::add(Number* val)
 		Number *temp = new Expression(tempStr);
 		for(int i = 0; i < operands.size(); i++)
 		{
-			temp = calculate(temp,operands[i], "+");
+			if(operators[i] == "0" || operators[i] == "+")
+				temp = calculate(temp,operands[i], "+");
+			else
+				temp = calculate(temp,operands[i], "-");
 		}
 		return temp;
 	}

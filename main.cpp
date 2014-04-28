@@ -25,10 +25,8 @@ int main()
     bool keepGoing, proceed;
     int previous;
     string expr;
-    string ans = "";
+    string ans = "", mem = "";
     string choice;
-
-    bool ansStored = false;
     
     cout << "*** Welcome to the Calculator Program! ***" << endl;
 
@@ -70,16 +68,28 @@ cout << "    \\/___/  \\/__/\\/_/\\/____/\\/____/ \\/___/  \\/____/\\/__/\\/_/ \
                             else
                                 {
                             		string temp2 = expr;
-                            		while(temp2.find("ans") != -1)
+                            		while(temp2.find("ans") != -1 || temp2.find("mem") != -1)
                             		{
                             			stringstream temp;
 
-                            			int pos = temp2.find("ans");
+                            			if(temp2.find("ans") != -1)
+                            			{
+											int pos = temp2.find("ans");
 
-                            			temp << temp2.substr(0,pos) << ans
-                            				 << temp2.substr(pos+3,expr.size());
+											temp << temp2.substr(0,pos) << ans
+												 << temp2.substr(pos+3,expr.size());
 
-                            			temp2 = temp.str();
+											temp2 = temp.str();
+                            			}
+                            			else
+                            			{
+                            				int pos = temp2.find("mem");
+
+											temp << temp2.substr(0,pos) << mem
+												 << temp2.substr(pos+3,expr.size());
+
+											temp2 = temp.str();
+                            			}
                             		}
 
                             		if(temp2 != expr)
@@ -117,7 +127,8 @@ cout << "    \\/___/  \\/__/\\/_/\\/____/\\/____/ \\/___/  \\/____/\\/__/\\/_/ \
                                 cout << "(1) View previous expressions." << endl;
                                 cout << "(2) View previous answers." << endl;
                                 cout << "(3) Convert a previous answer to a decimal." << endl;
-                                cout << "(4) Return to Main Menu" << endl;
+                                cout << "(4) Store a previous answer into the 'mem' variable." << endl;
+                                cout << "(5) Return to Main Menu" << endl;
                                 cout << "\nEnter your choice: ";
 
                                 cin >> reviewMenu;
@@ -175,12 +186,22 @@ cout << "    \\/___/  \\/__/\\/_/\\/____/\\/____/ \\/___/  \\/____/\\/__/\\/_/ \
 										}while (proceed); //end while
                                         break;
                                     case '4':
+                                    	cout << "\nIndicate the answer you wish to store in the 'mem' variable "
+											 << "(Enter ""1"" for the first answer, etc.): " ;
+										cin >> previous;
+
+										//update this
+										mem = "(" + previousAnswers[previousAnswers.size()-previous]->toString() + ")";
+
+										cout << "\nmem = " + mem << endl;
+										break;
+                                    case '5':
                                         cout << "Returning back to the main menu..." << endl;
                                         break;
                                     default:
-                                        cout << " Invalid selection! Please choose 1, 2, 3 or 4.\n" << endl;
+                                        cout << " Invalid selection! Please choose 1, 2, 3, 4, or 5.\n" << endl;
                                     }
-                            }while(reviewMenu != '4'); //end while
+                            }while(reviewMenu != '5'); //end while
                     }
                     break;
                 case '3':

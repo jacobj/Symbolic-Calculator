@@ -39,6 +39,7 @@ Please note that square roots are entered as x^(1/2) and nth roots as x^(1/n)
 - FOIL expressions (i.e. (e+1)*(e+2), or (e+1)^2)
 - Add, multiply, subtract, and divide nthroot irrationals with Integer bases and exponents
 - Logarithms simplify completely even with transcendentals and if the base is greater than the value (i.e. log_e:e^3, and log_64:4)
+- Logarithms with the same base can be added.
 - Fixed: 'ans' variable now stores the previous expression's answer
 
 ### Bonus Functionality:

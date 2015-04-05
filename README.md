@@ -13,7 +13,7 @@
 Project for COP 3503.
 
 ## How To
-Compile with make, run with ./test
+Compile with `make`, run with `./test`
 For help entering expressions, visit the help menu.
 Please note that square roots are entered as x^(1/2) and nth roots as x^(1/n)
 
